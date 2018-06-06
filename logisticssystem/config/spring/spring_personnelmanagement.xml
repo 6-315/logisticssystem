@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="personnelManagementAction" class="com.logistics.personnelmanagement.action.PersonnelManagementAction"
+		scope="prototype">
+		<property name="personnelManagementService" ref="personnelManagementService"></property>
+	</bean>
+	<bean id="personnelManagementService"
+		class="com.logistics.personnelmanagement.service.impl.PersonnelManagementServiceImpl">
+		<property name="personnelManagementDao" ref="personnelManagementDao"></property>
+	</bean>
+	<bean id="personnelManagementDao" class="com.logistics.personnelmanagement.dao.impl.PersonnelManagementDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

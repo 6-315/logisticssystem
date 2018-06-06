@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="routeManagementAction" class="com.logistics.routemanagement.action.RouteManagementAction"
+		scope="prototype">
+		<property name="routeManagementService" ref="routeManagementService"></property>
+	</bean>
+	<bean id="routeManagementService"
+		class="com.logistics.routemanagement.service.impl.RouteManagementServiceImpl">
+		<property name="routeManagementDao" ref="routeManagementDao"></property>
+	</bean>
+	<bean id="routeManagementDao" class="com.logistics.routemanagement.dao.impl.RouteManagementDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

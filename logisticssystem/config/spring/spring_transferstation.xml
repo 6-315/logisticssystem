@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="transferStationAction" class="com.logistics.transferstation.action.TransferStationAction"
+		scope="prototype">
+		<property name="transferStationService" ref="transferStationService"></property>
+	</bean>
+	<bean id="transferStationService"
+		class="com.logistics.transferstation.service.impl.TransferStationServiceImpl">
+		<property name="transferStationDao" ref="transferStationDao"></property>
+	</bean>
+	<bean id="transferStationDao" class="com.logistics.transferstation.dao.impl.TransferStationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
