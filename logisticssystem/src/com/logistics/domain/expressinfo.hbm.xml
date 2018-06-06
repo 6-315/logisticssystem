@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-7 0:12:46 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.expressinfo" table="EXPRESSINFO">
+        <id name="expressinfo_id" type="java.lang.String">
+            <column name="expressinfo_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="expressinfo_protectprice" type="java.lang.String">
+            <column name="expressinfo_protectprice" />
+        </property>
+        <property name="expressinfo_productname" type="java.lang.String">
+            <column name="expressinfo_productname" />
+        </property>
+        <property name="expressinfo_productweight" type="java.lang.String">
+            <column name="expressinfo_productweight" />
+        </property>
+        <property name="expressinfo_addresseerealname" type="java.lang.String">
+            <column name="expressinfo_addresseerealname" />
+        </property>
+        <property name="expressinfo_addresseeaddress" type="java.lang.String">
+            <column name="expressinfo_addresseeaddress" />
+        </property>
+        <property name="expressinfo_addresseephonenumber" type="java.lang.String">
+            <column name="expressinfo_addresseephonenumber" />
+        </property>
+        <property name="expressinfo_addresseeemail" type="java.lang.String">
+            <column name="expressinfo_addresseeemail" />
+        </property>
+        <property name="expressinfo_senderrealname" type="java.lang.String">
+            <column name="expressinfo_senderrealname" />
+        </property>
+        <property name="expressinfo_senderaddress" type="java.lang.String">
+            <column name="expressinfo_senderaddress" />
+        </property>
+        <property name="expressinfo_senderdetailaddress" type="java.lang.String">
+            <column name="expressinfo_senderdetailaddress" />
+        </property>
+        <property name="expressinfo_senderphonenumber" type="java.lang.String">
+            <column name="expressinfo_senderphonenumber" />
+        </property>
+        <property name="expressinfo_senderemail" type="java.lang.String">
+            <column name="expressinfo_senderemail" />
+        </property>
+        <property name="expressinfo_mark" type="java.lang.String">
+            <column name="expressinfo_mark" />
+        </property>
+        <property name="expressinfo_createtime" type="java.lang.String">
+            <column name="expressinfo_createtime" />
+        </property>
+        <property name="expressinfo_modifytime" type="java.lang.String">
+            <column name="expressinfo_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>
