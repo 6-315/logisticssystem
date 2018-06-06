@@ -10,7 +10,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.logistics.distribution.service.DistributionService;
 import com.opensymphony.xwork2.ActionSupport;
 
-/**
+/**  
  * 配送点管理 的action
  * 
  * @author LW
