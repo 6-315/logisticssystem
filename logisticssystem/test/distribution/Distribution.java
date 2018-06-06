@@ -11,6 +11,7 @@ import com.logistics.distribution.service.DistributionService;
  * 配送点管理测试方法
  * @author LW
  * 
+ * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext*.xml" })
