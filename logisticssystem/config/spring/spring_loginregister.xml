@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="loginRegisterAction"
+		class="com.logistics.loginregister.action.LoginRegisterAction"
+		scope="prototype">
+		<property name="loginRegisterService"
+			ref="loginRegisterService"></property>
+	</bean>
+	<bean id="loginRegisterService"
+		class="com.logistics.loginregister.service.impl.LoginRegisterServiceImpl">
+		<property name="loginRegisterDao" ref="loginRegisterDao"></property>
+	</bean>
+	<bean id="loginRegisterDao"
+		class="com.logistics.loginregister.dao.impl.LoginRegisterDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<import resource="spring/spring_test.xml" />
+	<import resource="spring_distribution.xml" />
+	<import resource="spring_expressmanagement.xml" />
+	<import resource="spring_personnelmanagement.xml" />
+	<import resource="spring_routemanagement.xml" />
+	<import resource="spring_transferstation.xml" />
+	<import resource="spring_userinfo.xml" />
+	<import resource="spring_vehiclemanagement.xml" />
+	<import resource="spring_loginregister.xml" />
+</beans>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="userInfoAction" class="com.logistics.userinfo.action.UserInfoAction"
+		scope="prototype">
+		<property name="userInfoService" ref="userInfoService"></property>
+	</bean>
+	<bean id="userInfoService"
+		class="com.logistics.userinfo.service.impl.UserInfoServiceImpl">
+		<property name="userinfoDao" ref="userinfoDao"></property>
+	</bean>
+	<bean id="userinfoDao" class="com.logistics.userinfo.dao.impl.UserInfoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

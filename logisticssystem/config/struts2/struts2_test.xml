@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+	"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<package name="test" namespace="/test" extends="struts-default"
+		strict-method-invocation="false">
+		<action name="test_*"
+			class="com.logistics.test.action.TestAction" method="{1}">
+			<result name="lunboguanli">carousel_selectAction?message=${message}
+			</result>
+			<result name="ok">/ok.jsp
+		</result>
+		
+		</action>
+	</package>
+</struts>
