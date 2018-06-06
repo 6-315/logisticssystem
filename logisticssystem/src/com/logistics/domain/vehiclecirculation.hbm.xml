@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-7 0:11:32 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.vehiclecirculation" table="VEHICLECIRCULATION">
+        <id name="vehiclecirculation_id" type="java.lang.String">
+            <column name="vehiclecirculation_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="vehiclecirculation_vehicle_id" type="java.lang.String">
+            <column name="vehiclecirculation_vehicle_id" />
+        </property>
+        <property name="vehiclecirculation_initiative" type="java.lang.String">
+            <column name="vehiclecirculation_initiative" />
+        </property>
+        <property name="vehiclecirculation_acceptd" type="java.lang.String">
+            <column name="vehiclecirculation_acceptd" />
+        </property>
+        <property name="vehiclecirculation_time" type="java.lang.String">
+            <column name="vehiclecirculation_time" />
+        </property>
+        <property name="vehiclecirculation_instructions" type="java.lang.String">
+            <column name="vehiclecirculation_instructions" />
+        </property>
+        <property name="vehiclecirculation_mark" type="java.lang.String">
+            <column name="vehiclecirculation_mark" />
+        </property>
+        <property name="vehiclecirculation_people" type="java.lang.String">
+            <column name="vehiclecirculation_people" />
+        </property>
+        <property name="vehiclecirculation_createtime" type="java.lang.String">
+            <column name="vehiclecirculation_createtime" />
+        </property>
+        <property name="vehiclecirculation_modifytime" type="java.lang.String">
+            <column name="vehiclecirculation_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>
