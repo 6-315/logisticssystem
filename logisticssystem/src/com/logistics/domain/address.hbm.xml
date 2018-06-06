@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-7 0:16:59 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.address" table="ADDRESS">
+        <id name="address_id" type="java.lang.String">
+            <column name="address_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="address_address" type="java.lang.String">
+            <column name="address_address" />
+        </property>
+        <property name="address_detailaddress" type="java.lang.String">
+            <column name="address_detailaddress" />
+        </property>
+        <property name="address_phonenumber" type="java.lang.String">
+            <column name="address_phonenumber" />
+        </property>
+        <property name="address_userinfo_id" type="java.lang.String">
+            <column name="address_userinfo_id" />
+        </property>
+        <property name="address_createtime" type="java.lang.String">
+            <column name="address_createtime" />
+        </property>
+        <property name="address_modifytime" type="java.lang.String">
+            <column name="address_modifytime" />
+        </property>
+        <property name="address_state" type="java.lang.String">
+            <column name="address_state" />
+        </property>
+    </class>
+</hibernate-mapping>
