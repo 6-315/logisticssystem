@@ -28,4 +28,9 @@ public class Transferstation {
 		this.transferStationService = transferStationService;
 	}
 
+	public void add() {
+		
+		
+	}
+	
 }
