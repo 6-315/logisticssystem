@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.vehicle;
+import com.logistics.vehiclemanagement.VO.vehicleVO;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 /**
@@ -32,7 +33,7 @@ public class Vehiclemanagement {
 
 	@Test
 	public void addTest() {
-		System.out.println(vehicleManagementService);
+
 		vehicle vehicleinfo = new vehicle();
 		vehicleinfo.setVehicle_platenum("渝G-A9568");
 		vehicleinfo.setVehicle_num("1");
@@ -44,4 +45,19 @@ public class Vehiclemanagement {
 		System.out.println("+++test:" + vehicleinfo);
 	}
 
+	@Test
+	public void queryTest() {
+		vehicleVO vehicleinfoVO = new vehicleVO();
+		vehicleinfoVO.setPageIndex(1);
+		vehicleinfoVO = vehicleManagementService.queryVehicle(vehicleinfoVO);
+		System.out.println(vehicleinfoVO);
+	}
+
+	@Test
+	public void updateTest() {
+		vehicle vehicleinfo = new vehicle();
+		vehicleinfo.setVehicle_id("af5b73b2-78e0-4471-a39b-9ab23c2b9d68");
+		vehicleinfo.setVehicle_num("998");
+		vehicleManagementService.updateVehicle(vehicleinfo);
+	}
 }
