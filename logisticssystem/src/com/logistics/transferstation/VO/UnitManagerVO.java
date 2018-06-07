@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.logistics.domain.unit;
 
-public class TransferStationVO {
+public class UnitManagerVO {
 	/**
 	 * 生成list集合
 	 */

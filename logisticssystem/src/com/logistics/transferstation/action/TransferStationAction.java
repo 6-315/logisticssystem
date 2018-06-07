@@ -10,8 +10,10 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
-import com.logistics.transferstation.VO.TransferStationVO;
+import com.logistics.transferstation.DTO.UnitManagerDTO;
+import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -19,10 +21,11 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author LW
  *
  */
+@SuppressWarnings("serial")
 public class TransferStationAction   extends ActionSupport implements ServletResponseAware, ServletRequestAware{
 	
 	/**
-	 * 使用域模型将单位表放到Struts中
+	 * 使用域模型将unit放到Struts中
 	 */
 	private unit transferStation;
 	/**
@@ -33,20 +36,43 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 	 * 使用域模型vo分页
 	 * 
 	 */
-	private TransferStationVO transferStationVO;
-	
+	private UnitManagerVO unitManagerVO;
+	/**
+	 * 使用域模型将staff_basicinfo放到Struts中
+	 */
+	private staff_basicinfo staff_basicinfo;
+	private List<UnitManagerDTO> listUnitManagerDTO;
+	public UnitManagerVO getUnitManagerVO() {
+		return unitManagerVO;
+	}
+	public void setUnitManagerVO(UnitManagerVO unitManagerVO) {
+		this.unitManagerVO = unitManagerVO;
+	}
+	public staff_basicinfo getStaff_basicinfo() {
+		return staff_basicinfo;
+	}
+	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
+		this.staff_basicinfo = staff_basicinfo;
+	}
+	public List<UnitManagerDTO> getListUnitManagerDTO() {
+		return listUnitManagerDTO;
+	}
+	public void setListUnitManagerDTO(List<UnitManagerDTO> listUnitManagerDTO) {
+		this.listUnitManagerDTO = listUnitManagerDTO;
+	}
+	public staff_basicinfo getBasicinfo() {
+		return staff_basicinfo;
+	}
+	public void setBasicinfo(staff_basicinfo basicinfo) {
+		this.staff_basicinfo = basicinfo;
+	}
+
 	private int page;
 	public int getPage() {
 		return page;
 	}
 	public void setPage(int page) {
 		this.page = page;
-	}
-	public TransferStationVO getTransferStationVO() {
-		return transferStationVO;
-	}
-	public void setTransferStationVO(TransferStationVO transferStationVO) {
-		this.transferStationVO = transferStationVO;
 	}
 	public List<unit> getListunit() {
 		return listunit;
@@ -120,11 +146,11 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-		 transferStationVO = new TransferStationVO();
-		 transferStationVO.setPageIndex(page);
-		 transferStationVO = transferStationService.queryTransferStation(transferStationVO);
+		listUnitManagerDTO = transferStationService.getListUnitManagerDTO();
+		unitManagerVO = new UnitManagerVO();
+		unitManagerVO.setPageIndex(page);
+		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO);
 		//listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
 		
@@ -172,12 +198,12 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 	 * @throws IOException 
 	 */
 	
-	public void updataTransferStation() throws IOException {
+	public void TransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+transferStationService.updataTransferStation(transferStation));
+		response.getWriter().write(""+transferStationService.updateTransferStation(transferStation));
 	}
 	
 	

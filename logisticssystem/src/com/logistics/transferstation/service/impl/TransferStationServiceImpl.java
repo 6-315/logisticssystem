@@ -1,11 +1,11 @@
 package com.logistics.transferstation.service.impl;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.logistics.domain.unit;
-import com.logistics.transferstation.VO.TransferStationVO;
+import com.logistics.transferstation.DTO.UnitManagerDTO;
+import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.dao.TransferStationDao;
 import com.logistics.transferstation.service.TransferStationService;
 
@@ -46,21 +46,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 	@Override
 	public String deleteTransferStation(unit transferStation) {
-		unit delete = new unit();
-		delete.setUnit_id(transferStation.getUnit_id());
-		delete.setUnit_num(transferStation.getUnit_num());
-		delete.setUnit_name(transferStation.getUnit_name());
-		delete.setUnit_address(transferStation.getUnit_address());
-		delete.setUnit_detailaddress(transferStation.getUnit_detailaddress());
-		delete.setUnit_type(transferStation.getUnit_type());
-		delete.setUnit_superiorunit(transferStation.getUnit_superiorunit());
-		delete.setUnit_creator(transferStation.getUnit_creator());
-		delete.setUnit_state(transferStation.getUnit_state());
-		delete.setUnit_admin(transferStation.getUnit_admin());
-		delete.setUnit_createtime(transferStation.getUnit_createtime());
-		delete.setUnit_modifytime(transferStation.getUnit_modifytime());
-		delete.setUnit_phonenumber(transferStation.getUnit_phonenumber());
-		transferStationDao.removeObject(delete);
+	
+		transferStationDao.removeObject(transferStation);
 
 		return "success";
 	}
@@ -70,22 +57,26 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 修改中转站信息
 	 */
 	@Override
-	public String updataTransferStation(unit transferStation) {
-		unit updata = new unit();
-		updata.setUnit_id(transferStation.getUnit_id());
-		updata.setUnit_num(transferStation.getUnit_num());
-		updata.setUnit_name(transferStation.getUnit_name());
-		updata.setUnit_address(transferStation.getUnit_address());
-		updata.setUnit_detailaddress(transferStation.getUnit_detailaddress());
-		updata.setUnit_type(transferStation.getUnit_type());
-		updata.setUnit_superiorunit(transferStation.getUnit_superiorunit());
-		updata.setUnit_creator(transferStation.getUnit_creator());
-		updata.setUnit_state(transferStation.getUnit_state());
-		updata.setUnit_admin(transferStation.getUnit_admin());
-		updata.setUnit_createtime(transferStation.getUnit_createtime());
-		updata.setUnit_modifytime(transferStation.getUnit_modifytime());
-		updata.setUnit_phonenumber(transferStation.getUnit_phonenumber());
-		transferStationDao.saveOrUpdateObject(updata);
+	public String updateTransferStation(unit transferStation) {
+		unit update = new unit();
+		update = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+		update.setUnit_address(transferStation.getUnit_address());
+		update.setUnit_state(transferStation.getUnit_state());
+		update.setUnit_admin(transferStation.getUnit_admin());
+		/*update.setUnit_id(transferStation.getUnit_id());
+		update.setUnit_num(transferStation.getUnit_num());
+		update.setUnit_name(transferStation.getUnit_name());
+		update.setUnit_address(transferStation.getUnit_address());
+		update.setUnit_detailaddress(transferStation.getUnit_detailaddress());
+		update.setUnit_type(transferStation.getUnit_type());
+		update.setUnit_superiorunit(transferStation.getUnit_superiorunit());
+		update.setUnit_creator(transferStation.getUnit_creator());
+		update.setUnit_state(transferStation.getUnit_state());
+		update.setUnit_admin(transferStation.getUnit_admin());
+		update.setUnit_createtime(transferStation.getUnit_createtime());
+		update.setUnit_modifytime(transferStation.getUnit_modifytime());
+		update.setUnit_phonenumber(transferStation.getUnit_phonenumber());*/
+		transferStationDao.saveOrUpdateObject(update);
 		return "success";
 	}
 
@@ -103,9 +94,14 @@ public class TransferStationServiceImpl implements TransferStationService {
     	
     }
 	@Override
-	public TransferStationVO queryTransferStation(TransferStationVO transferStationVO) {
+	public UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO) {
 		List<unit> listunit = new ArrayList<>();
 		String TransferStationCountHql = "select count(*) from unit";
+		return null;
+	}
+
+	@Override
+	public List<UnitManagerDTO> getListUnitManagerDTO() {
 		return null;
 	}
 

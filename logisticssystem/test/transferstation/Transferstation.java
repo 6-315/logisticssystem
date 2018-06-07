@@ -1,8 +1,5 @@
 package transferstation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -13,13 +10,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.service.TransferStationService;
 
-import util.BuildUuid;
-import util.TimeUtil;
-
 /**
  * 中转站管理测试方法
  * 
- * @author LW
+ * @author LL
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,22 +49,20 @@ public class Transferstation {
 	@Test
 	public void deleteTransferStation() {
 		unit transferStation = new unit();
-		transferStation.setUnit_id("9dba8b9d-ae80-458b-80b8-c5fe440f6486");
+		transferStation.setUnit_id("transferStation");
 		System.out.println("shanchu");
 		transferStationService.deleteTransferStation(transferStation);
 		
 	}
-	/*@Test
-	public void updataTransferStation() {
+	@Test
+	public void updateTransferStation() {
 		unit transferStation = new unit();
+		transferStation.setUnit_id("e88d299d-c00b-4050-81c6-5037e81ed2f7");
+		transferStation.setUnit_address("lalala");
+		transferStationService.updateTransferStation(transferStation);
+		
 		System.out.println("xiugai");
-		transferStationService.(transferStation);
-}*/
-	/*@Test
-	public void queryTransferStation() {
-		unit transferStation = new unit();
-		List<unit> listunit = new ArrayList<>();
-		System.out.println("chaxun");
-		listunit =	transferStationService.queryTransferStation(transferStation);
-}*/
+		
+}
+	
 }

@@ -1,9 +1,11 @@
 package com.logistics.transferstation.service;
 
+
 import java.util.List;
 
 import com.logistics.domain.unit;
-import com.logistics.transferstation.VO.TransferStationVO;
+import com.logistics.transferstation.DTO.UnitManagerDTO;
+import com.logistics.transferstation.VO.UnitManagerVO;
 
 /**
  * 中转站管理的service接口层
@@ -19,9 +21,12 @@ public interface TransferStationService {
 
 	String deleteTransferStation(unit transferStation);
 
-	String updataTransferStation(unit transferStation);
+	UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO);
 
-	TransferStationVO queryTransferStation(TransferStationVO transferStationVO);
+	String updateTransferStation(unit transferStation);
+
+	List<UnitManagerDTO> getListUnitManagerDTO();
+
 
 
 

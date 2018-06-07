@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.unit;
 import com.logistics.transferstation.dao.TransferStationDao;
 /**
  * 中转站管理的DAO实现层
@@ -107,5 +108,18 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		session.clear();
 		return list;
 	}
+	/**
+	 * 根据ID查询中转站
+	 */
+public unit getTransferStationInfoById(String unitId) {
+	unit transferStation = new unit();
+	Session session = getSession();
+	String hql = "from unit where unit_id = :ID";
+	Query query = session.createQuery(hql);
+	query.setParameter("ID", unitId);
+	transferStation = (unit) query.uniqueResult();
 
+	return transferStation;
+	
+}
 }
