@@ -7,7 +7,6 @@
 		strict-method-invocation="false">
 		<action name="transferstation_*"
 			class="com.logistics.transferstation.action.TransferstationAction" method="{1}">
-
 		
 		</action>
 	</package>
