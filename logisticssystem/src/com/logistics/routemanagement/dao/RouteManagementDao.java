@@ -2,6 +2,8 @@ package com.logistics.routemanagement.dao;
 
 import java.util.List;
 
+import com.logistics.domain.route;
+
 /**
  * 路线管理dao层接口
  * 
@@ -58,4 +60,6 @@ public interface RouteManagementDao {
 	 * @return
 	 */
 
+   
+    
 }
