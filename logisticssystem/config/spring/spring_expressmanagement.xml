@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="expressManagementAction" class="com.logistics.expressmanagement.action.ExpressManagementAction"
 		scope="prototype">
-		<property name="expressManagementService.java" ref="expressManagementService"></property>
+		<property name="expressManagementService" ref="expressManagementService"></property>
 	</bean>
 	<bean id="expressManagementService"
 		class="com.logistics.expressmanagement.service.impl.ExpressManagementServiceImpl">
-		<property name="testDao" ref="testDao"></property>
+		<property name="expressManagementDao" ref="expressManagementDao"></property>
 	</bean>
 	<bean id="expressManagementDao" class="com.logistics.expressmanagement.dao.impl.ExpressManagementDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
