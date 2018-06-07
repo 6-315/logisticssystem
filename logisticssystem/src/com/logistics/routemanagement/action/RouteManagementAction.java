@@ -13,7 +13,7 @@ import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
 import com.logistics.routemanagement.service.RouteManagementService;
 import com.opensymphony.xwork2.ActionSupport;
 
-/** 
+/**
  * 路线管理action
  * 
  * @author LW
@@ -75,32 +75,50 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void setRout(route rout) {
 		this.rout = rout;
 	}
-/**
- * 路线集合List<route>
- */
-	private List<route> listrout;
-	public List<route> getListrout() {
-		return listrout;
+	/**
+	 * 多选路线string
+	 */
+	private String routeId;
+
+	public String getRouteId() {
+		return routeId;
 	}
 
-	public void setListrout(List<route> listrout) {
-		this.listrout = listrout;
+	public void setRouteId(String routeId) {
+		this.routeId = routeId;
 	}
+
 	/**
 	 * 分页
 	 */
 	private RouteManagerVO routManagerVO;
 	private int page = 1;
-	private String search ="";
-	
-	
+	private String search = "";
 
-	
-	
-	
-	
-	
-	
+	public RouteManagerVO getRoutManagerVO() {
+		return routManagerVO;
+	}
+
+	public void setRoutManagerVO(RouteManagerVO routManagerVO) {
+		this.routManagerVO = routManagerVO;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
 	/**
 	 * 增加路线
 	 */
@@ -108,25 +126,41 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		routeManagementService.addRout(rout);
 
 	}
+
 	/**
 	 * 更改路线信息
 	 */
 	public void updateRouteInfo() {
 		routeManagementService.updateRoutInfo(rout);
 	}
+
 	/**
 	 * 更改路线状态
 	 */
 	public void updateRouteState() {
 		routeManagementService.updateRouteState(rout);
-		
+
 	}
+
 	/**
 	 * 批量删除路线
 	 */
 	public void deleteListRoute() {
+
+		routeManagementService.deleteListRoute(routeId);
+
+	}
+	/**
+	 * 获取路线列表
+	 */
+	public void getRouteManagerVO() {
+		//使用VO拿到数据和分页
+		routManagerVO =new RouteManagerVO();
+		routManagerVO.setPageIndex(page);
+		routManagerVO.setSearch(search);
+		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		
-		listrout=routeManagementService.deleteListRoute(listrout);
+		
 		
 	}
 }

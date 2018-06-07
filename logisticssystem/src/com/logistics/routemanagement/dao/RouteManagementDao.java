@@ -60,6 +60,9 @@ public interface RouteManagementDao {
 	 * @return
 	 */
 
-   
+   /**
+    * 获取单个对象
+    */
+
     
 }
