@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-7 0:20:07 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.route" table="ROUTE">
+        <id name="route_id" type="java.lang.String">
+            <column name="route_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="route_num" type="java.lang.String">
+            <column name="route_num" />
+        </property>
+        <property name="route_creater" type="java.lang.String">
+            <column name="route_creater" />
+        </property>
+        <property name="route_departurestation" type="java.lang.String">
+            <column name="route_departurestation" />
+        </property>
+        <property name="route_terminalstation" type="java.lang.String">
+            <column name="route_terminalstation" />
+        </property>
+        <property name="route_state" type="java.lang.String">
+            <column name="route_state" />
+        </property>
+        <property name="route_createtime" type="java.lang.String">
+            <column name="route_createtime" />
+        </property>
+        <property name="route_modifytime" type="java.lang.String">
+            <column name="route_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>

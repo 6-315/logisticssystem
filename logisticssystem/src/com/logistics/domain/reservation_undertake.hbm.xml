@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-7 0:17:30 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.reservation_undertake" table="RESERVATION_UNDERTAKE">
+        <id name="reservation_undertake_id" type="java.lang.String">
+            <column name="reservation_undertake_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="reservation_undertake_reservation_id" type="java.lang.String">
+            <column name="reservation_undertake_reservation_id" />
+        </property>
+        <property name="reservation_undertake_distributiontor" type="java.lang.String">
+            <column name="reservation_undertake_distributiontor" />
+        </property>
+        <property name="reservation_undertake_state" type="java.lang.String">
+            <column name="reservation_undertake_state" />
+        </property>
+        <property name="reservation_undertake_createtime" type="java.lang.String">
+            <column name="reservation_undertake_createtime" />
+        </property>
+        <property name="reservation_undertake_modifytime" type="java.lang.String">
+            <column name="reservation_undertake_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>
