@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.vehicle;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 
 /**
@@ -108,6 +109,20 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据ID查询车辆信息
+	 */
+	@Override
+	public vehicle getVehicleInfoById(String vehicleId) {
+		vehicle vehicle = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicleId);
+		vehicle = (vehicle) query.uniqueResult();
+		return vehicle;
 	}
 
 }
