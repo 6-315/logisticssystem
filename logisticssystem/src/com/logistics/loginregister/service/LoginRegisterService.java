@@ -5,7 +5,7 @@ import com.logistics.domain.userinfo;
 
 /**
  * 注册登陆的service层接口
- * 
+ *   
  * @author LW
  *
  */
