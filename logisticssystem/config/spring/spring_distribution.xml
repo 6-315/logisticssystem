@@ -13,7 +13,7 @@
 		<property name="distributionDao" ref="distributionDao"></property>
 	</bean>
 	<bean id="distributionDao"
-		class="com.logistics.distribution.dao.impl/DistributionDaoImpl">
+		class="com.logistics.distribution.dao.impl.DistributionDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
