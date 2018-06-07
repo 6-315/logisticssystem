@@ -1,7 +1,11 @@
 package com.logistics.loginregister.service;
 
+import java.util.List;
+
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 import com.logistics.domain.userinfo;
+import com.logistics.personnelmanagement.VO.StaffManagerVO;
 
 /**
  * 注册登陆的service层接口
@@ -23,7 +27,7 @@ public interface LoginRegisterService {
 	 * @param userinfo
 	 * @return
 	 */
-	userinfo loginByUser(userinfo userinfo);
+	//userinfo loginByUser(userinfo userinfo);
 
 	/**
 	 * 员工登陆接口
@@ -31,6 +35,15 @@ public interface LoginRegisterService {
 	 * @param staff_basicinfo
 	 * @return
 	 */
-	staff_basicinfo loginByStaff(staff_basicinfo staff_basicinfo);
+	staff_basicinfo loginByStaff(String username, String password);
 
+	List<userinfo> getSize(String username);
+
+	userinfo loginByUser(String username, String password);
+
+	List<staff_basicinfo> getSizeBySat(String username);
+
+	StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO);
+
+	List<unit> getLowerUnit(staff_basicinfo staffBasicinfo);
 }

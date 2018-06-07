@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.userinfo;
 import com.logistics.loginregister.dao.LoginRegisterDao;
@@ -110,10 +111,10 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 	 * 用户登陆判断
 	 */
 	@Override
-	public userinfo loginByUser(userinfo userinfo) {
+	public userinfo loginByUser(String username, String password) {
 		Session session = getSession();
-		String hql="from userinfo where userinfo_phonenumber='"+userinfo.getUserinfo_phonenumber()+""
-				+ "'and userinfo_password ='"+userinfo.getUserinfo_password()+"'";
+		String hql="from userinfo where userinfo_phonenumber='"+username+""
+				+ "'and userinfo_password ='"+password+"'";
 		Query query = session.createQuery(hql);	
 		List<userinfo> listuserinfo = query.list();
 		if (listuserinfo != null && !listuserinfo.isEmpty()) {
@@ -123,16 +124,22 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 	}
 
 	@Override
-	public staff_basicinfo loginByStaff(staff_basicinfo staff_basicinfo) {
+	public staff_basicinfo loginByStaff(String username, String password) {
 		Session session = getSession();
-		String hql="from staff_basicinfo where staff_num='"+staff_basicinfo.getStaff_num()+""
-				+ "'and staff_num ='"+staff_basicinfo.getStaff_num()+"'";
+		String hql="from staff_basicinfo where staff_num='"+username+""
+				+ "'and staff_num ='"+password+"'";
 		Query query = session.createQuery(hql);	
 		List<staff_basicinfo> liststaff_basicinfo = query.list();
 		if (liststaff_basicinfo != null && !liststaff_basicinfo.isEmpty()) {
 			return liststaff_basicinfo.get(0);
 		}
 		
+		return null;
+	}
+
+	@Override
+	public position getPosition(staff_basicinfo staffBasicinfo) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
