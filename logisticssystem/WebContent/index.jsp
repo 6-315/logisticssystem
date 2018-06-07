@@ -7,10 +7,6 @@
 <title>测试</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath }/test/test_add">
-1:<input name="w.test1" type="text">
-2:<input name="w.test2" type="text">
-<input type="submit" value="Add">
-</form>
+ko
 </body>
 </html>

@@ -63,7 +63,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
-		query.setFirstResult(offset - 1);
+		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
 		List<?> list = query.list();
 		session.clear();
