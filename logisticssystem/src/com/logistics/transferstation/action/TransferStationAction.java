@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.logistics.domain.unit;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -14,15 +15,18 @@ import com.opensymphony.xwork2.ActionSupport;
  *
  */
 public class TransferStationAction   extends ActionSupport implements ServletResponseAware, ServletRequestAware{
-
+	/**
+	 * service层注入
+	 */
 	private TransferStationService transferStationService;
 
 	public void setTransferStationService(TransferStationService transferStationService) {
 		this.transferStationService = transferStationService;
 	}
 	/**
-	 * 
+	 * 使用域模型将单位表放到Struts中
 	 */
+	private unit transferStation;
 	/**
 	 * 实现request以及response
 	 */
@@ -30,6 +34,32 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 
 	private HttpServletRequest request;
 
+	/**
+	 * 添加
+	 */
+	
+	public String addTransferStation() {
+		
+		
+		
+		
+		return "add";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * get和set
+	 * @return
+	 */
+	
 	public HttpServletResponse getResponse() {
 		return response;
 	}
