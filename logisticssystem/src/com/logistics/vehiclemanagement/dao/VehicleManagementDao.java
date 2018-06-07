@@ -1,6 +1,8 @@
 package com.logistics.vehiclemanagement.dao;
 
 import java.util.List;
+
+import com.logistics.domain.vehicle;
 /**
  * 车辆管理DAO接口
  * @author LW
@@ -48,6 +50,13 @@ public interface VehicleManagementDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	/**
+	 * 根据ID查询车辆
+	 * @param vehicleinfo
+	 * @return
+	 */
+	public vehicle getVehicleInfoById(String vehicleId);
 
 	/**
 	 * 

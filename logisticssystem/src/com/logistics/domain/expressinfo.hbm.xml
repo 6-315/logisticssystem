@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2018-6-7 0:12:46 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 2018-6-7 18:53:30 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.logistics.domain.expressinfo" table="EXPRESSINFO">
         <id name="expressinfo_id" type="java.lang.String">
@@ -22,6 +22,9 @@
         </property>
         <property name="expressinfo_addresseeaddress" type="java.lang.String">
             <column name="expressinfo_addresseeaddress" />
+        </property>
+        <property name="expressinfo_adderdetailaddress" type="java.lang.String">
+            <column name="expressinfo_adderdetailaddress" />
         </property>
         <property name="expressinfo_addresseephonenumber" type="java.lang.String">
             <column name="expressinfo_addresseephonenumber" />
