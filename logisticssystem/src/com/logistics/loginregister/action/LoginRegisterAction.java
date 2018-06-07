@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.logistics.domain.userinfo;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.loginregister.service.LoginRegisterService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -59,5 +61,39 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	/**
 	 * 实现结束
 	 */
+	/**
+	 * 使用域模型
+	 */
+	private staff_basicinfo staff_basicinfo;
+	private userinfo userinfo;
+
+	public userinfo getUserinfo() {
+		return userinfo;
+	}
+
+	public void setUserinfo(userinfo userinfo) {
+		this.userinfo = userinfo;
+	}
+
+	/**
+	 * 注册方法
+	 */
+	public void register() {
+		lginRegisterService.addUserifo(userinfo);
+	}
+
+	/**
+	 * 登陆方法
+	 */
+	public void login() {
+		if (userinfo.getUserinfo_phonenumber() != null && userinfo.getUserinfo_phonenumber().length() > 0) {
+			userinfo userinfo_session = lginRegisterService.loginByUser(userinfo);
+			if (userinfo_session != null) {
+				request.getSession().setAttribute("userinfo_session", userinfo_session);
+			}
+		} else {
+
+		}
+	}
 
 }

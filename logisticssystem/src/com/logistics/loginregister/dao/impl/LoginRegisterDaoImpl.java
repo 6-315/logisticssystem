@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.userinfo;
 import com.logistics.loginregister.dao.LoginRegisterDao;
 /**
  * 注册登陆DAO实现层
@@ -103,6 +104,21 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+	/**
+	 * 用户登陆判断
+	 */
+	@Override
+	public userinfo loginByUser(userinfo userinfo) {
+		Session session = getSession();
+		String hql="from userinfo where userinfo_phonenumber='"+userinfo.getUserinfo_phonenumber()+""
+				+ "'and userinfo_password ='"+userinfo.getUserinfo_password()+"'";
+		Query query = session.createQuery(hql);	
+		List<userinfo> listuserinfo = query.list();
+		if (listuserinfo != null && !listuserinfo.isEmpty()) {
+			return listuserinfo.get(0);
+		}
+		return null;
 	}
 
 }
