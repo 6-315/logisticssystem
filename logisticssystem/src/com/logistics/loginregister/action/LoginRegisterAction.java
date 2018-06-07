@@ -19,10 +19,10 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class LoginRegisterAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 	private static final long serialVersionUID = 1L;
-	private LoginRegisterService lginRegisterService;
+	private LoginRegisterService loginRegisterService;
 
 	public void setLginRegisterService(LoginRegisterService lginRegisterService) {
-		this.lginRegisterService = lginRegisterService;
+		this.loginRegisterService = lginRegisterService;
 	}
 
 	/**
@@ -79,7 +79,8 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * 注册方法
 	 */
 	public void register() {
-		lginRegisterService.addUserifo(userinfo);
+		loginRegisterService.addUserifo(userinfo);
+	
 	}
 
 	/**
@@ -87,12 +88,17 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 */
 	public void login() {
 		if (userinfo.getUserinfo_phonenumber() != null && userinfo.getUserinfo_phonenumber().length() > 0) {
-			userinfo userinfo_session = lginRegisterService.loginByUser(userinfo);
+			userinfo userinfo_session = loginRegisterService.loginByUser(userinfo);
 			if (userinfo_session != null) {
 				request.getSession().setAttribute("userinfo_session", userinfo_session);
+				
 			}
 		} else {
-
+			staff_basicinfo staff_session  = loginRegisterService.loginByStaff(staff_basicinfo);
+			
+			if(staff_session!=null) {
+				request.getSession().setAttribute("staff_session", staff_session);
+			}
 		}
 	}
 

@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.userinfo;
 import com.logistics.loginregister.dao.LoginRegisterDao;
 /**
@@ -120,5 +121,25 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		}
 		return null;
 	}
+
+	@Override
+	public staff_basicinfo loginByStaff(staff_basicinfo staff_basicinfo) {
+		Session session = getSession();
+		String hql="from staff_basicinfo where staff_num='"+staff_basicinfo.getStaff_num()+""
+				+ "'and staff_num ='"+staff_basicinfo.getStaff_num()+"'";
+		Query query = session.createQuery(hql);	
+		List<staff_basicinfo> liststaff_basicinfo = query.list();
+		if (liststaff_basicinfo != null && !liststaff_basicinfo.isEmpty()) {
+			return liststaff_basicinfo.get(0);
+		}
+		
+		return null;
+	}
+
+
+
+
+
+
 
 }

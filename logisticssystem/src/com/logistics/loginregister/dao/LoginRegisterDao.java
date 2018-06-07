@@ -2,6 +2,7 @@ package com.logistics.loginregister.dao;
 
 import java.util.List;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.userinfo;
 
 /**
@@ -54,6 +55,10 @@ public interface LoginRegisterDao {
 	public List<?> listObject(String hql);
 
 	public userinfo loginByUser(userinfo userinfo);
+
+	public staff_basicinfo loginByStaff(staff_basicinfo staff_basicinfo);
+
+
 
 	/**
 	 * 

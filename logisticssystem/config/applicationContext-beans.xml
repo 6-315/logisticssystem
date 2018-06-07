@@ -2,7 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<import resource="spring/spring_test.xml" />
 	<import resource="spring_distribution.xml" />
 	<import resource="spring_expressmanagement.xml" />
 	<import resource="spring_personnelmanagement.xml" />

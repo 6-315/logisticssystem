@@ -1,5 +1,6 @@
 package com.logistics.loginregister.service;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.userinfo;
 
 /**
@@ -17,11 +18,19 @@ public interface LoginRegisterService {
 	void addUserifo(userinfo userinfo);
 
 	/**
-	 * 登陆接口
+	 * 用户登陆接口
 	 * 
 	 * @param userinfo
 	 * @return
 	 */
 	userinfo loginByUser(userinfo userinfo);
+
+	/**
+	 * 员工登陆接口
+	 * 
+	 * @param staff_basicinfo
+	 * @return
+	 */
+	staff_basicinfo loginByStaff(staff_basicinfo staff_basicinfo);
 
 }
