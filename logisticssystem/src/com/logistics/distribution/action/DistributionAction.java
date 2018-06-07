@@ -8,6 +8,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.logistics.distribution.service.DistributionService;
+import com.logistics.domain.unit;
 import com.opensymphony.xwork2.ActionSupport;
  
 
@@ -21,7 +22,10 @@ import com.opensymphony.xwork2.ActionSupport;
 public class DistributionAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 	private static final long serialVersionUID = 1L;
 	private DistributionService distributionService;
-
+	/**
+	 * 使用域模型
+	 */
+	private unit distribution;
 	public void setDistributionService(DistributionService distributionService) {
 		this.distributionService = distributionService;
 	}
@@ -58,9 +62,24 @@ public class DistributionAction extends ActionSupport implements ServletResponse
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
 	}
+	
+	public unit getDistribution() {
+		return distribution;
+	}
 
+	public void setDistribution(unit distribution) {
+		this.distribution = distribution;
+	}
 	/**
 	 * 实现结束
 	 */
+	
+	
 
+	/**
+	 * 配送点的增加方法
+	 */
+	public void addDistributionAction(){
+		distributionService.addDistributionAction(distribution);
+	}
 }
