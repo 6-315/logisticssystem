@@ -1,6 +1,9 @@
 package com.logistics.transferstation.dao;
 
 import java.util.List;
+
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 /**
  * 中转站管理 的DAO接口
  * @author LW
@@ -50,9 +53,15 @@ public interface TransferStationDao {
 	public List<?> listObject(String hql);
 
 	/**
-	 * 
-	 * @param trim
+	 * 根据Id查询中转站
+	 * @param unitId
 	 * @return
 	 */
+	public unit getTransferStationInfoById(String unit_id);
 
+	public staff_basicinfo getBasicinfo(String trim);
+
+	
+	
+	
 }
