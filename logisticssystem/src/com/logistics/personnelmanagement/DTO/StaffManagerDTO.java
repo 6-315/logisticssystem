@@ -9,21 +9,23 @@ import com.logistics.domain.*;
  */
 public class StaffManagerDTO {
 	private unit unit;
-	private List<staff_basicinfo> listStaff;
+	private staff_basicinfo staffBasicInfo;
 	public unit getUnit() {
 		return unit;
 	}
 	public void setUnit(unit unit) {
 		this.unit = unit;
 	}
-	public List<staff_basicinfo> getListStaff() {
-		return listStaff;
+	public staff_basicinfo getStaffBasicInfo() {
+		return staffBasicInfo;
 	}
-	public void setListStaff(List<staff_basicinfo> listStaff) {
-		this.listStaff = listStaff;
+	public void setStaffBasicInfo(staff_basicinfo staffBasicInfo) {
+		this.staffBasicInfo = staffBasicInfo;
 	}
 	@Override
 	public String toString() {
-		return "StaffManagerDTO [unit=" + unit + ", listStaff=" + listStaff + "]";
+		return "StaffManagerDTO [unit=" + unit + ", staffBasicInfo=" + staffBasicInfo + "]";
 	}
+	
+	
 }

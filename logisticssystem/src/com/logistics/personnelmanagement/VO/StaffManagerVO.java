@@ -32,6 +32,7 @@ public class StaffManagerVO {
 	 * 职位表
 	 */
 	private String position;
+	
 
 	private List<StaffManagerDTO> listStaDTO;
 

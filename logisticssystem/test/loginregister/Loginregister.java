@@ -38,7 +38,7 @@ public class Loginregister {
 	}
 
 	/**
-	 * 测试登陆
+	 * 测试注册
 	 */
 	@Test
 	public void reg() {
@@ -75,73 +75,5 @@ public class Loginregister {
 		}
 	}
 
-	/**
-	 * 测试查看所有单位下的所有员工
-	 */
-	@Test
-	public void getStaffManagerVO() {
-		StaffManagerVO staffManagerVO = new StaffManagerVO();
-		// staffManagerVO.setPageIndex(pageIndex);
-		// staffManagerVO.setSearch(search);
-		staffManagerVO = loginRegisterService.getStaffManagerVO(staffManagerVO);
-		System.out.println("成功！" + staffManagerVO);
-
-	}
-
-	/**
-	 * 查看自身以下的所有职位
-	 */
-	@Test
-	public void getLowerPosition() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_position("77e07c34-735f-45d4-a870-3e5bebe5ddc1");
-		List<position> listPosition = new ArrayList<>();
-		listPosition = loginRegisterService.getLowerPosition(staffBasicinfo);
-		System.out.println("你是什么鬼！" + listPosition);
-
-	}
-
-	/**
-	 * 批量删除员工
-	 */
-	@Test
-	public void deleteListStaff() {
-		String staffListIdS = "1,2,3,4,5";
-		loginRegisterService.deleteListStaff(staffListIdS);
-
-	}
-	/**
-	 * 测试修改单位
-	 */
-	@Test
-	public void updateStaffUnit() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("6");
-		staffBasicinfo.setStaff_unit("9999999");
-		loginRegisterService.updateStaffUnit(staffBasicinfo);
-	}
-	
-/**
- * 测试修改职位
- */
-	@Test
-	public void updateStaffPosition() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("6");
-		staffBasicinfo.setStaff_position("9999999");
-		loginRegisterService.updateStaffPosition(staffBasicinfo);
-		
-	}
-	/**
-	 * 中转站管理员查看自己往下的所有人信息
-	 */
-	@Test
-	public void getPeopleByZ() {
-		StaffManagerVO staffManagerVO = new StaffManagerVO();
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("2");
-		staffManagerVO = loginRegisterService.getStaffManagerVOByZ(staffManagerVO, staffBasicinfo);
-		System.out.println("这是什么？："+staffManagerVO);
-	}
 	
 }

@@ -2,6 +2,8 @@ package com.logistics.personnelmanagement.dao;
 
 import java.util.List;
 
+import com.logistics.domain.staff_basicinfo;
+
 /**
  * 人事管理DAO接口
  * 
@@ -42,6 +44,10 @@ public interface PersonnelManagementDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+	public staff_basicinfo getstaffById(String id);
+
+	public staff_basicinfo getstaffBasicinfo(String staff_id);
+
 
 	/**
 	 * 

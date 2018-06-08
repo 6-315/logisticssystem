@@ -145,35 +145,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 
 		return null;
 	}
-
 	/**
 	 * 查找员工表是否有此人
 	 */
-	@Override
-	public staff_basicinfo getstaffById(String id) {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		Session session = getSession();
-		String hql = "from staff_basicinfo where staff_id = :ID";
-		Query query = session.createQuery(hql);
-		query.setParameter("ID", id);
-		staffBasicinfo = (staff_basicinfo) query.uniqueResult();
-		System.out.println("OK");
-		return staffBasicinfo;
-	}
-
-	/**
-	 * 查找员工表是否有此人
-	 */
-	@Override
-	public staff_basicinfo getstaffBasicinfo(String staff_id) {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		Session session = getSession();
-		String hql = "from staff_basicinfo where staff_id = :ID";
-		Query query = session.createQuery(hql);
-		query.setParameter("ID", staff_id);
-		staffBasicinfo = (staff_basicinfo) query.uniqueResult();
-		System.out.println("OK");
-		return staffBasicinfo;
-	}
-
 }

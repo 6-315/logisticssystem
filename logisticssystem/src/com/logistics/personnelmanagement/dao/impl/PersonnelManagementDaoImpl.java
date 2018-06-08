@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
 /**
@@ -109,5 +110,35 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		session.clear();
 		return list;
 	}
+	/**
+	 * 查找员工表是否有此人
+	 */
+	@Override
+	public staff_basicinfo getstaffById(String id) {
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
+		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
+		System.out.println("OK");
+		return staffBasicInfo;
+	}
+
+	/**
+	 * 查找员工表是否有此人
+	 */
+	@Override
+	public staff_basicinfo getstaffBasicinfo(String staff_id) {
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
+		System.out.println("OK");
+		return staffBasicInfo;
+	}
+
 
 }

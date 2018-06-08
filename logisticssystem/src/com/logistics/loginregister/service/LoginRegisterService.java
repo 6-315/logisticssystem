@@ -44,23 +44,7 @@ public interface LoginRegisterService {
 
 	List<staff_basicinfo> getSizeBySat(String username);
 
-	StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO);
 
-	List<unit> getLowerUnit(staff_basicinfo staffBasicinfo);
-
-	List<position> getLowerPosition(staff_basicinfo staffBasicinfo);
-
-	String deleteListStaff(String staffListIdS);
-
-	String updateStaffUnit(staff_basicinfo staffBasicinfo);
-
-	String updateStaffPosition(staff_basicinfo staffBasicinfo);
-
-	String updateStaffState(staff_basicinfo staffBasicinfo);
-
-	String addStaff(staff_basicinfo staffBasicinfo);
-
-	StaffManagerVO getStaffManagerVOByZ(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo);
 
 
 }
