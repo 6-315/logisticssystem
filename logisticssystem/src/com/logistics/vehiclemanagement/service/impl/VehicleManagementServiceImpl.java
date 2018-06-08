@@ -221,6 +221,13 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
 				vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 			}
+			
+			if (vehicleInfoVO.getSearch() != null && vehicleInfoVO.getSearch().trim().length() > 0) {
+				vehicle.setVehicle_num(vehicle.getVehicle_num().replaceAll(vehicleInfoVO.getSearch(),
+						"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
+				vehicle.setVehicle_platenum(vehicle.getVehicle_platenum().replaceAll(vehicleInfoVO.getSearch(),
+						"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
+			}
 			/**
 			 * 将查询到的信息放入车辆DTO中
 			 */

@@ -98,7 +98,7 @@ public class DistributionServiceImpl implements DistributionService {
 			System.out.println("555:"+unitAdmin);
 			unitDTO.setUnitAdmin(listStaff.get(0));
 			unitDTO.setUnitCreator(listStaff1.get(0));
-			unitDTO.setUnit1(unit);
+			unitDTO.setUnitInfo(unit);
 			System.out.println("wwwwwwwwwwwwww"+unitDTO);
 			unitManagerDTO.add(unitDTO);
 		}

@@ -53,6 +53,8 @@ public class Vehiclemanagement {
 	@Test
 	public void queryTest() {
 		VehicleVO vehicleInfoVO = new VehicleVO();
+		String search = "9";
+		vehicleInfoVO.setSearch(search);
 		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
 		System.out.println(vehicleInfoVO);
 	}

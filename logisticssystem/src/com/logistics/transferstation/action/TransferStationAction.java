@@ -42,7 +42,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	/**
 	 * 使用域模型将staff_basicinfo放到Struts中
 	 */
-	private staff_basicinfo staff_basicinfo;
+	private staff_basicinfo staff_BasicInfo;
 
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
@@ -53,20 +53,20 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	}
 
 	public staff_basicinfo getStaff_basicinfo() {
-		return staff_basicinfo;
+		return staff_BasicInfo;
 	}
 
 	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
-		this.staff_basicinfo = staff_basicinfo;
+		this.staff_BasicInfo = staff_basicinfo;
 	}
 
 
 	public staff_basicinfo getBasicinfo() {
-		return staff_basicinfo;
+		return staff_BasicInfo;
 	}
 
 	public void setBasicinfo(staff_basicinfo basicinfo) {
-		this.staff_basicinfo = basicinfo;
+		this.staff_BasicInfo = basicinfo;
 	}
 /**
  * 分页查询的字段
