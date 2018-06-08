@@ -74,18 +74,18 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	/**
 	 * 使用域模型
 	 */
-	private staff_basicinfo staffBasicinfo;
+	private staff_basicinfo staffBasicInfo;
 	private userinfo userInfo;
 	private String username;
 	private String password;
 	private StaffManagerVO staffManagerVO;
 
 	public staff_basicinfo getStaff_basicinfo() {
-		return staffBasicinfo;
+		return staffBasicInfo;
 	}
 
 	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
-		this.staffBasicinfo = staff_basicinfo;
+		this.staffBasicInfo = staff_basicinfo;
 	}
 
 	public StaffManagerVO getStaffManagerVO() {

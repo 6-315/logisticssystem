@@ -1,7 +1,7 @@
 package com.logistics.vehiclemanagement.service;
 
 import com.logistics.domain.vehicle;
-import com.logistics.vehiclemanagement.VO.vehicleVO;
+import com.logistics.vehiclemanagement.VO.VehicleVO;
 
 /**
  * 车辆管理Service层接口
@@ -15,20 +15,28 @@ public interface VehicleManagementService {
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int addVehicle(vehicle vehicleinfo);
+	public int addVehicle(vehicle vehicleInfo);
 
 	/**
 	 * 查询车辆
 	 * @return
 	 */
-	public vehicleVO queryVehicle(vehicleVO vehicleinfoVO);
+	public VehicleVO queryVehicle(VehicleVO vehicleInfoVO);
 
 	/**
 	 * 更新车辆
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int updateVehicle(vehicle vehicleinfo);
+	public int updateVehicle(vehicle vehicleInfo);
+
+	/**
+	 * 根据id批量删除车辆
+	 * @param ids
+	 */
+	public void deleteVehicle(VehicleVO vehicleInfoVO);
+
+	
 
 	
 	

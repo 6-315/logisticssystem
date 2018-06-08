@@ -52,10 +52,10 @@ public class Personnelmanagement {
 	 */
 	@Test
 	public void getLowerPosition() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_position("77e07c34-735f-45d4-a870-3e5bebe5ddc1");
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_position("77e07c34-735f-45d4-a870-3e5bebe5ddc1");
 		List<position> listPosition = new ArrayList<>();
-		listPosition = personnelManagementService.getLowerPosition(staffBasicinfo);
+		listPosition = personnelManagementService.getLowerPosition(staffBasicInfo);
 		System.out.println("你是什么鬼！" + listPosition);
 
 	}
@@ -74,10 +74,10 @@ public class Personnelmanagement {
 	 */
 	@Test
 	public void updateStaffUnit() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("6");
-		staffBasicinfo.setStaff_unit("9999电动车999");
-		personnelManagementService.updateStaffUnit(staffBasicinfo);
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("6");
+		staffBasicInfo.setStaff_unit("9999电动车999");
+		personnelManagementService.updateStaffUnit(staffBasicInfo);
 	}
 	
 /**
@@ -85,10 +85,10 @@ public class Personnelmanagement {
  */
 	@Test
 	public void updateStaffPosition() {
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("6");
-		staffBasicinfo.setStaff_position("9999dd999");
-		personnelManagementService.updateStaffPosition(staffBasicinfo);
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("6");
+		staffBasicInfo.setStaff_position("9999dd999");
+		personnelManagementService.updateStaffPosition(staffBasicInfo);
 		
 	}
 	/**
@@ -97,10 +97,10 @@ public class Personnelmanagement {
 	@Test
 	public void getPeopleByZ() {
 		StaffManagerVO staffManagerVO = new StaffManagerVO();
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("2");
-		staffBasicinfo.setStaff_unit("2");
-		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicinfo);
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("2");
+		staffBasicInfo.setStaff_unit("2");
+		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
 		System.out.println("这是什么？："+staffManagerVO);
 	}
 	
