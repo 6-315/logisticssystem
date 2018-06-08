@@ -72,12 +72,15 @@ public class Transferstation {
 		System.out.println("xiugai");
 		
 }   
+	/**
+	 * 查询测试类
+	 */
 	@Test
 	public void queryTransferStation() {
 		UnitManagerVO transferStationVO = new UnitManagerVO();
 		transferStationVO.setAddress("hubei");
 		transferStationVO.setState("zhengchang");
-		transferStationService.queryTransferStation(transferStationVO);
+		transferStationVO = transferStationService.queryTransferStation(transferStationVO);
 		System.out.println("chaxun"+transferStationVO);
 		
 	}

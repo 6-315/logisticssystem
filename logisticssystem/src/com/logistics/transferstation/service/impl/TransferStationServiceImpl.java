@@ -3,6 +3,8 @@ package com.logistics.transferstation.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
@@ -100,66 +102,65 @@ public class TransferStationServiceImpl implements TransferStationService {
 	@Override
 	public UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO) {
 		List<UnitManagerDTO> listUnitManagerDTO = new ArrayList<>();
-		String transferStationCountHql = "select count(*) from unit where ";
-		String listTransferStationHql = "from unit where ";
+		UnitManagerDTO unitManagerDTO;
+		List<unit> listUnit = new ArrayList<>();
+		String transferStationCountHql = "select count(*) from unit where 1=1 ";
+		String listTransferStationHql = "from unit where 1=1 ";
 		/**
 		 * 模糊查询
 		 */
 		if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 			String search = "%" + transferStationVO.getSearch().trim() + "%";
-			transferStationCountHql = transferStationCountHql + "unit_num like '" + search + "' and ";
-			listTransferStationHql = listTransferStationHql + " unit_num like '" + search + "' and ";
+			transferStationCountHql = transferStationCountHql + " and unit_num like '" + search + "' ";
+			listTransferStationHql = listTransferStationHql + " and unit_num like '" + search + "'";
 		}
 		/**
 		 * 根据address查询
 		 */
 		if (transferStationVO.getAddress() != null && transferStationVO.getAddress().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + "unit_address = '"
-					+ transferStationVO.getAddress().trim() + "' and ";
-			listTransferStationHql = listTransferStationHql + " unit_num like '"
-					+ transferStationVO.getAddress().trim() + "' and ";
+			transferStationCountHql = transferStationCountHql + " and  unit_address = '"
+					+ transferStationVO.getAddress().trim() + "' ";
+			listTransferStationHql = listTransferStationHql + " and unit_address = '"
+					+ transferStationVO.getAddress().trim() + "'  ";
 		}
 		/**
 		 * 根据State查询
 		 */
-		if (transferStationVO.getAddress() != null && transferStationVO.getAddress().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + "unit_address = '" + transferStationVO.getState().trim()
-					+ "' and ";
-			listTransferStationHql = listTransferStationHql + " unit_num like '"
-					+ transferStationVO.getState().trim() + "' and ";
+		if (transferStationVO.getState() != null && transferStationVO.getState().trim().length() > 0) {
+			transferStationCountHql = transferStationCountHql + " and unit_state = '"
+					+ transferStationVO.getState().trim() + "'";
+			listTransferStationHql = listTransferStationHql + " and unit_state = '"
+					+ transferStationVO.getState().trim() + "'";
 		}
 		/**
 		 * 根据num查询
 		 */
-		if (transferStationVO.getAddress() != null && transferStationVO.getAddress().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + "unit_address = '" + transferStationVO.getNum().trim()
-					+ "' and ";
-			listTransferStationHql = listTransferStationHql + " unit_num like '"
-					+ transferStationVO.getNum().trim() + "' and ";
+		if (transferStationVO.getNum() != null && transferStationVO.getNum().trim().length() > 0) {
+			transferStationCountHql = transferStationCountHql + " and unit_num = '" + transferStationVO.getNum().trim()
+					+ "'";
+			listTransferStationHql = listTransferStationHql + " and unit_num = '" + transferStationVO.getNum().trim()
+					+ "'";
 		}
 		/**
 		 * 根据superiorunit查询
 		 */
-		if (transferStationVO.getAddress() != null && transferStationVO.getAddress().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + "unit_address = '"
-					+ transferStationVO.getSuperiorunit().trim() + "' and ";
-			listTransferStationHql = listTransferStationHql + " unit_num like '"
-					+ transferStationVO.getSuperiorunit().trim() + "' and ";
+		if (transferStationVO.getSuperiorunit() != null && transferStationVO.getSuperiorunit().trim().length() > 0) {
+			transferStationCountHql = transferStationCountHql + " and unit_superiorunit = '"
+					+ transferStationVO.getSuperiorunit().trim() + "'";
+			listTransferStationHql = listTransferStationHql + " and unit_superiorunit = '"
+					+ transferStationVO.getSuperiorunit().trim() + "'";
 		}
 
-		System.out.println("sql11111----------:" + transferStationCountHql);
-		int i = transferStationDao.getCount(transferStationCountHql);
-		System.out.println(i);
 		/**
 		 * 分页
 		 */
-		
-		listTransferStationHql = listTransferStationHql + "order by Isdelete desc";
-		int userInfoCount = transferStationDao.getCount(transferStationCountHql);
+		System.out.println("fdfdfd:-----------" + transferStationCountHql);
+		int basicinfoCount = transferStationDao.getCount(transferStationCountHql);
+		System.out.println(basicinfoCount);
 		// 设置总数量
-		transferStationVO.setTotalRecords(userInfoCount);
+		transferStationVO.setTotalRecords(basicinfoCount);
 		// 设置总页数
-		transferStationVO.setTotalPages(((userInfoCount - 1) / transferStationVO.getPageSize()) + 1);
+		transferStationVO.setTotalPages(((basicinfoCount - 1) / transferStationVO.getPageSize()) + 1);
 		// 判断是否拥有上一页
 		if (transferStationVO.getPageIndex() <= 1) {
 			transferStationVO.setHavePrePage(false);
@@ -172,8 +173,19 @@ public class TransferStationServiceImpl implements TransferStationService {
 		} else {
 			transferStationVO.setHaveNextPage(true);
 		}
-		listUnitManagerDTO = (List<UnitManagerDTO>) transferStationDao.queryForPage(transferStationCountHql,
+		System.out.println("qqqqqq" + transferStationCountHql);
+		System.out.println("aaaaa" + listTransferStationHql);
+		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
+		for (unit unit : listUnit) {
+			// 查询创建者的信息
+			staff_basicinfo unit_creator = transferStationDao.getBasicinfo(unit.getUnit_creator());
+			staff_basicinfo unit_admin = transferStationDao.getBasicinfo(unit.getUnit_admin());
+			unitManagerDTO = new UnitManagerDTO();
+			unitManagerDTO.setUnit_admin(unit_admin);
+			unitManagerDTO.setUnit_creator(unit_creator);
+			listUnitManagerDTO.add(unitManagerDTO);
+		}
 		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
 		return transferStationVO;
 	}
@@ -182,23 +194,22 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * DTO
 	 */
 
-	public UnitManagerDTO getUnitManagerDTO(String unit_id) {
-		if (unit_id == null || unit_id.trim().length() <= 0) {
-			return null;
-		}
-		/**
+	/*
+	 * public UnitManagerDTO getUnitManagerDTO(String unit_id) { if (unit_id == null
+	 * || unit_id.trim().length() <= 0) { return null; }
+	 *//**
 		 * new一个DTO
-		 */
-		UnitManagerDTO unitManagerDTO = new UnitManagerDTO();
-		staff_basicinfo unit_creator = new staff_basicinfo ();
-		staff_basicinfo news_NewsInfo = new staff_basicinfo();
-		
-		
-		return null;
-		
-		
-		
-	}
-	
-
+		 *//*
+			 * UnitManagerDTO unitManagerDTO = new UnitManagerDTO(); staff_basicinfo
+			 * unit_creator = new staff_basicinfo (); staff_basicinfo news_NewsInfo = new
+			 * staff_basicinfo();
+			 * 
+			 * 
+			 * return null;
+			 * 
+			 * 
+			 * 
+			 * }
+			 * 
+			 */
 }

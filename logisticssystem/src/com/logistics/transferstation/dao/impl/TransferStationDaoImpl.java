@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.dao.TransferStationDao;
 /**
@@ -121,4 +122,18 @@ public unit getTransferStationInfoById(String unitId) {
 	return transferStation;
 	
 }
+/**
+ * 根据中转站查询管理员和创建者的信息
+ */
+@Override
+public staff_basicinfo getBasicinfo(String trim) {
+	staff_basicinfo  staff_basicinfo= new staff_basicinfo();
+	Session session = getSession();
+	String hql = "from staff_basicinfo where staff_id = :ID";
+	Query query = session.createQuery(hql);
+	query.setParameter("ID", trim);
+	staff_basicinfo = (staff_basicinfo) query.uniqueResult();
+	return staff_basicinfo;
+}
+
 }

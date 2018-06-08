@@ -46,6 +46,5 @@ public interface TransferStationService {
 
 	String updateTransferStation(unit transferStation);
 
-	public UnitManagerDTO getUnitManagerDTO(String unit_id);
 
 }

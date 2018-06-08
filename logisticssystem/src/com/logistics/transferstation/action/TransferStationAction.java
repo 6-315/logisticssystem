@@ -43,7 +43,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * 使用域模型将staff_basicinfo放到Struts中
 	 */
 	private staff_basicinfo staff_basicinfo;
-	private List<UnitManagerDTO> listUnitManagerDTO;
 
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
@@ -61,13 +60,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		this.staff_basicinfo = staff_basicinfo;
 	}
 
-	public List<UnitManagerDTO> getListUnitManagerDTO() {
-		return listUnitManagerDTO;
-	}
-
-	public void setListUnitManagerDTO(List<UnitManagerDTO> listUnitManagerDTO) {
-		this.listUnitManagerDTO = listUnitManagerDTO;
-	}
 
 	public staff_basicinfo getBasicinfo() {
 		return staff_basicinfo;
