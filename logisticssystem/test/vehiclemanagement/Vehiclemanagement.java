@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.vehicle;
-import com.logistics.vehiclemanagement.VO.vehicleVO;
+import com.logistics.vehiclemanagement.VO.VehicleVO;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 /**
@@ -31,39 +31,51 @@ public class Vehiclemanagement {
 		this.vehicleManagementService = vehicleManagementService;
 	}
 
+	/**
+	 * 添加功能-测试
+	 */
 	@Test
 	public void addTest() {
-
-		vehicle vehicleinfo = new vehicle();
-		vehicleinfo.setVehicle_platenum("渝G-A9568");
-		vehicleinfo.setVehicle_num("1");
-		vehicleinfo.setVehicle_state("待分配");
-		vehicleinfo.setVehicle_team("Note3");
-		vehicleinfo.setVehicle_unit("Note4");
-		vehicleinfo.setVehicle_acquisitionpeople("Admin");
-		vehicleManagementService.addVehicle(vehicleinfo);
-		System.out.println("+++test:" + vehicleinfo);
+		vehicle vehicleInfo = new vehicle();
+		vehicleInfo.setVehicle_platenum("渝G-A9568");
+		vehicleInfo.setVehicle_num("1");
+		vehicleInfo.setVehicle_state("待分配");
+		vehicleInfo.setVehicle_team("Note3");
+		vehicleInfo.setVehicle_unit("Note4");
+		vehicleInfo.setVehicle_acquisitionpeople("Admin");
+		vehicleManagementService.addVehicle(vehicleInfo);
+		System.out.println("+++test:" + vehicleInfo);
 	}
 
+	/**
+	 * 查询功能-测试
+	 */
 	@Test
 	public void queryTest() {
-		vehicleVO vehicleinfoVO = new vehicleVO();
-		int page =1;
-		vehicleinfoVO.setPageIndex(page);
-		String search = "9";
-		vehicleinfoVO.setSearch(search);
-		String state = "空闲";
-		vehicleinfoVO.setState(state);
-		
-		vehicleinfoVO = vehicleManagementService.queryVehicle(vehicleinfoVO);
-		System.out.println(vehicleinfoVO);
+		VehicleVO vehicleInfoVO = new VehicleVO();
+		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
+		System.out.println(vehicleInfoVO);
 	}
 
+	/**
+	 * 更新功能-测试
+	 */
 	@Test
 	public void updateTest() {
 		vehicle vehicleinfo = new vehicle();
 		vehicleinfo.setVehicle_id("af5b73b2-78e0-4471-a39b-9ab23c2b9d68");
 		vehicleinfo.setVehicle_num("998");
 		vehicleManagementService.updateVehicle(vehicleinfo);
+	}
+	
+	/**
+	 * 删除功能-测试
+	 */
+	@Test
+	public void deleteTest() {
+		String ids = "ea0d6851-0349-4326-9609-2e3b63eb2bab";
+		VehicleVO vehicleInfoVO = new VehicleVO();
+		vehicleInfoVO.setIdList(ids);
+		vehicleManagementService.deleteVehicle(vehicleInfoVO);
 	}
 }
