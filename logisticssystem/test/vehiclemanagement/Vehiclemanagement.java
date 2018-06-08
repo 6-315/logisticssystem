@@ -48,7 +48,13 @@ public class Vehiclemanagement {
 	@Test
 	public void queryTest() {
 		vehicleVO vehicleinfoVO = new vehicleVO();
-		vehicleinfoVO.setPageIndex(1);
+		int page =1;
+		vehicleinfoVO.setPageIndex(page);
+		String search = "9";
+		vehicleinfoVO.setSearch(search);
+		String state = "空闲";
+		vehicleinfoVO.setState(state);
+		
 		vehicleinfoVO = vehicleManagementService.queryVehicle(vehicleinfoVO);
 		System.out.println(vehicleinfoVO);
 	}

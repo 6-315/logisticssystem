@@ -62,8 +62,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if (vehicleinfoVO.getSearch() != null && vehicleinfoVO.getSearch().trim().length() > 0) {
 			String search = "%" + vehicleinfoVO.getSearch().trim() + "%";
-			vehicleCountHql = vehicleCountHql + "where vehicle_num or vehicle_platenum like '" + search + "' ";
-			listvehicleCountHql = listvehicleCountHql + "where vehicle_num or vehicle_platenum like '" + search + "'";
+			vehicleCountHql = vehicleCountHql + "where vehicle_num like '" + search + "' ";
+			listvehicleCountHql = listvehicleCountHql + "where vehicle_num like '" + search + "'";
+			vehicleCountHql = vehicleCountHql + "and vehicle_platenum like '" + search + "' ";
+			listvehicleCountHql = listvehicleCountHql + "and vehicle_platenum like '" + search + "'";
 		}
 		
 		/**
@@ -71,17 +73,18 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if(vehicleinfoVO.getState() != null && vehicleinfoVO.getState().trim().length() > 0) {
 			String state = vehicleinfoVO.getState().trim();
-			vehicleCountHql = vehicleCountHql + "where vehicle_state = '" + state + "' ";
-			listvehicleCountHql = listvehicleCountHql + "where vehicle_state = '" + state + "'";
+			vehicleCountHql = vehicleCountHql + "and vehicle_state = '" + state + "' ";
+			listvehicleCountHql = listvehicleCountHql + "and vehicle_state = '" + state + "'";
 		}
-		
+		System.out.println("1111111111"+vehicleCountHql);
+		System.out.println("222222222"+listvehicleCountHql);
 		/**
 		 * 按所属单位(unit)分类查询
 		 */
 		if(vehicleinfoVO.getUnit() != null && vehicleinfoVO.getUnit().trim().length() > 0) {
 			String unit = vehicleinfoVO.getUnit().trim();
-			vehicleCountHql = vehicleCountHql + "where vehicle_unit = '" + unit + "' ";
-			listvehicleCountHql = listvehicleCountHql + "where vehicle_unit = '" + unit + "'";
+			vehicleCountHql = vehicleCountHql + "and vehicle_unit = '" + unit + "' ";
+			listvehicleCountHql = listvehicleCountHql + "and vehicle_unit = '" + unit + "'";
 		}
 		
 		/**
@@ -89,8 +92,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if(vehicleinfoVO.getTeam() != null && vehicleinfoVO.getTeam().trim().length() > 0) {
 			String team = vehicleinfoVO.getTeam().trim();
-			vehicleCountHql = vehicleCountHql + "where vehicle_team = '" + team + "' ";
-			listvehicleCountHql = listvehicleCountHql + "where vehicle_team = '" + team + "'";
+			vehicleCountHql = vehicleCountHql + "and vehicle_team = '" + team + "' ";
+			listvehicleCountHql = listvehicleCountHql + "and vehicle_team = '" + team + "'";
 		}
 		
 		
