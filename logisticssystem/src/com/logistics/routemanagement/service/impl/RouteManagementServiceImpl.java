@@ -37,16 +37,13 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		routeManagementDao.saveOrUpdateObject(rout);
 
 	}
-
 	/**
 	 * 更改路线信息
 	 */
 	@Override
 	public void updateRoutInfo(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
-
 	}
-
 	/**
 	 * 更改路线状态
 	 */
@@ -55,106 +52,108 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		routeManagementDao.saveOrUpdateObject(rout);
 
 	}
-
 	/**
 	 * 批量删除路线
 	 */
 	@Override
 	public void deleteListRoute(String routeIds) {
 		String[] routeIDArray = routeIds.split(",");
+		route deleteRoute = null;
 		for (String routeId : routeIDArray) {
-			System.out.println(routeId);
-			routeManagementDao.removeObject(routeIds);
+			deleteRoute = new route();
+			deleteRoute = routeManagementDao.getRouteById(routeId);
+			if(deleteRoute!=null) {
+				routeManagementDao.removeObject(deleteRoute);
+			}
 		}
-
 	}
-
 	/**
 	 * 获取路线列表，分页
 	 */
 	@Override
-	public RouteManagerVO getRouteManagerVO(RouteManagerVO RouteManagerVO) {
+	public RouteManagerVO getRouteManagerVO(RouteManagerVO routeManagerVO) {
 		// 先初始化route表集合
-		List<route> listroute = new ArrayList<>();
+		List<route> listRoute = new ArrayList<>();
 		// 初始化DTO集合
-		List<RouteManagerDTO> listDTO = new ArrayList<>();
-		String searchFenYe = "select count(*) from route where ";
-		String searchForm = "from route where ";
+		List<RouteManagerDTO> listRouteManagerDTO = new ArrayList<>();
+		//查询分页，表
+		String searchPaging = "select count(*) from route  where 1=1 ";
+		String searchForm = "from route where 1=1 ";
 		// 根据路线编号查询：
-		if (RouteManagerVO.getSearch() != null && RouteManagerVO.getSearch().trim().length() > 0) {
-			String search = "%" + RouteManagerVO.getSearch() + "%";
-			searchFenYe = searchFenYe + " rout_num like '" + search + "' ";
-			searchForm = searchForm + " rout_num like '" + search + "'";
+		if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
+			String search = "%" + routeManagerVO.getSearch() + "%";
+			searchPaging = searchPaging + " and rout_num like '" + search + "' ";
+			searchForm = searchForm + " and rout_num like '" + search + "'";
 		}
 		// 根据状态查询
-		if (RouteManagerVO.getState() != null && RouteManagerVO.getState().trim().length() > 0) {
-			String search = "%" + RouteManagerVO.getState() + "%";
-			searchFenYe = searchFenYe + "and route_state like '" + search + "'";
+		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
+			String search = "%" + routeManagerVO.getState() + "%";
+			searchPaging = searchPaging + "and route_state like '" + search + "'";
 			searchForm = searchForm + "and route_state like '" + search + "'";
 		}
 		// 根据始发中转站查询
-		if (RouteManagerVO.getStartUnit() != null && RouteManagerVO.getStartUnit().trim().length() > 0) {
-			String search = "%" + RouteManagerVO.getStartUnit() + "%";
-			searchFenYe = searchFenYe + " and route_departurestation like '" + search + "'";
+		if (routeManagerVO.getStartUnit() != null && routeManagerVO.getStartUnit().trim().length() > 0) {
+			String search = "%" + routeManagerVO.getStartUnit() + "%";
+			searchPaging = searchPaging + " and route_departurestation like '" + search + "'";
 			searchForm = searchForm + "and route_departurestation like '" + search + "'";
 		}
 		// 根据终止中转站查询
-		if (RouteManagerVO.getEndUnit() != null && RouteManagerVO.getEndUnit().trim().length() > 0) {
-			String search = "%" + RouteManagerVO.getEndUnit() + "%";
-			searchFenYe = searchFenYe + " and route_terminalstation like '" + search + "'";
+		if (routeManagerVO.getEndUnit() != null && routeManagerVO.getEndUnit().trim().length() > 0) {
+			String search = "%" + routeManagerVO.getEndUnit() + "%";
+			searchPaging = searchPaging + " and route_terminalstation like '" + search + "'";
 			searchForm = searchForm + "and route_terminalstation like '" + search + "'";
 		}
 		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 		searchForm = searchForm + "order by route_createtime desc";
-		int userInfoCount = routeManagementDao.getCount(searchFenYe);
+		System.out.println("fdfdfdfd:---------"+searchPaging);
+		int userInfoCount = routeManagementDao.getCount(searchPaging);
 		// 设置总数量
-		RouteManagerVO.setTotalRecords(userInfoCount);
+		routeManagerVO.setTotalRecords(userInfoCount);
 		// 设置总页数
-		RouteManagerVO.setTotalPages(((userInfoCount - 1) / RouteManagerVO.getPageSize()) + 1);
+		routeManagerVO.setTotalPages(((userInfoCount - 1) / routeManagerVO.getPageSize()) + 1);
 		// 判断是否拥有上一页
-		if (RouteManagerVO.getPageIndex() <= 1) {
-			RouteManagerVO.setHavePrePage(false);
+		if (routeManagerVO.getPageIndex() <= 1) {
+			routeManagerVO.setHavePrePage(false);
 		} else {
-			RouteManagerVO.setHavePrePage(true);
+			routeManagerVO.setHavePrePage(true);
 		}
 		// 判断是否拥有下一页
-		if (RouteManagerVO.getPageIndex() >= RouteManagerVO.getTotalPages()) {
-			RouteManagerVO.setHaveNextPage(false);
+		if (routeManagerVO.getPageIndex() >= routeManagerVO.getTotalPages()) {
+			routeManagerVO.setHaveNextPage(false);
 		} else {
-			RouteManagerVO.setHaveNextPage(true);
+			routeManagerVO.setHaveNextPage(true);
 		}
-		listroute = (List<route>) routeManagementDao.queryForPage(searchForm, RouteManagerVO.getPageIndex(),
-				RouteManagerVO.getPageSize());
-		for (route route : listroute) {
+		listRoute = (List<route>) routeManagementDao.queryForPage(searchForm, routeManagerVO.getPageIndex(),
+				routeManagerVO.getPageSize());
+		
+		for (route route : listRoute) {
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
-			staff_basicinfo staff_Basicinfo = new staff_basicinfo();
-			unit unit1 = new unit();
-			unit unit2 = new unit();
-			staff_Basicinfo = (staff_basicinfo) routeManagementDao
-					.listObject("from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'");
-			unit1 = (unit) routeManagementDao
-					.listObject("from unit where unit_id='" + route.getRoute_departurestation() + "'");
-			unit2 = (unit) routeManagementDao
-					.listObject("from unit where unit_id='" + route.getRoute_terminalstation() + "'");
-			staff_Basicinfo.getStaff_id();
-			unit1.getUnit_id();
-			unit2.getUnit_id();
-			if (RouteManagerVO.getSearch() != null && RouteManagerVO.getSearch().trim().length() > 0) {
-				route.setRoute_num(route.getRoute_num().replaceAll(RouteManagerVO.getSearch(),
-						"<mark>" + RouteManagerVO.getSearch() + "</mark>"));
+			staff_basicinfo staffBasicinfo = new staff_basicinfo();
+			//始发站，终止站
+			unit routeDeparturestation = new unit();
+			unit routeTerminalstation = new unit();
+			String sql = "from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'";
+			staffBasicinfo = routeManagementDao.getStaff_Basicinfo(sql);
+			String sql1 = "from unit where unit_id='" + route.getRoute_departurestation() + "'";
+			routeDeparturestation = routeManagementDao.getRoute_Departurestation(sql1);
+			String sql2 = "from unit where unit_id='" + route.getRoute_terminalstation() + "'";
+			routeTerminalstation = routeManagementDao.getRoute_Terminalstation(sql2);
+
+			staffBasicinfo.getStaff_id();
+			routeDeparturestation.getUnit_id();
+			routeTerminalstation.getUnit_id();
+			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
+				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
+						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
 			}
 			routeMangerDTO.setRout(route);
-			routeMangerDTO.setListstaff_basicinf(staff_Basicinfo);
-			routeMangerDTO.setUnit1(unit1);
-			routeMangerDTO.setUnit2(unit2);
-			listDTO.add(routeMangerDTO);
+			routeMangerDTO.setStaff_Id(staffBasicinfo);
+			routeMangerDTO.setRoute_Departurestation(routeDeparturestation);
+			routeMangerDTO.setRoute_Terminalstation(routeTerminalstation);
+			listRouteManagerDTO.add(routeMangerDTO);
 		}
-		RouteManagerVO.setListRouteManagerDTO(listDTO);
-		return RouteManagerVO;
+		routeManagerVO.setListRouteManagerDTO(listRouteManagerDTO);
+		return routeManagerVO;
 	}
-
-	/**
-	 * 批量删除路线
-	 */
 
 }

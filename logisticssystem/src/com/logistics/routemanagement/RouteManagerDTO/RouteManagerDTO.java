@@ -19,43 +19,43 @@ public class RouteManagerDTO {
 	/**
 	 * 员工信息表
 	 */
-	private staff_basicinfo liststaff_basicinf;
+	private staff_basicinfo staff_Id;
 	/**
 	 * 始发中转站
 	 */
-	private unit unit1;
+	private unit route_Departurestation;
 	/**
 	 * 终止中转站
 	 */
-	private unit unit2;
+	private unit route_Terminalstation;
 	public route getRout() {
 		return rout;
 	}
 	public void setRout(route rout) {
 		this.rout = rout;
 	}
-	public staff_basicinfo getListstaff_basicinf() {
-		return liststaff_basicinf;
+	public staff_basicinfo getStaff_Id() {
+		return staff_Id;
 	}
-	public void setListstaff_basicinf(staff_basicinfo liststaff_basicinf) {
-		this.liststaff_basicinf = liststaff_basicinf;
+	public void setStaff_Id(staff_basicinfo staff_Id) {
+		this.staff_Id = staff_Id;
 	}
-	public unit getUnit1() {
-		return unit1;
+	public unit getRoute_Departurestation() {
+		return route_Departurestation;
 	}
-	public void setUnit1(unit unit1) {
-		this.unit1 = unit1;
+	public void setRoute_Departurestation(unit route_Departurestation) {
+		this.route_Departurestation = route_Departurestation;
 	}
-	public unit getUnit2() {
-		return unit2;
+	public unit getRoute_Terminalstation() {
+		return route_Terminalstation;
 	}
-	public void setUnit2(unit unit2) {
-		this.unit2 = unit2;
+	public void setRoute_Terminalstation(unit route_Terminalstation) {
+		this.route_Terminalstation = route_Terminalstation;
 	}
 	@Override
 	public String toString() {
-		return "RouteManagerDTO [rout=" + rout + ", liststaff_basicinf=" + liststaff_basicinf + ", unit1=" + unit1
-				+ ", unit2=" + unit2 + "]";
+		return "RouteManagerDTO [rout=" + rout + ", staff_Id=" + staff_Id + ", route_Departurestation="
+				+ route_Departurestation + ", route_Terminalstation=" + route_Terminalstation + "]";
 	}
-
+	
 }

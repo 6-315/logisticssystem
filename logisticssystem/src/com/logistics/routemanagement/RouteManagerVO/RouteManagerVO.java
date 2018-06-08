@@ -16,7 +16,7 @@ public class RouteManagerVO {
 	//当前页
 	private int pageIndex = 1;
 	// 分页数量
-	private int pageSize = 8;
+	private int pageSize = 2;
     //总页数
 	private int totalPages = 1;
 

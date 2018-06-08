@@ -64,9 +64,28 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 * 实现结束
 	 */
 	/**
+	 * 分页
+	 */
+	private RouteManagerVO routManagerVO;
+	private int page = 1;
+	private String search = "";
+	/**
 	 * 使用域模型将route对象放置到struts中
 	 */
 	private route rout;
+	private String routeIds;
+	/**
+	 * 多选路线string
+	 */
+	private String routeId;
+
+	public String getRouteIds() {
+		return routeIds;
+	}
+
+	public void setRouteIds(String routeIds) {
+		this.routeIds = routeIds;
+	}
 
 	public route getRout() {
 		return rout;
@@ -75,11 +94,6 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void setRout(route rout) {
 		this.rout = rout;
 	}
-	/**
-	 * 多选路线string
-	 */
-	private String routeId;
-
 	public String getRouteId() {
 		return routeId;
 	}
@@ -87,13 +101,6 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void setRouteId(String routeId) {
 		this.routeId = routeId;
 	}
-
-	/**
-	 * 分页
-	 */
-	private RouteManagerVO routManagerVO;
-	private int page = 1;
-	private String search = "";
 
 	public RouteManagerVO getRoutManagerVO() {
 		return routManagerVO;
@@ -147,20 +154,19 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 */
 	public void deleteListRoute() {
 
-		routeManagementService.deleteListRoute(routeId);
+		routeManagementService.deleteListRoute(routeIds);
 
 	}
+
 	/**
 	 * 获取路线列表
 	 */
 	public void getRouteManagerVO() {
-		//使用VO拿到数据和分页
-		routManagerVO =new RouteManagerVO();
+		// 使用VO拿到数据和分页
+		routManagerVO = new RouteManagerVO();
 		routManagerVO.setPageIndex(page);
 		routManagerVO.setSearch(search);
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
-		
-		
-		
+
 	}
 }
