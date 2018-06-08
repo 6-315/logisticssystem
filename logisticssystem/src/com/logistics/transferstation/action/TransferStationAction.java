@@ -16,14 +16,16 @@ import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
+
 /**
  * 中转站管理的Action
+ * 
  * @author LW
  *
  */
 @SuppressWarnings("serial")
-public class TransferStationAction   extends ActionSupport implements ServletResponseAware, ServletRequestAware{
-	
+public class TransferStationAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
+
 	/**
 	 * 使用域模型将unit放到Struts中
 	 */
@@ -42,41 +44,100 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 	 */
 	private staff_basicinfo staff_basicinfo;
 	private List<UnitManagerDTO> listUnitManagerDTO;
+
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
 	}
+
 	public void setUnitManagerVO(UnitManagerVO unitManagerVO) {
 		this.unitManagerVO = unitManagerVO;
 	}
+
 	public staff_basicinfo getStaff_basicinfo() {
 		return staff_basicinfo;
 	}
+
 	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
 		this.staff_basicinfo = staff_basicinfo;
 	}
+
 	public List<UnitManagerDTO> getListUnitManagerDTO() {
 		return listUnitManagerDTO;
 	}
+
 	public void setListUnitManagerDTO(List<UnitManagerDTO> listUnitManagerDTO) {
 		this.listUnitManagerDTO = listUnitManagerDTO;
 	}
+
 	public staff_basicinfo getBasicinfo() {
 		return staff_basicinfo;
 	}
+
 	public void setBasicinfo(staff_basicinfo basicinfo) {
 		this.staff_basicinfo = basicinfo;
 	}
-
+/**
+ * 分页查询的字段
+ */
+	private String state;
+	private String address;
+	private String num;
+	private String superiorunit;
+	private String search;
 	private int page;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
+	public String getSuperiorunit() {
+		return superiorunit;
+	}
+
+	public void setSuperiorunit(String superiorunit) {
+		this.superiorunit = superiorunit;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
 	public int getPage() {
 		return page;
 	}
+
 	public void setPage(int page) {
 		this.page = page;
 	}
+
 	public List<unit> getListunit() {
 		return listunit;
 	}
+
 	public void setListunit(List<unit> listunit) {
 		this.listunit = listunit;
 	}
@@ -89,27 +150,28 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 	public void setTransferStationService(TransferStationService transferStationService) {
 		this.transferStationService = transferStationService;
 	}
-	
+
 	/**
 	 * 实现request以及response
 	 */
 	private HttpServletResponse response;
 
 	private HttpServletRequest request;
-	
+
 	/**
 	 * get和set
+	 * 
 	 * @return
 	 */
 
 	public unit getTransferStation() {
 		return transferStation;
 	}
+
 	public void setTransferStation(unit transferStation) {
 		this.transferStation = transferStation;
 	}
-	
-	
+
 	public HttpServletResponse getResponse() {
 		return response;
 	}
@@ -147,19 +209,27 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		listUnitManagerDTO = transferStationService.getListUnitManagerDTO();
+		listUnitManagerDTO = transferStationService.getUnitManagerDTO();
 		unitManagerVO = new UnitManagerVO();
+		unitManagerVO.setSearch(search);
+		unitManagerVO.setNum(num);
+		unitManagerVO.setAddress(address);
+		unitManagerVO.setSuperiorunit(superiorunit);
+		unitManagerVO.setState(state);
+		
 		unitManagerVO.setPageIndex(page);
 		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO);
 		//listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
 		
 	}
+
 	/**
 	 * 添加中转站
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	
+
 	public void addTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
@@ -175,38 +245,38 @@ public class TransferStationAction   extends ActionSupport implements ServletRes
 		transferStation.setUnit_creator("zonggongsi");
 		transferStation.setUnit_state("zhengchang");
 		transferStation.setUnit_phonenumber("123");
-       response.getWriter().write(""+transferStationService.addTransferStation(transferStation));
-		
-		
+		response.getWriter().write("" + transferStationService.addTransferStation(transferStation));
+
 		System.out.println("qqqqq");
-		
+
 	}
+
 	/**
 	 * 删除中转站
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	
+
 	public void deleteTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+transferStationService.deleteTransferStation(transferStation));
+		response.getWriter().write("" + transferStationService.deleteTransferStation(transferStation));
 	}
+
 	/**
 	 * 修改中转站信息
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	
+
 	public void TransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+transferStationService.updateTransferStation(transferStation));
+		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation));
 	}
-	
-	
-	
-	
+
 }

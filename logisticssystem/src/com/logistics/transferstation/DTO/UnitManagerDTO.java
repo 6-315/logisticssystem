@@ -1,37 +1,51 @@
 package com.logistics.transferstation.DTO;
 
+import java.util.List;
+
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 
 /**
  * 中转站DTO
+ * 
  * @author LL
  *
  */
 public class UnitManagerDTO {
-private unit unit;
-private staff_basicinfo staff_basicinfo;
+	/**
+	 * 这个DTO里面有
+	 */
+	private unit unit;
+	private staff_basicinfo unit_creator;
+	private staff_basicinfo unit_admin;
 
-public staff_basicinfo getStaff_basicinfo() {
-	return staff_basicinfo;
-}
+	public unit getUnit() {
+		return unit;
+	}
 
-public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
-	this.staff_basicinfo = staff_basicinfo;
-}
+	public void setUnit(unit unit) {
+		this.unit = unit;
+	}
 
-public unit getUnit() {
-	return unit;
-}
+	public staff_basicinfo getUnit_creator() {
+		return unit_creator;
+	}
 
-public void setUnit(unit unit) {
-	this.unit = unit;
-}
+	public void setUnit_creator(staff_basicinfo unit_creator) {
+		this.unit_creator = unit_creator;
+	}
 
-@Override
-public String toString() {
-	return "UnitManagerDTO [unit=" + unit + ", staff_basicinfo=" + staff_basicinfo + "]";
-}
+	public staff_basicinfo getUnit_admin() {
+		return unit_admin;
+	}
 
+	public void setUnit_admin(staff_basicinfo unit_admin) {
+		this.unit_admin = unit_admin;
+	}
+
+	@Override
+	public String toString() {
+		return "UnitManagerDTO [unit=" + unit + ", unit_creator=" + unit_creator + ", unit_admin=" + unit_admin + "]";
+	}
 
 }

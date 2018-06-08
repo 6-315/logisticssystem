@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.unit;
+import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 
 /**
@@ -29,7 +30,9 @@ public class Transferstation {
 	public void setTransferStationService(TransferStationService transferStationService) {
 		this.transferStationService = transferStationService;
 	}
-
+/**
+ * 添加测试
+ */
 	@Test
 	public void addTransferStation() {
 
@@ -46,6 +49,9 @@ public class Transferstation {
 		
 		
 	}
+	/**
+	 * 删除测试
+	 */
 	@Test
 	public void deleteTransferStation() {
 		unit transferStation = new unit();
@@ -54,6 +60,9 @@ public class Transferstation {
 		transferStationService.deleteTransferStation(transferStation);
 		
 	}
+	/**
+	 * 修改测试
+	 */
 	@Test
 	public void updateTransferStation() {
 		unit transferStation = new unit();
@@ -63,6 +72,15 @@ public class Transferstation {
 		
 		System.out.println("xiugai");
 		
-}
+}   
+	@Test
+	public void queryTransferStation() {
+		UnitManagerVO transferStationVO = new UnitManagerVO();
+		transferStationVO.setAddress("hubei");
+		transferStationVO.setState("zhengchang");
+		transferStationService.queryTransferStation(transferStationVO);
+		System.out.println("chaxun"+transferStationVO);
+		
+	}
 	
 }
