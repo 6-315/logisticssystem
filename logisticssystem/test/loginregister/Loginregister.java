@@ -42,10 +42,10 @@ public class Loginregister {
 	 */
 	@Test
 	public void reg() {
-		userinfo userinfo = new userinfo();
-		userinfo.setUserinfo_phonenumber("1101");
-		System.out.println("测试：" + userinfo);
-		loginRegisterService.addUserifo(userinfo);
+		userinfo userInfo = new userinfo();
+		userInfo.setUserinfo_phonenumber("1101");
+		System.out.println("测试：" + userInfo);
+		loginRegisterService.addUserifo(userInfo);
 
 	}
 
