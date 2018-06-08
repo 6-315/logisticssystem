@@ -1,5 +1,6 @@
 package com.logistics.distribution.service;
 
+import com.logistics.distribution.VO.UnitManagerVO;
 import com.logistics.domain.unit;
 
 /**
@@ -9,7 +10,9 @@ import com.logistics.domain.unit;
  */
 public interface DistributionService {
 
-	void addDistributionAction(unit distribution);
+	int addDistributionAction(unit distribution);
+
+	UnitManagerVO getUnitManagerVO(UnitManagerVO unitManagerVO);
 
 
 }
