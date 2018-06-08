@@ -179,11 +179,11 @@ public class TransferStationServiceImpl implements TransferStationService {
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
 		for (unit unit : listUnit) {
 			// 查询创建者的信息
-			staff_basicinfo unit_creator = transferStationDao.getBasicinfo(unit.getUnit_creator());
-			staff_basicinfo unit_admin = transferStationDao.getBasicinfo(unit.getUnit_admin());
+			staff_basicinfo unit_Creator = transferStationDao.getBasicinfo(unit.getUnit_creator());
+			staff_basicinfo unit_Admin = transferStationDao.getBasicinfo(unit.getUnit_admin());
 			unitManagerDTO = new UnitManagerDTO();
-			unitManagerDTO.setUnit_admin(unit_admin);
-			unitManagerDTO.setUnit_creator(unit_creator);
+			unitManagerDTO.setUnit_Admin(unit_Admin);
+			unitManagerDTO.setUnit_Creator(unit_Creator);
 			listUnitManagerDTO.add(unitManagerDTO);
 		}
 		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);

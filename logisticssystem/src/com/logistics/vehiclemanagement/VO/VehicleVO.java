@@ -2,19 +2,19 @@ package com.logistics.vehiclemanagement.VO;
 
 import java.util.List;
 
-import com.logistics.domain.vehicle;
+import com.logistics.vehiclemanagement.DTO.VehicleDTO;
 
 /**
  * 车辆查询分页功能
  * 
- * @author Administrator
+ * @author LMJ
  *
  */
-public class vehicleVO {
+public class VehicleVO {
 	/**
-	 * 生成list集合
+	 * 车辆信息list列表
 	 */
-	private List<vehicle> listvehicle;
+	private List<VehicleDTO> listVehicleDTO;
 	/**
 	 * 需要显示的页码
 	 */
@@ -56,13 +56,17 @@ public class vehicleVO {
 	 * 根据所属车队筛选
 	 */
 	private String team;
+	/**
+	 * 根据id批量删除
+	 */
+	private String idList;
 
-	public List<vehicle> getListvehicle() {
-		return listvehicle;
+	public List<VehicleDTO> getListVehicleDTO() {
+		return listVehicleDTO;
 	}
 
-	public void setListvehicle(List<vehicle> listvehicle) {
-		this.listvehicle = listvehicle;
+	public void setListVehicleDTO(List<VehicleDTO> listVehicleDTO) {
+		this.listVehicleDTO = listVehicleDTO;
 	}
 
 	public int getPageIndex() {
@@ -145,12 +149,20 @@ public class vehicleVO {
 		this.team = team;
 	}
 
+	public String getIdList() {
+		return idList;
+	}
+
+	public void setIdList(String idList) {
+		this.idList = idList;
+	}
+
 	@Override
 	public String toString() {
-		return "vehicleVO [listvehicle=" + listvehicle + ", pageIndex=" + pageIndex + ", totalRecords=" + totalRecords
-				+ ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", HavePrePage=" + HavePrePage
-				+ ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state=" + state + ", unit=" + unit
-				+ ", team=" + team + "]";
+		return "vehicleVO [listVehicleDTO=" + listVehicleDTO + ", pageIndex=" + pageIndex + ", totalRecords="
+				+ totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", HavePrePage="
+				+ HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state=" + state + ", unit="
+				+ unit + ", team=" + team + ", idList=" + idList + "]";
 	}
 
 }

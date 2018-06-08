@@ -79,11 +79,11 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	/**
 	 * 车辆信息表
 	 */
-	private vehicle vehicleinfo;
+	private vehicle vehicleInfo;
 	/**
 	 * 车辆信息VO
 	 */
-	private vehicleVO vehicleinfoVO;
+	private VehicleVO vehicleInfoVO;
 	/**
 	 * 模糊查询关键字
 	 */
@@ -104,6 +104,26 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 分页首页
 	 */
 	private int page = 1;
+	/**
+	 * 根据id批量删除
+	 */
+	private String idList = "";
+	
+	public vehicle getVehicleInfo() {
+		return vehicleInfo;
+	}
+
+	public void setVehicleInfo(vehicle vehicleInfo) {
+		this.vehicleInfo = vehicleInfo;
+	}
+
+	public VehicleVO getVehicleInfoVO() {
+		return vehicleInfoVO;
+	}
+
+	public void setVehicleInfoVO(VehicleVO vehicleInfoVO) {
+		this.vehicleInfoVO = vehicleInfoVO;
+	}
 
 	public String getSearch() {
 		return search;
@@ -145,25 +165,20 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		this.page = page;
 	}
 
-	public vehicle getVehicleinfo() {
-		return vehicleinfo;
+	public String getIdList() {
+		return idList;
 	}
 
-	public void setVehicleinfo(vehicle vehicleinfo) {
-		this.vehicleinfo = vehicleinfo;
+	public void setIdList(String idList) {
+		this.idList = idList;
 	}
-
-	public vehicleVO getVehicleinfoVO() {
-		return vehicleinfoVO;
-	}
-
-	public void setVehicleinfoVO(vehicleVO vehicleinfoVO) {
-		this.vehicleinfoVO = vehicleinfoVO;
-	}
-
 	/**
 	 * 结束使用域模型
 	 */
+
+	
+	
+	
 
 	/**
 	 * 添加车辆
@@ -174,12 +189,15 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	public void addVehicle() throws IOException {
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		/**
+		 *  格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 
 		response.setContentType("text/html;charset=utf-8");
 
-		response.getWriter().write("" + vehicleManagementService.addVehicle(vehicleinfo));
+		response.getWriter().write("" + vehicleManagementService.addVehicle(vehicleInfo));
 	}
 
 	/**
@@ -189,18 +207,24 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void queryVehicle() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		/**
+		 *  格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 
-		vehicleVO vehicleinfoVO = new vehicleVO();
-		vehicleinfoVO.setPageIndex(page);
-		vehicleinfoVO.setSearch(search);
-		vehicleinfoVO.setState(state);
-		vehicleinfoVO.setUnit(unit);
-		vehicleinfoVO.setTeam(team);
-		vehicleinfoVO = vehicleManagementService.queryVehicle(vehicleinfoVO);
-		response.getWriter().write("" + vehicleinfoVO);
+		/**
+		 * 将从前台传回来的数据放入VO中进行传输
+		 */
+		VehicleVO vehicleInfoVO = new VehicleVO();
+		vehicleInfoVO.setPageIndex(page);
+		vehicleInfoVO.setSearch(search);
+		vehicleInfoVO.setState(state);
+		vehicleInfoVO.setUnit(unit);
+		vehicleInfoVO.setTeam(team);
+		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
+		response.getWriter().write("" + vehicleInfoVO);
 	}
 
 	/**
@@ -210,10 +234,25 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateVehicle() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		/**
+		 *  格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 
-		response.getWriter().write("" + vehicleManagementService.updateVehicle(vehicleinfo));
+		response.getWriter().write("" + vehicleManagementService.updateVehicle(vehicleInfo));
+	}
+	
+	/**
+	 * 批量删除车辆
+	 */
+	public void deleteVehicle(){
+		/**
+		 * 将从前台传回来的数据放入VO中传输
+		 */
+		VehicleVO vehicleInfoVO = new VehicleVO();
+		vehicleInfoVO.setIdList(idList);
+		vehicleManagementService.deleteVehicle(vehicleInfoVO);
 	}
 }
