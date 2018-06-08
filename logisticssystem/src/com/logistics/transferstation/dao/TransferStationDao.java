@@ -57,7 +57,7 @@ public interface TransferStationDao {
 	 * @return
 	 */
 	/**
-	 * 根据Id查询车辆
+	 * 根据Id查询中转站
 	 * @param unitId
 	 * @return
 	 */

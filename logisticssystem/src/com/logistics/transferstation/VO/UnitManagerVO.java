@@ -8,12 +8,13 @@ package com.logistics.transferstation.VO;
 import java.util.List;
 
 import com.logistics.domain.unit;
+import com.logistics.transferstation.DTO.UnitManagerDTO;
 
 public class UnitManagerVO {
 	/**
 	 * 生成list集合
 	 */
-	private List<unit> listunit;
+	private List<UnitManagerDTO> listUnitManagerDTO;
 	private int totalRecords = 0;
 
 	private String state;
@@ -64,11 +65,12 @@ public class UnitManagerVO {
 	}
 	private boolean havePrePage = false;
 	private boolean haveNextPage = false;
-	public List<unit> getListunit() {
-		return listunit;
+	
+	public List<UnitManagerDTO> getListUnitManagerDTO() {
+		return listUnitManagerDTO;
 	}
-	public void setListunit(List<unit> listunit) {
-		this.listunit = listunit;
+	public void setListUnitManagerDTO(List<UnitManagerDTO> listUnitManagerDTO) {
+		this.listUnitManagerDTO = listUnitManagerDTO;
 	}
 	public int getTotalRecords() {
 		return totalRecords;
@@ -108,8 +110,8 @@ public class UnitManagerVO {
 	}
 	@Override
 	public String toString() {
-		return "UnitManagerVO [listunit=" + listunit + ", totalRecords=" + totalRecords + ", state=" + state
-				+ ", address=" + address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex="
+		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", totalRecords=" + totalRecords + ", state="
+				+ state + ", address=" + address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex="
 				+ pageIndex + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", search=" + search
 				+ ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage + "]";
 	}

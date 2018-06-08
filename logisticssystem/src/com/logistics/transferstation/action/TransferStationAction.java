@@ -209,7 +209,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		listUnitManagerDTO = transferStationService.getUnitManagerDTO();
 		unitManagerVO = new UnitManagerVO();
 		unitManagerVO.setSearch(search);
 		unitManagerVO.setNum(num);

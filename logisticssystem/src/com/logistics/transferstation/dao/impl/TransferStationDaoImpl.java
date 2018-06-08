@@ -70,7 +70,6 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		session.clear();
 		return list;
 	}
-
 	/**
 	 * 获取对象总数量
 	 * 

@@ -3,6 +3,7 @@ package com.logistics.transferstation.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
@@ -19,6 +20,9 @@ import util.TimeUtil;
  *
  */
 public class TransferStationServiceImpl implements TransferStationService {
+	/**
+	 * 注入DAO层
+	 */
 	private TransferStationDao transferStationDao;
 
 	public void setTransferStationDao(TransferStationDao transferStationDao) {
@@ -95,7 +99,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 	@Override
 	public UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO) {
-		List<unit> listunit = new ArrayList<>();
+		List<UnitManagerDTO> listUnitManagerDTO = new ArrayList<>();
 		String transferStationCountHql = "select count(*) from unit where ";
 		String listTransferStationHql = "from unit where ";
 		/**
@@ -168,18 +172,33 @@ public class TransferStationServiceImpl implements TransferStationService {
 		} else {
 			transferStationVO.setHaveNextPage(true);
 		}
+		listUnitManagerDTO = (List<UnitManagerDTO>) transferStationDao.queryForPage(transferStationCountHql,
+				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
+		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
 		return transferStationVO;
 	}
+
 	/**
 	 * DTO
 	 */
-	
-	public List<UnitManagerDTO> getUnitManagerDTO() {
+
+	public UnitManagerDTO getUnitManagerDTO(String unit_id) {
+		if (unit_id == null || unit_id.trim().length() <= 0) {
+			return null;
+		}
+		/**
+		 * new一个DTO
+		 */
+		UnitManagerDTO unitManagerDTO = new UnitManagerDTO();
+		staff_basicinfo unit_creator = new staff_basicinfo ();
+		staff_basicinfo news_NewsInfo = new staff_basicinfo();
 		
 		
 		return null;
+		
+		
+		
 	}
-
 	
 
 }

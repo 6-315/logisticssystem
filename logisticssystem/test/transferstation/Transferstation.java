@@ -47,7 +47,6 @@ public class Transferstation {
 		transferStationService.addTransferStation(transferStation);
 		System.out.println("2222222"+transferStation);
 		
-		
 	}
 	/**
 	 * 删除测试
