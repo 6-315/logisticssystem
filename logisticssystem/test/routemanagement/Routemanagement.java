@@ -74,17 +74,20 @@ public class Routemanagement {
 	 */
 	@Test
 	public void getRouteManager() {
-		RouteManagerVO routeManagerVO = new RouteManagerVO();
-		System.out.println(routeManagementService.getRouteManagerVO(routeManagerVO).getTotalPages());
-		System.out.println(routeManagementService.getRouteManagerVO(routeManagerVO).getTotalRecords());
-		System.out.println("--------------------------------------");
-		System.out.println(routeManagementService.getRouteManagerVO(routeManagerVO).getListRouteManagerDTO().get(0));
+		RouteManagerVO routManagerVO = new RouteManagerVO();
+		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
+		System.out.println("给爸爸来/1"+routManagerVO);
 	}
 	/**
 	 * 各种根据搜索
 	 */
 	@Test
 	public void searchForm(){
-		String search="1";
+		String search="2";
+		RouteManagerVO routManagerVO = new RouteManagerVO();		
+		routManagerVO.setSearch(search);
+		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
+		System.out.println(routManagerVO);
+		
 	}
 }

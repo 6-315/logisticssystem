@@ -163,7 +163,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 */
 	public void getRouteManagerVO() {
 		// 使用VO拿到数据和分页
-		routManagerVO = new RouteManagerVO();
+		RouteManagerVO routManagerVO  =new RouteManagerVO();
 		routManagerVO.setPageIndex(page);
 		routManagerVO.setSearch(search);
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
