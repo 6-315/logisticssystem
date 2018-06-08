@@ -55,6 +55,19 @@ public class staff_basicinfo {
 	 * 修改时间
 	 */
 	private String staff_modifytime;
+	/**
+	 * 员工状态
+	 */
+	private String staff_state;
+	
+
+	public String getStaff_state() {
+		return staff_state;
+	}
+
+	public void setStaff_state(String staff_state) {
+		this.staff_state = staff_state;
+	}
 
 	public String getStaff_id() {
 		return staff_id;
@@ -158,7 +171,9 @@ public class staff_basicinfo {
 				+ ", staff_password=" + staff_password + ", staff_phonenumber=" + staff_phonenumber
 				+ ", staff_birthday=" + staff_birthday + ", staff_entrytime=" + staff_entrytime + ", staff_sex="
 				+ staff_sex + ", staff_position=" + staff_position + ", staff_unit=" + staff_unit
-				+ ", staff_createtime=" + staff_createtime + ", staff_modifytime=" + staff_modifytime + "]";
+				+ ", staff_createtime=" + staff_createtime + ", staff_modifytime=" + staff_modifytime + ", staff_state="
+				+ staff_state + "]";
 	}
 
+	
 }
