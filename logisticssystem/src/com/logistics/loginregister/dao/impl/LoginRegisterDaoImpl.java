@@ -10,9 +10,11 @@ import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.userinfo;
 import com.logistics.loginregister.dao.LoginRegisterDao;
+
 /**
  * 注册登陆DAO实现层
- * @author LW 
+ * 
+ * @author LW
  *
  */
 public class LoginRegisterDaoImpl implements LoginRegisterDao {
@@ -72,6 +74,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -88,6 +91,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -96,6 +100,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -107,15 +112,16 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 用户登陆判断
 	 */
 	@Override
 	public userinfo loginByUser(String username, String password) {
 		Session session = getSession();
-		String hql="from userinfo where userinfo_phonenumber='"+username+""
-				+ "'and userinfo_password ='"+password+"'";
-		Query query = session.createQuery(hql);	
+		String hql = "from userinfo where userinfo_phonenumber='" + username + "" + "'and userinfo_password ='"
+				+ password + "'";
+		Query query = session.createQuery(hql);
 		List<userinfo> listuserinfo = query.list();
 		if (listuserinfo != null && !listuserinfo.isEmpty()) {
 			return listuserinfo.get(0);
@@ -123,30 +129,51 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		return null;
 	}
 
+	/**
+	 * 员工登陆判断
+	 */
 	@Override
 	public staff_basicinfo loginByStaff(String username, String password) {
 		Session session = getSession();
-		String hql="from staff_basicinfo where staff_num='"+username+""
-				+ "'and staff_num ='"+password+"'";
-		Query query = session.createQuery(hql);	
+		String hql = "from staff_basicinfo where staff_num='" + username + "" + "'and staff_password ='" + password
+				+ "'";
+		Query query = session.createQuery(hql);
 		List<staff_basicinfo> liststaff_basicinfo = query.list();
 		if (liststaff_basicinfo != null && !liststaff_basicinfo.isEmpty()) {
 			return liststaff_basicinfo.get(0);
 		}
-		
+
 		return null;
 	}
 
+	/**
+	 * 查找员工表是否有此人
+	 */
 	@Override
-	public position getPosition(staff_basicinfo staffBasicinfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public staff_basicinfo getstaffById(String id) {
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
+		staffBasicinfo = (staff_basicinfo) query.uniqueResult();
+		System.out.println("OK");
+		return staffBasicinfo;
 	}
 
-
-
-
-
-
+	/**
+	 * 查找员工表是否有此人
+	 */
+	@Override
+	public staff_basicinfo getstaffBasicinfo(String staff_id) {
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		staffBasicinfo = (staff_basicinfo) query.uniqueResult();
+		System.out.println("OK");
+		return staffBasicinfo;
+	}
 
 }

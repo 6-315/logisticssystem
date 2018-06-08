@@ -59,7 +59,10 @@ public interface LoginRegisterDao {
 
 	public staff_basicinfo loginByStaff(String username, String password);
 
-	public position getPosition(staff_basicinfo staffBasicinfo);
+	public staff_basicinfo getstaffById(String id);
+
+	public staff_basicinfo getstaffBasicinfo(String staff_id);
+
 
 
 

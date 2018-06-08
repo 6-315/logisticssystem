@@ -1,5 +1,6 @@
 package com.logistics.loginregister.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.logistics.domain.userinfo;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.loginregister.service.LoginRegisterService;
@@ -72,13 +76,30 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	/**
 	 * 使用域模型
 	 */
-	private staff_basicinfo staff_basicinfo;
-	private userinfo userinfo;
+	private staff_basicinfo staffBasicinfo;
+	private userinfo userInfo;
 	private String username;
 	private String password;
 	private StaffManagerVO staffManagerVO;
 	private int pageIndex = 1;
 	private String search = "";
+	private String staffListIdS = "";
+
+	public String getStaffListIdS() {
+		return staffListIdS;
+	}
+
+	public staff_basicinfo getStaff_basicinfo() {
+		return staffBasicinfo;
+	}
+
+	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
+		this.staffBasicinfo = staff_basicinfo;
+	}
+
+	public void setStaffListIdS(String staffListIdS) {
+		this.staffListIdS = staffListIdS;
+	}
 
 	public StaffManagerVO getStaffManagerVO() {
 		return staffManagerVO;
@@ -121,26 +142,37 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	public userinfo getUserinfo() {
-		return userinfo;
+		return userInfo;
 	}
 
 	public void setUserinfo(userinfo userinfo) {
-		this.userinfo = userinfo;
+		this.userInfo = userinfo;
 	}
 
 	/**
 	 * 注册方法
+	 * 
+	 * @throws IOException
 	 */
-	public void register() {
-		loginRegisterService.addUserifo(userinfo);
+	public void register() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 
 	}
 
 	/**
 	 * 登陆方法
+	 * 
+	 * @throws IOException
 	 */
-	public void login() {
+	public void login() throws IOException {
 		// 判断username是那一张表
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
 		List<userinfo> listuserInfo = new ArrayList<>();
 		List<staff_basicinfo> liststaff_basicinfo = new ArrayList<>();
 		listuserInfo = loginRegisterService.getSize(username);
@@ -149,6 +181,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			userinfo userinfo_session = loginRegisterService.loginByUser(username, password);
 			if (userinfo_session != null) {
 				request.getSession().setAttribute("userinfo_session", userinfo_session);
+				response.getWriter().write("" + userinfo_session);
 				System.out.println("成功！");
 			}
 		}
@@ -156,6 +189,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			staff_basicinfo staff_session = loginRegisterService.loginByStaff(username, password);
 			if (staff_session != null) {
 				request.getSession().setAttribute("staff_session", staff_session);
+				response.getWriter().write("" + staff_session);
 			}
 		}
 		System.out.println("失败");
@@ -163,23 +197,125 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 
 	/**
 	 * 人事管理方法，查询1、工号 2、姓名 3、联系方式 4、入职时间 5、职位 6、所属单位7、状态
+	 * 
+	 * @throws IOException
 	 */
-	public void staffManager() {
+	public void staffManager() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
 		staffManagerVO = new StaffManagerVO();
 		staffManagerVO.setPageIndex(pageIndex);
 		staffManagerVO.setSearch(search);
-		staffManagerVO = loginRegisterService.getStaffManagerVO(staffManagerVO);
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc1".equals(staffBasicinfo.getStaff_position())) {
+			staffManagerVO = loginRegisterService.getStaffManagerVO(staffManagerVO);
+		} else {
+			staffManagerVO = loginRegisterService.getStaffManagerVOByZ(staffManagerVO, staffBasicinfo);
+		}
+		response.getWriter().write("" + staffManagerVO);
+	}
+
+	/**
+	 * 获取自身职位以下的所有单位
+	 * 
+	 * @throws IOException
+	 */
+	public void lowerUnit() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		List<unit> listUnit = new ArrayList<>();
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		listUnit = loginRegisterService.getLowerUnit(staffBasicinfo);
+		response.getWriter().write("" + listUnit);
 
 	}
 
 	/**
-	 * 获取自身职位以下的所有职位
+	 * 获取自身职位一下的所有职位
+	 * 
+	 * @throws IOException
 	 */
-	public void getLowerPosition() {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		List<unit> listunit  = new ArrayList<>();
+	public void lowerPosition() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		List<position> listPosition = new ArrayList<>();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		listunit = loginRegisterService.getLowerUnit(staffBasicinfo);
+		listPosition = loginRegisterService.getLowerPosition(staffBasicinfo);
+		response.getWriter().write("" + listPosition);
+	}
+
+	/**
+	 * 删除员工信息循环删除，因为可全选
+	 * 
+	 * @throws IOException
+	 */
+	public void deleteListStaff() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + loginRegisterService.deleteListStaff(staffListIdS));
+	}
+
+	/**
+	 * 修改员工单位
+	 * 
+	 * @throws IOException
+	 */
+	public void updateStaffUnit() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + loginRegisterService.updateStaffUnit(staffBasicinfo));
+	}
+
+	/**
+	 * 就该员工职位
+	 * 
+	 * @throws IOException
+	 */
+	public void updateStaffPosition() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + loginRegisterService.updateStaffPosition(staffBasicinfo));
 
 	}
+
+	/**
+	 * 修改员工状态
+	 */
+	public void updateStaffState() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + loginRegisterService.updateStaffState(staffBasicinfo));
+	}
+
+	/**
+	 * 添加员工
+	 * 
+	 * @throws IOException
+	 */
+	public void addStaff() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + loginRegisterService.addStaff(staffBasicinfo));
+
+	}
+
 }

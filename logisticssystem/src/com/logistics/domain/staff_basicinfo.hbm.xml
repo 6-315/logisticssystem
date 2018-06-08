@@ -41,5 +41,8 @@
         <property name="staff_modifytime" type="java.lang.String">
             <column name="staff_modifytime" />
         </property>
+           <property name="staff_state" type="java.lang.String">
+            <column name="staff_state" />
+        </property>
     </class>
 </hibernate-mapping>

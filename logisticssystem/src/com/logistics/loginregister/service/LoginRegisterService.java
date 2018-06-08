@@ -2,6 +2,7 @@ package com.logistics.loginregister.service;
 
 import java.util.List;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.domain.userinfo;
@@ -19,7 +20,7 @@ public interface LoginRegisterService {
 	 * 
 	 * @param userinfo
 	 */
-	void addUserifo(userinfo userinfo);
+	String addUserifo(userinfo userinfo);
 
 	/**
 	 * 用户登陆接口
@@ -46,4 +47,20 @@ public interface LoginRegisterService {
 	StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO);
 
 	List<unit> getLowerUnit(staff_basicinfo staffBasicinfo);
+
+	List<position> getLowerPosition(staff_basicinfo staffBasicinfo);
+
+	String deleteListStaff(String staffListIdS);
+
+	String updateStaffUnit(staff_basicinfo staffBasicinfo);
+
+	String updateStaffPosition(staff_basicinfo staffBasicinfo);
+
+	String updateStaffState(staff_basicinfo staffBasicinfo);
+
+	String addStaff(staff_basicinfo staffBasicinfo);
+
+	StaffManagerVO getStaffManagerVOByZ(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo);
+
+
 }
