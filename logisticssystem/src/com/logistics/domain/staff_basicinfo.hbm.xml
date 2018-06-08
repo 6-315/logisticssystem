@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2018-6-7 0:20:54 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 2018-6-7 18:53:30 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.logistics.domain.staff_basicinfo" table="STAFF_BASICINFO">
         <id name="staff_id" type="java.lang.String">
@@ -13,6 +13,9 @@
         </property>
         <property name="staff_name" type="java.lang.String">
             <column name="staff_name" />
+        </property>
+        <property name="staff_password" type="java.lang.String">
+            <column name="staff_password" />
         </property>
         <property name="staff_phonenumber" type="java.lang.String">
             <column name="staff_phonenumber" />
@@ -37,6 +40,9 @@
         </property>
         <property name="staff_modifytime" type="java.lang.String">
             <column name="staff_modifytime" />
+        </property>
+           <property name="staff_state" type="java.lang.String">
+            <column name="staff_state" />
         </property>
     </class>
 </hibernate-mapping>

@@ -6,6 +6,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
+import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 
 /**
@@ -108,6 +112,63 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据ID查询车辆信息
+	 */
+	@Override
+	public vehicle getVehicleInfoById(String vehicleId) {
+		vehicle vehicleInfo = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicleId);
+		vehicleInfo = (vehicle) query.uniqueResult();
+		return vehicleInfo;
+	}
+
+	/**
+	 * 根据ID查询员工信息
+	 */
+	@Override
+	public staff_basicinfo getStaffInfoById(String vehicle_acquisitionpeople) {
+		staff_basicinfo staff_BasicInfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_acquisitionpeople);
+		staff_BasicInfo = (staff_basicinfo) query.uniqueResult();
+		return staff_BasicInfo;
+	}
+
+	/**
+	 * 根据ID查询单位信息
+	 */
+	@Override
+	public unit getUnitInfoById(String vehicle_unit) {
+		unit unitInfo = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_unit);
+		unitInfo = (unit) query.uniqueResult();
+		return unitInfo;
+	}
+
+
+	/**
+	 * 根据ID查询车队信息
+	 */
+	@Override
+	public team getTeamInfoById(String vehicle_team) {
+		team vehicleTeam = new team();
+		Session session = getSession();
+		String hql = "from team where team_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_team);
+		vehicleTeam = (team) query.uniqueResult();
+		return vehicleTeam;
 	}
 
 }

@@ -2,6 +2,10 @@ package com.logistics.loginregister.dao;
 
 import java.util.List;
 
+import com.logistics.domain.position;
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.userinfo;
+
 /**
  * 注册登陆的DAO接口层
  * 
@@ -50,6 +54,13 @@ public interface LoginRegisterDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	public userinfo loginByUser(String username, String password);
+
+	public staff_basicinfo loginByStaff(String username, String password);
+
+
+
 
 	/**
 	 * 
