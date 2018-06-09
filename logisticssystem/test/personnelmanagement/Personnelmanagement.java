@@ -98,10 +98,23 @@ public class Personnelmanagement {
 	public void getPeopleByZ() {
 		StaffManagerVO staffManagerVO = new StaffManagerVO();
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		staffBasicInfo.setStaff_id("2");
+		//staffBasicInfo.setStaff_id("2");
 		staffBasicInfo.setStaff_unit("2");
+		//staffManagerVO.setBelongUnit(" ");
 		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
 		System.out.println("这是什么？："+staffManagerVO);
 	}
+	@Test
+	public void getPeopleByP(){
+		StaffManagerVO staffManagerVO = new StaffManagerVO();
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("2");
+		staffBasicInfo.setStaff_unit("4");
+		staffManagerVO.setPosition("3");
+		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
+		System.out.println("给爸爸出来！:"+staffManagerVO);
+		
+	}
+	
 	
 }

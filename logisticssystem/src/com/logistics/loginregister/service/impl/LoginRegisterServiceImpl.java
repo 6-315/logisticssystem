@@ -44,7 +44,6 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
 			userInfo.setUserinfo_modify(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);
-
 			System.out.println("成功");
 			return "成功";
 		} else {
@@ -90,10 +89,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		return listSta;
 	}
 
-	/**
-	 * 总公司能能查看所有的人
-	 * 
-	 */
+
 	
 
 }

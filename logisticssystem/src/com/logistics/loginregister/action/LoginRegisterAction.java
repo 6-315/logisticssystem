@@ -132,7 +132,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 	}
-
 	/**
 	 * 登陆方法
 	 * 
