@@ -32,6 +32,9 @@
         <property name="staff_position" type="java.lang.String">
             <column name="staff_position" />
         </property>
+         <property name="staff_team" type="java.lang.String">
+            <column name="staff_team" />
+        </property>
         <property name="staff_unit" type="java.lang.String">
             <column name="staff_unit" />
         </property>

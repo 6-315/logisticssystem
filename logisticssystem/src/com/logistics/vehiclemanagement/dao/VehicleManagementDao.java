@@ -83,6 +83,13 @@ public interface VehicleManagementDao {
 	public team getTeamInfoById(String vehicle_team);
 
 	/**
+	 * 根据车牌号查询车辆信息
+	 * @param vehicle_platenum
+	 * @return
+	 */
+	public vehicle getVehicleInfoByPlateNumber(String vehicle_platenum);
+
+	/**
 	 * 
 	 * @param trim
 	 * @return

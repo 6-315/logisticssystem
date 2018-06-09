@@ -8,11 +8,14 @@
             <column name="team_id" />
             <generator class="assigned" />
         </id>
-        <property name="tean_num" type="java.lang.String">
-            <column name="tean_num" />
+        <property name="team_num" type="java.lang.String">
+            <column name="team_num" />
         </property>
         <property name="team_leader" type="java.lang.String">
             <column name="team_leader" />
+        </property>
+        <property name="team_unit" type="java.lang.String">
+            <column name="team_unit" />
         </property>
         <property name="team_createtime" type="java.lang.String">
             <column name="team_createtime" />
