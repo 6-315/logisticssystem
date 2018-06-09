@@ -263,7 +263,25 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 更新所需要更新的属性
 		 */
-		updateVehicleInfo.setVehicle_num(vehicleInfo.getVehicle_num());
+		if(vehicleInfo.getVehicle_num() != null && vehicleInfo.getVehicle_num().trim().length()>0) {
+			updateVehicleInfo.setVehicle_num(vehicleInfo.getVehicle_num());
+		}
+		if(vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length()>0) {
+			updateVehicleInfo.setVehicle_platenum(vehicleInfo.getVehicle_platenum());
+		}
+		if(vehicleInfo.getVehicle_state() != null && vehicleInfo.getVehicle_state().trim().length()>0) {
+			updateVehicleInfo.setVehicle_state(vehicleInfo.getVehicle_state());
+		}
+		if(vehicleInfo.getVehicle_unit() != null && vehicleInfo.getVehicle_unit().trim().length()>0) {
+			updateVehicleInfo.setVehicle_unit(vehicleInfo.getVehicle_unit());
+		}
+		if(vehicleInfo.getVehicle_team() != null && vehicleInfo.getVehicle_team().trim().length()>0) {
+			updateVehicleInfo.setVehicle_team(vehicleInfo.getVehicle_team());
+		}
+		if(vehicleInfo.getVehicle_mark() != null && vehicleInfo.getVehicle_mark().trim().length()>0) {
+			updateVehicleInfo.setVehicle_mark(vehicleInfo.getVehicle_mark());
+		}
+		updateVehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
 		/**
 		 * 保存更新
 		 */

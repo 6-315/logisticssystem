@@ -37,14 +37,14 @@ public class Vehiclemanagement {
 	@Test
 	public void addTest() {
 		vehicle vehicleInfo = new vehicle();
-		vehicleInfo.setVehicle_platenum("渝G-A9568");
-		vehicleInfo.setVehicle_num("1");
-		vehicleInfo.setVehicle_state("待分配");
+		vehicleInfo.setVehicle_platenum("渝G-A97Q8");
+		vehicleInfo.setVehicle_num("139");
+		vehicleInfo.setVehicle_state("保养中");
 		vehicleInfo.setVehicle_team("Note3");
 		vehicleInfo.setVehicle_unit("Note4");
 		vehicleInfo.setVehicle_acquisitionpeople("Admin");
 		vehicleManagementService.addVehicle(vehicleInfo);
-		System.out.println("+++test:" + vehicleInfo);
+		System.out.println("+++++++add:" + vehicleInfo);
 	}
 
 	/**
@@ -65,19 +65,21 @@ public class Vehiclemanagement {
 	@Test
 	public void updateTest() {
 		vehicle vehicleinfo = new vehicle();
-		vehicleinfo.setVehicle_id("af5b73b2-78e0-4471-a39b-9ab23c2b9d68");
-		vehicleinfo.setVehicle_num("998");
+		vehicleinfo.setVehicle_id("857b5726-0fe1-4683-8ede-01b4d41b3fd1");
+		vehicleinfo.setVehicle_num("9998");
+		vehicleinfo.setVehicle_mark("引擎故障，无法工作");
 		vehicleManagementService.updateVehicle(vehicleinfo);
+		System.out.println("++++++update:" + vehicleinfo);
 	}
-	
+
 	/**
 	 * 删除功能-测试
 	 */
 	@Test
 	public void deleteTest() {
-		String ids = "ea0d6851-0349-4326-9609-2e3b63eb2bab";
+		String idList = "ea0d6851-0349-4326-9609-2e3b63eb2bab";
 		VehicleVO vehicleInfoVO = new VehicleVO();
-		vehicleInfoVO.setIdList(ids);
+		vehicleInfoVO.setIdList(idList);
 		vehicleManagementService.deleteVehicle(vehicleInfoVO);
 	}
 }
