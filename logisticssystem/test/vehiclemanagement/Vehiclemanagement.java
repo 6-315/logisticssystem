@@ -37,7 +37,7 @@ public class Vehiclemanagement {
 	@Test
 	public void addVehicleTest() {
 		vehicle vehicleInfo = new vehicle();
-		vehicleInfo.setVehicle_platenum("渝G-A99A5");
+		vehicleInfo.setVehicle_platenum("");
 		vehicleInfo.setVehicle_num("139");
 		vehicleInfo.setVehicle_state("保养中");
 		vehicleInfo.setVehicle_team("Note3");
@@ -90,7 +90,6 @@ public class Vehiclemanagement {
 	public void addTeamTest() {
 		team teamInfo = new team();
 		teamInfo.setTeam_leader("123");
-		teamInfo.setTeam_num("929");
 		teamInfo.setTeam_unit("Note4");
 		teamInfo.setTeam_state("Perfect");
 		vehicleManagementService.addTeam(teamInfo);
@@ -112,8 +111,8 @@ public class Vehiclemanagement {
 	@Test
 	public void updateTeamTest() {
 		team teamInfo = new team();
-		teamInfo.setTeam_id("b0f41b73-d4c8-4e06-a48a-958f056dfc83");
-		teamInfo.setTeam_num("51849");
+		teamInfo.setTeam_id("a50c6460-7938-4984-a862-1cb598301615");
+		teamInfo.setTeam_state("空闲");
 		vehicleManagementService.updateTeam(teamInfo);
 	}
 	/**
@@ -121,7 +120,7 @@ public class Vehiclemanagement {
 	 */
 	@Test
 	public void deleteTeamTest() {
-		String idList = "509435ae-5991-431f-b5e7-b72d41eb3d92,b0f41b73-d4c8-4e06-a48a-958f056dfc83";
+		String idList = "509435ae-5991-431f-b5e7-b72d41eb3d92,a50c6460-7938-4984-a862-1cb598301615";
 		TeamVO teamInfoVO = new TeamVO();
 		teamInfoVO.setIdList(idList);
 		vehicleManagementService.deleteTeam(teamInfoVO);

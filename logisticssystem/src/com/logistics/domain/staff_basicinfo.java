@@ -43,9 +43,13 @@ public class staff_basicinfo {
 	 */
 	private String staff_position;
 	/**
-	 * 所属车队
+	 * 招募人
 	 */
-	private String staff_team;
+	private String staff_recruit;
+	/**
+	 * 直属上级
+	 */
+	private String staff_superiorleader;
 	/**
 	 * 所属单位
 	 */
@@ -135,12 +139,20 @@ public class staff_basicinfo {
 		this.staff_position = staff_position;
 	}
 
-	public String getStaff_team() {
-		return staff_team;
+	public String getStaff_recruit() {
+		return staff_recruit;
 	}
 
-	public void setStaff_team(String staff_team) {
-		this.staff_team = staff_team;
+	public void setStaff_recruit(String staff_recruit) {
+		this.staff_recruit = staff_recruit;
+	}
+
+	public String getStaff_superiorleader() {
+		return staff_superiorleader;
+	}
+
+	public void setStaff_superiorleader(String staff_superiorleader) {
+		this.staff_superiorleader = staff_superiorleader;
 	}
 
 	public String getStaff_unit() {
@@ -180,9 +192,10 @@ public class staff_basicinfo {
 		return "staff_basicinfo [staff_id=" + staff_id + ", staff_num=" + staff_num + ", staff_name=" + staff_name
 				+ ", staff_password=" + staff_password + ", staff_phonenumber=" + staff_phonenumber
 				+ ", staff_birthday=" + staff_birthday + ", staff_entrytime=" + staff_entrytime + ", staff_sex="
-				+ staff_sex + ", staff_position=" + staff_position + ", staff_team=" + staff_team + ", staff_unit="
-				+ staff_unit + ", staff_createtime=" + staff_createtime + ", staff_modifytime=" + staff_modifytime
-				+ ", staff_state=" + staff_state + "]";
+				+ staff_sex + ", staff_position=" + staff_position + ", staff_recruit=" + staff_recruit
+				+ ", staff_superiorleader=" + staff_superiorleader + ", staff_unit=" + staff_unit
+				+ ", staff_createtime=" + staff_createtime + ", staff_modifytime=" + staff_modifytime + ", staff_state="
+				+ staff_state + "]";
 	}
 
 }

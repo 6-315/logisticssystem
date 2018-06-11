@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 2018-6-7 18:53:30 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="com.logistics.domain.express_route" table="EXPRESS_ROUTE">
         <id name="express_route_id" type="java.lang.String">
@@ -10,6 +10,12 @@
         </id>
         <property name="express_route_belongexpress" type="java.lang.String">
             <column name="express_route_belongexpress" />
+        </property>
+        <property name="express_route_route_id" type="java.lang.String">
+            <column name="express_route_route_id" />
+        </property>
+        <property name="express_route_route_away" type="java.lang.String">
+            <column name="express_route_route_away" />
         </property>
         <property name="eexpress_route_state" type="java.lang.String">
             <column name="eexpress_route_state" />

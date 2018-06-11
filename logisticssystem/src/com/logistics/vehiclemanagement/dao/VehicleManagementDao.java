@@ -89,6 +89,8 @@ public interface VehicleManagementDao {
 	 */
 	public vehicle getVehicleInfoByPlateNumber(String vehicle_platenum);
 
+	public String getMaxNumber(String hql);
+
 	/**
 	 * 
 	 * @param trim

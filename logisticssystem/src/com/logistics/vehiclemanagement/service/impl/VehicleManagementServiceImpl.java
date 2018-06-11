@@ -15,6 +15,7 @@ import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 import util.BuildUuid;
+import util.CreateNumberUtil;
 import util.TimeUtil;
 
 /**
@@ -40,6 +41,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		if (vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length() > 0) {
 			vehicle queryVehicle = vehicleManagementDao.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
 			if (queryVehicle != null) {
+				System.out.println("该车牌号已经存在");
 				return -1;
 			} else {
 				/**
@@ -54,9 +56,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 * 完成添加功能
 				 */
 				vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+				System.out.println("添加成功");
 				return 1;
 			}
-		}else {
+		} else {
+			System.out.println("未获得车牌号");
 			return -1;
 		}
 
@@ -302,17 +306,17 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			 * 保存更新
 			 */
 			vehicleManagementDao.saveOrUpdateObject(updateVehicleInfo);
-			return 1;
+			System.out.println("更新成功");
 		} else {
-			return -1;
+			System.out.println("更新失败");
 		}
-
+		return 0;
 	}
 
 	/**
 	 * 批量删除车辆
 	 * 
-	 * @return
+	 * @return success 代表成功
 	 */
 	@Override
 	public String deleteVehicle(VehicleVO vehicleInfoVO) {
@@ -330,9 +334,12 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(id);
 			if (vehicleInfo != null) {
 				vehicleManagementDao.removeObject(vehicleInfo);
+				System.out.println("删除成功");
+			} else {
+				System.out.println("该数据不存在！");
 			}
 		}
-		return "success";
+		return "s";
 	}
 
 	/**
@@ -340,10 +347,19 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@Override
 	public String addTeam(team teamInfo) {
+		String hql = " select max(team_num) from team ";
+		String number = vehicleManagementDao.getMaxNumber(hql);
+		if (number != null && number.trim().length() > 0) {
+			teamInfo.setTeam_num(number + 0001);
+		} else {
+			teamInfo.setTeam_num("0001");
+		}
+
 		teamInfo.setTeam_id(BuildUuid.getUuid());
 		teamInfo.setTeam_createtime(TimeUtil.getStringSecond());
 		teamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
 		vehicleManagementDao.saveOrUpdateObject(teamInfo);
+		System.out.println("添加成功");
 		return "success";
 	}
 
@@ -369,11 +385,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			}
 			updateTeamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
 			vehicleManagementDao.saveOrUpdateObject(updateTeamInfo);
-			return "success";
+			System.out.println("更新成功");
 		} else {
-			return "error";
+			System.out.println("更新失败");
 		}
-
+		return "s";
 	}
 
 	/**
@@ -395,9 +411,12 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			team teamInfo = vehicleManagementDao.getTeamInfoById(id);
 			if (teamInfo != null) {
 				vehicleManagementDao.removeObject(teamInfo);
+				System.out.println("删除成功");
+			} else {
+				System.out.println("该数据不存在");
 			}
 		}
-		return "success";
+		return "s";
 	}
 
 	/**
@@ -513,9 +532,9 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			/**
 			 * 查询所有队员信息
 			 */
-			String staffBelongTeam = team.getTeam_id();
+			String staffBelongTeam = team.getTeam_leader();
 			List<staff_basicinfo> teamMember = (List<staff_basicinfo>) vehicleManagementDao
-					.listObject(" from staff_basicinfo where staff_team = '" + staffBelongTeam + "' ");
+					.listObject(" from staff_basicinfo where staff_superiorleader = '" + staffBelongTeam + "' ");
 			if (teamMember != null) {
 				teamDTO.setStaff_TeamMember(teamMember);
 			}

@@ -185,4 +185,12 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		return vehicleInfo;
 	}
 
+	@Override
+	public String getMaxNumber(String hql) {
+		Session session = getSession();
+		Query query = session.createQuery(hql);
+		String number = (String) query.uniqueResult();
+		return number;
+	}
+
 }
