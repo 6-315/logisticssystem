@@ -15,7 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 路线管理action
- * 
+ *  
  * @author LW
  *
  */
@@ -130,6 +130,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 * 增加路线
 	 */
 	public void addRoute() {
+		
 		routeManagementService.addRout(rout);
 
 	}

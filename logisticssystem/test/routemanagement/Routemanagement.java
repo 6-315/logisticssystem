@@ -75,19 +75,10 @@ public class Routemanagement {
 	@Test
 	public void getRouteManager() {
 		RouteManagerVO routManagerVO = new RouteManagerVO();
+		routManagerVO.setStartUnit("111");
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		System.out.println("给爸爸来/1"+routManagerVO);
 	}
-	/**
-	 * 各种根据搜索
-	 */
-	@Test
-	public void searchForm(){
-		String search="2";
-		RouteManagerVO routManagerVO = new RouteManagerVO();		
-		routManagerVO.setSearch(search);
-		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
-		System.out.println(routManagerVO);
-		
-	}
+
+
 }
