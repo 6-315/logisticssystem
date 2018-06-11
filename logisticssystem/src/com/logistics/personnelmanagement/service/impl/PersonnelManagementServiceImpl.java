@@ -34,7 +34,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		List<unit> listUnit = new ArrayList<>();
 		List<staff_basicinfo> listStaff = new ArrayList<>();
 		String number = "select count(*) from staff_basicinfo where 1=1 ";
-		String table = "from staff_basicinfo";
+		String table = "from staff_basicinfo where1=1";
 		// 在这里添加查找，然后变成高亮
 		if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
 			String search = "%" + staffManagerVO.getSearch() + "%";
@@ -101,139 +101,157 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	}
 
 	/**
-	 * 中转站管理员或者配送点管理员能所有员工信息
+	 * 中转站管理员或者配送点管理员能所有员工信息,给爸爸出来
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public StaffManagerVO getStaffManagerVOByTransfer(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo) {
-		List<StaffManagerDTO> listStaffManagerDTO = new ArrayList<>();
-		List<unit> listUnit = new ArrayList<>();
-		List<staff_basicinfo> listStaff = new ArrayList<>();
 		String number = "";
 		String table = "";
-		if (staffManagerVO.getBelongUnit() != null) {
-			number = "select count(*) from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
-			table = "from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
-
-		}else {
-		number = "select count(*) from staff_basicinfo where staff_unit = '" + staffBasicinfo.getStaff_unit() + "'";
-		table = "from staff_basicinfo where staff_unit = '" + staffBasicinfo.getStaff_unit() + "'";
-		
-		}// 在这里添加查找，然后变成高亮
-		if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
-			String search = "%" + staffManagerVO.getSearch() + "%";
-			number = number + " and staff_num like '" + search + "' ";
-			number = number + " and staff_name like '" + search + "' ";
-			table = table + " and staff_num like '" + search + "'";
-			table = table + " and staff_name like '" + search + "'";
-		}
-		if (staffManagerVO.getPosition() != null && staffManagerVO.getPosition().trim().length() > 0) {
-			String position = staffManagerVO.getPosition();
-			number = number + " and staff_position  '" + position + "' ";
-			table = table + " and staff_position '" + position + "'";
-		}
-		/*
-		 * if (staffManagerVO.getBelongUnit() != null &&
-		 * staffManagerVO.getBelongUnit().trim().length() > 0) { String belongUnit =
-		 * staffManagerVO.getBelongUnit(); number = number + " and staff_unit like '" +
-		 * belongUnit + "' "; table = table + " and staff_unit like '" + belongUnit +
-		 * "'"; }
-		 */
-		System.out.println("________:" + table);
-		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
-		table = table + " order by staff_modifytime desc";
-		int userInfoCount = personnelManagementDao.getCount(number);
-		// 设置总数量
-		staffManagerVO.setTotalRecords(userInfoCount);
-		// 设置总页数
-		staffManagerVO.setTotalPages(((userInfoCount - 1) / staffManagerVO.getPageSize()) + 1);
-		// 判断是否拥有上一页
-		if (staffManagerVO.getPageIndex() <= 1) {
-			staffManagerVO.setHavePrePage(false);
-		} else {
-			staffManagerVO.setHavePrePage(true);
-		}
-		// 判断是否拥有下一页
-		if (staffManagerVO.getPageIndex() >= staffManagerVO.getTotalPages()) {
-			staffManagerVO.setHaveNextPage(false);
-		} else {
-			staffManagerVO.setHaveNextPage(true);
-		}
-		listStaff = (List<staff_basicinfo>) personnelManagementDao.queryForPage(table, staffManagerVO.getPageIndex(),
-				staffManagerVO.getPageSize());
-		/**
-		 * 遍历所有人查他所在的单位
-		 */
-		for (staff_basicinfo staff_basicinfo : listStaff) {
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
+				&& staffBasicinfo.getStaff_position() != null
+				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
+			position positionNew = new position();
+			List<StaffManagerDTO> listStaffManagerDTO = new ArrayList<>();
+			List<unit> listUnit = new ArrayList<>();
+			List<staff_basicinfo> listStaff = new ArrayList<>();
+			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
+			System.out.println("cao:"+positionNew.getPosition_name());
+			System.out.println("asdasdasdasdsa");
+			if (positionNew != null) {
+				if ("总公司".equals(positionNew.getPosition_name())) {
+					System.out.println("我是总公司");
+					number = "select count(*) from staff_basicinfo where 1 = 1 ";
+					table = "from staff_basicinfo where 1=1";
+				}
+				if ("中转站管理员".equals(positionNew.getPosition_name())
+						||"配送点管理员".equals(positionNew.getPosition_name())) {
+					System.out.println("我是中转站或者配点");
+					if (staffManagerVO.getBelongUnit() != null) {
+						number = "select count(*) from staff_basicinfo where staff_unit = '"
+								+ staffManagerVO.getBelongUnit() + "'";
+						table = "from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
+					} else {
+						number = "select count(*) from staff_basicinfo where staff_unit = '"
+								+ staffBasicinfo.getStaff_unit() + "'";
+						table = "from staff_basicinfo where  staff_unit = '" + staffBasicinfo.getStaff_unit() + "'";
+					}
+				}
+			} // 在这里添加查找，然后变成高亮
+			if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
+				String search = "%" + staffManagerVO.getSearch() + "%";
+				number = number + " and staff_num like '" + search + "' ";
+				number = number + " and staff_name like '" + search + "' ";
+				table = table + " and staff_num like '" + search + "'";
+				table = table + " and staff_name like '" + search + "'";
+			}
+			if (staffManagerVO.getPosition() != null && staffManagerVO.getPosition().trim().length() > 0) {
+				String position = staffManagerVO.getPosition();
+				number = number + " and staff_position  '" + position + "' ";
+				table = table + " and staff_position '" + position + "'";
+			}
+			if (positionNew.getPosition_name() != "中转站管理员" && staffManagerVO.getBelongUnit() != null
+					&& staffManagerVO.getBelongUnit().trim().length() > 0) {
+				String belongUnit = staffManagerVO.getBelongUnit();
+				number = number + " and staff_unit like '" + belongUnit + "' ";
+				table = table + " and staff_unit like '" + belongUnit + "'";
+			}
+			System.out.println("________:" + table);
+			// 这里如果不加desc表示正序，如果加**/上desc表示倒序
+			table = table + " order by staff_modifytime desc";
+			int userInfoCount = personnelManagementDao.getCount(number);
+			// 设置总数量
+			staffManagerVO.setTotalRecords(userInfoCount);
+			// 设置总页数
+			staffManagerVO.setTotalPages(((userInfoCount - 1) / staffManagerVO.getPageSize()) + 1);
+			// 判断是否拥有上一页
+			if (staffManagerVO.getPageIndex() <= 1) {
+				staffManagerVO.setHavePrePage(false);
+			} else {
+				staffManagerVO.setHavePrePage(true);
+			}
+			// 判断是否拥有下一页
+			if (staffManagerVO.getPageIndex() >= staffManagerVO.getTotalPages()) {
+				staffManagerVO.setHaveNextPage(false);
+			} else {
+				staffManagerVO.setHaveNextPage(true);
+			}
+			listStaff = (List<staff_basicinfo>) personnelManagementDao.queryForPage(table,
+					staffManagerVO.getPageIndex(), staffManagerVO.getPageSize());
 			/**
-			 * 遍历循环显示高亮
-			 * 
+			 * 遍历所有人查他所在的单位
 			 */
-			if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
-				staff_basicinfo.setStaff_num(staff_basicinfo.getStaff_num().replaceAll(staffManagerVO.getSearch(),
-						"<mark>" + staffManagerVO.getSearch() + "</mark>"));
-			}
-			if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
-				staff_basicinfo.setStaff_name(staff_basicinfo.getStaff_name().replaceAll(staffManagerVO.getSearch(),
-						"<mark>" + staffManagerVO.getSearch() + "</mark>"));
-			}
-			
-			StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
-			System.out.println("这是什么：" + staff_basicinfo.getStaff_unit());
-			listUnit = new ArrayList<>();
-			listUnit = (List<unit>) personnelManagementDao
-					.listObject("from unit where unit_id = '" + staff_basicinfo.getStaff_unit() + "'");
-			if (listUnit.size() != 0) {
-				staffManagerDTO.setStaffBasicInfo(staff_basicinfo);
-				staffManagerDTO.setUnit(listUnit.get(0));
-				listStaffManagerDTO.add(staffManagerDTO);
-			}
-		}
-		// listUnit = new ArrayList<>();
-		if (staffManagerVO.getBelongUnit() == null) {
-			listUnit = (List<unit>) personnelManagementDao
-					.listObject("from unit where unit_superiorunit = '" + staffBasicinfo.getStaff_unit() + "'");
-			System.out.println("+++++++++++++++++++++++++" + listUnit.size());
-			for (unit unit : listUnit) {
+			for (staff_basicinfo staff_basicinfo : listStaff) {
 				/**
+				 * 遍历循环显示高亮
 				 * 
-				 * 循环遍历显示高亮
 				 */
-				System.out.println("hoashdoiashdoasho");
-				System.out.println("ddd" + unit.getUnit_id());
-				StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
-				listStaff = new ArrayList<>();
-				listStaff = (List<staff_basicinfo>) personnelManagementDao
-						.listObject("from staff_basicinfo where staff_unit = '" + unit.getUnit_id() + "'");
-				System.out.println("ooooooooooooooooooooooooo:" + listStaff);
 				if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
-					listStaff.get(0).setStaff_num(listStaff.get(0).getStaff_num().replaceAll(staffManagerVO.getSearch(),
+					staff_basicinfo.setStaff_num(staff_basicinfo.getStaff_num().replaceAll(staffManagerVO.getSearch(),
 							"<mark>" + staffManagerVO.getSearch() + "</mark>"));
 				}
 				if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
-					listStaff.get(0).setStaff_name(listStaff.get(0).getStaff_name()
-							.replaceAll(staffManagerVO.getSearch(), "<mark>" + staffManagerVO.getSearch() + "</mark>"));
+					staff_basicinfo.setStaff_name(staff_basicinfo.getStaff_name().replaceAll(staffManagerVO.getSearch(),
+							"<mark>" + staffManagerVO.getSearch() + "</mark>"));
 				}
-				System.out.println("如果多的话：" + listStaff.size());
-				// if (listStaff.size() != 0) {
-				if (listStaff.size() == 1) {
-					staffManagerDTO.setStaffBasicInfo(listStaff.get(0));
-				} else {
-					for (int i = 0; i <listStaff.size(); i++) {
-						System.out.println("进来了吗" + i);
-						StaffManagerDTO staffManagerDTO2  = new StaffManagerDTO();
-						staffManagerDTO2.setStaffBasicInfo(listStaff.get(i));
-						staffManagerDTO2.setUnit(unit);
-						listStaffManagerDTO.add(staffManagerDTO2);
-					}
+				StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+				System.out.println("这是什么：" + staff_basicinfo.getStaff_unit());
+				listUnit = new ArrayList<>();
+				listUnit = (List<unit>) personnelManagementDao
+						.listObject("from unit where unit_id = '" + staff_basicinfo.getStaff_unit() + "'");
+				if (listUnit.size() != 0) {
+					staffManagerDTO.setStaffBasicInfo(staff_basicinfo);
+					staffManagerDTO.setUnit(listUnit.get(0));
+					listStaffManagerDTO.add(staffManagerDTO);
 				}
-				staffManagerDTO.setUnit(unit);
-				// }
-				listStaffManagerDTO.add(staffManagerDTO);
 			}
+			if (staffManagerVO.getBelongUnit() == null && "中转站管理员".equals(positionNew.getPosition_name())) {
+				listUnit = (List<unit>) personnelManagementDao
+						.listObject("from unit where unit_superiorunit = '" + staffBasicinfo.getStaff_unit() + "'");
+				System.out.println("+++++++++++++++++++++++++" + listUnit.size());
+				for (unit unit : listUnit) {
+					/**
+					 * 
+					 * 循环遍历显示高亮
+					 */
+					System.out.println("hoashdoiashdoasho");
+					System.out.println("ddd" + unit.getUnit_id());
+					StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+					listStaff = new ArrayList<>();
+					listStaff = (List<staff_basicinfo>) personnelManagementDao
+							.listObject("from staff_basicinfo where staff_unit = '" + unit.getUnit_id() + "'");
+					System.out.println("ooooooooooooooooooooooooo:" + listStaff);
+					if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
+						listStaff.get(0).setStaff_num(listStaff.get(0).getStaff_num().replaceAll(
+								staffManagerVO.getSearch(), "<mark>" + staffManagerVO.getSearch() + "</mark>"));
+					}
+					if (staffManagerVO.getSearch() != null && staffManagerVO.getSearch().trim().length() > 0) {
+						listStaff.get(0).setStaff_name(listStaff.get(0).getStaff_name().replaceAll(
+								staffManagerVO.getSearch(), "<mark>" + staffManagerVO.getSearch() + "</mark>"));
+					}
+					System.out.println("如果多的话：" + listStaff.size());
+					if (listStaff.size() != 0) {
+						if (listStaff.size() == 1) {
+							staffManagerDTO.setUnit(unit);
+							staffManagerDTO.setStaffBasicInfo(listStaff.get(0));
+						} else {
+							for (int i = 0; i < listStaff.size(); i++) {
+								System.out.println("进来了吗" + i);
+								StaffManagerDTO staffManagerDTO2 = new StaffManagerDTO();
+								staffManagerDTO2.setStaffBasicInfo(listStaff.get(i));
+								staffManagerDTO2.setUnit(unit);
+								listStaffManagerDTO.add(staffManagerDTO2);
+							}
+						}
+					}
+					listStaffManagerDTO.add(staffManagerDTO);
+				}
+			}
+			staffManagerVO.setListStaDTO(listStaffManagerDTO);
 		}
-		staffManagerVO.setListStaDTO(listStaffManagerDTO);
 		return staffManagerVO;
 	}
+
 	/**
 	 * 配送点管理员所能看到的自身管理的人
 	 */
@@ -418,6 +436,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		}
 		return "Success";
 	}
+
 	/**
 	 * 修改员工单位
 	 * 

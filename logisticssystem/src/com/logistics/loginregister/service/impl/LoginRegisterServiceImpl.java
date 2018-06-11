@@ -59,13 +59,11 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 	public userinfo loginByUser(String username, String password) {
 		return loginRegisterDao.loginByUser(username, password);
 	}
-
 	@Override
 	public staff_basicinfo loginByStaff(String username, String password) {
 
 		return loginRegisterDao.loginByStaff(username, password);
 	}
-
 	/**
 	 * 判断username是否在用户表
 	 * 
@@ -77,7 +75,6 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 				.listObject("from userinfo where userinfo_phonenumber = '" + username + "'");
 		return listUser;
 	}
-
 	/**
 	 * 判断username是否在员工表
 	 */

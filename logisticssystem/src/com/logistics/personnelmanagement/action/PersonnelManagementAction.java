@@ -139,6 +139,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 
 	/**
 	 * 人事管理方法，查询1、工号 2、姓名 3、联系方式 4、入职时间 5、职位 6、所属单位7、状态
+	 * 
 	 * @throws IOException
 	 */
 	public void staffManager() throws IOException {
@@ -150,16 +151,16 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerVO.setPageIndex(pageIndex);
 		staffManagerVO.setSearch(search);
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		if(staffBasicinfo.getStaff_id()!=null && staffBasicinfo.getStaff_id().trim().length()>0) {
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
+				&& staffBasicinfo.getStaff_position() != null
+				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
+			    
 			
 		}
+		
 		/**
-		 * 总公司
-		 * 职位ID
-		 * 中转站管理员
-		 * 职位ID
+		 * 总公司 职位ID 中转站管理员 职位ID
 		 */
 		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc1".equals(staffBasicinfo.getStaff_position())) {
 			staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO);
@@ -170,7 +171,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc3".equals(staffBasicinfo.getStaff_position())) {
 			staffManagerVO = personnelManagementService.getStaffManagerVOByDistribution(staffManagerVO, staffBasicinfo);
 		}
-		response.getWriter().write("" + staffManagerVO);
+		response.getWriter().write( gson.toJson(staffManagerVO));
 	}
 
 	/**
@@ -187,7 +188,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		listUnit = personnelManagementService.getLowerUnit(staffBasicinfo);
-		response.getWriter().write("" + listUnit);
+		response.getWriter().write(gson.toJson(listUnit));
 
 	}
 
@@ -205,7 +206,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		listPosition = personnelManagementService.getLowerPosition(staffBasicinfo);
-		response.getWriter().write("" + listPosition);
+		response.getWriter().write(gson.toJson(listPosition) );
 	}
 
 	/**

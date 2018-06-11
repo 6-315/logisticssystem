@@ -92,15 +92,16 @@ public class Personnelmanagement {
 		
 	}
 	/**
-	 * 中转站管理员查看自己往下的所有人信息
+	 * 中转站管理员查看自己往下的所有人信息,给爸爸出来
 	 */
 	@Test
 	public void getPeopleByZ() {
 		StaffManagerVO staffManagerVO = new StaffManagerVO();
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		//staffBasicInfo.setStaff_id("2");
-		staffBasicInfo.setStaff_unit("2");
-		//staffManagerVO.setBelongUnit(" ");
+		staffBasicInfo.setStaff_unit("4");
+		staffBasicInfo.setStaff_id("ddsa");
+		staffBasicInfo.setStaff_position("77e07c34-735f-45d4-a870-3e5bebe5ddc3");
+		staffManagerVO.setSearch("李伟");
 		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
 		System.out.println("这是什么？："+staffManagerVO);
 	}

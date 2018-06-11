@@ -123,7 +123,8 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 				+ password + "'";
 		Query query = session.createQuery(hql);
 		List<userinfo> listuserinfo = query.list();
-		if (listuserinfo != null && !listuserinfo.isEmpty()) {
+		
+		if (listuserinfo.get(0).getUserinfo_phonenumber()==username&&listuserinfo.get(0).getUserinfo_password()==password) {
 			return listuserinfo.get(0);
 		}
 		return null;

@@ -2,6 +2,7 @@ package com.logistics.personnelmanagement.dao;
 
 import java.util.List;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 
 /**
@@ -47,6 +48,8 @@ public interface PersonnelManagementDao {
 	public staff_basicinfo getstaffById(String id);
 
 	public staff_basicinfo getstaffBasicinfo(String staff_id);
+
+	public position getPosition(staff_basicinfo staffBasicinfo);
 
 
 	/**
