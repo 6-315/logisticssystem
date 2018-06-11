@@ -24,7 +24,7 @@ import com.logistics.personnelmanagement.service.PersonnelManagementService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext*.xml" })
 public class Personnelmanagement {
-	@Resource
+	@Resource 
 	private PersonnelManagementService personnelManagementService;
 
 	public PersonnelManagementService getPersonnelManagementService() {
@@ -34,18 +34,7 @@ public class Personnelmanagement {
 	public void setPersonnelManagementService(PersonnelManagementService personnelManagementService) {
 		this.personnelManagementService = personnelManagementService;
 	}
-	/**
-	 * 测试查看所有单位下的所有员工
-	 */
-	@Test
-	public void getStaffManagerVO() {
-		StaffManagerVO staffManagerVO = new StaffManagerVO();
-		// staffManagerVO.setPageIndex(pageIndex);
-		// staffManagerVO.setSearch(search);
-		staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO);
-		System.out.println("成功！" + staffManagerVO);
 
-	}
 
 	/**
 	 * 查看自身以下的所有职位
@@ -92,30 +81,20 @@ public class Personnelmanagement {
 		
 	}
 	/**
-	 * 中转站管理员查看自己往下的所有人信息,给爸爸出来
+	 * 根据权限查人
 	 */
 	@Test
-	public void getPeopleByZ() {
+	public void getPeopleBy() {
 		StaffManagerVO staffManagerVO = new StaffManagerVO();
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		staffBasicInfo.setStaff_unit("4");
 		staffBasicInfo.setStaff_id("ddsa");
 		staffBasicInfo.setStaff_position("77e07c34-735f-45d4-a870-3e5bebe5ddc3");
 		staffManagerVO.setSearch("李伟");
-		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
+		staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO, staffBasicInfo);
 		System.out.println("这是什么？："+staffManagerVO);
 	}
-	@Test
-	public void getPeopleByP(){
-		StaffManagerVO staffManagerVO = new StaffManagerVO();
-		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		staffBasicInfo.setStaff_id("2");
-		staffBasicInfo.setStaff_unit("4");
-		staffManagerVO.setPosition("3");
-		staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicInfo);
-		System.out.println("给爸爸出来！:"+staffManagerVO);
-		
-	}
+
 	
 	
 }

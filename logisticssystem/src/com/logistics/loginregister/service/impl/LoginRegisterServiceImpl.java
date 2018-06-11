@@ -57,11 +57,12 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 	 */
 	@Override
 	public userinfo loginByUser(String username, String password) {
+		
 		return loginRegisterDao.loginByUser(username, password);
 	}
 	@Override
 	public staff_basicinfo loginByStaff(String username, String password) {
-
+ 
 		return loginRegisterDao.loginByStaff(username, password);
 	}
 	/**

@@ -79,6 +79,16 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	private String username;
 	private String password;
 	private StaffManagerVO staffManagerVO;
+	private String type;
+	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public staff_basicinfo getStaff_basicinfo() {
 		return staffBasicInfo;
@@ -119,7 +129,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	public void setUserinfo(userinfo userinfo) {
 		this.userInfo = userinfo;
 	}
-
 	/**
 	 * 注册方法
 	 * 
@@ -136,7 +145,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
-
 	/**
 	 * 登陆方法
 	 * 
@@ -156,6 +164,8 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listUserInfo.size() > 0) {
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
+					type ="用户";
+					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("userInfoSession", userInfoSession);
 					response.getWriter().write("" + userInfoSession);
 					System.out.println("成功！");
@@ -164,6 +174,8 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
+					type ="员工";
+					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("staff_session", staffSession);
 					response.getWriter().write("" + staffSession);
 				}

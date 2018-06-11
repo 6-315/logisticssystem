@@ -155,25 +155,11 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
 				&& staffBasicinfo.getStaff_position() != null
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
-			    
-			
+			staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO, staffBasicinfo);
+			response.getWriter().write(gson.toJson(staffManagerVO));
 		}
-		
-		/**
-		 * 总公司 职位ID 中转站管理员 职位ID
-		 */
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc1".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO);
-		}
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc2".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicinfo);
-		}
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc3".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVOByDistribution(staffManagerVO, staffBasicinfo);
-		}
-		response.getWriter().write( gson.toJson(staffManagerVO));
-	}
 
+	}
 	/**
 	 * 获取自身职位以下的所有单位
 	 * 
@@ -206,7 +192,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		listPosition = personnelManagementService.getLowerPosition(staffBasicinfo);
-		response.getWriter().write(gson.toJson(listPosition) );
+		response.getWriter().write(gson.toJson(listPosition));
 	}
 
 	/**
@@ -270,7 +256,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.addStaff(staffBasicInfo));
+		response.getWriter().write(gson.toJson(personnelManagementService.addStaff(staffBasicInfo)));
 	}
 
 }
