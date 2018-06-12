@@ -2,11 +2,6 @@ package com.logistics.transferstation.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
@@ -52,20 +47,20 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 
 	@Override
-	public String deleteTransferStation(UnitManagerVO unitManagerVO) {
+	public String deleteTransferStation(String idList) {
 		/*
 		 * 将获得的对象转化为数组
 		 */
-		String[] deleteTransferStationById = unitManagerVO.getIdList().split(",");
+		String[] deleteTransferStationById = idList.split(",");
 		/**
 		 * 遍历需要删除的中转站数组
 		 */
-		for (String idList : deleteTransferStationById) {
+		for (String id : deleteTransferStationById) {
 			/**
 			 * 如果数据库存在需要删除的中转站的id
 			 */
-			if (transferStationDao.getTransferStationInfoById(idList) != null) {
-				transferStationDao.removeObject(transferStationDao.getTransferStationInfoById(idList));
+			if (transferStationDao.getTransferStationInfoById(id) != null) {
+				transferStationDao.removeObject(transferStationDao.getTransferStationInfoById(id));
 				System.out.println("shanchuchenggong111111");
 				return "success";
 			}
@@ -198,10 +193,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 遍历unit表
 			for (unit unit : listUnit) {
 				//根据id获取职位
-				staff_basicinfo staff_basicinfo =new staff_basicinfo();
-				staff_basicinfo = transferStationDao.getBasicinfoById(staffBasicinfo.getStaff_id());
 				//判断职位
-				if(staff_basicinfo.getStaff_position()!= null ) {}
+				
 				// 查询创建者的信息
 				staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
 				// 查询管理员信息
@@ -231,18 +224,4 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * DTO
 	 */
 
-	/*
-	 * public UnitManagerDTO getUnitManagerDTO(String unit_id) { if (unit_id == null
-	 * || unit_id.trim().length() <= 0) { return null; }
-	 *//**
-		 * new一个DTO
-		 *//*
-			 * UnitManagerDTO unitManagerDTO = new UnitManagerDTO(); staff_basicinfo
-			 * unit_creator = new staff_basicinfo (); staff_basicinfo news_NewsInfo = new
-			 * staff_basicinfo();
-			 * 
-			 * 
-			 * return null; }
-			 * 
-			 */
 }
