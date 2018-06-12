@@ -13,7 +13,6 @@ import com.logistics.domain.staff_basicinfo;
  */
 public interface PersonnelManagementDao {
 	public void saveOrUpdateObject(Object obj);
-
 	/**
 	 * 分页获取对象，这里是获取一页中的数据
 	 * 
@@ -46,12 +45,8 @@ public interface PersonnelManagementDao {
 	 */
 	public List<?> listObject(String hql);
 	public staff_basicinfo getstaffById(String id);
-
 	public staff_basicinfo getstaffBasicinfo(String staff_id);
-
 	public position getPosition(staff_basicinfo staffBasicinfo);
-
-
 	/**
 	 * 
 	 * @param trim
