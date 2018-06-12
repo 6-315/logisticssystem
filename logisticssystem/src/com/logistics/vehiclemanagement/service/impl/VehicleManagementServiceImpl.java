@@ -9,11 +9,13 @@ import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.vehiclemanagement.DTO.VehicleDTO;
 import com.logistics.vehiclemanagement.DTO.Vehicle_TeamDTO;
+import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 import util.BuildUuid;
+import util.CreateNumberUtil;
 import util.TimeUtil;
 
 /**
@@ -36,19 +38,32 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@Override
 	public int addVehicle(vehicle vehicleInfo) {
-		/**
-		 * 添加信息
-		 */
-		vehicleInfo.setVehicle_id(BuildUuid.getUuid());
-		vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
-		vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
-		vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
-		vehicleInfo.setVehicle_mark("None");
-		/**
-		 * 完成添加功能
-		 */
-		vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
-		return 1;
+		if (vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length() > 0) {
+			vehicle queryVehicle = vehicleManagementDao.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
+			if (queryVehicle != null) {
+				System.out.println("该车牌号已经存在");
+				return -1;
+			} else {
+				/**
+				 * 添加信息
+				 */
+				vehicleInfo.setVehicle_id(BuildUuid.getUuid());
+				vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
+				vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
+				vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+				vehicleInfo.setVehicle_mark("无");
+				/**
+				 * 完成添加功能
+				 */
+				vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+				System.out.println("添加成功");
+				return 1;
+			}
+		} else {
+			System.out.println("未获得车牌号");
+			return -1;
+		}
+
 	}
 
 	/**
@@ -64,7 +79,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		List<VehicleDTO> listVehicleDTO = new ArrayList<>();
 		/**
-		 * 车队信息DTO
+		 * 车队DTO
 		 */
 		Vehicle_TeamDTO vehicleBelongTeamDTO = null;
 		/**
@@ -86,21 +101,21 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 获取数量
 		 */
-		String vehicleCountHql = "select count(*) from vehicle ";
+		String vehicleCountHql = "select count(*) from vehicle where 1=1 ";
 		/**
 		 * 链接数量的hql以及遍历的hql
 		 */
-		String listVehicleDTOCountHql = "from vehicle ";
+		String listVehicleDTOCountHql = "from vehicle where 1=1 ";
 
 		/**
 		 * 根据关键词进行模糊查询
 		 */
 		if (vehicleInfoVO.getSearch() != null && vehicleInfoVO.getSearch().trim().length() > 0) {
 			String search = "%" + vehicleInfoVO.getSearch().trim() + "%";
-			vehicleCountHql = vehicleCountHql + "where vehicle_num like '" + search + "' ";
-			listVehicleDTOCountHql = listVehicleDTOCountHql + "where vehicle_num like '" + search + "'";
-			vehicleCountHql = vehicleCountHql + "and vehicle_platenum like '" + search + "' ";
-			listVehicleDTOCountHql = listVehicleDTOCountHql + "and vehicle_platenum like '" + search + "'";
+			vehicleCountHql = vehicleCountHql + " and ( vehicle_num like '" + search + "' ";
+			listVehicleDTOCountHql = listVehicleDTOCountHql + " and ( vehicle_num like '" + search + "'";
+			vehicleCountHql = vehicleCountHql + " or vehicle_platenum like '" + search + "' ) ";
+			listVehicleDTOCountHql = listVehicleDTOCountHql + " or vehicle_platenum like '" + search + "' ) ";
 		}
 
 		/**
@@ -108,8 +123,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if (vehicleInfoVO.getState() != null && vehicleInfoVO.getState().trim().length() > 0) {
 			String state = vehicleInfoVO.getState().trim();
-			vehicleCountHql = vehicleCountHql + "and vehicle_state = '" + state + "' ";
-			listVehicleDTOCountHql = listVehicleDTOCountHql + "and vehicle_state = '" + state + "'";
+			vehicleCountHql = vehicleCountHql + " and vehicle_state = '" + state + "' ";
+			listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_state = '" + state + "'";
 		}
 
 		/**
@@ -117,8 +132,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if (vehicleInfoVO.getUnit() != null && vehicleInfoVO.getUnit().trim().length() > 0) {
 			String unit = vehicleInfoVO.getUnit().trim();
-			vehicleCountHql = vehicleCountHql + "and vehicle_unit = '" + unit + "' ";
-			listVehicleDTOCountHql = listVehicleDTOCountHql + "and vehicle_unit = '" + unit + "'";
+			vehicleCountHql = vehicleCountHql + " and vehicle_unit = '" + unit + "' ";
+			listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_unit = '" + unit + "'";
 		}
 
 		/**
@@ -126,14 +141,14 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		if (vehicleInfoVO.getTeam() != null && vehicleInfoVO.getTeam().trim().length() > 0) {
 			String team = vehicleInfoVO.getTeam().trim();
-			vehicleCountHql = vehicleCountHql + "and vehicle_team = '" + team + "' ";
-			listVehicleDTOCountHql = listVehicleDTOCountHql + "and vehicle_team = '" + team + "'";
+			vehicleCountHql = vehicleCountHql + " and vehicle_team = '" + team + "' ";
+			listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_team = '" + team + "'";
 		}
 
 		/**
 		 * 这里如果不加desc表示正序，如果加上desc表示倒序
 		 */
-		listVehicleDTOCountHql = listVehicleDTOCountHql + "order by vehicle_modifytime desc ";
+		listVehicleDTOCountHql = listVehicleDTOCountHql + " order by vehicle_modifytime desc ";
 		int vehicleCount = vehicleManagementDao.getCount(vehicleCountHql);
 		/**
 		 * 设置总数量
@@ -221,13 +236,17 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
 				vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 			}
-			
+
+			/**
+			 * 将关键字高亮
+			 */
 			if (vehicleInfoVO.getSearch() != null && vehicleInfoVO.getSearch().trim().length() > 0) {
 				vehicle.setVehicle_num(vehicle.getVehicle_num().replaceAll(vehicleInfoVO.getSearch(),
 						"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
 				vehicle.setVehicle_platenum(vehicle.getVehicle_platenum().replaceAll(vehicleInfoVO.getSearch(),
 						"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
 			}
+
 			/**
 			 * 将查询到的信息放入车辆DTO中
 			 */
@@ -260,22 +279,47 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 * 根据ID查询车辆信息
 		 */
 		updateVehicleInfo = (vehicle) vehicleManagementDao.getVehicleInfoById(vehicleInfo.getVehicle_id());
-		/**
-		 * 更新所需要更新的属性
-		 */
-		updateVehicleInfo.setVehicle_num(vehicleInfo.getVehicle_num());
-		/**
-		 * 保存更新
-		 */
-		vehicleManagementDao.saveOrUpdateObject(updateVehicleInfo);
-		return 1;
+		if (updateVehicleInfo != null) {
+			/**
+			 * 更新所需要更新的属性
+			 */
+			if (vehicleInfo.getVehicle_num() != null && vehicleInfo.getVehicle_num().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_num(vehicleInfo.getVehicle_num());
+			}
+			if (vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_platenum(vehicleInfo.getVehicle_platenum());
+			}
+			if (vehicleInfo.getVehicle_state() != null && vehicleInfo.getVehicle_state().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_state(vehicleInfo.getVehicle_state());
+			}
+			if (vehicleInfo.getVehicle_unit() != null && vehicleInfo.getVehicle_unit().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_unit(vehicleInfo.getVehicle_unit());
+			}
+			if (vehicleInfo.getVehicle_team() != null && vehicleInfo.getVehicle_team().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_team(vehicleInfo.getVehicle_team());
+			}
+			if (vehicleInfo.getVehicle_mark() != null && vehicleInfo.getVehicle_mark().trim().length() > 0) {
+				updateVehicleInfo.setVehicle_mark(vehicleInfo.getVehicle_mark());
+			}
+			updateVehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+			/**
+			 * 保存更新
+			 */
+			vehicleManagementDao.saveOrUpdateObject(updateVehicleInfo);
+			System.out.println("更新成功");
+		} else {
+			System.out.println("更新失败");
+		}
+		return 0;
 	}
 
 	/**
 	 * 批量删除车辆
+	 * 
+	 * @return success 代表成功
 	 */
 	@Override
-	public void deleteVehicle(VehicleVO vehicleInfoVO) {
+	public String deleteVehicle(VehicleVO vehicleInfoVO) {
 		/**
 		 * 将获得的idList转换成数组
 		 */
@@ -287,8 +331,226 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			/**
 			 * 根据获得的ID查询信息，再删除
 			 */
-			vehicleManagementDao.removeObject(vehicleManagementDao.getVehicleInfoById(id));
+			vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(id);
+			if (vehicleInfo != null) {
+				vehicleManagementDao.removeObject(vehicleInfo);
+				System.out.println("删除成功");
+			} else {
+				System.out.println("该数据不存在！");
+			}
 		}
+		return "s";
+	}
+
+	/**
+	 * 添加车队
+	 */
+	@Override
+	public String addTeam(team teamInfo) {
+		String hql = " select max(team_num) from team ";
+		String number = vehicleManagementDao.getMaxNumber(hql);
+		if (number != null && number.trim().length() > 0) {
+			teamInfo.setTeam_num(number + 0001);
+		} else {
+			teamInfo.setTeam_num("0001");
+		}
+
+		teamInfo.setTeam_id(BuildUuid.getUuid());
+		teamInfo.setTeam_createtime(TimeUtil.getStringSecond());
+		teamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
+		vehicleManagementDao.saveOrUpdateObject(teamInfo);
+		System.out.println("添加成功");
+		return "success";
+	}
+
+	/**
+	 * 更新车队信息
+	 */
+	@Override
+	public String updateTeam(team teamInfo) {
+		team updateTeamInfo = new team();
+		updateTeamInfo = vehicleManagementDao.getTeamInfoById(teamInfo.getTeam_id());
+		if (updateTeamInfo != null) {
+			if (teamInfo.getTeam_leader() != null && teamInfo.getTeam_leader().trim().length() > 0) {
+				updateTeamInfo.setTeam_leader(teamInfo.getTeam_leader());
+			}
+			if (teamInfo.getTeam_num() != null && teamInfo.getTeam_num().trim().length() > 0) {
+				updateTeamInfo.setTeam_num(teamInfo.getTeam_num());
+			}
+			if (teamInfo.getTeam_state() != null && teamInfo.getTeam_state().trim().length() > 0) {
+				updateTeamInfo.setTeam_state(teamInfo.getTeam_state());
+			}
+			if (teamInfo.getTeam_unit() != null && teamInfo.getTeam_unit().trim().length() > 0) {
+				updateTeamInfo.setTeam_unit(teamInfo.getTeam_unit());
+			}
+			updateTeamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
+			vehicleManagementDao.saveOrUpdateObject(updateTeamInfo);
+			System.out.println("更新成功");
+		} else {
+			System.out.println("更新失败");
+		}
+		return "s";
+	}
+
+	/**
+	 * 删除车队信息
+	 */
+	@Override
+	public String deleteTeam(TeamVO teamInfoVO) {
+		/**
+		 * 将获得的idList转换成数组
+		 */
+		String[] deleteVehicleById = teamInfoVO.getIdList().split(",");
+		/**
+		 * 遍历数组
+		 */
+		for (String id : deleteVehicleById) {
+			/**
+			 * 根据获得的ID查询信息，再删除
+			 */
+			team teamInfo = vehicleManagementDao.getTeamInfoById(id);
+			if (teamInfo != null) {
+				vehicleManagementDao.removeObject(teamInfo);
+				System.out.println("删除成功");
+			} else {
+				System.out.println("该数据不存在");
+			}
+		}
+		return "s";
+	}
+
+	/**
+	 * 查询车队信息
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public TeamVO queryTeam(TeamVO teamInfoVO) {
+		/**
+		 * 车队信息DTO
+		 */
+		List<Vehicle_TeamDTO> listTeamDTO = new ArrayList<>();
+		/**
+		 * 车队信息
+		 */
+		List<team> teamInfo = new ArrayList<>();
+		/**
+		 * 车队DTO
+		 */
+		Vehicle_TeamDTO teamDTO;
+		/**
+		 * 获取数量
+		 */
+		String teamCountHql = "select count(*) from team where 1=1 ";
+		/**
+		 * 链接数量的hql以及遍历的hql
+		 */
+		String listTeamDTOCountHql = "from team where 1=1 ";
+		/**
+		 * 根据关键词进行模糊查询
+		 */
+		if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
+			String search = "%" + teamInfoVO.getSearch().trim() + "%";
+			teamCountHql = teamCountHql + " and team_num like '" + search + "' ";
+			listTeamDTOCountHql = listTeamDTOCountHql + " and team_num like '" + search + "'";
+		}
+		/**
+		 * 按状态(state)分类查询
+		 */
+		if (teamInfoVO.getState() != null && teamInfoVO.getState().trim().length() > 0) {
+			String state = teamInfoVO.getState().trim();
+			teamCountHql = teamCountHql + " and team_state = '" + state + "' ";
+			listTeamDTOCountHql = listTeamDTOCountHql + " and team_state = '" + state + "'";
+		}
+
+		/**
+		 * 按所属单位(unit)分类查询
+		 */
+		if (teamInfoVO.getUnit() != null && teamInfoVO.getUnit().trim().length() > 0) {
+			String unit = teamInfoVO.getUnit().trim();
+			teamCountHql = teamCountHql + " and team_unit = '" + unit + "' ";
+			listTeamDTOCountHql = listTeamDTOCountHql + " and team_unit = '" + unit + "'";
+		}
+
+		/**
+		 * 按所属队长(teamLeader)分类查询
+		 */
+		if (teamInfoVO.getTeamLeader() != null && teamInfoVO.getTeamLeader().trim().length() > 0) {
+			String teamLeader = teamInfoVO.getTeamLeader().trim();
+			teamCountHql = teamCountHql + " and team_leader = '" + teamLeader + "' ";
+			listTeamDTOCountHql = listTeamDTOCountHql + " and team_leader = '" + teamLeader + "'";
+		}
+		/**
+		 * 这里如果不加desc表示正序，如果加上desc表示倒序
+		 */
+		listTeamDTOCountHql = listTeamDTOCountHql + " order by team_modifytime desc ";
+		int teamCount = vehicleManagementDao.getCount(teamCountHql);
+		/**
+		 * 设置总数量
+		 */
+		teamInfoVO.setTotalRecords(teamCount);
+		/**
+		 * 设置总页数
+		 */
+		teamInfoVO.setTotalPages(((teamCount - 1) / teamInfoVO.getPageSize()) + 1);
+		/**
+		 * 判断是否拥有上一页
+		 */
+		if (teamInfoVO.getPageIndex() <= 1) {
+			teamInfoVO.setHavePrePage(false);
+		} else {
+			teamInfoVO.setHavePrePage(true);
+		}
+		/**
+		 * 判断是否拥有下一页
+		 */
+		if (teamInfoVO.getPageIndex() >= teamInfoVO.getTotalPages()) {
+			teamInfoVO.setHaveNextPage(false);
+		} else {
+			teamInfoVO.setHaveNextPage(true);
+		}
+		/**
+		 * 分页查询
+		 */
+		teamInfo = (List<team>) vehicleManagementDao.queryForPage(listTeamDTOCountHql, teamInfoVO.getPageIndex(),
+				teamInfoVO.getPageSize());
+		for (team team : teamInfo) {
+			teamDTO = new Vehicle_TeamDTO();
+			/**
+			 * 查询队长信息
+			 */
+			staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
+			if (teamLeader != null) {
+				teamDTO.setStaff_BasicInfoLeader(teamLeader);
+			}
+			/**
+			 * 查询所属单位
+			 */
+			unit teamUnit = vehicleManagementDao.getUnitInfoById(team.getTeam_unit());
+			if (teamUnit != null) {
+				teamDTO.setTeamBelongUnit(teamUnit);
+			}
+			/**
+			 * 查询所有队员信息
+			 */
+			String staffBelongTeam = team.getTeam_leader();
+			List<staff_basicinfo> teamMember = (List<staff_basicinfo>) vehicleManagementDao
+					.listObject(" from staff_basicinfo where staff_superiorleader = '" + staffBelongTeam + "' ");
+			if (teamMember != null) {
+				teamDTO.setStaff_TeamMember(teamMember);
+			}
+			/**
+			 * 将关键字高亮
+			 */
+			if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
+				team.setTeam_num(team.getTeam_num().replaceAll(teamInfoVO.getSearch(),
+						"<mark>" + teamInfoVO.getSearch() + "</mark>"));
+			}
+			teamDTO.setTeam(team);
+			listTeamDTO.add(teamDTO);
+		}
+		teamInfoVO.setListTeamDTO(listTeamDTO);
+
+		return teamInfoVO;
 	}
 
 }

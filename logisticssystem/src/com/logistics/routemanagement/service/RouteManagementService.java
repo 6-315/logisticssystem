@@ -11,13 +11,13 @@ import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
  */
 public interface RouteManagementService {
 
-	void addRout(route rout);
+	String addRout(route rout);
 
-	void updateRoutInfo(route rout);
+	String updateRoutInfo(route rout);
 
-	void updateRouteState(route rout);
+	String updateRouteState(route rout);
 
-	void deleteListRoute(String routeId);
+	String deleteListRoute(String routeId);
 
 	RouteManagerVO getRouteManagerVO(RouteManagerVO routManagerVO);
 

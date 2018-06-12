@@ -121,12 +121,24 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		Session session = getSession();
 		String hql = "from userinfo where userinfo_phonenumber='" + username + "" + "'and userinfo_password ='"
 				+ password + "'";
+		System.out.println("____________" + hql);
 		Query query = session.createQuery(hql);
 		List<userinfo> listuserinfo = query.list();
-		if (listuserinfo != null && !listuserinfo.isEmpty()) {
-			return listuserinfo.get(0);
+		if (listuserinfo.get(0).getUserinfo_password() != null
+				&& listuserinfo.get(0).getUserinfo_phonenumber() != null) {
+			System.out.println(listuserinfo.get(0).getUserinfo_password());
+			System.out.println(password);
+			System.out.println(username);
+			System.out.println(listuserinfo.get(0).getUserinfo_phonenumber());
+			System.out.println("tttttttttttttttttttttttttttttt");
+			if (listuserinfo.get(0).getUserinfo_password().equals(password)
+					&& listuserinfo.get(0).getUserinfo_phonenumber().equals(username)) {
+				System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+				return listuserinfo.get(0);
+			}
 		}
 		return null;
+
 	}
 
 	/**
@@ -139,8 +151,16 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 				+ "'";
 		Query query = session.createQuery(hql);
 		List<staff_basicinfo> liststaff_basicinfo = query.list();
+
 		if (liststaff_basicinfo != null && !liststaff_basicinfo.isEmpty()) {
-			return liststaff_basicinfo.get(0);
+			if (liststaff_basicinfo.get(0).getStaff_num() != null
+					&& liststaff_basicinfo.get(0).getStaff_password() != null) {
+				if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
+						&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
+					return liststaff_basicinfo.get(0);
+				}
+			}
+
 		}
 
 		return null;

@@ -1,5 +1,6 @@
 package com.logistics.routemanagement.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.logistics.domain.route;
 import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
 import com.logistics.routemanagement.service.RouteManagementService;
@@ -94,6 +97,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void setRout(route rout) {
 		this.rout = rout;
 	}
+
 	public String getRouteId() {
 		return routeId;
 	}
@@ -128,45 +132,77 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 
 	/**
 	 * 增加路线
+	 * @throws IOException 
 	 */
-	public void addRoute() {
-		routeManagementService.addRout(rout);
+	public void addRoute() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(routeManagementService.addRout(rout));
 
+		
 	}
 
 	/**
 	 * 更改路线信息
+	 * @throws IOException 
 	 */
-	public void updateRouteInfo() {
-		routeManagementService.updateRoutInfo(rout);
+	public void updateRouteInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(routeManagementService.updateRoutInfo(rout));
+		//routeManagementService.updateRoutInfo(rout);
 	}
 
 	/**
 	 * 更改路线状态
+	 * @throws IOException 
 	 */
-	public void updateRouteState() {
-		routeManagementService.updateRouteState(rout);
+	public void updateRouteState() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(routeManagementService.updateRouteState(rout));
+		//routeManagementService.updateRouteState(rout);
 
 	}
 
 	/**
 	 * 批量删除路线
+	 * @throws IOException 
 	 */
-	public void deleteListRoute() {
+	public void deleteListRoute() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(routeManagementService.deleteListRoute(routeId));
 
-		routeManagementService.deleteListRoute(routeIds);
+		//routeManagementService.deleteListRoute(routeIds);
 
 	}
 
 	/**
 	 * 获取路线列表
 	 */
-	public void getRouteManagerVO() {
+	public void getRouteManagerVO() throws IOException {
 		// 使用VO拿到数据和分页
-		RouteManagerVO routManagerVO  =new RouteManagerVO();
+		
+		response.setContentType("text/html;charset=utf-8");
+		RouteManagerVO routManagerVO = new RouteManagerVO();
 		routManagerVO.setPageIndex(page);
 		routManagerVO.setSearch(search);
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.getWriter().write(gson.toJson(routManagerVO));
+
+		
 
 	}
 }

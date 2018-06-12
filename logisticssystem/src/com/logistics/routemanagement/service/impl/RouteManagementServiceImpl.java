@@ -30,11 +30,13 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 
 	/**
 	 * 路线增加
+	 * @return 
 	 */
 	@Override
-	public void addRout(route rout) {
+	public String addRout(route rout) {
 		rout.setRoute_id(BuildUuid.getUuid());
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 
 	}
 
@@ -42,24 +44,27 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 * 更改路线信息
 	 */
 	@Override
-	public void updateRoutInfo(route rout) {
+	public String updateRoutInfo(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 	}
 
 	/**
 	 * 更改路线状态
 	 */
 	@Override
-	public void updateRouteState(route rout) {
+	public String updateRouteState(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 
 	}
 
 	/**
 	 * 批量删除路线
+	 * @return 
 	 */
 	@Override
-	public void deleteListRoute(String routeIds) {
+	public String deleteListRoute(String routeIds) {
 		String[] routeIDArray = routeIds.split(",");
 		route deleteRoute = null;
 		for (String routeId : routeIDArray) {
@@ -69,6 +74,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				routeManagementDao.removeObject(deleteRoute);
 			}
 		}
+		return "Success";
 	}
 
 	/**
@@ -83,8 +89,8 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		List<RouteManagerDTO> listRouteManagerDTO = new ArrayList<>();
 		RouteManagerDTO routeManagerDTO;
 		// 查询分页，表
-		String searchPaging = "select count(*) from route  ";
-		String searchForm = "from route ";
+		String searchPaging = " select count(*) from route where 1=1 ";
+		String searchForm = " from route where 1=1 ";
 		// 根据路线编号查询：
 		if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 			String search = "%" + routeManagerVO.getSearch() + "%";
@@ -94,24 +100,25 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		// 根据状态查询
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
 			String search = "%" + routeManagerVO.getState() + "%";
-			searchPaging = searchPaging + "and route_state like '" + search + "'";
-			searchForm = searchForm + "and route_state like '" + search + "'";
+			searchPaging = searchPaging + " and route_state = '" + search + "'";
+			searchForm = searchForm + " and route_state = '" + search + "'";
 		}
 		// 根据始发中转站查询
 		if (routeManagerVO.getStartUnit() != null && routeManagerVO.getStartUnit().trim().length() > 0) {
 			String search = "%" + routeManagerVO.getStartUnit() + "%";
-			searchPaging = searchPaging + " and route_departurestation like '" + search + "'";
-			searchForm = searchForm + "and route_departurestation like '" + search + "'";
+			searchPaging = searchPaging + " and route_departurestation = '" + search + "'";
+			searchForm = searchForm + " and route_departurestation = '" + search + "'";
 		}
 		// 根据终止中转站查询
 		if (routeManagerVO.getEndUnit() != null && routeManagerVO.getEndUnit().trim().length() > 0) {
 			String search = "%" + routeManagerVO.getEndUnit() + "%";
-			searchPaging = searchPaging + " and route_terminalstation like '" + search + "'";
-			searchForm = searchForm + "and route_terminalstation like '" + search + "'";
+			searchPaging = searchPaging + " and route_terminalstation = '" + search + "'";
+			searchForm = searchForm + " and route_terminalstation = '" + search + "'";
 		}
 
 		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
-		searchForm = searchForm + "order by route_createtime desc";
+		searchForm = searchForm + " order by route_createtime desc";
+		// 获取对象的总数量
 		int userInfoCount = routeManagementDao.getCount(searchPaging);
 		// 设置总数量
 		routeManagerVO.setTotalRecords(userInfoCount);
@@ -129,12 +136,13 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		} else {
 			routeManagerVO.setHaveNextPage(true);
 		}
-		
+		System.out.println("888888"+searchForm);
+		// 获取rout表的内容---当前页，每页的记录条数
 		listRoute = (List<route>) routeManagementDao.queryForPage(searchForm, routeManagerVO.getPageIndex(),
 				routeManagerVO.getPageSize());
 		System.out.println("--------------------a a a a a " + listRoute.size());
 		for (route route : listRoute) {
-			System.out.println("这是什么"+route.getRoute_id());
+			System.out.println("这是什么" + route.getRoute_id());
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
 			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
 			liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
@@ -143,21 +151,28 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			List<unit> listUnitD = new ArrayList<>();
 			listUnitD = (List<unit>) routeManagementDao
 					.listObject("from unit where unit_id = '" + route.getRoute_departurestation() + "'");
-			System.out.println("________:"+listUnitD.get(0).getUnit_id());
+			System.out.println("________:" + listUnitD.get(0).getUnit_id());
 			List<unit> listUnitT = new ArrayList<>();
 			listUnitT = (List<unit>) routeManagementDao
 					.listObject("from unit where unit_id = '" + route.getRoute_terminalstation() + "'");
-			System.out.println("gggggggggg:"+listUnitT.size());
-			if(listUnitT.size()!=0) {
+			System.out.println("gggggggggg:" + listUnitT.size());
+			if (listUnitT.size() != 0 && listUnitD.size() != 0 && liststaffBasicinfo.size() != 0) {
 				routeMangerDTO.setStaff_Id(liststaffBasicinfo.get(0));
 				routeMangerDTO.setRoute_Departurestation(listUnitD.get(0));
-				System.out.println("MMMMMMMMMMM"+routeMangerDTO);
+				System.out.println("MMMMMMMMMMM" + routeMangerDTO);
 				routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
-				System.out.println("PPPPPP:"+routeMangerDTO);
+				System.out.println("PPPPPP:" + routeMangerDTO);
 				listRouteManagerDTO.add(routeMangerDTO);
 				System.out.println();
 			}
-		
+			//高亮
+			//根据路线编号模糊查询高亮
+			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
+				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
+						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+			}
+
+
 		}
 
 		/*
@@ -187,7 +202,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		 */
 		System.out.println("3333333" + listRouteManagerDTO);
 		routeManagerVO.setListRouteManagerDTO(listRouteManagerDTO);
-		System.out.println("hsahdioashdoihasodh"+routeManagerVO);
+		System.out.println("hsahdioashdoihasodh" + routeManagerVO);
 		return routeManagerVO;
 	}
 
