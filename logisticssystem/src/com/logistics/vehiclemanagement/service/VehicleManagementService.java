@@ -30,13 +30,13 @@ public interface VehicleManagementService {
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int updateVehicle(vehicle vehicleInfo);
+	public String updateVehicle(vehicle vehicleInfo);
 
 	/**
 	 * 根据id批量删除车辆
 	 * @param ids
 	 */
-	public String deleteVehicle(VehicleVO vehicleInfoVO);
+	public String deleteVehicle(String idList);
 
 	/**
 	 * 添加车队
@@ -54,9 +54,9 @@ public interface VehicleManagementService {
 
 	/**
 	 * 批量删除车队
-	 * @param teamInfoVO
+	 * @param idList
 	 */
-	public String deleteTeam(TeamVO teamInfoVO);
+	public String deleteTeam(String idList);
 
 	/**
 	 * 查询车队信息
@@ -64,6 +64,7 @@ public interface VehicleManagementService {
 	 * @return
 	 */
 	public TeamVO queryTeam(TeamVO teamInfoVO);
+
 
 	
 

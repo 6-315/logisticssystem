@@ -111,7 +111,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	/**
 	 * 根据队长筛选车队
 	 */
-	private String teamLeader;
+	private String teamLeader = "";
 	/**
 	 * 分页首页
 	 */
@@ -212,16 +212,13 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 */
 
 	public void addVehicle() throws IOException {
-
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-
 		response.getWriter().write("" + vehicleManagementService.addVehicle(vehicleInfo));
 	}
 
@@ -265,7 +262,6 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-
 		response.getWriter().write("" + vehicleManagementService.updateVehicle(vehicleInfo));
 	}
 
@@ -281,15 +277,8 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 */
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-		/**
-		 * 将从前台传回来的数据放入VO中传输
-		 */
-		VehicleVO vehicleInfoVO = new VehicleVO();
-		vehicleInfoVO.setIdList(idList);
-		response.getWriter().write("" + vehicleManagementService.deleteVehicle(vehicleInfoVO));
-
+		response.getWriter().write("" + vehicleManagementService.deleteVehicle(idList));
 	}
 
 	/**
@@ -304,9 +293,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 */
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-
 		response.getWriter().write("" + vehicleManagementService.addTeam(teamInfo));
 	}
 
@@ -322,9 +309,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 */
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-
 		response.getWriter().write("" + vehicleManagementService.updateTeam(teamInfo));
 	}
 
@@ -340,14 +325,8 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 */
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
-		/**
-		 * 将前台传回的数据放入VO中传输
-		 */
-		TeamVO teamInfoVO = new TeamVO();
-		teamInfoVO.setIdList(idList);
-		response.getWriter().write("" + vehicleManagementService.deleteTeam(teamInfoVO));
+		response.getWriter().write("" + vehicleManagementService.deleteTeam(idList));
 	}
 
 	/**
