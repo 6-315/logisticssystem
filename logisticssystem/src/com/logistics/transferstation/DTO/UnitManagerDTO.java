@@ -11,9 +11,20 @@ import com.logistics.domain.unit;
  */
 public class UnitManagerDTO {
 	/**
-	 * 这个DTO里面有
+	 * 这个DTO里面有unit 和staff_basicinfo两个表
 	 */
 	private unit unit;
+	private staff_basicinfo staff_basicinfo;
+	public staff_basicinfo getStaff_basicinfo() {
+		return staff_basicinfo;
+	}
+
+	public void setStaff_basicinfo(staff_basicinfo staff_basicinfo) {
+		this.staff_basicinfo = staff_basicinfo;
+	}
+/**
+ * staff_basicinfo中的unit_Creator和unit_Admin
+ */
 	private staff_basicinfo unit_Creator;
 	private staff_basicinfo unit_Admin;
 

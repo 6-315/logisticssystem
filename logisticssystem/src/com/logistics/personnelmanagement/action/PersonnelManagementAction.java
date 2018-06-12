@@ -83,6 +83,15 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 	private int pageIndex = 1;
 	private String search = "";
 	private String staffListIdS = "";
+	private String belongUnit = "";
+
+	public String getBelongUnit() {
+		return belongUnit;
+	}
+
+	public void setBelongUnit(String belongUnit) {
+		this.belongUnit = belongUnit;
+	}
 
 	public staff_basicinfo getStaffBasicinfo() {
 		return staffBasicInfo;
@@ -143,19 +152,14 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerVO.setSearch(search);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc1".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO);
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
+				&& staffBasicinfo.getStaff_position() != null
+				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
+			staffManagerVO = personnelManagementService.getStaffManagerVO(staffManagerVO, staffBasicinfo);
+			response.getWriter().write(gson.toJson(staffManagerVO));
 		}
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc2".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVOByTransfer(staffManagerVO, staffBasicinfo);
-		}
-		if ("77e07c34-735f-45d4-a870-3e5bebe5ddc3".equals(staffBasicinfo.getStaff_position())) {
-			staffManagerVO = personnelManagementService.getStaffManagerVOByDistribution(staffManagerVO, staffBasicinfo);
-		}
-		
-		response.getWriter().write("" + staffManagerVO);
-	}
 
+	}
 	/**
 	 * 获取自身职位以下的所有单位
 	 * 
@@ -168,9 +172,9 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		List<unit> listUnit = new ArrayList<>();
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		listUnit = personnelManagementService.getLowerUnit(staffBasicinfo);
-		response.getWriter().write("" + listUnit);
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		listUnit = personnelManagementService.getLowerUnit(staffBasicInfo);
+		response.getWriter().write(gson.toJson(listUnit));
 
 	}
 
@@ -186,9 +190,9 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		List<position> listPosition = new ArrayList<>();
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		listPosition = personnelManagementService.getLowerPosition(staffBasicinfo);
-		response.getWriter().write("" + listPosition);
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		listPosition = personnelManagementService.getLowerPosition(staffBasicInfo);
+		response.getWriter().write(gson.toJson(listPosition));
 	}
 
 	/**
@@ -252,7 +256,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.addStaff(staffBasicInfo));
+		response.getWriter().write(gson.toJson(personnelManagementService.addStaff(staffBasicInfo)));
 	}
 
 }

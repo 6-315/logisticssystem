@@ -57,9 +57,14 @@ public interface TransferStationDao {
 	 * @param unitId
 	 * @return
 	 */
-	public unit getTransferStationInfoById(String unit_id);
+	public unit getTransferStationInfoById(String trim);
+	/**
+	 * 根据Id查询员工信息
+	 * @param unitId
+	 * @return
+	 */
+	public staff_basicinfo getBasicinfoById(String trim);
 
-	public staff_basicinfo getBasicinfo(String trim);
 
 	
 	
