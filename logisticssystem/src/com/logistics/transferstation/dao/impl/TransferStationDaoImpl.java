@@ -111,22 +111,22 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	/**
 	 * 根据ID查询中转站
 	 */
-public unit getTransferStationInfoById(String unitId) {
+public unit getTransferStationInfoById(String trim) {
 	unit transferStation = new unit();
 	Session session = getSession();
 	String hql = "from unit where unit_id = :ID";
 	Query query = session.createQuery(hql);
-	query.setParameter("ID", unitId);
+	query.setParameter("ID", trim);
 	transferStation = (unit) query.uniqueResult();
 
 	return transferStation;
 	
 }
 /**
- * 根据中转站查询管理员和创建者的信息
+ * 根据ID查询staff_basicinfo表中的信息
  */
 @Override
-public staff_basicinfo getBasicinfo(String trim) {
+public staff_basicinfo getBasicinfoById(String trim) {
 	staff_basicinfo  staff_basicinfo= new staff_basicinfo();
 	Session session = getSession();
 	String hql = "from staff_basicinfo where staff_id = :ID";

@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
@@ -67,6 +69,41 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 
 	public void setBasicinfo(staff_basicinfo basicinfo) {
 		this.staff_BasicInfo = basicinfo;
+	}
+	
+	
+	
+	
+public staff_basicinfo getStaff_BasicInfo() {
+		return staff_BasicInfo;
+	}
+
+	public void setStaff_BasicInfo(staff_basicinfo staff_BasicInfo) {
+		this.staff_BasicInfo = staff_BasicInfo;
+	}
+	/**
+	 * 根据id进行删除或者批量删除的字段
+	 */
+	private String idList;
+	/**
+	 * 根据Id查询管理员字段
+	 */
+	private String admin;
+
+public String getIdList() {
+		return idList;
+	}
+
+	public void setIdList(String idList) {
+		this.idList = idList;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 /**
  * 分页查询的字段
@@ -194,6 +231,19 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * 实现结束
 	 */
 	/**
+	 * 中转站管理
+	 */
+	public void transferStationManager() {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		
+		
+	}
+	
+	
+	/**
 	 * 查询中转站
 	 */
 	public void queryTransferStation() {
@@ -207,9 +257,11 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		unitManagerVO.setAddress(address);
 		unitManagerVO.setSuperiorunit(superiorunit);
 		unitManagerVO.setState(state);
-		
 		unitManagerVO.setPageIndex(page);
-		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO);
+		unitManagerVO.setAdmin(admin);
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO,staffBasicinfo);
 		//listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
 		
@@ -253,7 +305,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.deleteTransferStation(transferStation));
+		response.getWriter().write("" + transferStationService.deleteTransferStation(unitManagerVO));
 	}
 
 	/**
