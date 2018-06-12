@@ -13,14 +13,17 @@ import com.logistics.personnelmanagement.service.PersonnelManagementService;
 
 import util.BuildUuid;
 import util.TimeUtil;
+
 public class PersonnelManagementServiceImpl implements PersonnelManagementService {
 	/**
 	 * 注入DAO层
 	 */
 	private PersonnelManagementDao personnelManagementDao;
+
 	public void setPersonnelManagementDao(PersonnelManagementDao personnelManagementDao) {
 		this.personnelManagementDao = personnelManagementDao;
 	}
+
 	/**
 	 * 根据权限查人
 	 */
@@ -193,11 +196,10 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
 			if ("总公司".equals(positionNew.getPosition_name())) {
 				listUnit = new ArrayList<>();
-				listUnit = (List<unit>) personnelManagementDao.listObject("from unit where unit_type ='中转站' or '配送点'");
-				listUnit.addAll(listUnit);
+				listUnit = (List<unit>) personnelManagementDao.listObject("from unit where unit_type ='中转站' or unit_type='配送点'");
 				return listUnit;
 			}
-			if ("中转站管理员".equals(staffBasicinfo.getStaff_position())) {
+			if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				listUnit = new ArrayList<>();
 				listUnit = (List<unit>) personnelManagementDao
 						.listObject("from unit where unit_creator = '" + staffBasicinfo.getStaff_id() + "'");
@@ -218,42 +220,31 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
 			List<position> listPosition = new ArrayList<>();// 总职位
-			/*
-			 * List<position> listPositionByTransfer = new ArrayList<>();// 中转站管理员职位
-			 * List<position> listPositionByDistribution = new ArrayList<>();// 配送点管理员职位
-			 * List<position> listPositionByMarki = new ArrayList<>();// 配送员职位
-			 * List<position> listPositionByDriver = new ArrayList<>();// 司机职位
-			 * List<position> listPositionByCaptain = new ArrayList<>();// 车队队长职位
-			 */ // 总公司职位获取以下的所有职位
 			if ("总公司".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '中转站管理员' or '车队管理员' or '配送点管理员' or '驾驶员' or '配送员'");
+						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
-
 			/**
-			 * or是man'z'm
+			 * 中转站管理员获取以下的所有职位
 			 */
-			// 中转站管理员获取以下的所有职位
-
-			if ("中转站管理员".equals(staffBasicinfo.getStaff_position())) {
+			if ("中转站管理员".equals(positionNew.getPosition_name())) {
+				System.out.println("进来了吗");
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao
-						.listObject("from position where position_name =  '车队管理员' or '配送点管理员' or '驾驶员' or '配送员'");
+						.listObject("from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 
-			if ("中转站管理员".equals(staffBasicinfo.getStaff_position())) {
+			if ("配送点管理员".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao
 						.listObject("from position where position_name =  '配送员'");
 				return listPosition;
 			}
-
 		}
 		return null;
-
 	}
 
 	/**
@@ -271,7 +262,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 					personnelManagementDao.removeObject(staffBasicinfo);
 				}
 			}
-
 		}
 		return "Success";
 	}
@@ -292,7 +282,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			System.out.println("成功！");
 		}
 		return "Success";
-
 	}
 
 	/**
@@ -337,7 +326,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	public staff_basicinfo addStaff(staff_basicinfo staffBasicinfo) {
 		List<staff_basicinfo> staffBasicInfoNew = new ArrayList<>();
 		if (staffBasicinfo.getStaff_name().trim().length() > 0) {
-
 			staffBasicinfo.setStaff_id(BuildUuid.getUuid());
 			staffBasicinfo.setStaff_password(staffBasicinfo.getStaff_num());
 			staffBasicinfo.setStaff_createtime(TimeUtil.getStringSecond());
@@ -345,10 +333,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
 			staffBasicInfoNew = (List<staff_basicinfo>) personnelManagementDao
 					.listObject("from staff_basicinfo where staff_num = '" + staffBasicinfo.getStaff_num() + "'");
-
 		}
 		return staffBasicInfoNew.get(0);
-
 	}
-
 }

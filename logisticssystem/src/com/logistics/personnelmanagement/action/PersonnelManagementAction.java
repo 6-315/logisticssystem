@@ -172,8 +172,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		List<unit> listUnit = new ArrayList<>();
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		listUnit = personnelManagementService.getLowerUnit(staffBasicinfo);
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		listUnit = personnelManagementService.getLowerUnit(staffBasicInfo);
 		response.getWriter().write(gson.toJson(listUnit));
 
 	}
@@ -190,8 +190,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		List<position> listPosition = new ArrayList<>();
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		listPosition = personnelManagementService.getLowerPosition(staffBasicinfo);
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		listPosition = personnelManagementService.getLowerPosition(staffBasicInfo);
 		response.getWriter().write(gson.toJson(listPosition));
 	}
 

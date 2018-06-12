@@ -80,7 +80,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	private String password;
 	private StaffManagerVO staffManagerVO;
 	private String type;
-	
 
 	public String getType() {
 		return type;
@@ -129,6 +128,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	public void setUserinfo(userinfo userinfo) {
 		this.userInfo = userinfo;
 	}
+
 	/**
 	 * 注册方法
 	 * 
@@ -145,6 +145,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
+
 	/**
 	 * 登陆方法
 	 * 
@@ -164,24 +165,44 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listUserInfo.size() > 0) {
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
-					type ="用户";
+					type = "用户";
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("userInfoSession", userInfoSession);
-					response.getWriter().write("" + userInfoSession);
+					response.getWriter().write(gson.toJson(userInfoSession));
 					System.out.println("成功！");
 				}
 			}
 			if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
-					type ="员工";
+					type = "员工";
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("staff_session", staffSession);
-					response.getWriter().write("" + staffSession);
+					response.getWriter().write(gson.toJson(staffSession));
 				}
 			}
 			System.out.println("失败");
 		}
+
+	}
+
+	/**
+	 * 注销方法
+	 * 
+	 * @throws IOException
+	 */
+	public void logoff() throws IOException {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		userinfo userInfoSession = (userinfo) session.getAttribute("userInfoSession");
+		request.getSession().setAttribute("type", "");
+		request.getSession().setAttribute("staff_session", "");
+		request.getSession().setAttribute("userInfoSession", "");
+		response.getWriter().write("" + "注销成功");
 
 	}
 }
