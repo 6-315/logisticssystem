@@ -9,7 +9,7 @@ import com.logistics.domain.staff_basicinfo;
  * 人事管理DAO接口
  * 
  * @author LW
- *
+ * 
  */
 public interface PersonnelManagementDao {
 	public void saveOrUpdateObject(Object obj);
