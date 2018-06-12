@@ -1,6 +1,8 @@
 package com.logistics.vehiclemanagement.service;
 
+import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
+import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 
 /**
@@ -34,7 +36,34 @@ public interface VehicleManagementService {
 	 * 根据id批量删除车辆
 	 * @param ids
 	 */
-	public void deleteVehicle(VehicleVO vehicleInfoVO);
+	public String deleteVehicle(VehicleVO vehicleInfoVO);
+
+	/**
+	 * 添加车队
+	 * @param teamInfo
+	 * @return
+	 */
+	public String addTeam(team teamInfo);
+
+	/**
+	 * 更新车队信息
+	 * @param teamInfo
+	 * @return
+	 */
+	public String updateTeam(team teamInfo);
+
+	/**
+	 * 批量删除车队
+	 * @param teamInfoVO
+	 */
+	public String deleteTeam(TeamVO teamInfoVO);
+
+	/**
+	 * 查询车队信息
+	 * @param teamInfoVO
+	 * @return
+	 */
+	public TeamVO queryTeam(TeamVO teamInfoVO);
 
 	
 

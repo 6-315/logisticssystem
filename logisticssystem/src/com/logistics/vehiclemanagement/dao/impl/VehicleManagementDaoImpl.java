@@ -14,7 +14,7 @@ import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 
 /**
  * 车辆管理DAO实现层
- * 
+ *  
  * @author LW
  *
  */
@@ -169,6 +169,28 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		query.setParameter("ID", vehicle_team);
 		vehicleTeam = (team) query.uniqueResult();
 		return vehicleTeam;
+	}
+
+	/**
+	 * 根据车牌号查询信息
+	 */
+	@Override
+	public vehicle getVehicleInfoByPlateNumber(String vehicle_platenum) {
+		vehicle vehicleInfo = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_platenum = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_platenum);
+		vehicleInfo = (vehicle) query.uniqueResult();
+		return vehicleInfo;
+	}
+
+	@Override
+	public String getMaxNumber(String hql) {
+		Session session = getSession();
+		Query query = session.createQuery(hql);
+		String number = (String) query.uniqueResult();
+		return number;
 	}
 
 }
