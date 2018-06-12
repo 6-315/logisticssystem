@@ -30,11 +30,13 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 
 	/**
 	 * 路线增加
+	 * @return 
 	 */
 	@Override
-	public void addRout(route rout) {
+	public String addRout(route rout) {
 		rout.setRoute_id(BuildUuid.getUuid());
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 
 	}
 
@@ -42,24 +44,27 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 * 更改路线信息
 	 */
 	@Override
-	public void updateRoutInfo(route rout) {
+	public String updateRoutInfo(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 	}
 
 	/**
 	 * 更改路线状态
 	 */
 	@Override
-	public void updateRouteState(route rout) {
+	public String updateRouteState(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
+		return "Success";
 
 	}
 
 	/**
 	 * 批量删除路线
+	 * @return 
 	 */
 	@Override
-	public void deleteListRoute(String routeIds) {
+	public String deleteListRoute(String routeIds) {
 		String[] routeIDArray = routeIds.split(",");
 		route deleteRoute = null;
 		for (String routeId : routeIDArray) {
@@ -69,6 +74,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				routeManagementDao.removeObject(deleteRoute);
 			}
 		}
+		return "Success";
 	}
 
 	/**

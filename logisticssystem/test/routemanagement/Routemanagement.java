@@ -40,6 +40,7 @@ public class Routemanagement {
 	public void addRouteInfo() {
 		route rout = new route();
 		rout.setRoute_num("6");
+	
 		System.out.println("测试。。" + rout.getRoute_num());
 		routeManagementService.addRout(rout);
 	}
@@ -50,8 +51,8 @@ public class Routemanagement {
 	@Test
 	public void updateRouteInfo() {
 		route updateRoute = new route();
-		updateRoute.setRoute_id("cfa5b124caf5");
-		updateRoute.setRoute_num("8");
+		updateRoute.setRoute_id("43460250-6ae2-4e56-9384-b465d25db35d");
+		updateRoute.setRoute_num("1");
 		System.out.println("ddddddddddd");
 		System.out.println("测试。。" + updateRoute.getRoute_num());
 		routeManagementService.updateRoutInfo(updateRoute);
@@ -75,7 +76,7 @@ public class Routemanagement {
 	@Test
 	public void getRouteManager() {
 		RouteManagerVO routManagerVO = new RouteManagerVO();
-		routManagerVO.setStartUnit("111");
+		//routManagerVO.setStartUnit("111");
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		System.out.println("给爸爸来/1"+routManagerVO);
 	}
