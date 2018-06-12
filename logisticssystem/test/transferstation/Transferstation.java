@@ -1,12 +1,15 @@
 package transferstation;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
@@ -53,10 +56,10 @@ public class Transferstation {
 	 */
 	@Test
 	public void deleteTransferStation() {
-		unit transferStation = new unit();
-		transferStation.setUnit_id("transferStation");
-		System.out.println("shanchu");
-		transferStationService.deleteTransferStation(transferStation);
+		UnitManagerVO unitManagerVO = new UnitManagerVO();
+		unitManagerVO.setIdList("11111");
+		System.out.println("1234567"+unitManagerVO);
+		transferStationService.deleteTransferStation(unitManagerVO);
 		
 	}
 	/**
@@ -78,9 +81,11 @@ public class Transferstation {
 	@Test
 	public void queryTransferStation() {
 		UnitManagerVO transferStationVO = new UnitManagerVO();
-		transferStationVO.setAddress("hubei");
-		transferStationVO.setState("zhengchang");
-		transferStationVO = transferStationService.queryTransferStation(transferStationVO);
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		/*String search = "l";
+		transferStationVO.setSearch(search);*/
+		transferStationVO.setAdmin("12");
+		transferStationVO = transferStationService.queryTransferStation(transferStationVO,staffBasicInfo);
 		System.out.println("chaxun"+transferStationVO);
 		
 	}

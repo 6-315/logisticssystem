@@ -7,16 +7,34 @@ package com.logistics.transferstation.VO;
 
 import java.util.List;
 
-import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
-
+/**
+ * 分页显示中转站的UnitManagerVO
+ * @author LL
+ *
+ */
 public class UnitManagerVO {
 	/**
 	 * 生成list集合
 	 */
 	private List<UnitManagerDTO> listUnitManagerDTO;
 	private int totalRecords = 0;
-
+	
+	private String unit_id;
+	
+	private String admin;
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
+	}
+	public String getUnit_id() {
+		return unit_id;
+	}
+	public void setUnit_id(String unit_id) {
+		this.unit_id = unit_id;
+	}
 	private String state;
 	
 	private String address;
@@ -54,9 +72,31 @@ public class UnitManagerVO {
 	private int pageSize = 2;
 
 	private int totalPages = 1;
-	
+	/**
+	 * 模糊查询
+	 */
 	private String search;
+	/**
+	 * 根据Id删除中转站信息
+	 */
+	private String idList;
+	/**
+	 * 员工信息表的session
+	 */
+	private String staff_session;
 
+	public String getStaff_session() {
+		return staff_session;
+	}
+	public void setStaff_session(String staff_session) {
+		this.staff_session = staff_session;
+	}
+	public String getIdList() {
+		return idList;
+	}
+	public void setIdList(String idList) {
+		this.idList = idList;
+	}
 	public String getSearch() {
 		return search;
 	}
@@ -110,12 +150,11 @@ public class UnitManagerVO {
 	}
 	@Override
 	public String toString() {
-		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", totalRecords=" + totalRecords + ", state="
-				+ state + ", address=" + address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex="
-				+ pageIndex + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", search=" + search
-				+ ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage + "]";
+		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", totalRecords=" + totalRecords
+				+ ", unit_id=" + unit_id + ", admin=" + admin + ", state=" + state + ", address=" + address + ", num="
+				+ num + ", superiorunit=" + superiorunit + ", pageIndex=" + pageIndex + ", pageSize=" + pageSize
+				+ ", totalPages=" + totalPages + ", search=" + search + ", idList=" + idList + ", staff_session="
+				+ staff_session + ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage + "]";
 	}
-
-	
 
 }
