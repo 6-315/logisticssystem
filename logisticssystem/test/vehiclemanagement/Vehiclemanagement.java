@@ -121,4 +121,12 @@ public class Vehiclemanagement {
 		String idList = "";
 		vehicleManagementService.deleteTeam(idList);
 	}
+	/**
+	 * 车辆流转测试
+	 */
+	@Test
+	public void exchangeVehicleTest() {
+		vehiclecirculation vehicleCirculation = new vehiclecirculation();
+		vehicleCirculation.setVehiclecirculation_initiative("");
+	}
 }

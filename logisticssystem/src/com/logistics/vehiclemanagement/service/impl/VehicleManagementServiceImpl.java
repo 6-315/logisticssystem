@@ -7,6 +7,7 @@ import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
+import com.logistics.domain.vehiclecirculation;
 import com.logistics.vehiclemanagement.DTO.VehicleDTO;
 import com.logistics.vehiclemanagement.DTO.Vehicle_TeamDTO;
 import com.logistics.vehiclemanagement.VO.TeamVO;
@@ -37,12 +38,12 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * @return 1 代表添加成功
 	 */
 	@Override
-	public int addVehicle(vehicle vehicleInfo) {
+	public String addVehicle(vehicle vehicleInfo) {
 		if (vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length() > 0) {
 			vehicle queryVehicle = vehicleManagementDao.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
 			if (queryVehicle != null) {
 				System.out.println("该车牌号已经存在");
-				return -1;
+				return "error";
 			} else {
 				/**
 				 * 添加信息
@@ -57,11 +58,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 */
 				vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 				System.out.println("添加成功");
-				return 1;
+				return "success";
 			}
 		} else {
 			System.out.println("未获得车牌号");
-			return -1;
+			return "error";
 		}
 
 	}
@@ -345,6 +346,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	@Override
 	public String addTeam(team teamInfo) {
 		teamInfo.setTeam_id(BuildUuid.getUuid());
+		teamInfo.setTeam_num("123");
 		teamInfo.setTeam_createtime(TimeUtil.getStringSecond());
 		teamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
 		vehicleManagementDao.saveOrUpdateObject(teamInfo);
@@ -545,6 +547,51 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		teamInfoVO.setListTeamDTO(listTeamDTO);
 
 		return teamInfoVO;
+	}
+
+	/**
+	 * 流转车辆
+	 */
+	@Override
+	public String exchangeVehicle(vehiclecirculation vehicleCirculation) {
+		if (vehicleCirculation != null) {
+			if (vehicleCirculation.getVehiclecirculation_vehicle_id() != null
+					&& vehicleCirculation.getVehiclecirculation_vehicle_id().trim().length() > 0) {
+				vehicle vehicleInfo = vehicleManagementDao
+						.getVehicleInfoById(vehicleCirculation.getVehiclecirculation_vehicle_id());
+				if (vehicleInfo != null) {
+					if (vehicleCirculation.getVehiclecirculation_initiative() != null
+							&& vehicleCirculation.getVehiclecirculation_acceptd() != null
+							&& vehicleCirculation.getVehiclecirculation_initiative().trim().length() > 0
+							&& vehicleCirculation.getVehiclecirculation_acceptd().trim().length() > 0) {
+						unit initiativeUnit = vehicleManagementDao
+								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_initiative());
+						unit acceptedUnit = vehicleManagementDao
+								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_acceptd());
+						if (initiativeUnit != null && acceptedUnit != null) {
+							vehicleInfo.setVehicle_unit(vehicleCirculation.getVehiclecirculation_acceptd());
+							vehicleInfo.setVehicle_distribution_state("未分配至车队");
+							vehicleInfo.setVehicle_drivingdirection("无");
+							vehicleInfo.setVehicle_express_state("空闲");
+							vehicleInfo.setVehicle_team("无");
+							vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+							vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+							System.out.println("车辆信息更新成功");
+							
+							vehicleCirculation.setVehiclecirculation_id(BuildUuid.getUuid());
+							vehicleCirculation.setVehiclecirculation_time(TimeUtil.getStringSecond());
+							vehicleCirculation.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
+							vehicleCirculation.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
+							vehicleManagementDao.saveOrUpdateObject(vehicleCirculation);
+							System.out.println("流转完成！");
+							return "success";
+						}
+					}
+				}
+			}
+		}
+		System.out.println("流转失败！");
+		return "error";
 	}
 
 }
