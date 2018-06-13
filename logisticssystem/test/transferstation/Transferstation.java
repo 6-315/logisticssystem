@@ -83,9 +83,8 @@ public class Transferstation {
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		/*String search = "l";
 		transferStationVO.setSearch(search);*/
-		staffBasicInfo.setStaff_position("13");
 		transferStationVO = transferStationService.queryTransferStation(transferStationVO,staffBasicInfo);
-		System.out.println("chaxun");
+		System.out.println("chaxun"+transferStationVO);
 		
 	}
 	
