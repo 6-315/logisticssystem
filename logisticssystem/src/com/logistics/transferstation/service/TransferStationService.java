@@ -1,5 +1,6 @@
 package com.logistics.transferstation.service;
 
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
@@ -26,25 +27,25 @@ public interface TransferStationService {
 	 * @param transferStation
 	 * @return
 	 */
-	String deleteTransferStation(unit transferStation);
-
+	String deleteTransferStation(String idList);
 	/**
-	 * 分页显示用户信息
+	 * 分页显示中转站信息
 	 * 
 	 * @param transferStationVO
 	 * @return
 	 */
 
-	UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO);
+	UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO,staff_basicinfo staffBasicnfo);
 
 	/**
-	 * 修改用户信息
+	 * 修改中转站信息
 	 * 
 	 * @param transferStation
 	 * @return
 	 */
 
 	String updateTransferStation(unit transferStation);
+
 
 
 }

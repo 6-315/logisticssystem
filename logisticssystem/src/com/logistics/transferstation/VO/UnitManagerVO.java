@@ -7,16 +7,45 @@ package com.logistics.transferstation.VO;
 
 import java.util.List;
 
-import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
-
+/**
+ * 分页显示中转站的UnitManagerVO
+ * @author LL
+ *
+ */
 public class UnitManagerVO {
 	/**
 	 * 生成list集合
 	 */
 	private List<UnitManagerDTO> listUnitManagerDTO;
+	
+	private String position;
+	
+	
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
 	private int totalRecords = 0;
-
+	
+	private String unit_id;
+	
+	private String unit_type;
+	
+	public String getUnit_type() {
+		return unit_type;
+	}
+	public void setUnit_type(String unit_type) {
+		this.unit_type = unit_type;
+	}
+	public String getUnit_id() {
+		return unit_id;
+	}
+	public void setUnit_id(String unit_id) {
+		this.unit_id = unit_id;
+	}
 	private String state;
 	
 	private String address;
@@ -54,9 +83,22 @@ public class UnitManagerVO {
 	private int pageSize = 2;
 
 	private int totalPages = 1;
-	
+	/**
+	 * 模糊查询
+	 */
 	private String search;
+	
+	/**
+	 * 员工信息表的session
+	 */
+	private String staff_session;
 
+	public String getStaff_session() {
+		return staff_session;
+	}
+	public void setStaff_session(String staff_session) {
+		this.staff_session = staff_session;
+	}
 	public String getSearch() {
 		return search;
 	}
@@ -110,12 +152,11 @@ public class UnitManagerVO {
 	}
 	@Override
 	public String toString() {
-		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", totalRecords=" + totalRecords + ", state="
-				+ state + ", address=" + address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex="
-				+ pageIndex + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", search=" + search
-				+ ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage + "]";
+		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", position=" + position + ", totalRecords="
+				+ totalRecords + ", unit_id=" + unit_id + ", unit_type=" + unit_type + ", state=" + state + ", address="
+				+ address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex=" + pageIndex
+				+ ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", search=" + search + ", staff_session="
+				+ staff_session + ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage + "]";
 	}
-
-	
 
 }

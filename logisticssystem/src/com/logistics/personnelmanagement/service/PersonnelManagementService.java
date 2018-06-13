@@ -13,7 +13,7 @@ import com.logistics.personnelmanagement.VO.StaffManagerVO;
  *
  */
 public interface PersonnelManagementService {
-	StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO);
+	StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO,staff_basicinfo staffBasicinfo);
 
 	List<unit> getLowerUnit(staff_basicinfo staffBasicinfo);
 
@@ -27,12 +27,10 @@ public interface PersonnelManagementService {
 
 	String updateStaffState(staff_basicinfo staffBasicinfo);
 
-	String addStaff(staff_basicinfo staffBasicinfo);
+	staff_basicinfo addStaff(staff_basicinfo staffBasicinfo);
 
 
-	StaffManagerVO getStaffManagerVOByTransfer(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo);
-
-	StaffManagerVO getStaffManagerVOByDistribution(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo);
+	
 
 
 }
