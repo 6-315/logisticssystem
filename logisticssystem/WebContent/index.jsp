@@ -24,10 +24,10 @@
         <div style="float:left;marign:auto;color:#FFF" class="navlogin">
             <ul>
                 <li>
-                    <a href="">登录</a>
+                    <a href="${pageContext.request.contextPath}/login.jsp">登录</a>
                 </li>
                 <li>
-                    <a href="">注册</a>
+                    <a href="${pageContext.request.contextPath}/register.jsp">注册</a>
                 </li>
             </ul>
         </div>
@@ -125,7 +125,7 @@
                         <div class="check-position">
                             <!-- <input type="checkbox" id="agingProducts"  name="agingProducts"> -->
                             <div class="form-group form-material">
-                                <label for="agingProducts">时效产品</label>
+                                <label for="getProductType">时效产品</label>
                                 <div id="getProductType">
                                     <input name="siteCode" id="siteCode" value="" type="hidden">
                                     <input name="siteName" id="siteName" value="" type="hidden">
