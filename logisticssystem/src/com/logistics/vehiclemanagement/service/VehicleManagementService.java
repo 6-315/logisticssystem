@@ -2,6 +2,7 @@ package com.logistics.vehiclemanagement.service;
 
 import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
+import com.logistics.domain.vehiclecirculation;
 import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 
@@ -17,7 +18,7 @@ public interface VehicleManagementService {
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int addVehicle(vehicle vehicleInfo);
+	public String addVehicle(vehicle vehicleInfo);
 
 	/**
 	 * 查询车辆
@@ -65,10 +66,6 @@ public interface VehicleManagementService {
 	 */
 	public TeamVO queryTeam(TeamVO teamInfoVO);
 
-
-	
-
-	
-	
+	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
 
 }

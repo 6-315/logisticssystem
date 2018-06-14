@@ -120,6 +120,26 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 根据id批量删除
 	 */
 	private String idList = "";
+	/**
+	 * 车辆流转表
+	 */
+	private vehiclecirculation vehicleCirculation;
+
+	public team getTeamInfo() {
+		return teamInfo;
+	}
+
+	public void setTeamInfo(team teamInfo) {
+		this.teamInfo = teamInfo;
+	}
+
+	public vehiclecirculation getVehicleCirculation() {
+		return vehicleCirculation;
+	}
+
+	public void setVehicleCirculation(vehiclecirculation vehicleCirculation) {
+		this.vehicleCirculation = vehicleCirculation;
+	}
 
 	public TeamVO getTeamInfoVO() {
 		return teamInfoVO;
@@ -354,4 +374,21 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO);
 		response.getWriter().write("" + teamInfoVO);
 	}
+
+	/**
+	 * 车辆流转
+	 * 
+	 * @throws IOException
+	 */
+	private void exchangeVehicle() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
+	}
+
 }
