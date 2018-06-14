@@ -14,8 +14,20 @@
         <property name="vehicle_platenum" type="java.lang.String">
             <column name="vehicle_platenum" />
         </property>
+        <property name="vehicle_standard" type="java.lang.String">
+            <column name="vehicle_standard" />
+        </property>
         <property name="vehicle_state" type="java.lang.String">
             <column name="vehicle_state" />
+        </property>
+        <property name="vehicle_distribution_state" type="java.lang.String">
+            <column name="vehicle_distribution_state" />
+        </property>
+        <property name="vehicle_express_state" type="java.lang.String">
+            <column name="vehicle_express_state" />
+        </property>
+        <property name="vehicle_drivingdirection" type="java.lang.String">
+            <column name="vehicle_drivingdirection" />
         </property>
         <property name="vehicle_unit" type="java.lang.String">
             <column name="vehicle_unit" />

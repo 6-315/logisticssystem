@@ -1,19 +1,12 @@
-package com.logistics.routemanagement.dao;
+package com.logistics.expressmanagementW.dao;
 
 import java.util.List;
-
-import com.logistics.domain.route;
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
-
 /**
- * 路线管理dao层接口
- * 
- * @author LW
+ * DAO接口
+ * @author LW 
  *
  */
-public interface RouteManagementDao {
-
+public interface ExpressManagementDao2 {
 	/**
 	 * 保存、更新对象
 	 * 
@@ -61,30 +54,6 @@ public interface RouteManagementDao {
 	 * @param trim
 	 * @return
 	 */
-
-	/**
-	 * 获取staff_basicinfo单条数据
-	 * 
-	 * @return
-	 */
-
-	public staff_basicinfo getStaff_Basicinfo(String sql);
-	/**
-	 * 获取unit单条数据
-	 * 
-	 * @return
-	 */
-
-	public unit getRoute_Departurestation(String sql1);
-
-	public unit getRoute_Terminalstation(String sql2);
-/**
- * 根据route_id查route表单条信息
- * @param route_id
- * @return
- */
-	public route getRouteById(String route_id);
-	public String getRoutNum(String sql);
 
 
 }

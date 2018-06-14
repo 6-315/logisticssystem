@@ -139,7 +139,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(routeManagementService.addRout(rout));
+		response.getWriter().write(gson.toJson(routeManagementService.addRout(rout)));
 
 		
 	}
@@ -153,8 +153,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(routeManagementService.updateRoutInfo(rout));
-		//routeManagementService.updateRoutInfo(rout);
+		response.getWriter().write(gson.toJson(routeManagementService.updateRoutInfo(rout)));
 	}
 
 	/**
@@ -166,7 +165,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(routeManagementService.updateRouteState(rout));
+		response.getWriter().write(gson.toJson(routeManagementService.updateRouteState(rout)));
 		//routeManagementService.updateRouteState(rout);
 
 	}
@@ -182,7 +181,6 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(routeManagementService.deleteListRoute(routeId));
 
-		//routeManagementService.deleteListRoute(routeIds);
 
 	}
 

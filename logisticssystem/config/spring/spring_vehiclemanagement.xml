@@ -2,15 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean id="vehicleManagementAction" class="com.logistics.vehiclemanagement.action.VehicleManagementAction"
+	<bean id="vehicleManagementAction"
+		class="com.logistics.vehiclemanagement.action.VehicleManagementAction"
 		scope="prototype">
-		<property name="vehicleManagementService" ref="vehicleManagementService"></property>
+		<property name="vehicleManagementService"
+			ref="vehicleManagementService"></property>
 	</bean>
 	<bean id="vehicleManagementService"
-		class="com.logistics.vehiclemanagement.service.impl.VehicleManagementServiceImpl">
-		<property name="vehicleManagementDao" ref="vehicleManagementDao"></property>
+		class="
+com.logistics.vehiclemanagement.service.impl.VehicleManagementServiceImpl">
+		<property name="vehicleManagementDao"
+			ref="vehicleManagementDao"></property>
 	</bean>
-	<bean id="vehicleManagementDao" class="com.logistics.vehiclemanagement.dao.impl.VehicleManagementDaoImpl">
+	<bean id="vehicleManagementDao"
+		class="com.logistics.vehiclemanagement.dao.impl.VehicleManagementDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 </beans>
