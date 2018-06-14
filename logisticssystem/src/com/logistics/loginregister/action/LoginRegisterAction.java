@@ -178,24 +178,29 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 				response.getWriter().write("" + "error");
 			}
 			if (listStaffBasicInfo.size() > 0) {
-				System.out.println("auhdashdiashduihasidhish"+username);
+				System.out.println("auhdashdiashduihasidhish" + username);
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
 					String positionName = "";
 					System.out.println("??????????????????");
 					position positionNew = new position();
-					positionNew  =  loginRegisterService.getPosition(staffSession.getStaff_position());
-					//positionName = loginRegisterService.getPosition(staffSession.getStaff_position());
+					positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
+					// positionName =
+					// loginRegisterService.getPosition(staffSession.getStaff_position());
 					type = "员工";
 					request.getSession().setAttribute("positionName", positionNew.getPosition_name());
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("staff_session", staffSession);
 					response.getWriter().write(gson.toJson(staffSession));
 					return "SuccessByStaff";
+				} else {
+					System.out.println("失败");
+					response.getWriter().write("" + "error");
 				}
 			}
-			response.getWriter().write("" + "error");
 			System.out.println("失败");
+			response.getWriter().write("" + "error");
+
 		}
 		return null;
 

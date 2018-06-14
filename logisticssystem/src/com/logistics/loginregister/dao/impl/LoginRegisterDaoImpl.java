@@ -124,21 +124,23 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		System.out.println("____________" + hql);
 		Query query = session.createQuery(hql);
 		List<userinfo> listuserinfo = query.list();
-		if (listuserinfo.get(0).getUserinfo_password() != null
-				&& listuserinfo.get(0).getUserinfo_phonenumber() != null) {
-			System.out.println(listuserinfo.get(0).getUserinfo_password());
-			System.out.println(password);
-			System.out.println(username);
-			System.out.println(listuserinfo.get(0).getUserinfo_phonenumber());
-			System.out.println("tttttttttttttttttttttttttttttt");
-			if (listuserinfo.get(0).getUserinfo_password().equals(password)
-					&& listuserinfo.get(0).getUserinfo_phonenumber().equals(username)) {
-				System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
-				return listuserinfo.get(0);
+		if (listuserinfo.size() > 0) {
+			if (listuserinfo.get(0).getUserinfo_password() != null
+					&& listuserinfo.get(0).getUserinfo_phonenumber() != null) {
+				System.out.println(listuserinfo.get(0).getUserinfo_password());
+				System.out.println(password);
+				System.out.println(username);
+				System.out.println(listuserinfo.get(0).getUserinfo_phonenumber());
+				System.out.println("tttttttttttttttttttttttttttttt");
+				if (listuserinfo.get(0).getUserinfo_password().equals(password)
+						&& listuserinfo.get(0).getUserinfo_phonenumber().equals(username)) {
+					System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+					return listuserinfo.get(0);
+				}
 			}
+
 		}
 		return null;
-
 	}
 
 	/**
@@ -151,13 +153,14 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 				+ "'";
 		Query query = session.createQuery(hql);
 		List<staff_basicinfo> liststaff_basicinfo = query.list();
-		System.out.println("草泥马"+liststaff_basicinfo.get(0));
-		if (liststaff_basicinfo.get(0).getStaff_password() != null
-				&& liststaff_basicinfo.get(0).getStaff_num() != null) {
-			if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
-					&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
-				System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
-				return liststaff_basicinfo.get(0);
+		if (liststaff_basicinfo.size() > 0) {
+			if (liststaff_basicinfo.get(0).getStaff_password() != null
+					&& liststaff_basicinfo.get(0).getStaff_num() != null) {
+				if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
+						&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
+					System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+					return liststaff_basicinfo.get(0);
+				}
 			}
 		}
 		return null;
