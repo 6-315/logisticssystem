@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta content="text/html; charset=UTF-8">
-    <title>Note3速递</title>
+    <title>我要寄件</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
-<body class="body-order">
+<body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -22,20 +22,58 @@
             <div class="navbar-other">2018，全新开始</div>
         </div>
         <div style="float:left;marign:auto;color:#FFF" class="navlogin">
-            <ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="${pageContext.request.contextPath}/login.jsp">登录</a>
+                    <a style="text-decoration:none;" href="#" class="navbar-avatar">
+				     <span class="avatar" style="vertical-align:baseline;">
+						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
+					</span> <span class="user-name"> 18296929245 </span>
+                    </a>
                 </li>
-                <li>
-                    <a href="${pageContext.request.contextPath}/register.jsp">注册</a>
-                </li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp">退出</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="page">
+<div class="site-menubar navbar-nav">
+    <div class="site-menubar-body">
+        <ul class="site-menu">
+            <li class="site-menu-item">
+                <a href="${pageContext.request.contextPath}/user-index.jsp"><span
+                        class="site-menu-title">首页</span></a>
+            </li>
+            <li class="site-menu-item">
+                <a href="${pageContext.request.contextPath}/user-order.jsp"><span class="site-menu-title">我要寄件</span></span>
+                </a>
+            </li>
+            <li class="site-menu-item">
+                <a href="${pageContext.request.contextPath}/user-search.jsp">
+                    <span class="site-menu-title">我要查件</span></a>
+            </li>
+            <li class="site-menu-item">
+                <a href="javascript:;">
+                    <span class="site-menu-title">我的订单</span></span>
+                </a>
+            </li>
+            <li class="site-menu-item">
+                <a href="javascript:;">
+                    <span class="site-menu-title">用户信息</span></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="page" style="margin-top:110px">
     <div class="container m_top_20">
         <form id="form" class="fv-form fv-form-bootstrap" method="post" action="" novalidate="novalidate">
+            <div class="row">
+                <div class="col-sm-2">
+                    <ol class="breadcrumb" style="background-color: transparent;">
+                        <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
+                        <li class="active">/&nbsp;我要寄件</li>
+                    </ol>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="yto-item">
@@ -152,7 +190,7 @@
         </form>
     </div>
 </div>
-<footer class="page-footer">
+<footer class="page-footer" style="height: 72px">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6">
