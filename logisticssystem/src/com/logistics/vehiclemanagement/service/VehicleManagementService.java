@@ -68,10 +68,4 @@ public interface VehicleManagementService {
 
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
 
-
-	
-
-	
-	
-
 }
