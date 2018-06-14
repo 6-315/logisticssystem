@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3ef4fdff-2f77-4b2b-9c5c-d55bf4c9c3f4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-messagedetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-messagedetail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-mymessage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-mymessage.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-myorder.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-myorder.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-order.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-order.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-updatepassword.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-updatepassword.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-useraddress.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-useraddress.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/user-userinfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/login.jsp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,34 +17,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
+      <file leaf-file-name="admin-index.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/admin/admin-index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+            <state relative-caret-position="399">
+              <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+              <folding>
+                <element signature="n#style#0;n#img#0;n#a#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#11986#11992#1#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/css/index.css">
+      <file leaf-file-name="login.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/login.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            <state relative-caret-position="405">
+              <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-search.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-search.jsp">
+      <file leaf-file-name="login-register.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/public/login-register.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="73" column="46" lean-forward="true" selection-start-line="73" selection-start-column="46" selection-end-line="73" selection-end-column="46" />
+            <state relative-caret-position="190">
+              <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -71,7 +75,6 @@
         <option value="$PROJECT_DIR$/logisticssystem/config/log4j.properties" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/css/kuangkaung.css" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/register.jsp" />
-        <option value="$PROJECT_DIR$/logisticssystem/WebContent/login.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/index.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/user-index.jsp" />
@@ -84,6 +87,12 @@
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/user-userinfo.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/user-useraddress.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/user-updatepassword.jsp" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/admin/admin-index.jsp" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/js-domain/userinfo.js" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/js-domain/domain.js" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/util/ajax.js" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/login.jsp" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/public/login-register.js" />
       </list>
     </option>
   </component>
@@ -121,8 +130,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -154,20 +161,46 @@
               <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
               <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
               <item name="WebContent" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="logisticssystem" type="b2602c69:ProjectViewProjectNode" />
               <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
               <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
               <item name="WebContent" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-              <item name="iCheck" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="logisticssystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="WebContent" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="logisticssystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="WebContent" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="logisticssystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="logisticssystem" type="462c0819:PsiDirectoryNode" />
+              <item name="WebContent" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -176,6 +209,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="D:/StudySoft/node/node" />
+    <property name="node.js.path.for.package.standard" value="D:/StudySoft/node/node" />
+    <property name="node.js.selected.package.eslint" value="C:\Users\JXX\AppData\Roaming\npm\node_modules\eslint" />
+    <property name="node.js.selected.package.standard" value="C:\Users\JXX\AppData\Roaming\npm\node_modules\eslint" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -382,12 +421,13 @@
       <workItem from="1528878592310" duration="14752000" />
       <workItem from="1528900034762" duration="8711000" />
       <workItem from="1528934910107" duration="18170000" />
-      <workItem from="1528958755640" duration="223000" />
+      <workItem from="1528958755640" duration="4387000" />
+      <workItem from="1528964765656" duration="5857000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45635000" />
+    <option name="totallyTimeSpent" value="58419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -415,15 +455,69 @@
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="13" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22619048" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Image Layers" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.24247226" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Application Servers" order="12" weight="0.3296355" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="5" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="13" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info id="Designer" order="3" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="Application Servers" order="12" weight="0.3296355" />
+      <window_info id="Designer" order="3" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Image Layers" order="4" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="13" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.24247226" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22619048" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -458,28 +552,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="5" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/ok.jsp" />
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -652,13 +724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/plugins/bootstrap/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="38">
@@ -666,80 +731,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-index.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-order.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-myorder.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-messagedetail.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-mymessage.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-userinfo.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-useraddress.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-updatepassword.jsp" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-search.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-order.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="72" column="50" selection-start-line="72" selection-start-column="50" selection-end-line="72" selection-end-column="50" />
+        <state relative-caret-position="285">
+          <caret line="77" column="37" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
+        <state relative-caret-position="248">
           <caret line="60" column="16" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-myorder.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2337">
-          <caret line="123" column="45" selection-start-line="123" selection-start-column="45" selection-end-line="123" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-messagedetail.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
-          <caret line="95" column="53" selection-start-line="95" selection-start-column="53" selection-end-line="95" selection-end-column="53" />
+          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-mymessage.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/js-domain/domain.js" />
+    <entry file="file://$PROJECT_DIR$/logisticssystem/src/com/logistics/domain/userinfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1957">
-          <caret line="103" column="96" selection-start-line="103" selection-start-column="96" selection-end-line="103" selection-end-column="96" />
+        <state relative-caret-position="133">
+          <caret line="7" column="3" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-userinfo.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/admin/admin-index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1159">
-          <caret line="61" column="29" selection-start-line="61" selection-start-column="29" selection-end-line="61" selection-end-column="29" />
+        <state relative-caret-position="399">
+          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#a#0;n#aside#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#11986#11992#1#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-useraddress.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/login.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="87" column="109" selection-start-line="87" selection-start-column="24" selection-end-line="87" selection-end-column="113" />
+        <state relative-caret-position="405">
+          <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-updatepassword.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/public/login-register.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="107" column="39" lean-forward="true" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/user-search.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="73" column="46" lean-forward="true" selection-start-line="73" selection-start-column="46" selection-end-line="73" selection-end-column="46" />
+        <state relative-caret-position="190">
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
         </state>
       </provider>
     </entry>

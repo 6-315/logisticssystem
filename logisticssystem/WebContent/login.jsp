@@ -20,14 +20,14 @@
     </div>
     <!-- /.login-logo -->
     <div class="card">
-        <div class="card-body login-card-body">
+        <div id="login" class="card-body login-card-body">
             <p class="login-box-msg">登录</p>
-            <form action="" method="post">
+            <%--<form action="" method="post">--%>
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="手机号码">
+                    <input v-model="name" type="text" class="form-control" placeholder="手机号码">
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="密码">
+                    <input v-model="password" type="password" class="form-control" placeholder="密码">
                 </div>
                 <div class="row">
                     <div class="col-8">
@@ -39,14 +39,10 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">登录</button>
+                        <button v-on:click="login" id="user_login" class="btn btn-primary btn-block btn-flat">登录</button>
                     </div>
                     <!-- /.col -->
                 </div>
-            </form>
-            <!-- <p class="mb-1">
-              <a href="#">I forgot my password</a>
-            </p> -->
             <p class="mb-0">
                 <a href="${pageContext.request.contextPath}/register.jsp" class="text-center">注册</a>
             </p>
@@ -57,14 +53,18 @@
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',
-            radioClass   : 'iradio_square-blue',
-            increaseArea : '20%' // optional
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
         })
     })
 </script>
+
 </body>
 </html>
