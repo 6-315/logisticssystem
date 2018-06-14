@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
+    <meta content="text/html; charset=UTF-8">
+    <title>我的消息</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Note3 速递系统</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iZimodal/iziModal.min.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -30,7 +31,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -43,7 +45,8 @@
                         class="site-menu-title">首页</span></a>
             </li>
             <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-order.jsp"><span class="site-menu-title">我要寄件</span></span>
+                <a href="${pageContext.request.contextPath}/user-order.jsp"><span
+                        class="site-menu-title">我要寄件</span></span>
                 </a>
             </li>
             <li class="site-menu-item">
@@ -57,61 +60,49 @@
             </li>
             <li class="site-menu-item">
                 <a href="${pageContext.request.contextPath}/user-userinfo.jsp">
-                    <span class="site-menu-title">用户信息</span></span>
+                    <span class="site-menu-title">我的信息</span></span>
                 </a>
             </li>
         </ul>
     </div>
 </div>
 <div class="page" style="margin-top:110px">
-    <div class="showpic">
-        <ul>
-            <li class="activeImg"
-                style="opacity: 1; background-image:url(${pageContext.request.contextPath}/img/user-index-img.jpg)"></li>
-        </ul>
-    </div>
-    <div class="container">
-        <div class="row yto-search">
-            <div class="col-xs-12 col-sm-3">
-                <a href="#" class="btn btn-primary btn-lg btn-block"> <i class="icon fa-send-o"
-                                                                                       aria-hidden="true"></i>&nbsp;我要寄件
-                </a>
-            </div>
-            <div class="col-xs-12 col-sm-5">
-                <form method="post" id="history_search" action="#">
-                    <div class="input-group input-group-lg">
-                        <input name="mailno" id="mailno" value="" class="form-control" placeholder="请输入运单号">
-                        <span class="input-group-btn">
-							<button class="btn btn-primary" style="height:48px" type="submit">
-								<i class="icon fa-search" aria-hidden="true"></i> 查询
-						    </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="container m_top_30">
+    <div class="container m_top_10">
+        <ol class="breadcrumb" style="background-color: transparent;">
+            <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
+            <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">&nbsp;我的信息</a></li>
+            <li>&nbsp;我的消息</li>
+        </ol>
         <div class="yto-box">
-            <h5>预约情况</h5>
-            <div class="panel panel-default">
-                <div class="panel-heading">我的预约单</div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>预约单号</th>
-                            <th>取件网点</th>
-                            <th>下单时间</th>
-                            <th>快件品名</th>
-                            <th>快件备注</th>
-                            <th>状态</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            <div class="row">
+                <div class="col-sm-2 hidden-xs">
+                    <div class="my-avatar center-block p_bottom_10">
+							<span class="avatar">
+							      <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
+							</span>
+                    </div>
+                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">基本信息</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user-useraddress.jsp">地址管理</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user-updatepassword.jsp">密码修改</a>
+                        </li>
+                        <li class="active"><a href="${pageContext.request.contextPath}/user-mymessage.jsp">我的消息</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-10 b-left">
+                    <p class="alert alert-danger hidden" role="alert" id="error"></p>
+                    <h2 class="text-center">积分消息</h2>
+                    <h6 class="text-center m_top_30">
+                        <span class="m_right_30 text-muted">消息类型：系统通知</span>
+                        <span class="text-muted">发送时间：2018-06-08 09:04:18</span>
+                    </h6>
+                    <hr>
+                    <div class="m-height-200">
+                        尊敬的会员您好，系统管理员于2018-06-08 09:04:17给您赠送了100活动积分，请注意查收
+                    </div>
 
-                        </tbody>
-                    </table>
+                    <div class="text-center m_top_20"><a href="${pageContext.request.contextPath}/user-mymessage.jsp" class="btn btn-default">返回我的消息列表</a></div>
                 </div>
             </div>
         </div>
@@ -136,7 +127,18 @@
         </div>
     </div>
 </footer>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://ec.yto.net.cn/assets/js/page.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/iziModal.min.js"></script>--%>
+<script>
+
+</script>
 </body>
 </html>

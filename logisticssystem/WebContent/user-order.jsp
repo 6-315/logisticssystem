@@ -13,24 +13,24 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" style="padding:15px">
-                <img title="Note3速递"
+            <a class="navbar-brand" href="#" style="display:inline-block;">
+                <img style="float: left;" title="Note3速递"
                      src="${pageContext.request.contextPath}/img/logo.png"
-                     class="navbar-brand-logo"> <span
-                    class="navbar-brand-text">Note3速递系统</span>
+                     class="navbar-brand-logo">
+                <span class="navbar-brand-text" style="color: #FFF;line-height:30px">Note3速递系统</span>
             </a>
             <div class="navbar-other">2018，全新开始</div>
         </div>
-        <div style="float:left;marign:auto;color:#FFF" class="navlogin">
+        <div style="float:right;marign:auto;color:#FFF" class="navlogin">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a style="text-decoration:none;" href="#" class="navbar-avatar">
-				     <span class="avatar" style="vertical-align:baseline;">
+				     <span class="avatar" style="vertical-align:middle;">
 						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
-					</span> <span class="user-name"> 18296929245 </span>
+					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
             </ul>
         </div>
     </div>
@@ -51,12 +51,12 @@
                     <span class="site-menu-title">我要查件</span></a>
             </li>
             <li class="site-menu-item">
-                <a href="javascript:;">
+                <a href="${pageContext.request.contextPath}/user-myorder.jsp">
                     <span class="site-menu-title">我的订单</span></span>
                 </a>
             </li>
             <li class="site-menu-item">
-                <a href="javascript:;">
+                <a href="${pageContext.request.contextPath}/user-userinfo.jsp">
                     <span class="site-menu-title">用户信息</span></span>
                 </a>
             </li>
@@ -70,7 +70,7 @@
                 <div class="col-sm-2">
                     <ol class="breadcrumb" style="background-color: transparent;">
                         <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
-                        <li class="active">/&nbsp;我要寄件</li>
+                        <li class="active">&nbsp;我要寄件</li>
                     </ol>
                 </div>
             </div>

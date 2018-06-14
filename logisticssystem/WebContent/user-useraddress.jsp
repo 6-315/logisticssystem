@@ -4,10 +4,11 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8">
-    <title>我要查件</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
+    <title>地址管理</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iZimodal/iziModal.min.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -43,7 +44,8 @@
                         class="site-menu-title">首页</span></a>
             </li>
             <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-order.jsp"><span class="site-menu-title">我要寄件</span></span>
+                <a href="${pageContext.request.contextPath}/user-order.jsp"><span
+                        class="site-menu-title">我要寄件</span></span>
                 </a>
             </li>
             <li class="site-menu-item">
@@ -57,7 +59,7 @@
             </li>
             <li class="site-menu-item">
                 <a href="${pageContext.request.contextPath}/user-userinfo.jsp">
-                    <span class="site-menu-title">用户信息</span></span>
+                    <span class="site-menu-title">我的信息</span></span>
                 </a>
             </li>
         </ul>
@@ -67,20 +69,69 @@
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
-            <li class="active">&nbsp;我要查件</li>
+            <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">&nbsp;我的信息</a></li>
+            <li>&nbsp;地址管理</li>
         </ol>
         <div class="yto-box">
-            <form method="post" id="history_search" action="/order/trace.htm" class="form-horizontal m_bottom_30">
-                <div class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                    <input name="mailno" id="mailno" value="" data-placement="left" class="form-control" placeholder="请输入运单号" type="text"> <span class="input-group-btn">
-							<button style="height: 48px;" class="btn btn-primary" type="submit">
-								查询
-							</button>
-						</span>
+            <div class="row">
+                <div class="col-sm-2 hidden-xs">
+                    <div class="my-avatar center-block p_bottom_10">
+							<span class="avatar">
+							      <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
+							</span>
+                    </div>
+                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">基本信息</a></li>
+                        <li class="active"><a href="${pageContext.request.contextPath}/user-useraddress.jsp">地址管理</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user-updatepassword.jsp">密码修改</a></li>
+                        <%--<li><a href="${pageContext.request.contextPath}/user-mymessage.jsp">我的消息</a></li>--%>
+                    </ul>
                 </div>
-            </form>
-            <div class="yto-trace">
+                <div class="col-sm-10 b-left">
+                    <%--<ul class="nav nav-tabs">
+                        <li role="presentation" class="active">地址管理</li>
+                    </ul>--%>
+                    <div class="m_top_30">
+                        <a class="btn btn-primary btn-sm" href="/user/addressSave.htm" data-pagetype="0" data-toggle="modal" data-target="#myModal">+ 新增地址</a>
+                    </div>
+                    <table class="table table-bordered table-hover m_top_10">
+                        <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>手机</th>
+                            <th>详细地址</th>
+                            <th>公司名称</th>
+                            <th width="170">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <nav>
+                        <ul class="pagination">
+                        </ul>
+                        <span class="pagination-info">
+	                共 0  条
+	    </span>
+                        <div class="pagination-set">
+                            <select name="limit" class="form-control"<%-- onchange="window.location = '' + this.value;"--%>>
+                                <!--  <option value="50">-每页显示条数-</option> -->
+                                <option value="10" selected="selected">10</option>
 
+                                <option value="50">50</option>
+
+                                <option value="100">100</option>
+
+                                <option value="200">200</option>
+
+                                <option value="500">500</option>
+
+                            </select>
+                            <span>条/页</span>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -104,7 +155,18 @@
         </div>
     </div>
 </footer>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://ec.yto.net.cn/assets/js/page.js"></script>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/iziModal.min.js"></script>--%>
+<script>
+
+</script>
 </body>
 </html>

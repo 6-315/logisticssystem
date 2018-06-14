@@ -6,22 +6,22 @@
     <meta content="text/html; charset=UTF-8">
     <title>Note3速递</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
 </head>
 <body class="body-order">
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" style="padding:15px">
-                <img title="Note3速递"
+            <a class="navbar-brand" href="#" style="display:inline-block;">
+                <img style="float: left;" title="Note3速递"
                      src="${pageContext.request.contextPath}/img/logo.png"
-                     class="navbar-brand-logo"> <span
-                    class="navbar-brand-text">Note3速递系统</span>
+                     class="navbar-brand-logo">
+                <span class="navbar-brand-text" style="color: #FFF;line-height:30px">Note3速递系统</span>
             </a>
             <div class="navbar-other">2018，全新开始</div>
         </div>
-        <div style="float:left;marign:auto;color:#FFF" class="navlogin">
+        <div style="float:right;color:#FFF;line-height:60px" class="navlogin">
             <ul>
                 <li>
                     <a href="${pageContext.request.contextPath}/login.jsp">登录</a>
@@ -144,9 +144,8 @@
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-offset-4 p_bottom_10" style="margin:auto">
-                    <input value="提交订单" disabled="disabled" id="saveBtn" class="btn btn-primary btn-block btn-lg"
-                           autocomplete="off" data-toggle="tooltip" data-placement="left" title=""
-                           data-original-title="请同意协议" type="button">
+                    <input value="提交订单" id="saveBtn" class="btn btn-primary btn-block btn-lg"
+                           autocomplete="off"  title="" type="button">
                 </div>
             </div>
         </form>

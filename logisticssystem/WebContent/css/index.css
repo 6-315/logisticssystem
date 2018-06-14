@@ -60,7 +60,6 @@ body {
     white-space: nowrap;
     color: #FFF;
     margin: auto;
-    line-height: 40px;
 }
 
 .navlogin ul,ul li{
@@ -68,7 +67,6 @@ body {
     display: inline-block;
     white-space:nowrap;
     color: #FFF;
-    line-height: 40px;
     padding-left: 8px;
 }
 .navlogin ul li a{
