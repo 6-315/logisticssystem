@@ -3,13 +3,13 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-	<package name="loginregister" namespace="/loginregister" extends="struts-default"
-		strict-method-invocation="false">
+	<package name="loginregister" namespace="/loginregister"
+		extends="struts-default" strict-method-invocation="false">
 		<action name="loginregister_*"
-			class="com.logistics.loginregister.action.LoginRegisterAction" method="{1}">
-			
-
-		
+			class="com.logistics.loginregister.action.LoginRegisterAction"
+			method="{1}">
+			<result name="SuccessByUser">/WEB-INF/page/user/user-index.jsp</result>
+			<result name="SuccessByStaff">/WEB-INF/page/admin/admin-index.jsp</result>
 		</action>
 	</package>
 </struts>

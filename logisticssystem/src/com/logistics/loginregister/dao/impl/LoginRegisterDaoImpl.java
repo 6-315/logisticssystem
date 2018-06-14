@@ -151,18 +151,15 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 				+ "'";
 		Query query = session.createQuery(hql);
 		List<staff_basicinfo> liststaff_basicinfo = query.list();
-
-		if (liststaff_basicinfo != null && !liststaff_basicinfo.isEmpty()) {
-			if (liststaff_basicinfo.get(0).getStaff_num() != null
-					&& liststaff_basicinfo.get(0).getStaff_password() != null) {
-				if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
-						&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
-					return liststaff_basicinfo.get(0);
-				}
+		System.out.println("草泥马"+liststaff_basicinfo.get(0));
+		if (liststaff_basicinfo.get(0).getStaff_password() != null
+				&& liststaff_basicinfo.get(0).getStaff_num() != null) {
+			if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
+					&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
+				System.out.println("hhhhhhhhhhhhhhhhhhhhhh");
+				return liststaff_basicinfo.get(0);
 			}
-
 		}
-
 		return null;
 	}
 	/**
