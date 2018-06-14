@@ -145,13 +145,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
-
 	/**
 	 * 登陆方法
 	 * 
 	 * @throws IOException
 	 */
 	public void login() throws IOException {
+		System.out.println("88888888888888888888888888");
 		// 判断username是那一张表
 		if (username != null && username.trim().length() > 0 && password != null && password.trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
@@ -166,21 +166,25 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
 					type = "用户";
+					response.getWriter().write(""+"success");
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("userInfoSession", userInfoSession);
 					response.getWriter().write(gson.toJson(userInfoSession));
 					System.out.println("成功！");
 				}
+				response.getWriter().write(""+"error");
 			}
 			if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
+					response.getWriter().write(""+"success");
 					type = "员工";
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("staff_session", staffSession);
 					response.getWriter().write(gson.toJson(staffSession));
 				}
 			}
+			response.getWriter().write(""+"error");
 			System.out.println("失败");
 		}
 

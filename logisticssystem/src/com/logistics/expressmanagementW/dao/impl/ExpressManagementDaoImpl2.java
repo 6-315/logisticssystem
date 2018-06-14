@@ -6,9 +6,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.express;
+import com.logistics.domain.express_route;
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
+import com.logistics.domain.route;
+import com.logistics.domain.vehicle;
 import com.logistics.expressmanagementW.dao.ExpressManagementDao2;
+
 /**
  * DAO 实现
+ * 
  * @author LW
  *
  */
@@ -70,6 +78,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -86,6 +95,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -94,6 +104,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -104,6 +115,88 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据快件ID获取快件信息
+	 */
+	@Override
+	public express getExpress(String express_id) {
+		express expressNew = new express();
+		Session session = getSession();
+		String hql = " from express where express_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressNew = (express) query.uniqueResult();
+		if (expressNew != null) {
+			return expressNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据车辆ID获取车辆状态
+	 */
+	@Override
+	public vehicle getVehicle(String vehicle_id) {
+		vehicle vehicleNew = new vehicle();
+		Session session = getSession();
+		String hql = " from vehicle where vehicle_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_id);
+		vehicleNew = (vehicle) query.uniqueResult();
+		if (vehicleNew != null) {
+			return vehicleNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据快件ID获取快件信息ID
+	 */
+	@Override
+	public expressinfo getExpressInfo(String express_expressinfoid) {
+		expressinfo expressinfoNew = new expressinfo();
+		Session session = getSession();
+		String hql = " from expressinfo where expressinfo_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_expressinfoid);
+		expressinfoNew = (expressinfo) query.uniqueResult();
+		if (expressinfoNew != null) {
+			return expressinfoNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据快件Id查询发往下一站的路线ID
+	 */
+	@Override
+	public express_route getexpressRoute(String express_id) {
+		express_route expressRoute = new express_route();
+		Session session = getSession();
+		String hql = " from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior limit 1 ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressRoute = (express_route) query.uniqueResult();
+		if (expressRoute != null) {
+			return expressRoute;
+		}
+		return null;
+	}
+
+	@Override
+	public route getRoute(String express_route_id) {
+		route routeNew = new route();
+		Session session = getSession();
+		String hql = " from route where route_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_route_id);
+		routeNew = (route) query.uniqueResult();
+		if (routeNew != null) {
+			return routeNew;
+		}
+		return null;
 	}
 
 }
