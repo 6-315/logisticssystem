@@ -1,18 +1,22 @@
-package com.logistics.personnelmanagement.dao;
+package com.logistics.expressmanagementW.dao;
 
 import java.util.List;
-
-import com.logistics.domain.position;
-import com.logistics.domain.staff_basicinfo;
-
 /**
- * 人事管理DAO接口
- * 
- * @author LW
- * 
+ * DAO接口
+ * @author LW 
+ *
  */
-public interface PersonnelManagementDao {
+public interface ExpressManagementDao2 {
+	/**
+	 * 保存、更新对象
+	 * 
+	 * @author JXX
+	 * @date 2018/04/12
+	 * @param obj
+	 * @modify JXX 2018/04/12
+	 */
 	public void saveOrUpdateObject(Object obj);
+
 	/**
 	 * 分页获取对象，这里是获取一页中的数据
 	 * 
@@ -44,13 +48,12 @@ public interface PersonnelManagementDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
-	public staff_basicinfo getstaffById(String id);
-	public staff_basicinfo getstaffBasicinfo(String staff_id);
-	public position getPosition(staff_basicinfo staffBasicinfo);
+
 	/**
 	 * 
 	 * @param trim
 	 * @return
 	 */
+
 
 }

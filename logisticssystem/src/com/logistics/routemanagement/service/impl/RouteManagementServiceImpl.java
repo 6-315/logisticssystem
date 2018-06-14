@@ -1,5 +1,6 @@
 package com.logistics.routemanagement.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,38 +31,40 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 
 	/**
 	 * 路线增加
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@Override
-	public String addRout(route rout) {
+	public route addRout(route rout) {
 		rout.setRoute_id(BuildUuid.getUuid());
+		rout.setRoute_num("A006");
 		routeManagementDao.saveOrUpdateObject(rout);
-		return "Success";
-
+		return rout;
 	}
 
 	/**
 	 * 更改路线信息
 	 */
 	@Override
-	public String updateRoutInfo(route rout) {
+	public route updateRoutInfo(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
-		return "Success";
+		return rout;
 	}
 
 	/**
 	 * 更改路线状态
 	 */
 	@Override
-	public String updateRouteState(route rout) {
+	public route updateRouteState(route rout) {
 		routeManagementDao.saveOrUpdateObject(rout);
-		return "Success";
+		return rout;
 
 	}
 
 	/**
 	 * 批量删除路线
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@Override
 	public String deleteListRoute(String routeIds) {
@@ -136,7 +139,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		} else {
 			routeManagerVO.setHaveNextPage(true);
 		}
-		System.out.println("888888"+searchForm);
+		System.out.println("888888" + searchForm);
 		// 获取rout表的内容---当前页，每页的记录条数
 		listRoute = (List<route>) routeManagementDao.queryForPage(searchForm, routeManagerVO.getPageIndex(),
 				routeManagerVO.getPageSize());
@@ -165,13 +168,12 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				listRouteManagerDTO.add(routeMangerDTO);
 				System.out.println();
 			}
-			//高亮
-			//根据路线编号模糊查询高亮
+			// 高亮
+			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
 						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
 			}
-
 
 		}
 

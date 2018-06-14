@@ -1,4 +1,4 @@
-package com.logistics.routemanagement.dao.impl;
+package com.logistics.expressmanagementW.dao.impl;
 
 import java.util.List;
 
@@ -6,18 +6,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.logistics.domain.route;
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
-import com.logistics.routemanagement.dao.RouteManagementDao;
-
+import com.logistics.expressmanagementW.dao.ExpressManagementDao2;
 /**
- * 路线管理DAO实现层
- * 
+ * DAO 实现
  * @author LW
  *
  */
-public class RouteManagementDaoImpl implements RouteManagementDao {
+
+public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	/**
 	 * session注入
 	 */
@@ -74,7 +70,6 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 		session.clear();
 		return list;
 	}
-
 	/**
 	 * 获取对象总数量
 	 * 
@@ -91,7 +86,6 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 			return 0;
 		}
 	}
-
 	/**
 	 * 移除对象
 	 */
@@ -100,7 +94,6 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 		getSession().delete(obj);
 		return 1;
 	}
-
 	/**
 	 * 获取对象列表
 	 */
@@ -111,67 +104,6 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
-	}
-
-	/**
-	 * 根据ID查单条信息
-	 */
-	@Override
-	public route getRouteById(String route_id) {
-		route rout = new route();
-		Session session = getSession();
-		String sql = "from route where route_id=:ID";
-		Query query = session.createQuery(sql);
-		query.setParameter("ID", route_id);
-		rout = (route) query.uniqueResult();
-		return rout;
-	}
-
-	/**
-	 * 获取staff_basicinfo单个对象
-	 */
-	@Override
-	public staff_basicinfo getStaff_Basicinfo(String sql) {
-		Session session = getSession();
-		Query query = session.createQuery(sql);
-		List<staff_basicinfo> listStaff_Basicinfo = query.list();
-		if (listStaff_Basicinfo != null && !listStaff_Basicinfo.isEmpty()) {
-			return listStaff_Basicinfo.get(0);
-		}
-		return null;
-
-	}
-/**
- * 获取unit表单条数据
- */
-	@Override
-	public unit getRoute_Departurestation(String sql1) {
-		Session session = getSession();
-		Query query = session.createQuery(sql1);
-		List<unit> listUnit = query.list();
-		if (listUnit != null && !listUnit.isEmpty()) {
-			return listUnit.get(0);
-		}
-		return null;
-	}
-
-	@Override
-	public unit getRoute_Terminalstation(String sql2) {
-		Session session = getSession();
-		Query query = session.createQuery(sql2);
-		List<unit> listUnit = query.list();
-		if (listUnit != null && !listUnit.isEmpty()) {
-			return listUnit.get(0);
-		}
-		return null;
-	}
-/**
- * 获取最后一个route_num
- */
-	@Override
-	public String getRoutNum(String sql) {
-		sql="SELECT MAX(route_num) FROM route";
-		return "routeNum";
 	}
 
 }
