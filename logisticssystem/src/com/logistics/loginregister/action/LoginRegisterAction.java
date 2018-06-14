@@ -151,7 +151,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * 
 	 * @throws IOException
 	 */
-	public void login() throws IOException {
+	public String login() throws IOException {
 		System.out.println("88888888888888888888888888" + username);
 		// 判断username是那一张表
 		if (username != null && username.trim().length() > 0 && password != null && password.trim().length() > 0) {
@@ -173,23 +173,36 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("userInfoSession", userInfoSession);
 					response.getWriter().write(gson.toJson(userInfoSession));
-					System.out.println("成功！");
+					return "SuccessByUser";
 				}
 				response.getWriter().write("" + "error");
 			}
 			if (listStaffBasicInfo.size() > 0) {
+				System.out.println("auhdashdiashduihasidhish" + username);
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
-					response.getWriter().write("" + "success");
+					String positionName = "";
+					System.out.println("??????????????????");
+					position positionNew = new position();
+					positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
+					// positionName =
+					// loginRegisterService.getPosition(staffSession.getStaff_position());
 					type = "员工";
+					request.getSession().setAttribute("positionName", positionNew.getPosition_name());
 					request.getSession().setAttribute("type", type);
 					request.getSession().setAttribute("staff_session", staffSession);
 					response.getWriter().write(gson.toJson(staffSession));
+					return "SuccessByStaff";
+				} else {
+					System.out.println("失败");
+					response.getWriter().write("" + "error");
 				}
 			}
-			response.getWriter().write("" + "error");
 			System.out.println("失败");
+			response.getWriter().write("" + "error");
+
 		}
+		return null;
 
 	}
 

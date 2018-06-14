@@ -44,6 +44,8 @@ public interface LoginRegisterService {
 
 	List<staff_basicinfo> getSizeBySat(String username);
 
+	position getPosition(String staff_position);
+
 
 
 
