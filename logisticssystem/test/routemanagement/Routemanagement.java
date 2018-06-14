@@ -1,5 +1,7 @@
 package routemanagement;
 
+import java.text.DecimalFormat;
+
 import javax.annotation.Resource;
 
 import org.hibernate.service.jta.platform.internal.SynchronizationRegistryBasedSynchronizationStrategy;
@@ -36,13 +38,34 @@ public class Routemanagement {
 	 * 增加路线信息
 	 */
 	@Test
-
 	public void addRouteInfo() {
 		route rout = new route();
-		rout.setRoute_num("6");
-	
-		System.out.println("测试。。" + rout.getRoute_num());
+		System.out.println();
 		routeManagementService.addRout(rout);
+	}
+/*	@Test
+	    public void mai2n() {
+	        String a = "A001";
+	        String b = a.substring(0,1);
+	        String c = a.substring(1,4);
+	        int d = Integer.parseInt(c);
+	        d=d+1;
+	        DecimalFormat df=new DecimalFormat("000");
+	        String xty = df.format(d);
+	        System.out.println("xty是："+xty);
+	        System.out.println(b+xty);
+	        String z = b+(d+1);
+	        System.out.println(z);
+	}*/
+	@Test
+	public void ssss() {
+		String ss = "A009";
+		String xjc= ss.substring(3);
+		int an = Integer.parseInt(xjc);
+		int xxx=an+1;
+		DecimalFormat df=new DecimalFormat("A000");
+		df.format(xxx);
+		System.out.println("sssssssss:"+df.format(xxx));
 	}
 
 	/**
@@ -52,7 +75,7 @@ public class Routemanagement {
 	public void updateRouteInfo() {
 		route updateRoute = new route();
 		updateRoute.setRoute_id("43460250-6ae2-4e56-9384-b465d25db35d");
-		updateRoute.setRoute_num("1");
+		updateRoute.setRoute_num("A001");
 		System.out.println("ddddddddddd");
 		System.out.println("测试。。" + updateRoute.getRoute_num());
 		routeManagementService.updateRoutInfo(updateRoute);

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="expressManagementAction2" class="com.logistics.expressmanagementW.action.ExpressManagementAction2"
+		scope="prototype">
+		<property name="expressManagementService2" ref="expressManagementService2"></property>
+	</bean>
+	<bean id="expressManagementService2"
+		class="com.logistics.expressmanagementW.service.impl.ExpressManagementServiceImpl2">
+		<property name="expressManagementDao2" ref="expressManagementDao2"></property>
+	</bean>
+	<bean id="expressManagementDao2" class="com.logistics.expressmanagementW.dao.impl.ExpressManagementDaoImpl2">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>

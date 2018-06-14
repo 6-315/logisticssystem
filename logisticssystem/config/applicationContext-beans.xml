@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<import resource="spring/spring_distribution.xml" />
 	<import resource="spring/spring_expressmanagement.xml" />
+	<import resource="spring/spring_expressmanagement2.xml" />
 	<import resource="spring/spring_personnelmanagement.xml" />
 	<import resource="spring/spring_routemanagement.xml" />
 	<import resource="spring/spring_transferstation.xml" />
