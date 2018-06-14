@@ -14,6 +14,9 @@
         <property name="vehicle_platenum" type="java.lang.String">
             <column name="vehicle_platenum" />
         </property>
+        <property name="vehicle_standard" type="java.lang.String">
+            <column name="vehicle_standard" />
+        </property>
         <property name="vehicle_state" type="java.lang.String">
             <column name="vehicle_state" />
         </property>
