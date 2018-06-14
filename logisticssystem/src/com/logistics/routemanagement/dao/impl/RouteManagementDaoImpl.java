@@ -165,5 +165,13 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 		}
 		return null;
 	}
+/**
+ * 获取最后一个route_num
+ */
+	@Override
+	public String getRoutNum(String sql) {
+		sql="SELECT MAX(route_num) FROM route";
+		return "routeNum";
+	}
 
 }
