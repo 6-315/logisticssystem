@@ -40,10 +40,6 @@ public class userinfo {
 	 */
 	private String userinfo_mark;
 	/**
-	 * 用户最后一次登录IP
-	 */
-	private String userinfo_lastlyip;
-	/**
 	 * 用户最后一次登录时间
 	 */
 	private String userinfo_lastlytime;
@@ -112,14 +108,6 @@ public class userinfo {
 		this.userinfo_mark = userinfo_mark;
 	}
 
-	public String getUserinfo_lastlyip() {
-		return userinfo_lastlyip;
-	}
-
-	public void setUserinfo_lastlyip(String userinfo_lastlyip) {
-		this.userinfo_lastlyip = userinfo_lastlyip;
-	}
-
 	public String getUserinfo_lastlytime() {
 		return userinfo_lastlytime;
 	}
@@ -133,8 +121,8 @@ public class userinfo {
 		return "userinfo [userinfo_id=" + userinfo_id + ", userinfo_nickname=" + userinfo_nickname
 				+ ", userinfo_password=" + userinfo_password + ", userinfo_phonenumber=" + userinfo_phonenumber
 				+ ", userinfo_email=" + userinfo_email + ", userinfo_createtime=" + userinfo_createtime
-				+ ", userinfo_modify=" + userinfo_modify + ", userinfo_mark=" + userinfo_mark + ", userinfo_lastlyip="
-				+ userinfo_lastlyip + ", userinfo_lastlytime=" + userinfo_lastlytime + "]";
+				+ ", userinfo_modify=" + userinfo_modify + ", userinfo_mark=" + userinfo_mark + ", userinfo_lastlytime="
+				+ userinfo_lastlytime + "]";
 	}
 
 }

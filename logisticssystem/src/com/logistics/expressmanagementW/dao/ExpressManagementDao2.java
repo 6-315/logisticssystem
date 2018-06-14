@@ -1,6 +1,12 @@
 package com.logistics.expressmanagementW.dao;
 
 import java.util.List;
+
+import com.logistics.domain.express;
+import com.logistics.domain.express_route;
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.route;
+import com.logistics.domain.vehicle;
 /**
  * DAO接口
  * @author LW 
@@ -9,7 +15,7 @@ import java.util.List;
 public interface ExpressManagementDao2 {
 	/**
 	 * 保存、更新对象
-	 * 
+	 * W
 	 * @author JXX
 	 * @date 2018/04/12
 	 * @param obj
@@ -48,6 +54,17 @@ public interface ExpressManagementDao2 {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	public express getExpress(String express_id);
+
+	public vehicle getVehicle(String vehicle_id);
+
+	public expressinfo getExpressInfo(String express_expressinfoid);
+
+	public express_route getexpressRoute(String express_id);
+
+	public route getRoute(String express_route_id);
+
 
 	/**
 	 * 

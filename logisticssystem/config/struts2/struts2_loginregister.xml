@@ -6,7 +6,7 @@
 	<package name="loginregister" namespace="/loginregister" extends="struts-default"
 		strict-method-invocation="false">
 		<action name="loginregister_*"
-			class="com.logistics.loginregister.action.LoginregisterAction" method="{1}">
+			class="com.logistics.loginregister.action.LoginRegisterAction" method="{1}">
 			
 
 		
