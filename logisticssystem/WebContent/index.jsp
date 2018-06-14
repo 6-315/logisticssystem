@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8">
-    <title>Note3 速递</title>
+    <title>Note3速递</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">

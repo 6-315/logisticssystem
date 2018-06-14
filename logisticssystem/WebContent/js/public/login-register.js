@@ -9,14 +9,14 @@
         methods: {
             login: function () {
                 axios.post('/logisticssystem/loginregister/loginregister_login',{
-                    usrname:this.name,
+                    username:this.name,
                     password:this.password
                 })
                     .then(function(response){
-                        console.log(response);
+
                     })
                     .catch(function(error){
-                        console.log(error);
+                        console.log('失败:',error);
                     });
             }
         }
