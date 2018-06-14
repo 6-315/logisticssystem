@@ -282,16 +282,40 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				/**
 				 * 更新所需要更新的属性
 				 */
+				/**
+				 * 如果车辆信息的状态不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_state() != null && vehicleInfo.getVehicle_state().trim().length() > 0) {
+					/**
+					 * 根据得到车辆状态更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_state(vehicleInfo.getVehicle_state());
 				}
+				/**
+				 * 如果车辆信息的所属单位不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_unit() != null && vehicleInfo.getVehicle_unit().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新单位更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_unit(vehicleInfo.getVehicle_unit());
 				}
+				/**
+				 * 如果车辆信息的所属队伍不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_team() != null && vehicleInfo.getVehicle_team().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新队伍更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_team(vehicleInfo.getVehicle_team());
 				}
+				/**
+				 * 如果车辆信息的备注不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_mark() != null && vehicleInfo.getVehicle_mark().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新备注更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_mark(vehicleInfo.getVehicle_mark());
 				}
 				updateVehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
@@ -554,30 +578,66 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@Override
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation) {
+		/**
+		 * 判断前台传过来的扭转车辆是不是为空
+		 */
 		if (vehicleCirculation != null) {
 			if (vehicleCirculation.getVehiclecirculation_vehicle_id() != null
 					&& vehicleCirculation.getVehiclecirculation_vehicle_id().trim().length() > 0) {
+				System.out.println("11111");
+				/**
+				 * 得到车辆信息
+				 */
 				vehicle vehicleInfo = vehicleManagementDao
 						.getVehicleInfoById(vehicleCirculation.getVehiclecirculation_vehicle_id());
+				/**
+				 * 判断得到的车辆信息是不是为空
+				 */
 				if (vehicleInfo != null) {
+					System.out.println("22222");
+					/**
+					 * 判断得到车辆扭转的承接方和接收方是不是为空
+					 */
 					if (vehicleCirculation.getVehiclecirculation_initiative() != null
 							&& vehicleCirculation.getVehiclecirculation_acceptd() != null
 							&& vehicleCirculation.getVehiclecirculation_initiative().trim().length() > 0
 							&& vehicleCirculation.getVehiclecirculation_acceptd().trim().length() > 0) {
+
+						/**
+						 * 得到承接方的单位信息
+						 */
 						unit initiativeUnit = vehicleManagementDao
 								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_initiative());
+						System.out.println("6666" + initiativeUnit);
+						/**
+						 * 得到接收方的单位信息
+						 */
 						unit acceptedUnit = vehicleManagementDao
 								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_acceptd());
+						System.out.println("7777" + acceptedUnit);
+						System.out.println("33333");
+						/**
+						 * 判断承接单位和接收单位是不是为空
+						 */
 						if (initiativeUnit != null && acceptedUnit != null) {
+							System.out.println("44444");
+							/**
+							 * 设置接收方的单位这辆车辆信息，车辆的扭转状态，车辆行驶方向，车辆载货状态，所属车队，生成更改时间
+							 */
 							vehicleInfo.setVehicle_unit(vehicleCirculation.getVehiclecirculation_acceptd());
 							vehicleInfo.setVehicle_distribution_state("未分配至车队");
 							vehicleInfo.setVehicle_drivingdirection("无");
 							vehicleInfo.setVehicle_express_state("空闲");
 							vehicleInfo.setVehicle_team("无");
 							vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+							/**
+							 * 更新车辆信息
+							 */
 							vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 							System.out.println("车辆信息更新成功");
-							
+							/**
+							 * 设置车辆扭转表中的信息
+							 */
 							vehicleCirculation.setVehiclecirculation_id(BuildUuid.getUuid());
 							vehicleCirculation.setVehiclecirculation_time(TimeUtil.getStringSecond());
 							vehicleCirculation.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
@@ -593,5 +653,4 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		System.out.println("流转失败！");
 		return "error";
 	}
-
 }

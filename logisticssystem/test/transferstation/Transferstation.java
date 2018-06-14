@@ -47,7 +47,9 @@ public class Transferstation {
 		transferStation.setUnit_creator("zonggongsi");
 		transferStation.setUnit_state("zhengchang");
 		transferStation.setUnit_phonenumber("123");
-		transferStationService.addTransferStation(transferStation);
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		staffBasicinfo.setStaff_id("dsdsd");
+		transferStationService.addTransferStation(transferStation,staffBasicinfo);
 		System.out.println("2222222"+transferStation);
 		
 	}
@@ -83,6 +85,7 @@ public class Transferstation {
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		/*String search = "l";
 		transferStationVO.setSearch(search);*/
+		transferStationVO.setSuperiorunit("");
 		transferStationVO = transferStationService.queryTransferStation(transferStationVO,staffBasicInfo);
 		System.out.println("chaxun"+transferStationVO);
 		

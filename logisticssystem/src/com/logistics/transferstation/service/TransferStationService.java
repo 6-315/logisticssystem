@@ -16,10 +16,11 @@ public interface TransferStationService {
 	 * 添加中转站
 	 * 
 	 * @param transferStation
+	 * @param staffBasicinfo 
 	 * @return
 	 */
 
-	String addTransferStation(unit transferStation);
+	String addTransferStation(unit transferStation, staff_basicinfo staffBasicinfo);
 
 	/**
 	 * 删除中转站

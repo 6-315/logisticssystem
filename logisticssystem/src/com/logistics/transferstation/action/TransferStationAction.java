@@ -27,7 +27,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 public class TransferStationAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
-     
+
 	/**
 	 * 使用域模型将unit放到Struts中
 	 */
@@ -45,6 +45,23 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * 使用域模型将staff_basicinfo放到Struts中
 	 */
 	private staff_basicinfo staff_BasicInfo;
+	/**
+	 * 根据Id删除中转站信息
+	 */
+	private String idList;
+	/**
+	 * 根据Id查询管理员字段
+	 */
+	private String admin;
+	/**
+	 * 分页查询的字段
+	 */
+	private String state;
+	private String address;
+	private String num;
+	private String superiorunit;
+	private String search;
+	private int page;
 
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
@@ -62,7 +79,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		this.staff_BasicInfo = staff_basicinfo;
 	}
 
-
 	public staff_basicinfo getBasicinfo() {
 		return staff_BasicInfo;
 	}
@@ -70,27 +86,16 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	public void setBasicinfo(staff_basicinfo basicinfo) {
 		this.staff_BasicInfo = basicinfo;
 	}
-	
-	
-	
-	
-public staff_basicinfo getStaff_BasicInfo() {
+
+	public staff_basicinfo getStaff_BasicInfo() {
 		return staff_BasicInfo;
 	}
 
 	public void setStaff_BasicInfo(staff_basicinfo staff_BasicInfo) {
 		this.staff_BasicInfo = staff_BasicInfo;
 	}
-	/**
-	 * 根据Id删除中转站信息
-	 */
-	private String idList;
-	/**
-	 * 根据Id查询管理员字段
-	 */
-	private String admin;
 
-public String getIdList() {
+	public String getIdList() {
 		return idList;
 	}
 
@@ -105,15 +110,6 @@ public String getIdList() {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
-/**
- * 分页查询的字段
- */
-	private String state;
-	private String address;
-	private String num;
-	private String superiorunit;
-	private String search;
-	private int page;
 
 	public String getState() {
 		return state;
@@ -238,11 +234,9 @@ public String getIdList() {
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		
-		
+
 	}
-	
-	
+
 	/**
 	 * 查询中转站
 	 */
@@ -260,10 +254,10 @@ public String getIdList() {
 		unitManagerVO.setPageIndex(page);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO,staffBasicinfo);
-		//listunit = transferStationService.queryTransferStation();
+		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO, staffBasicinfo);
+		// listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
-		
+
 	}
 
 	/**
@@ -278,16 +272,9 @@ public String getIdList() {
 		Gson gson = gsonBuilder.create();
 
 		response.setContentType("text/html;charset=utf-8");
-
-		unit transferStation = new unit();
-		transferStation.setUnit_name("lailiang");
-		transferStation.setUnit_address("hubei");
-		transferStation.setUnit_detailaddress("hubeiwuhan");
-		transferStation.setUnit_type("zhongzhuangzhan");
-		transferStation.setUnit_creator("zonggongsi");
-		transferStation.setUnit_state("zhengchang");
-		transferStation.setUnit_phonenumber("123");
-		response.getWriter().write("" + transferStationService.addTransferStation(transferStation));
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + transferStationService.addTransferStation(transferStation,staffBasicinfo));
 
 		System.out.println("qqqqq");
 
