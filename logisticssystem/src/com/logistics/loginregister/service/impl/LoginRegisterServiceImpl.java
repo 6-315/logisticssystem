@@ -42,7 +42,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		if (listUser.size() == 0) {
 			userInfo.setUserinfo_id(BuildUuid.getUuid());
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
-			userInfo.setUserinfo_modify(TimeUtil.getStringSecond());
+			userInfo.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);
 			System.out.println("成功");
 			return "成功";
