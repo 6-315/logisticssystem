@@ -2,8 +2,10 @@ package com.logistics.expressmanagementW.dao;
 
 import java.util.List;
 
+import com.logistics.domain.distributiontor;
 import com.logistics.domain.express;
 import com.logistics.domain.express_route;
+import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.route;
 import com.logistics.domain.vehicle;
@@ -64,6 +66,10 @@ public interface ExpressManagementDao2 {
 	public express_route getexpressRoute(String express_id);
 
 	public route getRoute(String express_route_id);
+
+	public distributiontor getDistributiontor(String staff_id);
+
+	public express_send getExpressSend(String express_id);
 
 
 	/**

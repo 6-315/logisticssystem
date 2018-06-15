@@ -12,7 +12,7 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
-import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcher;
+import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcherDTO;
 import com.logistics.expressmanagementW.DTO.GetWeightDTO;
 import com.logistics.expressmanagementW.service.ExpressManagementService2;
 import com.opensymphony.xwork2.ActionSupport;
@@ -78,14 +78,14 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	 */
 	private express expressNew;
 	private GetWeightDTO getWeightDTO;
-	private GetExpressAndDispatcher getExpressAndDispatcher;
+	private GetExpressAndDispatcherDTO getExpressAndDispatcherDTO;
 
-	public GetExpressAndDispatcher getGetExpressAndDispatcher() {
-		return getExpressAndDispatcher;
+	public GetExpressAndDispatcherDTO getGetExpressAndDispatcherDTO() {
+		return getExpressAndDispatcherDTO;
 	}
 
-	public void setGetExpressAndDispatcher(GetExpressAndDispatcher getExpressAndDispatcher) {
-		this.getExpressAndDispatcher = getExpressAndDispatcher;
+	public void setGetExpressAndDispatcherDTO(GetExpressAndDispatcherDTO getExpressAndDispatcherDTO) {
+		this.getExpressAndDispatcherDTO = getExpressAndDispatcherDTO;
 	}
 
 	public GetWeightDTO getGetWeightDTO() {
@@ -182,7 +182,6 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		liststaffBasicInfo = expressManagementService2.getDispatcher(staffBasicinfo);
 		response.getWriter().write(gson.toJson(liststaffBasicInfo));
-
 	}
 
 	/**
@@ -195,7 +194,19 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService2.updateExpressState(getExpressAndDispatcher));
+		response.getWriter().write("" + expressManagementService2.updateExpressState(getExpressAndDispatcherDTO));
+	}
+
+	/**
+	 * 完成派送记录，更改快件记录
+	 * @throws IOException 
+	 */
+	public void updateExpressSendState() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService2.updateExpressSendState(expressNew));
 
 	}
 }
