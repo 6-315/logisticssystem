@@ -134,7 +134,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService2.getVehicleIsOverWeight(getWeightDTO));
+		response.getWriter().write("" + expressManagementService2.judgeVehicleIsOverWeight(getWeightDTO));
 
 	}
 

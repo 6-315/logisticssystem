@@ -55,28 +55,37 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
 			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());// 得到路线
 			team teamNew = new team();
+			System.out.println("JJJJJJJJJJJ:" + getRoute.getRoute_id());
 			teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
-			listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-					+ teamNew.getTeam_id() + "' and vehicle_state = '空闲' and vehicle_drivingdirection ='"
-					+ getRoute.getRoute_departurestation() + "'");
-			listVehicleByEnd = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-					+ teamNew.getTeam_id() + "' and vehicle_state = '空闲' and vehicle_drivingdirection ='"
-					+ getRoute.getRoute_terminalstation() + "'");
-			listVehicle.addAll(listVehicleByEnd);
-			return listVehicle;
+			System.out.println("HHHHHH:" + teamNew.getTeam_id());
+			System.out.println("GGGGGGGGGGGG:" + getRoute.getRoute_departurestation());
+			System.out.println("NNNNNNNNNN:" + getRoute.getRoute_terminalstation());
+			if (teamNew != null) {
 
+				listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
+						+ teamNew.getTeam_id() + "' and vehicle_state = '空闲' and vehicle_drivingdirection = '"
+						+ getRoute.getRoute_departurestation() + "'");
+				System.out.println("PPPPPPPPPPP:" + listVehicle.size());
+				listVehicleByEnd = (List<vehicle>) expressManagementDao2
+						.listObject("from vehicle where vehicle_team = '" + teamNew.getTeam_id()
+								+ "' and vehicle_state = '空闲' and vehicle_drivingdirection ='"
+								+ getRoute.getRoute_terminalstation() + "'");
+				listVehicle.addAll(listVehicleByEnd);
+				return listVehicle;
+
+			}
 		}
 		return null;
 	}
 
 	/**
+	 * 判断车的状态来更改车的状态判断是否超重生成流转单更改快件状态生成车和快件信息表记录
 	 * 
 	 */
 	@Override
-	public String getVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
-		express_circulation expressCirculation = new express_circulation();
+	public String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
+		// express_circulation expressCirculation = new express_circulation();
 		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
-
 		if (getWeightDTO.getExpressNew().getExpress_id() != null
 				&& getWeightDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getWeightDTO.getVehicleNew().getVehicle_id() != null
@@ -89,40 +98,46 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			expressInfo = expressManagementDao2.getExpressInfo(getExpress.getExpress_expressinfoid());
 			/**
 			 * 查路线
+			 * 
 			 */
 			route routeNew = new route();// 车辆要发往哪一条路线
 			express_route expressRoute = new express_route();// 获取车辆要发往哪一条路线的ID
 			expressRoute = expressManagementDao2.getexpressRoute(getExpress.getExpress_id());
+			System.out.println("NNNNNNNNNNN:" + expressRoute);
 			routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
 			int weightByNow = Integer.parseInt(vehicleNew.getVehicle_current_weight());// 车的当前重量
 			int weighByExpressInfo = Integer.parseInt(expressInfo.getExpressinfo_productweight());// 快件重量
-			int weighByCarAll = Integer.parseInt(vehicleNew.getVehicle_current_weight());// 车的总重量
+			int weighByCarAll = Integer.parseInt(vehicleNew.getVehicle_standard());// 车的总重量
 			int calculation = weightByNow + weighByExpressInfo;
-			if (("空闲".equals(vehicleNew.getVehicle_express_state())
-					|| "可载货".equals(vehicleNew.getVehicle_express_state())) && calculation <= weighByCarAll) {
-				expressCirculation = new express_circulation();
+			System.out.println("qqqqqqq:" + weightByNow);
+			System.out.println("qqqqqqq2:" + weighByExpressInfo);
+			System.out.println("qqqqqqq3:" + weighByCarAll);
+			System.out.println("qqqqqqq4:" + calculation);
+			System.out.println("MMMMMMMMMMMMM" + routeNew);
+			if (("空闲".equals(vehicleNew.getVehicle_state()) || "可载货".equals(vehicleNew.getVehicle_state()))
+					&& calculation <= weighByCarAll) {
+				System.out.println("WWWWWWW");
+				express_circulation expressCirculation = new express_circulation();
 				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
 				expressCirculation.setExpress_circulation_express_id(getExpress.getExpress_id());
 				expressCirculation.setExpress_circulation_launchpeople(routeNew.getRoute_departurestation());
 				expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
+				System.out.println("**********:" + expressCirculation);
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				getExpress.setExpress_state("已装车");
 				getExpress.setExpress_belongunit(routeNew.getRoute_departurestation());
 				expressManagementDao2.saveOrUpdateObject(getExpress);
-				if (vehicleNew.getVehicle_unit().equals(routeNew.getRoute_departurestation())) {
-					vehicleNew.setVehicle_drivingdirection("正向");
-				} else {
-					vehicleNew.setVehicle_drivingdirection("反向");
+				if ("空闲".equals(vehicleNew.getVehicle_state())) {
+					vehicleNew.setVehicle_state("可载货");
 				}
-				if ("空闲".equals(vehicleNew.getVehicle_express_state())) {
-					vehicleNew.setVehicle_express_state("可载货");
-				}
+				vehicleNew.setVehicle_current_weight("" + calculation);
 				expressManagementDao2.saveOrUpdateObject(vehicleNew);
 				vehicleExpressRelevance = new vehicle_express_relevance();
 				vehicleExpressRelevance.setVehicle_express_relevance_id(BuildUuid.getUuid());
 				vehicleExpressRelevance.setVehicle_express_relevance_expressinfo(getExpress.getExpress_id());
 				vehicleExpressRelevance.setVehicle_express_relevance_modifytime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_createtime(TimeUtil.getStringSecond());
+				vehicleExpressRelevance.setVehicle_express_relevance_expressinfo_begintime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
 				return "Success";
 			} else if (calculation > weighByCarAll) {

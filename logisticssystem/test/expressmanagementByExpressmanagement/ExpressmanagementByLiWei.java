@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.express;
 import com.logistics.domain.*;
+import com.logistics.expressmanagementW.DTO.GetWeightDTO;
 import com.logistics.expressmanagementW.service.ExpressManagementService2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +39,17 @@ public class ExpressmanagementByLiWei {
 		expressNew.setExpress_id("999");
 		List<vehicle> listVehicle = expressManagementService2.getVehicleByID(expressNew);
 		System.out.println("eeee" + listVehicle);
-
 	}
 
+	@Test
+	public void zhongliang() {
+		GetWeightDTO getWeightDTO = new GetWeightDTO();
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		vehicle vehicleNew = new vehicle();
+		vehicleNew.setVehicle_id("1");
+		getWeightDTO.setExpressNew(expressNew);
+		getWeightDTO.setVehicleNew(vehicleNew);
+		expressManagementService2.judgeVehicleIsOverWeight(getWeightDTO);
+	}
 }
