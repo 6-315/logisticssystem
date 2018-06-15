@@ -1,12 +1,24 @@
 (function () {
     const userinfo = null
-    const userinfo_Vue = new Vue({
-        el: '#login',
+    const user = new Vue({
+        el: '#sslogin',
         data: {
-
+            user: '',
+            password: ''
         },
         methods: {
-
+            login: function (event) {
+                axios.post('${pagecontext.request.contextPath}/loginregister/loginregister_login', {
+                    username: this.user,
+                    password: this.password
+                })
+                    .then(function (response) {
+                        
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
     })
 })()
