@@ -196,7 +196,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
 			if ("总公司".equals(positionNew.getPosition_name())) {
 				listUnit = new ArrayList<>();
-				listUnit = (List<unit>) personnelManagementDao.listObject("from unit where unit_type ='中转站' or unit_type='配送点'");
+				listUnit = (List<unit>) personnelManagementDao
+						.listObject("from unit where unit_type ='中转站' or unit_type='配送点'");
 				return listUnit;
 			}
 			if ("中转站管理员".equals(positionNew.getPosition_name())) {
@@ -232,8 +233,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				System.out.println("进来了吗");
 				listPosition = new ArrayList<>();
-				listPosition = (List<position>) personnelManagementDao
-						.listObject("from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+				listPosition = (List<position>) personnelManagementDao.listObject(
+						"from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 
@@ -325,15 +326,34 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@Override
 	public staff_basicinfo addStaff(staff_basicinfo staffBasicinfo) {
 		List<staff_basicinfo> staffBasicInfoNew = new ArrayList<>();
-		if (staffBasicinfo.getStaff_name().trim().length() > 0) {
+		List<staff_basicinfo> staffBasicInfoNew2 = new ArrayList<>();
+		staff_basicinfo staff_basicinfo = new staff_basicinfo();
+		String maxStaffNum = personnelManagementDao.getstaffBasicinfoMaxNum();
+		System.out.println("youyouyoyuyoyu" + maxStaffNum);
+		if (staffBasicinfo != null) {
+			if (maxStaffNum == null) {
+				staff_basicinfo.setStaff_num(String.format("%08d", 1));
+			} else {
+				int tmpMaxNum = Integer.parseInt(maxStaffNum);
+				int tmpNewNum = tmpMaxNum + 1;
+				staff_basicinfo.setStaff_num(String.format("%08d", tmpNewNum));
+			}
+			System.out.println("11" + staff_basicinfo.getStaff_num());
+
+			System.out.println("22" + staff_basicinfo.getStaff_num());
 			staffBasicinfo.setStaff_id(BuildUuid.getUuid());
+			staffBasicinfo.setStaff_num(staff_basicinfo.getStaff_num());
 			staffBasicinfo.setStaff_password(staffBasicinfo.getStaff_num());
 			staffBasicinfo.setStaff_createtime(TimeUtil.getStringSecond());
 			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
 			staffBasicInfoNew = (List<staff_basicinfo>) personnelManagementDao
 					.listObject("from staff_basicinfo where staff_num = '" + staffBasicinfo.getStaff_num() + "'");
+
+			if (staffBasicInfoNew.size() > 0) {
+				return staffBasicInfoNew.get(0);
+			}
 		}
-		return staffBasicInfoNew.get(0);
+		return null;
 	}
 }

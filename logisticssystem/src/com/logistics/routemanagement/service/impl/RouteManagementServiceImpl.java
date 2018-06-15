@@ -36,8 +36,18 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 */
 	@Override
 	public route addRout(route rout) {
+		route routeMax = new route();
+		routeMax = routeManagementDao.getMaxRouteNum();
+		if(routeMax!=null) {			
+			int a=Integer.parseInt(routeMax.getRoute_num());
+			int b=a+1;
+			String x="A"+b;
+		}else {
+			String routeNext="1";
+		}
+		String a=String.format("%04d", "routeNext");
 		rout.setRoute_id(BuildUuid.getUuid());
-		rout.setRoute_num("A006");
+		rout.setRoute_num("a");
 		routeManagementDao.saveOrUpdateObject(rout);
 		return rout;
 	}

@@ -84,7 +84,11 @@ public interface RouteManagementDao {
  * @return
  */
 	public route getRouteById(String route_id);
-	public String getRoutNum(String sql);
+/**
+ *  获取最大路线编号
+ * @return
+ */
+	public route getMaxRouteNum();
 
 
 }

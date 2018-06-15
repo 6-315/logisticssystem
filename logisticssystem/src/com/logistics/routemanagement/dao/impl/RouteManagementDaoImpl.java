@@ -165,13 +165,21 @@ public class RouteManagementDaoImpl implements RouteManagementDao {
 		}
 		return null;
 	}
+
 /**
- * 获取最后一个route_num
+ * 获取最大的路线编号
  */
-	@Override
-	public String getRoutNum(String sql) {
-		sql="SELECT MAX(route_num) FROM route";
-		return "routeNum";
+@Override
+public route getMaxRouteNum() {
+	route rout=new route();
+	Session session = getSession();
+	String hql = "from route order by --staff_num desc limit 1";
+	Query query = session.createQuery(hql);
+	rout = (route) query.uniqueResult();
+	if (rout != null) {
+		return rout;
 	}
+	return null;
+}
 
 }

@@ -115,5 +115,12 @@ public class Personnelmanagement {
 	/**
 	 * 查询自身以下的所有职位
 	 */
-	
+	/**
+	 * 添加员工
+	 */
+	@Test
+	public void addStaff(){
+		staff_basicinfo staffBasicinfo=new staff_basicinfo();
+		staffBasicinfo=personnelManagementService.addStaff(staffBasicinfo);
+	}
 }

@@ -51,6 +51,8 @@ public interface PersonnelManagementDao {
 
 	public position getPosition(staff_basicinfo staffBasicinfo);
 
+	public String getstaffBasicinfoMaxNum();
+
 
 	/**
 	 * 
