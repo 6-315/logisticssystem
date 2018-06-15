@@ -11,8 +11,10 @@ import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.reservation;
 import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.domain.vehicle_express_relevance;
@@ -45,11 +47,24 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public List<vehicle> getVehicleByID(express expressNew) {
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
 			List<vehicle> listVehicle = new ArrayList<>();
+			List<vehicle> listVehicleByEnd = new ArrayList<>();
 			express getExpress = new express();
+			route getRoute = new route();
+			express_route expressRoute = new express_route();
 			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());
-			listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where express_belongunit = '"
-					+ getExpress.getExpress_belongunit() + "' and " + "vehicle_drivingdirection = '正向' ");
+			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
+			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());// 得到路线
+			team teamNew = new team();
+			teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
+			listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
+					+ teamNew.getTeam_id() + "' and vehicle_state = '空闲' and vehicle_drivingdirection ='"
+					+ getRoute.getRoute_departurestation() + "'");
+			listVehicleByEnd = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
+					+ teamNew.getTeam_id() + "' and vehicle_state = '空闲' and vehicle_drivingdirection ='"
+					+ getRoute.getRoute_terminalstation() + "'");
+			listVehicle.addAll(listVehicleByEnd);
 			return listVehicle;
+
 		}
 		return null;
 	}
