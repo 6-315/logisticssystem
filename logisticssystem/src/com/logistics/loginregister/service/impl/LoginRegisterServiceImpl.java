@@ -87,6 +87,15 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		return listSta;
 	}
 
+	@Override
+	public position getPosition(String staff_position) {
+		List<position> listPosition  = new ArrayList<>();
+		listPosition = (List<position>) loginRegisterDao.listObject("from position where position_id = '"+staff_position+"'");
+		System.out.println("99999999999"+listPosition.get(0).getPosition_name());
+		System.out.println("88888888888888888888888888");
+		return listPosition.get(0);
+	}
+
 
 	
 
