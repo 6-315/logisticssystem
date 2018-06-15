@@ -161,8 +161,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.setContentType("text/html;charset=utf-8");
 			List<userinfo> listUserInfo = new ArrayList<>();
 			List<staff_basicinfo> listStaffBasicInfo = new ArrayList<>();
-			System.out.println("fdfd:" + username);
-			System.out.println("fdfdfd:" + loginRegisterService);
 			listUserInfo = loginRegisterService.getSize(username);
 			listStaffBasicInfo = loginRegisterService.getSizeBySat(username);
 			if (listUserInfo.size() > 0) {
@@ -182,7 +180,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
 					String positionName = "";
-					System.out.println("??????????????????");
 					position positionNew = new position();
 					positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
 					// positionName =

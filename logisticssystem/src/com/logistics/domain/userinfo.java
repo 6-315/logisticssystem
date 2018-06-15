@@ -139,10 +139,7 @@ public class userinfo {
 				+ ", userinfo_email=" + userinfo_email + ", userinfo_createtime=" + userinfo_createtime
 				+ ", userinfo_modifytime=" + userinfo_modifytime + ", userinfo_mark=" + userinfo_mark
 				+ ", userinfo_username=" + userinfo_username + ", userinfo_lastlytime=" + userinfo_lastlytime + "]";
-
-				+ ", userinfo_modify=" + userinfo_modify + ", userinfo_mark=" + userinfo_mark + ", userinfo_lastlytime="
-				+ userinfo_lastlytime + "]";
-
 	}
+
 
 }
