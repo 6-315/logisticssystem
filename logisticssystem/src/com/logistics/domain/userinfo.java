@@ -34,12 +34,18 @@ public class userinfo {
 	/**
 	 * 用户修改时间
 	 */
-	private String userinfo_modify;
+	private String userinfo_modifytime;
 	/**
 	 * 备注
 	 */
 	private String userinfo_mark;
 	/**
+
+	 * 用户姓名
+	 */
+	private String userinfo_username;
+	/**
+
 	 * 用户最后一次登录时间
 	 */
 	private String userinfo_lastlytime;
@@ -92,12 +98,12 @@ public class userinfo {
 		this.userinfo_createtime = userinfo_createtime;
 	}
 
-	public String getUserinfo_modify() {
-		return userinfo_modify;
+	public String getUserinfo_modifytime() {
+		return userinfo_modifytime;
 	}
 
-	public void setUserinfo_modify(String userinfo_modify) {
-		this.userinfo_modify = userinfo_modify;
+	public void setUserinfo_modifytime(String userinfo_modifytime) {
+		this.userinfo_modifytime = userinfo_modifytime;
 	}
 
 	public String getUserinfo_mark() {
@@ -107,6 +113,16 @@ public class userinfo {
 	public void setUserinfo_mark(String userinfo_mark) {
 		this.userinfo_mark = userinfo_mark;
 	}
+
+
+	public String getUserinfo_username() {
+		return userinfo_username;
+	}
+
+	public void setUserinfo_username(String userinfo_username) {
+		this.userinfo_username = userinfo_username;
+	}
+
 
 	public String getUserinfo_lastlytime() {
 		return userinfo_lastlytime;
@@ -121,8 +137,9 @@ public class userinfo {
 		return "userinfo [userinfo_id=" + userinfo_id + ", userinfo_nickname=" + userinfo_nickname
 				+ ", userinfo_password=" + userinfo_password + ", userinfo_phonenumber=" + userinfo_phonenumber
 				+ ", userinfo_email=" + userinfo_email + ", userinfo_createtime=" + userinfo_createtime
-				+ ", userinfo_modify=" + userinfo_modify + ", userinfo_mark=" + userinfo_mark + ", userinfo_lastlytime="
-				+ userinfo_lastlytime + "]";
+				+ ", userinfo_modifytime=" + userinfo_modifytime + ", userinfo_mark=" + userinfo_mark
+				+ ", userinfo_username=" + userinfo_username + ", userinfo_lastlytime=" + userinfo_lastlytime + "]";
 	}
+
 
 }

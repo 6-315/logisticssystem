@@ -6,8 +6,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.distributiontor;
 import com.logistics.domain.express;
 import com.logistics.domain.express_route;
+import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.position;
 import com.logistics.domain.route;
@@ -185,6 +187,9 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		return null;
 	}
 
+	/**
+	 * 获取路线
+	 */
 	@Override
 	public route getRoute(String express_route_id) {
 		route routeNew = new route();
@@ -196,6 +201,41 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		if (routeNew != null) {
 			return routeNew;
 		}
+		return null;
+	}
+
+	/**
+	 * 根据员工的ID查询配送员
+	 */
+	@Override
+	public distributiontor getDistributiontor(String staff_id) {
+		distributiontor distributiontorNew = new distributiontor();
+		Session session = getSession();
+		String hql = " from distributiontor where distributiontor_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		distributiontorNew = (distributiontor) query.uniqueResult();
+		if (distributiontorNew != null) {
+			return distributiontorNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据快件ID获取快件配送 表记录
+	 */
+	@Override
+	public express_send getExpressSend(String express_id) {
+		express_send expressSend = new express_send();
+		Session session = getSession();
+		String hql = " from express_send where express_send_express_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressSend = (express_send) query.uniqueResult();
+		if (expressSend != null) {
+			return expressSend;
+		}
+		
 		return null;
 	}
 

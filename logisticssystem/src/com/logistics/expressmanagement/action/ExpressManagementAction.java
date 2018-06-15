@@ -1,11 +1,20 @@
 package com.logistics.expressmanagement.action;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.logistics.domain.*;
+import com.logistics.expressmanagement.DTO.*;
+import com.logistics.expressmanagement.VO.ExpressVO;
 import com.logistics.expressmanagement.service.ExpressManagementService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -63,4 +72,292 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 实现结束
 	 */
 
+	/**
+	 * 使用域模型
+	 */
+	/**
+	 * 预约表与快件详细信息表DTO
+	 */
+	private ReservationExpressInfoDTO reservationExpressInfoDTO;
+	/**
+	 * 预约表与派送员表DTO
+	 */
+	private ReservationWithDistributorDTO reservationWithDistributorDTO;
+	/**
+	 * 快件表与流转表DTO
+	 */
+	private ExpressAndCirculationDTO expressAndCirculationDTO;
+	/**
+	 * 预约表
+	 */
+	private reservation reservationInfo;
+	/**
+	 * 快件表
+	 */
+	private express expressInfo;
+	/**
+	 * 长字符串（ID带分隔符集合）
+	 */
+	private String idList;
+	/**
+	 * 单位表
+	 */
+	private unit unitInfo;
+	/**
+	 * 车辆信息表
+	 */
+	private vehicle vehicleInfo;
+	/**
+	 * 快件信息列表
+	 */
+	private ExpressVO expressVO;
+	
+
+	public ExpressVO getExpressVO() {
+		return expressVO;
+	}
+
+	public void setExpressVO(ExpressVO expressVO) {
+		this.expressVO = expressVO;
+	}
+
+	public vehicle getVehicleInfo() {
+		return vehicleInfo;
+	}
+
+	public void setVehicleInfo(vehicle vehicleInfo) {
+		this.vehicleInfo = vehicleInfo;
+	}
+
+	public unit getUnitInfo() {
+		return unitInfo;
+	}
+
+	public void setUnitInfo(unit unitInfo) {
+		this.unitInfo = unitInfo;
+	}
+
+	public String getIdList() {
+		return idList;
+	}
+
+	public void setIdList(String idList) {
+		this.idList = idList;
+	}
+
+	public express getExpressInfo() {
+		return expressInfo;
+	}
+
+	public void setExpressInfo(express expressInfo) {
+		this.expressInfo = expressInfo;
+	}
+
+	public ExpressAndCirculationDTO getExpressAndCirculationDTO() {
+		return expressAndCirculationDTO;
+	}
+
+	public void setExpressAndCirculationDTO(ExpressAndCirculationDTO expressAndCirculationDTO) {
+		this.expressAndCirculationDTO = expressAndCirculationDTO;
+	}
+
+	public ReservationWithDistributorDTO getReservationWithDistributorDTO() {
+		return reservationWithDistributorDTO;
+	}
+
+	public void setReservationWithDistributorDTO(ReservationWithDistributorDTO reservationWithDistributorDTO) {
+		this.reservationWithDistributorDTO = reservationWithDistributorDTO;
+	}
+
+	public reservation getReservationInfo() {
+		return reservationInfo;
+	}
+
+	public void setReservationInfo(reservation reservationInfo) {
+		this.reservationInfo = reservationInfo;
+	}
+
+	public ReservationExpressInfoDTO getReservationExpressInfoDTO() {
+		return reservationExpressInfoDTO;
+	}
+
+	public void setReservationExpressInfoDTO(ReservationExpressInfoDTO reservationExpressInfoDTO) {
+		this.reservationExpressInfoDTO = reservationExpressInfoDTO;
+	}
+
+	/**
+	 * 结束使用域模型
+	 */
+
+	/**
+	 * 用户开始预约
+	 * 
+	 * @throws IOException
+	 */
+	public void addReservationAndExpressInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		userinfo userInfo = (userinfo) session.getAttribute("userInfoSession");
+		response.getWriter()
+				.write("" + expressManagementService.addReservationAndExpressInfo(reservationExpressInfoDTO, userInfo));
+	}
+
+	/**
+	 * 配送点受理客户预约
+	 * 
+	 * @throws IOException
+	 */
+	public void updateReservation() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService.updateReservation(reservationInfo));
+	}
+
+	/**
+	 * 给预约单分配派送员
+	 * 
+	 * @throws IOException
+	 */
+	public void updateReservationWithDistributor() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter()
+				.write("" + expressManagementService.updateReservationWithDistributor(reservationWithDistributorDTO));
+	}
+
+	/**
+	 * 上门取件
+	 * 
+	 * @throws IOException
+	 */
+	public void completePickExpress() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter()
+				.write("" + expressManagementService.completePickExpress(expressAndCirculationDTO, staffInfo));
+	}
+
+	/**
+	 * 到达中转站（更新快件状态）
+	 * 
+	 * @throws IOException
+	 */
+	public void updateExpressState() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService.updateExpressState(expressInfo));
+	}
+
+	/**
+	 * 扫描（判断快件类型）
+	 * 
+	 * @throws IOException
+	 */
+	@SuppressWarnings("unused")
+	private void judgeExpressType() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService.judgeExpressType(expressInfo));
+	}
+
+	/**
+	 * 保存快件路线
+	 * 
+	 * @throws IOException
+	 */
+	public void saveExpressRoute() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo));
+	}
+
+	/**
+	 * 查询经过该中转站的所有路线
+	 * 
+	 * @throws IOException
+	 */
+	public void queryAllRouteWithUnit() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService.queryAllRouteWithUnit(unitInfo));
+	}
+
+	/**
+	 * 完成扫描操作
+	 * 
+	 * @throws IOException
+	 */
+	public void updateVehicleAndExpressCirculationAndExpressInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write(""
+				+ expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo,staffInfo));
+	}
+
+	/**
+	 * 配送点管理员获得等待从中转站取件的快件信息列表
+	 * @throws IOException 
+	 */
+	public void  queryExpressInfoWaitForPickUp() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write(""+expressManagementService.queryExpressInfoWaitForPickUp(expressVO,staffInfo));
+	}
 }

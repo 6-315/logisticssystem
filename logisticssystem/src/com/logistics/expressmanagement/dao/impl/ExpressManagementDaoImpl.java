@@ -6,6 +6,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.distributiontor;
+import com.logistics.domain.express;
+import com.logistics.domain.express_circulation;
+import com.logistics.domain.express_route;
+import com.logistics.domain.reservation;
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
 /**
  * DAO 实现
@@ -104,6 +112,158 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据ID查询预约单
+	 */
+	@Override
+	public reservation getReservationInfoById(String reservation_id) {
+		reservation reservationInfo = new reservation();
+		Session session = getSession();
+		String hql = "from reservation where reservation_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", reservation_id);
+		reservationInfo = (reservation) query.uniqueResult();
+		return reservationInfo;
+	}
+
+	/**
+	 * 根据派送员ID查询派送员
+	 */
+	@Override
+	public distributiontor getDistributorInfoById(String distributiontor_id) {
+		distributiontor distributor = new distributiontor();
+		Session session = getSession();
+		String hql = "from distributiontor where distributiontor_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", distributiontor_id);
+		distributor = (distributiontor) query.uniqueResult();
+		return distributor;
+	}
+
+	/**
+	 * 根据员工ID查询派送员
+	 */
+	@Override
+	public distributiontor getDistributorInfoByBasicInfo(String staff_id) {
+		distributiontor distributor = new distributiontor();
+		Session session = getSession();
+		String hql = "from distributiontor where distributiontor_basicinfo = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		distributor = (distributiontor) query.uniqueResult();
+		return distributor;
+	}
+
+	/**
+	 * 根据派送员ID查询预约单
+	 */
+	@Override
+	public reservation getReservationInfoByDistributorId(String distributiontor_id) {
+		reservation reservationInfo = new reservation();
+		Session session = getSession();
+		String hql = "from reservation where reservation_distributiontor = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", distributiontor_id);
+		reservationInfo = (reservation) query.uniqueResult();
+		return reservationInfo;
+	}
+
+	/**
+	 * 根据ID查询员工信息
+	 */
+	@Override
+	public staff_basicinfo getStaffInfoById(String staff_superiorleader) {
+		staff_basicinfo staffLeader = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_superiorleader);
+		staffLeader = (staff_basicinfo) query.uniqueResult();
+		return staffLeader;
+	}
+
+	/**
+	 * 根据ID查询单位信息
+	 */
+	@Override
+	public unit getUnitInfoById(String staff_unit) {
+		unit unitInfo = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_unit);
+		unitInfo = (unit) query.uniqueResult();
+		return unitInfo;
+	}
+
+	/**
+	 * 根据ID查询快件表
+	 */
+	@Override
+	public express getExpressById(String express_id) {
+		express expressInfo = new express();
+		Session session = getSession();
+		String hql = "from express where express_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressInfo = (express) query.uniqueResult();
+		return expressInfo;
+	}
+
+	/**
+	 * 获得路线信息（用于判断）
+	 */
+	@Override
+	public express_route getExpressRouteInfoByExpressId(String express_id) {
+		express_route expressRouteInfo = new express_route();
+		Session session = getSession();
+		String hql = "from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by --express_route_superior limit 1 ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressRouteInfo = (express_route) query.uniqueResult();
+		return expressRouteInfo;
+	}
+
+	/**
+	 * 获得编号最大值
+	 */
+	@Override
+	public String getMaxNumber(String hql) {
+		Session session = getSession();
+		Query query = session.createQuery(hql);
+		String number = (String) query.uniqueResult();
+		return number;
+	}
+
+	/**
+	 * 根据ID获得车辆信息
+	 */
+	@Override
+	public vehicle getVehicleInfoById(String vehicle_id) {
+		vehicle vehicleInfo = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", vehicle_id);
+		vehicleInfo = (vehicle) query.uniqueResult();
+		return vehicleInfo;
+	}
+
+	/**
+	 * 获得当前流转记录
+	 */
+	@Override
+	public express_circulation getExpressCirculationInfoByExpressIdAndReceiver(String express_id, String staff_unit) {
+		express_circulation expressCirculationInfo = new express_circulation();
+		Session session = getSession();
+		String hql = "from express_circulation where express_circulation_express_id = :expressId and express_circulation_receiver = :unitId  ";
+		Query query = session.createQuery(hql);
+		query.setParameter("expressId", express_id);
+		query.setParameter("unitId", staff_unit);
+		expressCirculationInfo = (express_circulation) query.uniqueResult();
+		return expressCirculationInfo;
 	}
 
 }

@@ -3,8 +3,7 @@ package com.logistics.domain;
 /**
  * 快件路线
  * 
- * @author XTY
- * update LMJ
+ * @author XTY update LMJ
  *
  */
 public class express_route {
@@ -27,7 +26,7 @@ public class express_route {
 	/**
 	 * 路线状态
 	 */
-	private String eexpress_route_state;
+	private String express_route_state;
 	/**
 	 * 上一级路线
 	 */
@@ -73,12 +72,12 @@ public class express_route {
 		this.express_route_route_away = express_route_route_away;
 	}
 
-	public String getEexpress_route_state() {
-		return eexpress_route_state;
+	public String getExpress_route_state() {
+		return express_route_state;
 	}
 
-	public void setEexpress_route_state(String eexpress_route_state) {
-		this.eexpress_route_state = eexpress_route_state;
+	public void setExpress_route_state(String express_route_state) {
+		this.express_route_state = express_route_state;
 	}
 
 	public String getExpress_route_superior() {
@@ -109,8 +108,8 @@ public class express_route {
 	public String toString() {
 		return "express_route [express_route_id=" + express_route_id + ", express_route_belongexpress="
 				+ express_route_belongexpress + ", express_route_route_id=" + express_route_route_id
-				+ ", express_route_route_away=" + express_route_route_away + ", eexpress_route_state="
-				+ eexpress_route_state + ", express_route_superior=" + express_route_superior
+				+ ", express_route_route_away=" + express_route_route_away + ", express_route_state="
+				+ express_route_state + ", express_route_superior=" + express_route_superior
 				+ ", express_route_createtime=" + express_route_createtime + ", express_route_modifytime="
 				+ express_route_modifytime + "]";
 	}

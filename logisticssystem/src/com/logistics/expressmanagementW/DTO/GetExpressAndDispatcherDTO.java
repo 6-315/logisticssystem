@@ -8,7 +8,7 @@ import com.logistics.domain.staff_basicinfo;
  * @author LW 
  *
  */
-public class GetExpressAndDispatcher {
+public class GetExpressAndDispatcherDTO {
 	private express expressNew;
 	private staff_basicinfo staffBasicInfo;
 

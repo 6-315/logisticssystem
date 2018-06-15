@@ -36,18 +36,13 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		List<userinfo> listUser = new ArrayList<>();
 		listUser = (List<com.logistics.domain.userinfo>) loginRegisterDao
 				.listObject("from userinfo where userinfo_phonenumber = '" + userInfo.getUserinfo_phonenumber() + "'");
-		System.out.println("在哪：" + userInfo.getUserinfo_phonenumber());
-		System.out.println("什么" + listUser);
-		System.out.println("size:" + listUser.size());
 		if (listUser.size() == 0) {
 			userInfo.setUserinfo_id(BuildUuid.getUuid());
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
-			userInfo.setUserinfo_modify(TimeUtil.getStringSecond());
+			userInfo.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);
-			System.out.println("成功");
 			return "成功";
 		} else {
-			System.out.println("重复");
 			return "重复";
 		}
 	}
@@ -91,8 +86,6 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 	public position getPosition(String staff_position) {
 		List<position> listPosition  = new ArrayList<>();
 		listPosition = (List<position>) loginRegisterDao.listObject("from position where position_id = '"+staff_position+"'");
-		System.out.println("99999999999"+listPosition.get(0).getPosition_name());
-		System.out.println("88888888888888888888888888");
 		return listPosition.get(0);
 	}
 

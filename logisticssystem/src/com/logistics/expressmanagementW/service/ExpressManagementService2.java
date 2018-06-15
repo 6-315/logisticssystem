@@ -7,7 +7,7 @@ import com.logistics.domain.express_circulation;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
-import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcher;
+import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcherDTO;
 import com.logistics.expressmanagementW.DTO.GetWeightDTO;
 
 /**
@@ -27,7 +27,9 @@ public interface ExpressManagementService2 {
 
 	List<staff_basicinfo> getDispatcher(staff_basicinfo staffBasicinfo);
 
-	String updateExpressState(GetExpressAndDispatcher getExpressAndDispatcher);
+	String updateExpressState(GetExpressAndDispatcherDTO getExpressAndDispatcherDTO);
+
+	String updateExpressSendState(express expressNew);
 
 
 }

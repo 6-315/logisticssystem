@@ -17,8 +17,8 @@
         <property name="express_route_route_away" type="java.lang.String">
             <column name="express_route_route_away" />
         </property>
-        <property name="eexpress_route_state" type="java.lang.String">
-            <column name="eexpress_route_state" />
+        <property name="express_route_state" type="java.lang.String">
+            <column name="express_route_state" />
         </property>
         <property name="express_route_superior" type="java.lang.String">
             <column name="express_route_superior" />

@@ -23,11 +23,14 @@
         <property name="userinfo_createtime" type="java.lang.String">
             <column name="userinfo_createtime" />
         </property>
-        <property name="userinfo_modify" type="java.lang.String">
-            <column name="userinfo_modify" />
+        <property name="userinfo_modifytime" type="java.lang.String">
+            <column name="userinfo_modifytime" />
         </property>
         <property name="userinfo_mark" type="java.lang.String">
             <column name="userinfo_mark" />
+        </property>
+        <property name="userinfo_username" type="java.lang.String">
+            <column name="userinfo_username" />
         </property>
         <property name="userinfo_lastlytime" type="java.lang.String">
             <column name="userinfo_lastlytime" />
