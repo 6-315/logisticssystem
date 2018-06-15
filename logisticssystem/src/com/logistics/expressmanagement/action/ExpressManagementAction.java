@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.*;
 import com.logistics.expressmanagement.DTO.*;
-import com.logistics.expressmanagement.VO.ExpressVO;
+import com.logistics.expressmanagement.VO.*;
 import com.logistics.expressmanagement.service.ExpressManagementService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -108,16 +108,28 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	private vehicle vehicleInfo;
 	/**
-	 * 快件信息列表
+	 * 快件列表
 	 */
-	private ExpressVO expressVO;
+	private ExpressInfoVO expressVO;
+	/**
+	 * 预约列表
+	 */
+	private ReservationVO reservationVO;
 	
 
-	public ExpressVO getExpressVO() {
+	public ReservationVO getReservationVO() {
+		return reservationVO;
+	}
+
+	public void setReservationVO(ReservationVO reservationVO) {
+		this.reservationVO = reservationVO;
+	}
+
+	public ExpressInfoVO getExpressVO() {
 		return expressVO;
 	}
 
-	public void setExpressVO(ExpressVO expressVO) {
+	public void setExpressVO(ExpressInfoVO expressVO) {
 		this.expressVO = expressVO;
 	}
 
@@ -345,10 +357,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	}
 
 	/**
-	 * 配送点管理员获得等待从中转站取件的快件信息列表
+	 * 获得快件信息列表
 	 * @throws IOException 
 	 */
-	public void  queryExpressInfoWaitForPickUp() throws IOException {
+	public void  queryExpressInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -358,6 +370,26 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(""+expressManagementService.queryExpressInfoWaitForPickUp(expressVO,staffInfo));
+		//response.getWriter().write(""+expressManagementService.queryExpressInfoWaitForPickUp(expressVO,staffInfo));
 	}
+	
+	/**
+	 * 获得预约列表
+	 * @throws IOException 
+	 */
+	public void queryReservationInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write(""+expressManagementService.queryReservationInfo(reservationVO,staffInfo));
+		
+	}
+	
+	
 }
