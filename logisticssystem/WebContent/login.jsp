@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
     <title>登录</title>
 </head>
 <body class="hold-transition login-page">
@@ -61,6 +62,7 @@
 <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
 <script>
     $(function () {
