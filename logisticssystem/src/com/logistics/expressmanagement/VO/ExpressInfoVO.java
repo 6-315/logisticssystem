@@ -41,6 +41,10 @@ public class ExpressInfoVO {
 	 * 根据状态筛选
 	 */
 	private String state = "";
+	/**
+	 * 根据单位筛选
+	 */
+	private String unit = "";
 
 	public List<ExpressInfoDTO> getListExpressInfoDTO() {
 		return listExpressInfoDTO;
@@ -114,12 +118,20 @@ public class ExpressInfoVO {
 		this.state = state;
 	}
 
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpressInfoVO [listExpressInfoDTO=" + listExpressInfoDTO + ", pageIndex=" + pageIndex
 				+ ", totalRecords=" + totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages
 				+ ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state="
-				+ state + "]";
+				+ state + ", unit=" + unit + "]";
 	}
 
 }
