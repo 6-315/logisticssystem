@@ -41,7 +41,7 @@ public class vehicle {
 	 */
 	private String vehicle_express_state;
 	/**
-	 * 车辆行驶方向
+	 * 车辆当前所在单位
 	 */
 	private String vehicle_drivingdirection;
 	/**

@@ -1,5 +1,6 @@
 package com.logistics.expressmanagementW.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -11,8 +12,8 @@ import com.logistics.domain.express;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
-import com.logistics.domain.position;
 import com.logistics.domain.route;
+import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
 import com.logistics.expressmanagementW.dao.ExpressManagementDao2;
 
@@ -158,12 +159,14 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public expressinfo getExpressInfo(String express_expressinfoid) {
+		System.out.println("ooooooo");
 		expressinfo expressinfoNew = new expressinfo();
 		Session session = getSession();
 		String hql = " from expressinfo where expressinfo_id = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_expressinfoid);
 		expressinfoNew = (expressinfo) query.uniqueResult();
+		System.out.println("uuuuuuuuuuuuuu" + express_expressinfoid);
 		if (expressinfoNew != null) {
 			return expressinfoNew;
 		}
@@ -177,14 +180,25 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	public express_route getexpressRoute(String express_id) {
 		express_route expressRoute = new express_route();
 		Session session = getSession();
-		String hql = " from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior limit 1 ";
+		String hql = "from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior";
+		System.out.println("hql:" + hql);
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
-		expressRoute = (express_route) query.uniqueResult();
-		if (expressRoute != null) {
-			return expressRoute;
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<express_route> listRoute = new ArrayList<>();
+		listRoute = query.list();
+		if (listRoute.size() > 0) {
+			System.out.println("UUUUUUUU" + listRoute);
+			return listRoute.get(0);
+		} else {
+			return null;
 		}
-		return null;
+		/*
+		 * expressRoute = (express_route) query.uniqueResult();
+		 * System.out.println("UUUUUUUUUUUU:" + expressRoute); if (expressRoute != null)
+		 * { return expressRoute; }
+		 */
 	}
 
 	/**
@@ -235,8 +249,24 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		if (expressSend != null) {
 			return expressSend;
 		}
-		
+
 		return null;
 	}
 
+	/**
+	 * 根据路线ID获取车队
+	 */
+	@Override
+	public team getTeam(String route_id) {
+		team teamNew = new team();
+		Session session = getSession();
+		String hql = " from team where team_route = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", route_id);
+		teamNew = (team) query.uniqueResult();
+		if (teamNew != null) {
+			return teamNew;
+		}
+		return null;
+	}
 }

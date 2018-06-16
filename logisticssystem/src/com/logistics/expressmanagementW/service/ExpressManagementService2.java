@@ -19,7 +19,7 @@ public interface ExpressManagementService2 {
 
 	List<vehicle> getVehicleByID(express expressNew);
 
-	String getVehicleIsOverWeight(GetWeightDTO getWeightDTO);
+	String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO);
 
 	List<unit> getAddressByUnit(express expressNew);
 

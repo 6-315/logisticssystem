@@ -134,12 +134,13 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService2.getVehicleIsOverWeight(getWeightDTO));
+		response.getWriter().write("" + expressManagementService2.judgeVehicleIsOverWeight(getWeightDTO));
 
 	}
 
 	/**
 	 * 根据地址获取所有配送点
+	 * 
 	 */
 	public void getAddressByUnit() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -199,7 +200,8 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 	/**
 	 * 完成派送记录，更改快件记录
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void updateExpressSendState() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
