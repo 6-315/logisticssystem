@@ -12,6 +12,8 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.logistics.expressmanagementW.DTO.DistributiontorAndStaffBasicinfoDTO;
+import com.logistics.expressmanagementW.DTO.ExpressCirculationAndUnitDTO;
 import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcherDTO;
 import com.logistics.expressmanagementW.DTO.GetWeightDTO;
 import com.logistics.expressmanagementW.service.ExpressManagementService2;
@@ -163,9 +165,9 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		List<express_circulation> listExpressCirculation = new ArrayList<>();
-		listExpressCirculation = expressManagementService2.getExpressCirculation(expressNew);
-		response.getWriter().write(gson.toJson(listExpressCirculation));
+		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = new ArrayList<>();
+		listExpressCirculationAndUnitDTO = expressManagementService2.getExpressCirculation(expressNew);
+		response.getWriter().write(gson.toJson(listExpressCirculationAndUnitDTO));
 	}
 
 	/**
@@ -178,15 +180,16 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		List<staff_basicinfo> liststaffBasicInfo = new ArrayList<>();
+		List<DistributiontorAndStaffBasicinfoDTO> listDistributiontorAndStaffBasicinfoDTO = new ArrayList<>();
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		liststaffBasicInfo = expressManagementService2.getDispatcher(staffBasicinfo);
-		response.getWriter().write(gson.toJson(liststaffBasicInfo));
+		listDistributiontorAndStaffBasicinfoDTO = expressManagementService2.getDispatcher(staffBasicinfo);
+		response.getWriter().write(gson.toJson(listDistributiontorAndStaffBasicinfoDTO));
 	}
 
 	/**
-	 * 分配给生成快件配送表记录 更改快件状态，完成流转记录
+	 * 
+	 * 分配快件给配送员，更改快件记录，生成快件派送表，生成快件流转表
 	 * 
 	 * @throws IOException
 	 */
@@ -209,6 +212,20 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService2.updateExpressSendState(expressNew));
+
+	}
+
+	/**
+	 * 配送员修改快件状态
+	 */
+	public void updateExpressByDistributiontor() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo,expressNew));
 
 	}
 }

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/load.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/load.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -252,5 +254,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+
 </body>
 </html>

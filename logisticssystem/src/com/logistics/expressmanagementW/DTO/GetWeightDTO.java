@@ -3,13 +3,19 @@ package com.logistics.expressmanagementW.DTO;
 import com.logistics.domain.*;
 
 /**
- * 快件和车辆
+ * 快件和车辆的重量
  * 
  * @author LW
  *
  */
 public class GetWeightDTO {
+	/**
+	 * 快件表
+	 */
 	private express expressNew;
+	/**
+	 * 车辆表
+	 */
 	private vehicle vehicleNew;
 
 	public express getExpressNew() {

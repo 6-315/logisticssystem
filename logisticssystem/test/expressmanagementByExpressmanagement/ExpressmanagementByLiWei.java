@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.express;
 import com.logistics.domain.*;
+import com.logistics.expressmanagementW.DTO.DistributiontorAndStaffBasicinfoDTO;
+import com.logistics.expressmanagementW.DTO.ExpressCirculationAndUnitDTO;
+import com.logistics.expressmanagementW.DTO.GetExpressAndDispatcherDTO;
 import com.logistics.expressmanagementW.DTO.GetWeightDTO;
 import com.logistics.expressmanagementW.service.ExpressManagementService2;
 
@@ -64,5 +67,71 @@ public class ExpressmanagementByLiWei {
 		express expressNew = new express();
 		expressNew.setExpress_id("999");
 		List<unit> listUnit = expressManagementService2.getAddressByUnit(expressNew);
+		System.out.println("???????????????" + listUnit);
+	}
+
+	/**
+	 * 查看快件详情
+	 */
+	@Test
+	public void listExpressCirculationAndUnitDTO() {
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = expressManagementService2
+				.getExpressCirculation(expressNew);
+		System.out.println("IIIIIIIIIIIIIIIIIII=:" + listExpressCirculationAndUnitDTO);
+	}
+
+	/**
+	 * 根据自身session查询自身以下的所有配送员
+	 */
+	@Test
+	public void peisongyuan() {
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		staffBasicinfo.setStaff_id("1");
+		staffBasicinfo.setStaff_unit("1");
+		List<DistributiontorAndStaffBasicinfoDTO> listDistributiontorAndStaffBasicinfoDTO = expressManagementService2
+				.getDispatcher(staffBasicinfo);
+		System.out.println("kkkkkkkkkkkk：" + listDistributiontorAndStaffBasicinfoDTO);
+
+	}
+
+	/**
+	 * 
+	 * 选择配送员送货上门
+	 */
+	@Test
+	public void qqq() {
+		GetExpressAndDispatcherDTO getExpressAndDispatcherDTO = new GetExpressAndDispatcherDTO();
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		staffBasicinfo.setStaff_id("1");
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		getExpressAndDispatcherDTO.setExpressNew(expressNew);
+		getExpressAndDispatcherDTO.setStaffBasicInfo(staffBasicinfo);
+		expressManagementService2.updateExpressState(getExpressAndDispatcherDTO);
+	}
+
+	/**
+	 * 完成签收
+	 */
+	@Test
+	public void ii() {
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		expressManagementService2.updateExpressSendState(expressNew);
+
+	}
+
+	/**
+	 * 配送员对快件的操作
+	 */
+	@Test
+	public void qq() {
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew);
+
 	}
 }

@@ -17,16 +17,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
+import com.logistics.loginregister.DTO.DeliveryAdminStaffDTO;
+import com.logistics.loginregister.DTO.DeliveryStaffDTO;
+import com.logistics.loginregister.DTO.DriverStaffDTO;
+import com.logistics.loginregister.DTO.SuperAdminStaffDTO;
+import com.logistics.loginregister.DTO.TeamStaffDTO;
+import com.logistics.loginregister.DTO.TransAdminStaffDTO;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.loginregister.service.LoginRegisterService;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 注册登陆公用的Action
- * 
- * @author LW
  *
+ * @author LW
  */
 public class LoginRegisterAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 	private static final long serialVersionUID = 1L;
@@ -131,7 +136,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 
 	/**
 	 * 注册方法
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void register() throws IOException {
@@ -147,12 +152,25 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到用户首页
+	 */
+	public String pageUser() {
+		return "SuccessByUser";
+	}
+
+	/**
+	 * 跳转到员工首页
+	 */
+	public String pageStaff() {
+		return "SuccessByStaff";
+	}
+
+	/**
 	 * 登陆方法
-	 * 
+	 *
 	 * @throws IOException
 	 */
-	public String login() throws IOException {
-		System.out.println("88888888888888888888888888" + username);
+	public void login() throws IOException {
 		// 判断username是那一张表
 		if (username != null && username.trim().length() > 0 && password != null && password.trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
@@ -166,46 +184,106 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listUserInfo.size() > 0) {
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
-					type = "用户";
-					response.getWriter().write("" + "success");
-					request.getSession().setAttribute("type", type);
-					request.getSession().setAttribute("userInfoSession", userInfoSession);
-					response.getWriter().write(gson.toJson(userInfoSession));
-					return "SuccessByUser";
+					UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
+					userInfoSessionDTO.setUserInfoSession(userInfoSession);
+					request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
+					response.getWriter().write("用户登录成功");
+				} else {
+					response.getWriter().write("error");
 				}
-				response.getWriter().write("" + "error");
-			}
-			if (listStaffBasicInfo.size() > 0) {
-				System.out.println("auhdashdiashduihasidhish" + username);
+			} else if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
-					String positionName = "";
 					position positionNew = new position();
-					positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
-					// positionName =
-					// loginRegisterService.getPosition(staffSession.getStaff_position());
-					type = "员工";
-					request.getSession().setAttribute("positionName", positionNew.getPosition_name());
-					request.getSession().setAttribute("type", type);
-					request.getSession().setAttribute("staff_session", staffSession);
-					response.getWriter().write(gson.toJson(staffSession));
-					return "SuccessByStaff";
+					if (staffSession.getStaff_position() != null
+							&& staffSession.getStaff_position().trim().length() > 0) {
+						positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
+					}
+					if (positionNew != null) {
+						if (positionNew.getPosition_name() != null
+								&& positionNew.getPosition_name().trim().length() > 0) {
+							request.getSession().setAttribute("staff_session", staffSession);
+							switch (positionNew.getPosition_name().trim()) {
+							case "总公司管理员":
+								SuperAdminStaffDTO superAdminStaff = new SuperAdminStaffDTO();
+								superAdminStaff.setSuperAdminStaff(staffSession);
+								request.getSession().setAttribute("superAdminStaff", superAdminStaff);
+								response.getWriter().write("总公司管理员登录成功");
+								break;
+							case "中转站管理员":
+								TransAdminStaffDTO transAdminStaff = new TransAdminStaffDTO();
+								transAdminStaff.setTransAdminStaff(staffSession);
+								request.getSession().setAttribute("transAdminStaff", transAdminStaff);
+								response.getWriter().write("中转站管理员登录成功");
+								break;
+							case "配送点管理员":
+								DeliveryAdminStaffDTO deliveryAdminStaff = new DeliveryAdminStaffDTO();
+								deliveryAdminStaff.setDeliveryAdminStaff(staffSession);
+								request.getSession().setAttribute("deliveryAdminStaff", deliveryAdminStaff);
+								response.getWriter().write("配送点管理员登录成功");
+								break;
+							case "配送员":
+								DeliveryStaffDTO deliveryStaff = new DeliveryStaffDTO();
+								deliveryStaff.setDeliveryStaff(staffSession);
+								request.getSession().setAttribute("deliveryStaff", deliveryStaff);
+								response.getWriter().write("配送员登录成功");
+								break;
+							case "车队队长":
+								TeamStaffDTO teamStaff = new TeamStaffDTO();
+								teamStaff.setTeamStaff(staffSession);
+								request.getSession().setAttribute("teamStaff", teamStaff);
+								response.getWriter().write("车队队长登录成功");
+								break;
+							case "驾驶员":
+								DriverStaffDTO driverStaff = new DriverStaffDTO();
+								driverStaff.setDriverStaff(staffSession);
+								request.getSession().setAttribute("driverStaff", driverStaff);
+								response.getWriter().write("驾驶员登录成功");
+								break;
+							}
+						}
+					}
 				} else {
-					System.out.println("失败");
-					response.getWriter().write("" + "error");
+					response.getWriter().write("error");
 				}
+			} else {
+				response.getWriter().write("error");
 			}
-			System.out.println("失败");
-			response.getWriter().write("" + "error");
-
 		}
-		return null;
+		response.getWriter().flush();
+		response.getWriter().close();
+	}
 
+	/**
+	 * 获取session中的数据
+	 *
+	 * @throws IOException
+	 */
+	public void getSessionData() throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		if (request.getSession().getAttribute("userInfoSession") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("userInfoSession")));
+		} else if (request.getSession().getAttribute("superAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("superAdminStaff")));
+		} else if (request.getSession().getAttribute("transAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("transAdminStaff")));
+		} else if (request.getSession().getAttribute("deliveryAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryAdminStaff")));
+		} else if (request.getSession().getAttribute("deliveryStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryStaff")));
+		} else if (request.getSession().getAttribute("teamStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("teamStaff")));
+		} else if (request.getSession().getAttribute("driverStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("driverStaff")));
+		}
 	}
 
 	/**
 	 * 注销方法
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void logoff() throws IOException {

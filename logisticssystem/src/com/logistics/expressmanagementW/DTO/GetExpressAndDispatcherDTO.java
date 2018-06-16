@@ -2,14 +2,21 @@ package com.logistics.expressmanagementW.DTO;
 
 import com.logistics.domain.express;
 import com.logistics.domain.staff_basicinfo;
+
 /**
  * 配送员和快件
  * 
- * @author LW 
+ * @author LW
  *
  */
 public class GetExpressAndDispatcherDTO {
+	/**
+	 * 快件表
+	 */
 	private express expressNew;
+	/**
+	 * 员工表
+	 */
 	private staff_basicinfo staffBasicInfo;
 
 	public express getExpressNew() {
