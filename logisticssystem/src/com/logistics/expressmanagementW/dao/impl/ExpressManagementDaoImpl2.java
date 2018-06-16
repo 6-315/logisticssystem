@@ -159,12 +159,14 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public expressinfo getExpressInfo(String express_expressinfoid) {
+		System.out.println("ooooooo");
 		expressinfo expressinfoNew = new expressinfo();
 		Session session = getSession();
 		String hql = " from expressinfo where expressinfo_id = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_expressinfoid);
 		expressinfoNew = (expressinfo) query.uniqueResult();
+		System.out.println("uuuuuuuuuuuuuu" + express_expressinfoid);
 		if (expressinfoNew != null) {
 			return expressinfoNew;
 		}

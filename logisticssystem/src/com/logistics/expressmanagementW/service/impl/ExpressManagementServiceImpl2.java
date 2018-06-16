@@ -153,17 +153,26 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	/**
 	 * 
 	 * 根据快件的ID查询匹配的所有配送点
+	 * 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<unit> getAddressByUnit(express expressNew) {
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+			System.out.println("UUUUUUUU:" + expressNew.getExpress_id());
 			List<unit> listUint = new ArrayList<>();
 			expressinfo expressInfo = new expressinfo();
-			expressInfo = expressManagementDao2.getExpressInfo(expressNew.getExpress_id());
-			listUint = (List<unit>) expressManagementDao2.listObject(
-					"from unit where unit_address = '" + expressInfo.getExpressinfo_addresseeaddress() + "'");
-			return listUint;
+			express getExpress = new express();
+			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());// 获取快件详细信息
+			expressInfo = expressManagementDao2.getExpressInfo(getExpress.getExpress_expressinfoid());// 获取快件信息详细信息
+			System.out.println("uuuuuuuu:" + expressInfo);
+			if (expressInfo != null) {
+				listUint = (List<unit>) expressManagementDao2.listObject("from unit where unit_address = '"
+						+ expressInfo.getExpressinfo_addresseeaddress() + "' and unit_type = '配送点'");
+				if (listUint.size() > 0) {
+					return listUint;
+				}
+			}
 		}
 		return null;
 	}

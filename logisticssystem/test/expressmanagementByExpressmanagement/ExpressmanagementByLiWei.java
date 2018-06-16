@@ -41,6 +41,9 @@ public class ExpressmanagementByLiWei {
 		System.out.println("eeee" + listVehicle);
 	}
 
+	/**
+	 * 扫描装车操作
+	 */
 	@Test
 	public void zhongliang() {
 		GetWeightDTO getWeightDTO = new GetWeightDTO();
@@ -51,5 +54,15 @@ public class ExpressmanagementByLiWei {
 		getWeightDTO.setExpressNew(expressNew);
 		getWeightDTO.setVehicleNew(vehicleNew);
 		expressManagementService2.judgeVehicleIsOverWeight(getWeightDTO);
+	}
+
+	/**
+	 * 根据快件ID获取配送点地址
+	 */
+	@Test
+	public void allUnit() {
+		express expressNew = new express();
+		expressNew.setExpress_id("999");
+		List<unit> listUnit = expressManagementService2.getAddressByUnit(expressNew);
 	}
 }
