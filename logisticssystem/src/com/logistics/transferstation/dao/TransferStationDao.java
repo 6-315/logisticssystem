@@ -65,6 +65,25 @@ public interface TransferStationDao {
 	 * @return
 	 */
 	public staff_basicinfo getBasicinfoById(String trim);
+/**
+ * 生成编号
+ * @param string 
+ * @param trim
+ * @return
+ */
+
+
+public String getTransferStationByNum(String unit_num);
+
+
+
+
+
+
+
+
+
+
 
 	
 }

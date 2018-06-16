@@ -20,7 +20,7 @@ public interface TransferStationService {
 	 * @return
 	 */
 
-	String addTransferStation(unit transferStation, staff_basicinfo staffBasicinfo);
+	String addTransferStation(unit transferStation);
 
 	/**
 	 * 删除中转站
@@ -46,6 +46,14 @@ public interface TransferStationService {
 	 */
 
 	String updateTransferStation(unit transferStation);
+
+	String VehicleDistribution(Object vehicleList);
+
+	/**
+	 * 自动生成unit_num编号
+	 */
+
+
 
 
 

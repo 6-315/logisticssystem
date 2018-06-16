@@ -31,16 +31,34 @@ public class TransferStationServiceImpl implements TransferStationService {
 	}
 
 	/**
-	 * 添加中转站
+	 * 添加中转站并自动生成编号
 	 */
 
 	@Override
-	public String addTransferStation(unit transferStation ,staff_basicinfo staffBasicinfo) {
+	public String addTransferStation(unit transferStation) {
+		System.out.println("fdfdfd");
+		unit unit = new unit();
+		String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
+		System.out.println("iiiii" + maxNum);
+
+		if (maxNum!= null ) {
+			maxNum =maxNum.replaceAll("[A]", "");
+			int nextNum = Integer.parseInt(maxNum);
+			nextNum = nextNum + 1;
+			String num = String.format("A%02d", nextNum);
+			transferStation.setUnit_num(num);
+			System.out.println("sandanand"+num);
+		} else {
+			int nextNum = 1;
+			String num = String.format("A%02d", nextNum);
+			transferStation.setUnit_num(num);
+			System.out.println("lalalalala"+num);
+		}
+		
 		transferStation.setUnit_id(BuildUuid.getUuid());
 		transferStation.setUnit_createtime(TimeUtil.getStringSecond());
 		transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
 		transferStationDao.saveOrUpdateObject(transferStation);
-		System.out.println("2222222");
 		return "success";
 	}
 
@@ -112,18 +130,17 @@ public class TransferStationServiceImpl implements TransferStationService {
 		// sql语句 查询unit表中每一条数据
 		String listTransferStationHql = "from unit where 1=1 ";
 		// 查询管理员信息
+
 		/**
-		 * 如果unit表中的Unit_id不为空 并且unit表中的Unit_id等于员工信息表中的管理员
-		 */
-		/**
-		 * 模糊查询
+		 * 根据单位名字和单位类型模糊查询
 		 */
 		if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 			String search = "%" + transferStationVO.getSearch().trim() + "%";
-			transferStationCountHql = transferStationCountHql + " and unit_name like '" + search + "' ";
-			listTransferStationHql = listTransferStationHql + " and unit_name like '" + search + "'";
+			transferStationCountHql = transferStationCountHql + " and (unit_name like '" + search + "' ";
+			listTransferStationHql = listTransferStationHql + " and (unit_name like '" + search + "'";
+			transferStationCountHql = transferStationCountHql + "or unit_type like ' " + search + "')";
+			listTransferStationHql = listTransferStationHql + "or unit_type like '" + search + "')";
 		}
-
 		/**
 		 * 根据address查询
 		 */
@@ -195,19 +212,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-		/**
-		 * 1.首先，已经获取了unitList 2.遍历unitList获取每个单位的管理员下信息以及创建者信息和单位自己的信息 3.for(unit
-		 * unitInfo : unitList){ //创建人信息对象 staff_info createSfaff = new staff_info();
-		 * //管理员信息对象 staff_info adminStaff = new staff_info();
-		 * //关联是unit里面存着创建人staff_info.staff_id createSfaff =
-		 * transferStationDao.getStaffById(unitInfo.getUnit_creator())
-		 * //关联是unit里面存着管理员的staff_info.staff_id createSfaff =
-		 * transferStationDao.getStaffById(unitInfo.getUnit_admin()) }
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
+		
 
 		// 遍历unit表
 		for (unit unit : listUnit) {
@@ -235,6 +240,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 		return transferStationVO;
 	}
 
-
-
+	@Override
+	public String VehicleDistribution(Object vehicleList) {
+		return null;
+	}
+	
 }
+	

@@ -38,18 +38,17 @@ public class Transferstation {
  */
 	@Test
 	public void addTransferStation() {
-
 		unit transferStation = new unit();
 		transferStation.setUnit_name("lailiang");
 		transferStation.setUnit_address("hubei");
 		transferStation.setUnit_detailaddress("hubeiwuhan");
-		transferStation.setUnit_type("zhongzhuangzhan");
+		transferStation.setUnit_type("中转站");
 		transferStation.setUnit_creator("zonggongsi");
 		transferStation.setUnit_state("zhengchang");
 		transferStation.setUnit_phonenumber("123");
-		staff_basicinfo staffBasicinfo = new staff_basicinfo();
-		staffBasicinfo.setStaff_id("dsdsd");
-		transferStationService.addTransferStation(transferStation,staffBasicinfo);
+		// staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		// staffBasicinfo.setStaff_id("dsdsd");
+		transferStationService.addTransferStation(transferStation);
 		System.out.println("2222222"+transferStation);
 		
 	}
@@ -90,5 +89,8 @@ public class Transferstation {
 		System.out.println("chaxun"+transferStationVO);
 		
 	}
+	/**
+	 * 自动生成编号测试类
+	 */
 	
 }

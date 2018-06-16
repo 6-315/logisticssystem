@@ -54,6 +54,10 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 */
 	private String admin;
 	/**
+	 * 分配车辆
+	 */
+	private Object VehicleList;
+	/**
 	 * 分页查询的字段
 	 */
 	private String state;
@@ -182,7 +186,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	private HttpServletResponse response;
 
 	private HttpServletRequest request;
-
+	
 	/**
 	 * get和set
 	 * 
@@ -274,7 +278,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + transferStationService.addTransferStation(transferStation,staffBasicinfo));
+		response.getWriter().write("" + transferStationService.addTransferStation(transferStation));
 
 		System.out.println("qqqqq");
 
@@ -300,7 +304,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * @throws IOException
 	 */
 
-	public void TransferStation() throws IOException {
+	public void updateTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -308,4 +312,15 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation));
 	}
 
+	/**
+	 * 分配车辆
+	 * @throws IOException
+	 */
+	public void vehicleDistribution() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(""+transferStationService.VehicleDistribution(VehicleList));
+	}
 }

@@ -10,8 +10,10 @@ import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.dao.TransferStationDao;
+
 /**
  * 中转站管理的DAO实现层
+ * 
  * @author LW
  *
  */
@@ -72,6 +74,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -109,31 +112,48 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 根据ID查询中转站
 	 */
-public unit getTransferStationInfoById(String trim) {
-	unit transferStation = new unit();
-	Session session = getSession();
-	String hql = "from unit where unit_id = :ID";
-	Query query = session.createQuery(hql);
-	query.setParameter("ID", trim);
-	transferStation = (unit) query.uniqueResult();
+	public unit getTransferStationInfoById(String trim) {
+		unit transferStation = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		transferStation = (unit) query.uniqueResult();
 
-	return transferStation;
-	
-}
-/**
- * 根据ID查询staff_basicinfo表中的信息
- */
-@Override
-public staff_basicinfo getBasicinfoById(String trim) {
-	staff_basicinfo  staff_basicinfo= new staff_basicinfo();
-	Session session = getSession();
-	String hql = "from staff_basicinfo where staff_id = :ID";
-	Query query = session.createQuery(hql);
-	query.setParameter("ID", trim);
-	staff_basicinfo = (staff_basicinfo) query.uniqueResult();
-	return staff_basicinfo;
-}
+		return transferStation;
+
+	}
+
+	/**
+	 * 根据ID查询staff_basicinfo表中的信息
+	 */
+	@Override
+	public staff_basicinfo getBasicinfoById(String trim) {
+		staff_basicinfo staff_basicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		staff_basicinfo = (staff_basicinfo) query.uniqueResult();
+		return staff_basicinfo;
+	}
+
+	/**
+	 * 按照倒序查单位
+	 */
+	@Override
+	public String getTransferStationByNum(String unit_num) {
+		Session session = getSession();
+		String hql = "select substring(unit_num,2) from unit where unit_type=:num  order by --substring(unit_num, 2) desc limit 1";
+		System.out.println(hql);
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("num", "中转站");
+		String maxNum = (String) query.uniqueResult();
+		return maxNum;
+	}
+
 }
