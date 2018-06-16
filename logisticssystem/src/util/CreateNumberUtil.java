@@ -20,6 +20,19 @@ public class CreateNumberUtil {
 		}
 	}
 	
+	public static String getExpressNumber() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyMMddHHmmssSSS");
+		Date secondDate = new Date();
+		String date = formatter.format(secondDate);
+		try {
+			secondDate = formatter.parse(date);
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "00000000";
+		}
+	}
+	
 	public static String getTimeNumberT() {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyMMddHHmmss");
 		Date secondDate = new Date();
@@ -33,11 +46,5 @@ public class CreateNumberUtil {
 		}
 	}
 	
-	 public static String getExpressNumber() {
-	        long t = System.currentTimeMillis();//获得当前时间的毫秒数
-	        Random rd = new Random(t);//作为种子数传入到Random的构造器中
-	        String expressNum = rd + "";
-			return expressNum;
-	    }
 	
 }

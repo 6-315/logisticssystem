@@ -11,6 +11,7 @@ import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.reservation;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
@@ -294,6 +295,20 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", reservation_user);
 		userInfo = (userinfo) query.uniqueResult();
 		return userInfo;
+	}
+
+	/**
+	 * 获得职位
+	 */
+	@Override
+	public position getPositionById(String staff_position) {
+		position staffPosition = new position();
+		Session session = getSession();
+		String hql = "from position where position_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_position);
+		staffPosition = (position) query.uniqueResult();
+		return staffPosition;
 	}
 
 }

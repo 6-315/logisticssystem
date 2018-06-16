@@ -370,7 +370,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		//response.getWriter().write(""+expressManagementService.queryExpressInfoWaitForPickUp(expressVO,staffInfo));
+		response.getWriter().write(""+expressManagementService.queryExpressInfo(expressVO,staffInfo));
 	}
 	
 	/**
