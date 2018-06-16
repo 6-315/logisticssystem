@@ -368,34 +368,59 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		List<ReservationDTO> listReservationDTO = new ArrayList<>();
 		ReservationDTO reservationDTO;
 		List<reservation> listReservation = new ArrayList<>();
-		
-		String reservationCountHql = "select count(*) from reservation where 1=1 ";
-		String listReservationInfoHql = " from reservation where 1=1 ";
+
+		String reservationCountHql = "select count(*) from reservation where 1=1 and ( ";
+		String listReservationInfoHql = " from reservation where 1=1 and ( ";
+
+		if (staffInfo != null) {
+			if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+				List<unit> listUnit = (List<unit>) expressManagementDao
+						.listObject(" from unit where ( unit_id = ' " + staffInfo.getStaff_unit()
+								+ " ' or unit_superiorunit =  ' " + staffInfo.getStaff_unit() + " ' ) ");
+				if (listUnit != null) {
+					for (int i = 0; i <= listUnit.size(); i++) {
+						if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
+								&& listUnit.get(i).getUnit_id().trim().length() > 0) {
+							reservationCountHql = reservationCountHql + " reservation_unit = '"+ listUnit.get(i).getUnit_id().trim() +"'";
+							listReservationInfoHql = listReservationInfoHql + "  reservation_unit = '"+ listUnit.get(i).getUnit_id().trim() +"' ";
+						}
+						if(i < listUnit.size()) {
+							reservationCountHql = reservationCountHql + " or  ";
+							listReservationInfoHql = listReservationInfoHql + " or  ";
+						}
+					}
+					
+				}
+			}
+		}
+		reservationCountHql = reservationCountHql + " )  ";
+		listReservationInfoHql = listReservationInfoHql + " )  ";
+
 		/**
 		 * 模糊查询
 		 */
-		if(reservationVO.getSearch()!=null&&reservationVO.getSearch().trim().length()>0) {
-			String search = "%"+reservationVO.getSearch().trim()+"%";
-			reservationCountHql = reservationCountHql +" and reservation_num like '" +search+ "' ";
-			listReservationInfoHql = listReservationInfoHql + " and reservation_num like '" +search+ "' ";
+		if (reservationVO.getSearch() != null && reservationVO.getSearch().trim().length() > 0) {
+			String search = "%" + reservationVO.getSearch().trim() + "%";
+			reservationCountHql = reservationCountHql + " and reservation_num like '" + search + "' ";
+			listReservationInfoHql = listReservationInfoHql + " and reservation_num like '" + search + "' ";
 		}
 		/**
 		 * 根据状态分类查询
 		 */
-		if(reservationVO.getState()!=null&&reservationVO.getState().trim().length()>0) {
-			String state = "%"+reservationVO.getState()+"%";
-			reservationCountHql = reservationCountHql +" and reservation_state = '" +state+ "' ";
-			listReservationInfoHql = listReservationInfoHql + " and reservation_state = '" +state+ "' ";
+		if (reservationVO.getState() != null && reservationVO.getState().trim().length() > 0) {
+			String state = "%" + reservationVO.getState() + "%";
+			reservationCountHql = reservationCountHql + " and reservation_state = '" + state + "' ";
+			listReservationInfoHql = listReservationInfoHql + " and reservation_state = '" + state + "' ";
 		}
 		/**
 		 * 根据单位分类查询
 		 */
-		if(reservationVO.getUnit()!=null&&reservationVO.getUnit().trim().length()>0) {
-			String unit = "%"+reservationVO.getUnit()+"%";
-			reservationCountHql = reservationCountHql +" and reservation_unit = '" +unit+ "' ";
-			listReservationInfoHql = listReservationInfoHql + " and reservation_unit = '" +unit+ "' ";
+		if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
+			String unit = "%" + reservationVO.getUnit() + "%";
+			reservationCountHql = reservationCountHql + " and reservation_unit = '" + unit + "' ";
+			listReservationInfoHql = listReservationInfoHql + " and reservation_unit = '" + unit + "' ";
 		}
-		
+
 		listReservationInfoHql = listReservationInfoHql + " order by reservation_modifytime desc ";
 		int reservationCount = expressManagementDao.getCount(reservationCountHql);
 		/**
@@ -422,33 +447,37 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		} else {
 			reservationVO.setHaveNextPage(true);
 		}
-		
+
 		/**
 		 * 分页查询
 		 */
-		listReservation = (List<reservation>) expressManagementDao.queryForPage(listReservationInfoHql, reservationVO.getPageIndex(), reservationVO.getPageSize());
+		listReservation = (List<reservation>) expressManagementDao.queryForPage(listReservationInfoHql,
+				reservationVO.getPageIndex(), reservationVO.getPageSize());
 		for (reservation reservationInfo : listReservation) {
 			reservationDTO = new ReservationDTO();
-			if(reservationInfo!=null) {
-				if(reservationInfo.getReservation_expressinfo()!=null&&reservationInfo.getReservation_expressinfo().trim().length()>0&&reservationInfo.getReservation_user()!=null&&reservationInfo.getReservation_user().trim().length()>0) {
-					expressinfo expressInfo = expressManagementDao.getExpressInfoById(reservationInfo.getReservation_expressinfo());
-					if(expressInfo!=null) {
+			if (reservationInfo != null) {
+				if (reservationInfo.getReservation_expressinfo() != null
+						&& reservationInfo.getReservation_expressinfo().trim().length() > 0
+						&& reservationInfo.getReservation_user() != null
+						&& reservationInfo.getReservation_user().trim().length() > 0) {
+					expressinfo expressInfo = expressManagementDao
+							.getExpressInfoById(reservationInfo.getReservation_expressinfo());
+					if (expressInfo != null) {
 						reservationDTO.setExpressInfo(expressInfo);
 					}
 					userinfo userInfo = expressManagementDao.getUserInfoById(reservationInfo.getReservation_user());
-					if(userInfo!=null) {
+					if (userInfo != null) {
 						reservationDTO.setUserInfo(userInfo);
 					}
 				}
 				reservationDTO.setReservationInfo(reservationInfo);
 				listReservationDTO.add(reservationDTO);
 			}
-			
+
 		}
 		reservationVO.setListReservationInfoDTO(listReservationDTO);
-		
+
 		return reservationVO;
 	}
 
-	
 }
