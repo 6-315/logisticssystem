@@ -20,6 +20,10 @@ public class reservation {
 	 */
 	private String reservation_expressinfo;
 	/**
+	 * 配送点ID
+	 */
+	private String reservation_unit;
+	/**
 	 * 配送员ID
 	 */
 	private String reservation_distributiontor;
@@ -62,6 +66,14 @@ public class reservation {
 
 	public void setReservation_expressinfo(String reservation_expressinfo) {
 		this.reservation_expressinfo = reservation_expressinfo;
+	}
+
+	public String getReservation_unit() {
+		return reservation_unit;
+	}
+
+	public void setReservation_unit(String reservation_unit) {
+		this.reservation_unit = reservation_unit;
 	}
 
 	public String getReservation_distributiontor() {
@@ -107,10 +119,10 @@ public class reservation {
 	@Override
 	public String toString() {
 		return "reservation [reservation_id=" + reservation_id + ", reservation_num=" + reservation_num
-				+ ", reservation_expressinfo=" + reservation_expressinfo + ", reservation_distributiontor="
-				+ reservation_distributiontor + ", reservation_user=" + reservation_user + ", reservation_state="
-				+ reservation_state + ", reservation_createtime=" + reservation_createtime + ", reservation_modifytime="
-				+ reservation_modifytime + "]";
+				+ ", reservation_expressinfo=" + reservation_expressinfo + ", reservation_unit=" + reservation_unit
+				+ ", reservation_distributiontor=" + reservation_distributiontor + ", reservation_user="
+				+ reservation_user + ", reservation_state=" + reservation_state + ", reservation_createtime="
+				+ reservation_createtime + ", reservation_modifytime=" + reservation_modifytime + "]";
 	}
 
 }
