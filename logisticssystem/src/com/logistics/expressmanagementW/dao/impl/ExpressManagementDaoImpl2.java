@@ -13,7 +13,9 @@ import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.route;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
+import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.expressmanagementW.dao.ExpressManagementDao2;
 
@@ -266,6 +268,40 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		teamNew = (team) query.uniqueResult();
 		if (teamNew != null) {
 			return teamNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据单位ID获取单位信息
+	 */
+	@Override
+	public unit getUnitById(String unitId) {
+		unit unitNew = new unit();
+		Session session = getSession();
+		String hql = " from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", unitId);
+		unitNew = (unit) query.uniqueResult();
+		if (unitNew != null) {
+			return unitNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据ID获取员工信息
+	 */
+	@Override
+	public staff_basicinfo getStaffBasicinfo(String distributiontor_basicinfo) {
+		staff_basicinfo staffBasicinfoNew = new staff_basicinfo();
+		Session session = getSession();
+		String hql = " from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", distributiontor_basicinfo);
+		staffBasicinfoNew = (staff_basicinfo) query.uniqueResult();
+		if (staffBasicinfoNew != null) {
+			return staffBasicinfoNew;
 		}
 		return null;
 	}

@@ -8,7 +8,9 @@ import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.route;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
+import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 /**
  * DAO接口
@@ -73,6 +75,10 @@ public interface ExpressManagementDao2 {
 	public express_send getExpressSend(String express_id);
 
 	public team getTeam(String route_id);
+
+	public unit getUnitById(String unitId);
+
+	public staff_basicinfo getStaffBasicinfo(String distributiontor_basicinfo);
 
 
 	/**
