@@ -23,7 +23,6 @@
     <div class="card">
         <div id="sslogin" class="card-body login-card-body">
             <p class="login-box-msg">登录</p>
-            <%--<form action="${pageContext.request.contextPath}/loginregister/loginregister_login" method="post">--%>
                 <div class="form-group has-feedback">
                     <input name="username" type="text" v-model="user" class="form-control" placeholder="手机号码">
                 </div>
@@ -47,11 +46,6 @@
                 <p class="mb-0">
                     <a href="${pageContext.request.contextPath}/register.jsp" class="text-center">注册</a>
                 </p>
-                <div>
-                    {{user}}
-                    {{password}}
-                </div>
-            <%--</form>--%>
         </div>
 
         <!-- /.login-card-body -->
