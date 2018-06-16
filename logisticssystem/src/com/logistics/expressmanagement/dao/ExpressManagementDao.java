@@ -7,6 +7,7 @@ import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.reservation;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
@@ -85,6 +86,8 @@ public interface ExpressManagementDao {
 	public expressinfo getExpressInfoById(String reservation_expressinfo);
 
 	public userinfo getUserInfoById(String reservation_user);
+
+	public position getPositionById(String staff_position);
 
 
 	/**

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
     <title>登录</title>
 </head>
 <body class="hold-transition login-page">
@@ -20,14 +21,13 @@
     </div>
     <!-- /.login-logo -->
     <div class="card">
-        <div id="login" class="card-body login-card-body">
+        <div id="sslogin" class="card-body login-card-body">
             <p class="login-box-msg">登录</p>
-            <form action="${pageContext.request.contextPath}/loginregister/loginregister_login" method="post">
                 <div class="form-group has-feedback">
-                    <input name="username" type="text" class="form-control" placeholder="手机号码">
+                    <input name="username" type="text" v-model="user" class="form-control" placeholder="手机号码">
                 </div>
                 <div class="form-group has-feedback">
-                    <input name="password" type="password" class="form-control" placeholder="密码">
+                    <input name="password" type="password" v-model="password" class="form-control" placeholder="密码">
                 </div>
                 <div class="row">
                     <div class="col-8">
@@ -39,14 +39,13 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" id="user_login" class="btn btn-primary btn-block btn-flat">登录</button>
+                        <button v-on:click="login" id="user_login" class="btn btn-primary btn-block btn-flat">登录</button>
                     </div>
                     <!-- /.col -->
                 </div>
                 <p class="mb-0">
                     <a href="${pageContext.request.contextPath}/register.jsp" class="text-center">注册</a>
                 </p>
-            </form>
         </div>
 
         <!-- /.login-card-body -->
@@ -57,6 +56,7 @@
 <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
 <script>
     $(function () {

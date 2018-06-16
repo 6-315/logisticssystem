@@ -138,5 +138,6 @@
 </footer>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 </body>
 </html>
