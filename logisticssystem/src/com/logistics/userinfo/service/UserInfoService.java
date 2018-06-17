@@ -18,6 +18,10 @@ public interface UserInfoService {
 
 	List<address> getAllAddress(UserInfoSessionDTO userInfoSessionDTO);
 
-	String judgePassword(String oldPassword);
+	String judgePassword(String oldPassword, UserInfoSessionDTO userInfoSessionDTO);
+
+	String updatePassword(userinfo userInfo);
+
+	String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO);
 
 }

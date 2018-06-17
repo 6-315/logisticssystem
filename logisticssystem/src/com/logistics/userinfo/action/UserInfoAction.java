@@ -51,6 +51,15 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	 */
 	private userinfo userInfo;
 	private String oldPassword;
+	private address addressNew;
+
+	public address getAddressNew() {
+		return addressNew;
+	}
+
+	public void setAddressNew(address addressNew) {
+		this.addressNew = addressNew;
+	}
 
 	public String getOldPassword() {
 		return oldPassword;
@@ -217,8 +226,37 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + userInfoService.judgePassword(oldPassword));
-
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		response.getWriter().write("" + userInfoService.judgePassword(oldPassword, userInfoSessionDTO));
 	}
 
+	/**
+	 * 更新密码
+	 * 
+	 * @throws IOException
+	 */
+	public void updatePassword() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + userInfoService.updatePassword(userInfo));
+	}
+
+	/**
+	 * 添加一条地址
+	 * 
+	 * @throws IOException
+	 */
+	public void addAddress() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		response.getWriter().write("" + userInfoService.addAddress(addressNew, userInfoSessionDTO));
+
+	}
 }
