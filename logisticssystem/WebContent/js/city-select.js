@@ -1,7 +1,7 @@
 (function () {
-    $('#sendRegion').focus(function () {
+   /* $('#sendRegion').focus(function () {
         $('#sendRegion').parent().addClass('open')
-    });
+    });*/
     $('#sendPro').click(function () {
         $('#sendProC').css({
             "display": "block"

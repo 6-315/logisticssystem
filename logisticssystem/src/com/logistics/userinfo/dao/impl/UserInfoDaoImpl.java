@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.expressinfo;
 import com.logistics.domain.position;
 import com.logistics.domain.userinfo;
 import com.logistics.userinfo.dao.UserinfoDao;
@@ -66,6 +67,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 	@Override
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
+		System.out.println("oooooo" + hql);
 		Query query = session.createQuery(hql);
 		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
@@ -126,6 +128,23 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		if (userinfoNew != null) {
 
 			return userinfoNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据快件 的ID获取快件的信息
+	 */
+	@Override
+	public expressinfo getExpressInfoById(String express_id) {
+		expressinfo expressInfo = new expressinfo();
+		Session session = getSession();
+		String hql = " from expressinfo where expressinfo_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressInfo = (expressinfo) query.uniqueResult();
+		if (expressInfo != null) {
+			return expressInfo;
 		}
 		return null;
 	}
