@@ -16,6 +16,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.*;
+import com.logistics.expressmanagementW.VO.ExpressinfoAndExpressVO;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.userinfo.service.UserInfoService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -48,10 +49,47 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	private HttpServletRequest request;
 	/**
 	 * 使用域模型
+	 * 
 	 */
 	private userinfo userInfo;
 	private String oldPassword;
 	private address addressNew;
+	private ExpressinfoAndExpressVO expressinfoAndExpressVO;
+	private String search = "";
+	private String state = "";
+	private int page = 1;
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public ExpressinfoAndExpressVO getExpressinfoAndExpressVO() {
+		return expressinfoAndExpressVO;
+	}
+
+	public void setExpressinfoAndExpressVO(ExpressinfoAndExpressVO expressinfoAndExpressVO) {
+		this.expressinfoAndExpressVO = expressinfoAndExpressVO;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public address getAddressNew() {
 		return addressNew;
@@ -257,6 +295,29 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 		response.getWriter().write("" + userInfoService.addAddress(addressNew, userInfoSessionDTO));
+
+	}
+
+	/**
+	 * 根据传回来的域模型userInfo查询用户的历史订单
+	 * 
+	 * @throws IOException
+	 */
+	public void selectExpressInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		expressinfoAndExpressVO = new ExpressinfoAndExpressVO();
+		expressinfoAndExpressVO.setPageIndex(page);
+		expressinfoAndExpressVO.setSearch(search);
+		expressinfoAndExpressVO.setState(state);
+		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0) {
+			expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(),
+					expressinfoAndExpressVO);
+		}
+
+		response.getWriter().write(gson.toJson(expressinfoAndExpressVO));
 
 	}
 }

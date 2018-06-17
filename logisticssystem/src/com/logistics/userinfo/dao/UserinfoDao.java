@@ -2,6 +2,7 @@ package com.logistics.userinfo.dao;
 
 import java.util.List;
 
+import com.logistics.domain.expressinfo;
 import com.logistics.domain.userinfo;
 
 /**
@@ -53,6 +54,8 @@ public interface UserinfoDao {
 	public List<?> listObject(String hql);
 
 	public userinfo getUserInfo(String userinfo_id);
+
+	public expressinfo getExpressInfoById(String express_id);
 
 	/**
 	 * 

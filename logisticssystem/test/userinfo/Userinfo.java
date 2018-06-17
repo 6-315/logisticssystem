@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.*;
+import com.logistics.expressmanagementW.VO.ExpressinfoAndExpressVO;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.userinfo.service.UserInfoService;
 
@@ -84,4 +85,19 @@ public class Userinfo {
 		userInfo.setUserinfo_id("1");
 		userInfoService.updatePassword(userInfo);
 	}
+
+	/**
+	 * 查看历史订单
+	 */
+	@Test
+	public void bbb() {
+		ExpressinfoAndExpressVO expressinfoAndExpressVO = new ExpressinfoAndExpressVO();
+		userinfo userInfo = new userinfo();
+		userInfo.setUserinfo_id("1");
+		expressinfoAndExpressVO.setState("");
+		expressinfoAndExpressVO.setPageSize(2);
+		expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(), expressinfoAndExpressVO);
+		System.out.println("kkkkkkkkkkkkk:" + expressinfoAndExpressVO);
+	}
+
 }

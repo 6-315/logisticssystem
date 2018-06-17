@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.logistics.domain.address;
 import com.logistics.domain.userinfo;
+import com.logistics.expressmanagementW.VO.ExpressinfoAndExpressVO;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 
 /**
@@ -23,5 +24,7 @@ public interface UserInfoService {
 	String updatePassword(userinfo userInfo);
 
 	String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO);
+
+	ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id, ExpressinfoAndExpressVO expressinfoAndExpressVO);
 
 }
