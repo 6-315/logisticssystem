@@ -67,9 +67,10 @@
 	<div class="page" style="margin-top: 110px">
 		<div class="container m_top_10">
 			<ol class="breadcrumb" style="background-color: transparent;">
-				<li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/user-userinfo.jsp">&nbsp;我的信息</a></li>
+					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex">首页&nbsp;</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">&nbsp;我的信息</a></li>
 				<li>&nbsp;基本信息</li>
 			</ol>
 			<div class="yto-box">

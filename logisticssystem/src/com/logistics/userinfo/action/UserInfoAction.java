@@ -1,6 +1,8 @@
 package com.logistics.userinfo.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +15,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.*;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.userinfo.service.UserInfoService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -44,6 +46,27 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	private HttpServletResponse response;
 
 	private HttpServletRequest request;
+	/**
+	 * 使用域模型
+	 */
+	private userinfo userInfo;
+	private String oldPassword;
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public userinfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(userinfo userInfo) {
+		this.userInfo = userInfo;
+	}
 
 	public HttpServletResponse getResponse() {
 		return response;
@@ -73,18 +96,9 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 
 	/**
 	 * 实现结束
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-
-	public void userInfo() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
-		response.setContentType("text/html;charset=utf-8");
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		response.getWriter().write("");
-	}
 
 	public String userIndex() {
 		return "userIndex";
@@ -151,6 +165,59 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	 */
 	public String pageUserMessage() {
 		return "pageUserMessage";
+
+	}
+
+	/**
+	 * 更改用户信息
+	 * 
+	 * @throws IOException
+	 */
+	public void updateUserInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		/*
+		 * HttpSession session = ServletActionContext.getRequest().getSession();
+		 * UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO)
+		 * session.getAttribute("userInfoSession");
+		 */
+		// response.getWriter().write(gson);
+		UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
+		userInfoSessionDTO = userInfoService.updateUserInfo(userInfo);
+		request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
+
+	}
+
+	/**
+	 * 获取一个人的所有地址
+	 * 
+	 * @throws IOException
+	 */
+	public void allAddressByUserInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		List<address> listAddress = new ArrayList<>();
+		listAddress = userInfoService.getAllAddress(userInfoSessionDTO);
+		response.getWriter().write(gson.toJson(listAddress));
+	}
+
+	/**
+	 * 修改密码时候，判断旧密码是否一致
+	 * 
+	 * @throws IOException
+	 */
+	public void judgePassword() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + userInfoService.judgePassword(oldPassword));
 
 	}
 

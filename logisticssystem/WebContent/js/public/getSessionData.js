@@ -7,6 +7,7 @@ let teamStaff = null
 let driverStaff = null
 let userJson = null;
 (function () {
+	alert('-------------1')
     $.ajax({
         url: '/logisticssystem/loginregister/loginregister_getSessionData',
         type: 'POST',
@@ -18,7 +19,7 @@ let userJson = null;
                 toastr.error("登录状态失效，即将退出登录")
                 setTimeout(function () {
                     window.location = '/logisticssystem/index.jsp'
-                }, 3000)
+                }, 2000)
                 return
             }
             if (userJson.userInfoSession != null) {
@@ -36,14 +37,12 @@ let userJson = null;
             } else if (userJson.driverStaff != null) {
                 driverStaff = userJson
             } else {
+                toastr.error("登录状态失效，即将退出登录")
                 setTimeout(function () {
                     window.location = '/logisticssystem/index.jsp'
-                }, 3000)
+                }, 2000)
                 return
             }
-        },
-        error: function (e) {
-            console.log('fdfdaaaaa:', e)
         }
     })
 })()

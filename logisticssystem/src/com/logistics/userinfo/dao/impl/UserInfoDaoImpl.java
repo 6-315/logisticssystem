@@ -6,9 +6,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
+import com.logistics.domain.userinfo;
 import com.logistics.userinfo.dao.UserinfoDao;
+
 /**
  * 用户信息DAO 实现层
+ * 
  * @author LW
  *
  */
@@ -69,6 +73,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -85,6 +90,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -93,6 +99,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -103,6 +110,24 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据user infoID获取用户信息
+	 */
+	@Override
+	public userinfo getUserInfo(String userinfo_id) {
+		userinfo userinfoNew = new userinfo();
+		Session session = getSession();
+		String hql = " from userinfo where userinfo_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", userinfo_id);
+		userinfoNew = (userinfo) query.uniqueResult();
+		if (userinfoNew != null) {
+
+			return userinfoNew;
+		}
+		return null;
 	}
 
 }
