@@ -126,10 +126,6 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		if (listuserinfo.size() > 0) {
 			if (listuserinfo.get(0).getUserinfo_password() != null
 					&& listuserinfo.get(0).getUserinfo_phonenumber() != null) {
-				System.out.println(listuserinfo.get(0).getUserinfo_password());
-				System.out.println(password);
-				System.out.println(username);
-				System.out.println(listuserinfo.get(0).getUserinfo_phonenumber());
 				if (listuserinfo.get(0).getUserinfo_password().equals(password)
 						&& listuserinfo.get(0).getUserinfo_phonenumber().equals(username)) {
 					return listuserinfo.get(0);
