@@ -1,12 +1,19 @@
 package com.logistics.userinfo.action;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.userinfo.service.UserInfoService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -63,6 +70,16 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 
 	/**
 	 * 实现结束
+	 * @throws IOException 
 	 */
+	public void userInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("");
+	}
 
 }
