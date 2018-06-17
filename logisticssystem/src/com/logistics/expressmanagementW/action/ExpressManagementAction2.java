@@ -189,7 +189,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 	/**
 	 * 
-	 * 分配快件给配送员，更改快件记录，生成快件派送表，生成快件流转表
+	 * 分配快件给配送员，更改快件记录，生成快件派送表
 	 * 
 	 * @throws IOException
 	 */
