@@ -128,7 +128,43 @@ public class Expressmanagement {
 		
 	}
 	
+	/**
+	 * 保存路线
+	 */
+	@Test
+	public void saveExpressRouteTest() {
+		String idList="1,2,3,4,5";
+		express expressInfo = new express();
+		expressInfo.setExpress_id("01f4fc19-537c-4fb0-a3c7-e11659e29ac3");
+		expressManagementService.saveExpressRoute(idList, expressInfo);
+		
+		
+	}
 	
+	/**
+	 * 判断快件类型
+	 */
+	@Test
+	public void judgeExpressTypeTest() {
+		express expressInfo = new express();
+		expressInfo.setExpress_id("01f4fc19-537c-4fb0-a3c7-e11659e29ac3");
+		expressManagementService.judgeExpressType(expressInfo);
+		
+	}
 	
+	/**
+	 * 完成扫描
+	 */
+	@Test
+	public void updateVehicleAndExpressCirculationAndExpressInfoTest() {
+		vehicle vehicleInfo = new vehicle();
+		vehicleInfo.setVehicle_id("bad396b4-b23f-4cea-b312-0a5cc5b58895");
+		express expressInfo = new express();
+		expressInfo.setExpress_id("534e7fd4-2033-4dae-9341-6cf401041b0d");
+		staff_basicinfo staffInfo = new staff_basicinfo();
+		staffInfo.setStaff_unit("123");
+		expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo);
+		
+	}
 	
 }
