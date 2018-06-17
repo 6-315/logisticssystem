@@ -45,8 +45,14 @@
                                 'reservationExpressInfoDTO.expressInfo.expressinfo_productname': this.view_express.expressinfo_productname,
                                 'reservationExpressInfoDTO.expressInfo.expressinfo_productweight': this.view_express.expressinfo_productweight
                             },
-                            success: function () {
-                                
+                            success: function (data) {
+                                if (data !== null) {
+                                    window.location = '/logisticssystem/userinfo/userinfo_pageReservationSuccess'
+                                    return
+                                } else {
+                                    toastr.error('预约失败，请重新下单')
+                                    this.disabled = false
+                                }
                             }
                         })
                 }

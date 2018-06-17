@@ -159,6 +159,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到成功页面
+	 */
+	public String pageReservationSuccess() {
+		return "pageReservationSuccess";
+	}
+
+	/**
 	 * 跳转到员工首页
 	 */
 	public String pageStaff() {
