@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.driver;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -182,5 +183,18 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		query.setParameter("ID", trim);
 		vehicle = (vehicle) query.uniqueResult();
 		return vehicle;
+	}
+	/**
+	 * 根据ID查询员工表中的信息
+	 */
+	@Override
+	public driver getDriverById(String trim) {
+		driver driver = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		driver = (driver) query.uniqueResult();
+		return driver;
 	}
 }

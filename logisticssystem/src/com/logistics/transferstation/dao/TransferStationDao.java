@@ -2,6 +2,7 @@ package com.logistics.transferstation.dao;
 
 import java.util.List;
 
+import com.logistics.domain.driver;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -80,6 +81,12 @@ public String getTransferStationByNum(String unit_num);
 public team getTeamById(String trim);
 
 public vehicle getVehicleById(String trim);
+/**
+ * 
+ * @param trim
+ * @return
+ */
+public driver getDriverById(String trim);
 
 
 

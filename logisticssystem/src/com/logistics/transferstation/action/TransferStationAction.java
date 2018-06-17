@@ -12,9 +12,9 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
-import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -54,13 +54,41 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 */
 	private String admin;
 	/**
-	 * 分配车辆
+	 * 分配车辆的集合
 	 */
 	private String vehicleList;
 	/**
 	 * 车队编号
 	 */
 	private String teamNum;
+	/**
+	 * 司机
+	 * 
+	 */
+	private driver driver;
+	/**
+	 * 司机的集合
+	 * 
+	 * @return
+	 */
+	private String driverList;
+
+	public String getDriverList() {
+		return driverList;
+	}
+
+	public void setDriverList(String driverList) {
+		this.driverList = driverList;
+	}
+
+	public driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(driver driver) {
+		this.driver = driver;
+	}
+
 	public String getTeamNum() {
 		return teamNum;
 	}
@@ -206,8 +234,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	private HttpServletResponse response;
 
 	private HttpServletRequest request;
-	
-	
+
 	/**
 	 * get和set
 	 * 
@@ -335,6 +362,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 
 	/**
 	 * 分配车辆
+	 * 
 	 * @throws IOException
 	 */
 	public void vehicleDistribution() throws IOException {
@@ -342,6 +370,22 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+transferStationService.vehicleDistribution(vehicleList,teamNum));
+		response.getWriter().write("" + transferStationService.vehicleDistribution(vehicleList, teamNum));
+	}
+
+	public void driverRecruit() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.driverRecruit(null));
+	}
+
+	public void driverDistribution() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.driverDistribution(driverList, teamNum));
 	}
 }

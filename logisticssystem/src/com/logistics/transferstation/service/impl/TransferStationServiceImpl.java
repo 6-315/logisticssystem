@@ -3,16 +3,14 @@ package com.logistics.transferstation.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.logistics.domain.position;
+import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.dao.TransferStationDao;
 import com.logistics.transferstation.service.TransferStationService;
-import com.logistics.vehiclemanagement.DTO.VehicleDTO;
 
 import util.BuildUuid;
 import util.TimeUtil;
@@ -282,9 +280,56 @@ public class TransferStationServiceImpl implements TransferStationService {
 	/**
 	 * 招募司机
 	 */
-	public String driverRecruit() {
-		return null;
+	public String driverRecruit(staff_basicinfo driver) {
+		driver.setStaff_id(BuildUuid.getUuid());
+		driver.setStaff_createtime(TimeUtil.getStringSecond());
+		driver.setStaff_modifytime(TimeUtil.getStringSecond());
+		transferStationDao.saveOrUpdateObject(driver);
+		return "success";
+	}
+	/**
+	 * 分配司机到车队
+	 */
+
+	@Override
+	public String driverDistribution(String driverList, String teamNum) {
+		/**
+		 * 如果车队编号不为空
+		 */
+		if (teamNum != null) {
+			/**
+			 * 实例化一个司机集合
+			 */
+			String[] driverListDistribute = driverList.split(",");
+			/**
+			 * 遍历这个集合
+			 */
+			for (String eachDriverId : driverListDistribute) {
+				/**
+				 * 如果每个司机不为空
+				 */
+				System.out.println("进入循环");
+				if (eachDriverId != null && eachDriverId.trim().length() > 0) {
+					driver driver = transferStationDao.getDriverById(eachDriverId);
+					System.out.println("ghghghg" + driver);
+					if (driver != null) {
+						
+						System.out.println("qwqwqw");
+						driver.setDriver_belong_team(teamNum);
+						System.out.println("分配成功");
+					} else {
+						System.out.println("分配失败");
+					}
+				} else {
+					System.out.println("分配失败");
+				}
+
+			}
+		}else {
+			System.out.println("meinjin");
+		}
 		
+		return null;
 		
 	}
 }

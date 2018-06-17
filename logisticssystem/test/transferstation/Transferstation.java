@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
@@ -100,5 +101,26 @@ public class Transferstation {
 		String teamNum="1234";
 		transferStationService.vehicleDistribution(vehicleList, teamNum);
 		System.out.println("aaaaaaddd"+vehicleList+teamNum);
+	}
+	/**
+	 * 招募司机
+	 */
+	@Test
+	public void driverRecruit() {
+		staff_basicinfo driver = new staff_basicinfo();
+				driver.setStaff_birthday("19970723");
+				transferStationService.driverRecruit(driver);
+				System.out.println("招募成功"+driver);
+	}
+	/**
+	 * 分配车辆测试类
+	 */
+	@Test
+	public void driverDistribution() {
+		String driverList = "1,2";
+		System.out.println("66658217"+driverList);
+		String teamNum="1234";
+		transferStationService.driverDistribution(driverList, teamNum);
+		System.out.println("aaaaaaddd"+driverList+teamNum);
 	}
 }

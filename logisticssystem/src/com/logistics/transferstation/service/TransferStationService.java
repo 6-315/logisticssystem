@@ -1,5 +1,6 @@
 package com.logistics.transferstation.service;
 
+import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -17,7 +18,7 @@ public interface TransferStationService {
 	 * 添加中转站
 	 * 
 	 * @param transferStation
-	 * @param staffBasicinfo 
+	 * @param staffBasicinfo
 	 * @return
 	 */
 
@@ -29,7 +30,9 @@ public interface TransferStationService {
 	 * @param transferStation
 	 * @return
 	 */
+	
 	String deleteTransferStation(String idList);
+
 	/**
 	 * 分页显示中转站信息
 	 * 
@@ -37,7 +40,7 @@ public interface TransferStationService {
 	 * @return
 	 */
 
-	UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO,staff_basicinfo staffBasicnfo);
+	UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO, staff_basicinfo staffBasicnfo);
 
 	/**
 	 * 修改中转站信息
@@ -48,15 +51,32 @@ public interface TransferStationService {
 
 	String updateTransferStation(unit transferStation);
 
-
-
-
-
+	/**
+	 * 车辆分配
+	 * 
+	 * @param vehicleList
+	 * @param teamNum
+	 * @return
+	 */
+	
 	String vehicleDistribution(String vehicleList, String teamNum);
 
+	/**
+	 * 司机招募
+	 * 
+	 * @param driver
+	 * @return
+	 */
+	String driverRecruit(staff_basicinfo driver);
 
-
-
-
+	/**
+	 * 司机分配到车队
+	 * 
+	 * @param driverList
+	 * @param teamNum
+	 * @return
+	 */
+	
+	String driverDistribution(String driverList, String teamNum);
 
 }
