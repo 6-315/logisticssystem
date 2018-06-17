@@ -49,7 +49,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			expressInfo.setExpressinfo_modifytime(TimeUtil.getStringSecond());
 			reservationExpressInfoDTO.setExpressInfo(expressInfo);
 			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getExpressInfo());
-				
+
 			reservation reservationInfo = reservationExpressInfoDTO.getReservationInfo();
 			reservationInfo.setReservation_id(BuildUuid.getUuid());
 			reservationInfo.setReservation_num(CreateNumberUtil.getTimeNumberT());
@@ -223,14 +223,16 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
-					express_route expressRouteInfo = expressManagementDao
+					String expressRouteInfo = expressManagementDao
 							.getExpressRouteInfoByExpressId(expressInfo.getExpress_id());
-					if (expressRouteInfo != null && "1".equals(expressRouteInfo.getExpress_route_superior())) {
-						System.out.println("始发站");
-						return "始发站";
-					} else if (expressRouteInfo != null && !"1".equals(expressRouteInfo.getExpress_route_superior())) {
-						System.out.println("中转站");
-						return "中转站";
+					if (expressRouteInfo != null) {
+						if ("0001".equals(expressRouteInfo)) {
+							System.out.println("始发站");
+							return "始发站";
+						} else if (!"0001".equals(expressRouteInfo)) {
+							System.out.println("中转站");
+							return "中转站";
+						}
 					} else {
 						System.out.println("终点站");
 						return "终点站";
@@ -260,13 +262,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 
 						String hql = "select express_route_superior from express_route order by --express_route_superior desc limit 1 ";
 						String number = expressManagementDao.getMaxNumber(hql);
+						System.out.println("66666" + number);
 						if (number != null && number.trim().length() > 0) {
-							int num = Integer.getInteger(number);
+							int num = Integer.parseInt(number);
 							num = num + 1;
-							String nextNumber = String.format("%4d", num);
+							String nextNumber = String.format("%04d", num);
 							expressRoute.setExpress_route_superior(nextNumber);
 						} else {
-							expressRoute.setExpress_route_superior("1");
+							expressRoute.setExpress_route_superior("0001");
 						}
 						expressRoute.setExpress_route_createtime(TimeUtil.getStringSecond());
 						expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
