@@ -9,6 +9,8 @@
 	href="${pageContext.request.contextPath}/css/tool/site.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/index.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Note3 速递系统</title>
 </head>
@@ -110,7 +112,6 @@
 								</tr>
 							</thead>
 							<tbody>
-
 							</tbody>
 						</table>
 					</div>
@@ -140,6 +141,8 @@
 	</footer>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript"
