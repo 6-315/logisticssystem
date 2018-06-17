@@ -95,11 +95,10 @@ public class Expressmanagement {
 	 */
 	@Test
 	public void completePickExpressTest() {
-		ExpressAndCirculationDTO expressAndCirculationDTO = new ExpressAndCirculationDTO();
 		staff_basicinfo staffInfo = new staff_basicinfo();
 		staffInfo.setStaff_id("1234");
 		staffInfo.setStaff_unit("234");
-		expressManagementService.completePickExpress(expressAndCirculationDTO, staffInfo);
+		expressManagementService.completePickExpress(staffInfo);
 		
 	}
 	

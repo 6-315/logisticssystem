@@ -20,7 +20,7 @@ public interface ExpressManagementService {
 
 	public String updateReservationWithDistributor(ReservationWithDistributorDTO reservationWithDistributorDTO);
 
-	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
+	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo);
 
 	public String updateExpressState(express expressInfo);
 

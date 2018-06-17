@@ -2,13 +2,13 @@ package com.logistics.expressmanagement.VO;
 
 import java.util.List;
 
-import com.logistics.domain.reservation;
+import com.logistics.expressmanagement.DTO.ReservationOrderHistoryDTO;
 
 public class ReservationOrderHistoryVO {
 	/**
 	 * 预约表
 	 */
-	private List<reservation> listReservation;
+	private List<ReservationOrderHistoryDTO> listReservationOrderHistoryDTO;
 	/**
 	 * 当前页码
 	 */
@@ -42,12 +42,12 @@ public class ReservationOrderHistoryVO {
 	 */
 	private String state = "";
 
-	public List<reservation> getListReservation() {
-		return listReservation;
+	public List<ReservationOrderHistoryDTO> getListReservationOrderHistoryDTO() {
+		return listReservationOrderHistoryDTO;
 	}
 
-	public void setListReservation(List<reservation> listReservation) {
-		this.listReservation = listReservation;
+	public void setListReservationOrderHistoryDTO(List<ReservationOrderHistoryDTO> listReservationOrderHistoryDTO) {
+		this.listReservationOrderHistoryDTO = listReservationOrderHistoryDTO;
 	}
 
 	public int getPageIndex() {
@@ -116,10 +116,10 @@ public class ReservationOrderHistoryVO {
 
 	@Override
 	public String toString() {
-		return "ReservationOrderHistoryVO [listReservation=" + listReservation + ", pageIndex=" + pageIndex
-				+ ", totalRecords=" + totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages
-				+ ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state="
-				+ state + "]";
+		return "ReservationOrderHistoryVO [listReservationOrderHistoryDTO=" + listReservationOrderHistoryDTO
+				+ ", pageIndex=" + pageIndex + ", totalRecords=" + totalRecords + ", pageSize=" + pageSize
+				+ ", totalPages=" + totalPages + ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage
+				+ ", search=" + search + ", state=" + state + "]";
 	}
 
 }
