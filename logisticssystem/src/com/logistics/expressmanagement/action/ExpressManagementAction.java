@@ -16,6 +16,7 @@ import com.logistics.domain.*;
 import com.logistics.expressmanagement.DTO.*;
 import com.logistics.expressmanagement.VO.*;
 import com.logistics.expressmanagement.service.ExpressManagementService;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -238,9 +239,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
-		userinfo userInfo = (userinfo) session.getAttribute("userInfoSession");
-		response.getWriter()
-				.write("" + expressManagementService.addReservationAndExpressInfo(reservationExpressInfoDTO, userInfo));
+		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
+		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		response.getWriter().write("" + expressManagementService.addReservationAndExpressInfo(reservationExpressInfoDTO,
+				userInfo.getUserInfoSession()));
 	}
 
 	/**
@@ -291,8 +293,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter()
-				.write("" + expressManagementService.completePickExpress(staffInfo));
+		response.getWriter().write("" + expressManagementService.completePickExpress(staffInfo));
 	}
 
 	/**
@@ -434,9 +435,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
 		} else {
 			HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
-			userinfo userInfo = (userinfo) session.getAttribute("userInfoSession");
+			UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
+			userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 			response.getWriter()
-					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
+					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo.getUserInfoSession()));
 		}
 
 	}
