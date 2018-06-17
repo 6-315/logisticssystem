@@ -84,6 +84,7 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 		response.getWriter().write("");
+	}
 
 	public String userIndex() {
 		return "userIndex";
