@@ -8,7 +8,7 @@
 		<action name="vehiclemanagement_*"
 			class="com.logistics.vehiclemanagement.action.VehicleManagementAction" method="{1}">
 			
-
+ 
 		
 		</action>
 	</package>
