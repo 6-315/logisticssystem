@@ -14,6 +14,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.userinfo.service.UserInfoService;
 import com.opensymphony.xwork2.ActionSupport;
 /**
@@ -78,7 +79,7 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 		response.getWriter().write("");
 	}
 
