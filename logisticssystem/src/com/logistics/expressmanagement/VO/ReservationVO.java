@@ -2,13 +2,13 @@ package com.logistics.expressmanagement.VO;
 
 import java.util.List;
 
-import com.logistics.domain.express;
+import com.logistics.expressmanagement.DTO.*;
 
-public class ExpressVO {
+public class ReservationVO {
 	/**
-	 * 快件信息列表
+	 * 预约信息列表
 	 */
-	private List<express> listExpressInfo;
+	private List<ReservationDTO> listReservationInfoDTO;
 	/**
 	 * 当前页码
 	 */
@@ -33,13 +33,25 @@ public class ExpressVO {
 	 * 是否有下一页
 	 */
 	private boolean HaveNextPage = false;
+	/**
+	 * 模糊查询关键字
+	 */
+	private String search = "";
+	/**
+	 * 根据状态筛选
+	 */
+	private String state = "";
+	/**
+	 * 根据所属单位筛选
+	 */
+	private String unit = "";
 
-	public List<express> getListExpressInfo() {
-		return listExpressInfo;
+	public List<ReservationDTO> getListReservationInfoDTO() {
+		return listReservationInfoDTO;
 	}
 
-	public void setListExpressInfo(List<express> listExpressInfo) {
-		this.listExpressInfo = listExpressInfo;
+	public void setListReservationInfoDTO(List<ReservationDTO> listReservationInfoDTO) {
+		this.listReservationInfoDTO = listReservationInfoDTO;
 	}
 
 	public int getPageIndex() {
@@ -90,11 +102,36 @@ public class ExpressVO {
 		HaveNextPage = haveNextPage;
 	}
 
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
 	@Override
 	public String toString() {
-		return "ExpressVO [listExpressInfo=" + listExpressInfo + ", pageIndex=" + pageIndex + ", totalRecords="
-				+ totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", HavePrePage="
-				+ HavePrePage + ", HaveNextPage=" + HaveNextPage + "]";
+		return "ReservationVO [listReservationInfoDTO=" + listReservationInfoDTO + ", pageIndex=" + pageIndex
+				+ ", totalRecords=" + totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages
+				+ ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state="
+				+ state + ", unit=" + unit + "]";
 	}
 
 }

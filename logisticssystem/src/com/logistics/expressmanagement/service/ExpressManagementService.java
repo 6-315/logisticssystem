@@ -3,10 +3,9 @@ package com.logistics.expressmanagement.service;
 import java.util.List;
 
 import com.logistics.domain.*;
-import com.logistics.expressmanagement.DTO.ExpressAndCirculationDTO;
-import com.logistics.expressmanagement.DTO.ReservationExpressInfoDTO;
-import com.logistics.expressmanagement.DTO.ReservationWithDistributorDTO;
-import com.logistics.expressmanagement.VO.ExpressVO;
+import com.logistics.expressmanagement.DTO.*;
+import com.logistics.expressmanagement.VO.ExpressInfoVO;
+import com.logistics.expressmanagement.VO.ReservationVO;
 
 /**
  * 快件管理的service层接口
@@ -34,6 +33,9 @@ public interface ExpressManagementService {
 
 	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
 
-	public ExpressVO queryExpressInfoWaitForPickUp(ExpressVO expressVO, staff_basicinfo staffInfo);
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
+
+	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
+
 
 }

@@ -10,9 +10,12 @@ import com.logistics.domain.distributiontor;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.reservation;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.domain.userinfo;
 import com.logistics.domain.vehicle;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
 /**
@@ -264,6 +267,48 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("unitId", staff_unit);
 		expressCirculationInfo = (express_circulation) query.uniqueResult();
 		return expressCirculationInfo;
+	}
+
+	/**
+	 * 根据ID查询快件详细信息
+	 */
+	@Override
+	public expressinfo getExpressInfoById(String reservation_expressinfo) {
+		expressinfo expressInfo = new expressinfo();
+		Session session = getSession();
+		String hql = "from expressinfo where expressinfo_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", reservation_expressinfo);
+		expressInfo = (expressinfo) query.uniqueResult();
+		return expressInfo;
+	}
+
+	/**
+	 * 根据ID查询用户信息
+	 */
+	@Override
+	public userinfo getUserInfoById(String reservation_user) {
+		userinfo userInfo = new userinfo();
+		Session session = getSession();
+		String hql = "from userinfo where userinfo_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", reservation_user);
+		userInfo = (userinfo) query.uniqueResult();
+		return userInfo;
+	}
+
+	/**
+	 * 获得职位
+	 */
+	@Override
+	public position getPositionById(String staff_position) {
+		position staffPosition = new position();
+		Session session = getSession();
+		String hql = "from position where position_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_position);
+		staffPosition = (position) query.uniqueResult();
+		return staffPosition;
 	}
 
 }

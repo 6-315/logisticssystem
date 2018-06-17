@@ -6,9 +6,12 @@ import com.logistics.domain.distributiontor;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.reservation;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.domain.userinfo;
 import com.logistics.domain.vehicle;
 /**
  * DAO接口
@@ -79,6 +82,12 @@ public interface ExpressManagementDao {
 	public vehicle getVehicleInfoById(String vehicle_id);
 
 	public express_circulation getExpressCirculationInfoByExpressIdAndReceiver(String express_id, String staff_unit);
+
+	public expressinfo getExpressInfoById(String reservation_expressinfo);
+
+	public userinfo getUserInfoById(String reservation_user);
+
+	public position getPositionById(String staff_position);
 
 
 	/**
