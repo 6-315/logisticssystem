@@ -7,7 +7,6 @@ let teamStaff = null
 let driverStaff = null
 let userJson = null;
 (function () {
-	alert('-------------1')
     $.ajax({
         url: '/logisticssystem/loginregister/loginregister_getSessionData',
         type: 'POST',
