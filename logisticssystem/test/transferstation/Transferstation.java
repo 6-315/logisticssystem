@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 
@@ -90,7 +91,14 @@ public class Transferstation {
 		
 	}
 	/**
-	 * 自动生成编号测试类
+	 * 分配车辆测试类
 	 */
-	
+	@Test
+	public void vehicleDistribution() {
+		String vehicleList = "1,2";
+		System.out.println("66658217"+vehicleList);
+		String teamNum="1234";
+		transferStationService.vehicleDistribution(vehicleList, teamNum);
+		System.out.println("aaaaaaddd"+vehicleList+teamNum);
+	}
 }

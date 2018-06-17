@@ -8,7 +8,9 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.transferstation.dao.TransferStationDao;
 
 /**
@@ -155,5 +157,30 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
-
+	/**
+	 * 根据ID查询车队表中的信息
+	 */
+	@Override
+	public team getTeamById(String trim) {
+		team team = new team();
+		Session session = getSession();
+		String hql = "from team where team_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		team = (team) query.uniqueResult();
+		return team;
+	}
+	/**
+	 * 根据ID查询车队表中的信息
+	 */
+	@Override
+	public vehicle getVehicleById(String trim) {
+		vehicle vehicle = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		vehicle = (vehicle) query.uniqueResult();
+		return vehicle;
+	}
 }

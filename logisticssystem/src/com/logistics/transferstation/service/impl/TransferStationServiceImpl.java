@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.dao.TransferStationDao;
 import com.logistics.transferstation.service.TransferStationService;
+import com.logistics.vehiclemanagement.DTO.VehicleDTO;
 
 import util.BuildUuid;
 import util.TimeUtil;
@@ -41,20 +44,20 @@ public class TransferStationServiceImpl implements TransferStationService {
 		String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
 		System.out.println("iiiii" + maxNum);
 
-		if (maxNum!= null ) {
-			maxNum =maxNum.replaceAll("[A]", "");
+		if (maxNum != null) {
+			maxNum = maxNum.replaceAll("[A]", "");
 			int nextNum = Integer.parseInt(maxNum);
 			nextNum = nextNum + 1;
 			String num = String.format("A%02d", nextNum);
 			transferStation.setUnit_num(num);
-			System.out.println("sandanand"+num);
+			System.out.println("sandanand" + num);
 		} else {
 			int nextNum = 1;
 			String num = String.format("A%02d", nextNum);
 			transferStation.setUnit_num(num);
-			System.out.println("lalalalala"+num);
+			System.out.println("lalalalala" + num);
 		}
-		
+
 		transferStation.setUnit_id(BuildUuid.getUuid());
 		transferStation.setUnit_createtime(TimeUtil.getStringSecond());
 		transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
@@ -212,7 +215,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-		
 
 		// 遍历unit表
 		for (unit unit : listUnit) {
@@ -240,10 +242,49 @@ public class TransferStationServiceImpl implements TransferStationService {
 		return transferStationVO;
 	}
 
-	@Override
-	public String VehicleDistribution(Object vehicleList) {
+	/**
+	 * 车辆批量分配
+	 * 
+	 * vehicleList是一个数组 我需要得到每一辆车是不是没有所属车队（错误） 但是车辆又在一个集合里面 能不能把数组转化成对象进行操作
+	 * 
+	 * 
+	 */
+	public String vehicleDistribution(String vehicleList, String teamNum) {
+		if (teamNum != null) {
+			String[] vehicleListDistribute = vehicleList.split(",");
+			for (String eachVehicleId : vehicleListDistribute) {
+				/**
+				 * 如果每辆车不为空
+				 */
+				System.out.println("进入循环");
+				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
+					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
+					System.out.println("ghghghg" + vehicle);
+					if (vehicle != null) {
+						
+						System.out.println("qwqwqw");
+						vehicle.setVehicle_team(teamNum);
+						System.out.println("分配成功");
+					} else {
+						System.out.println("分配失败");
+					}
+				} else {
+					System.out.println("分配失败");
+				}
+
+			}
+		}else {
+			System.out.println("meinjin");
+		}
+		
 		return null;
 	}
-	
+	/**
+	 * 招募司机
+	 */
+	public String driverRecruit() {
+		return null;
+		
+		
+	}
 }
-	

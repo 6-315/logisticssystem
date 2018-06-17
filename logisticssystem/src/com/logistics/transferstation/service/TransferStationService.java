@@ -1,6 +1,7 @@
 package com.logistics.transferstation.service;
 
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
@@ -47,11 +48,12 @@ public interface TransferStationService {
 
 	String updateTransferStation(unit transferStation);
 
-	String VehicleDistribution(Object vehicleList);
 
-	/**
-	 * 自动生成unit_num编号
-	 */
+
+
+
+	String vehicleDistribution(String vehicleList, String teamNum);
+
 
 
 

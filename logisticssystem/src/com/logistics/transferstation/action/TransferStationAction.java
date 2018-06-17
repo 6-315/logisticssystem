@@ -56,7 +56,19 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	/**
 	 * 分配车辆
 	 */
-	private Object VehicleList;
+	private String vehicleList;
+	/**
+	 * 车队编号
+	 */
+	private String teamNum;
+	public String getTeamNum() {
+		return teamNum;
+	}
+
+	public void setTeamNum(String teamNum) {
+		this.teamNum = teamNum;
+	}
+
 	/**
 	 * 分页查询的字段
 	 */
@@ -105,6 +117,14 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 
 	public void setIdList(String idList) {
 		this.idList = idList;
+	}
+
+	public String getVehicleList() {
+		return vehicleList;
+	}
+
+	public void setVehicleList(String vehicleList) {
+		this.vehicleList = vehicleList;
 	}
 
 	public String getAdmin() {
@@ -186,6 +206,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	private HttpServletResponse response;
 
 	private HttpServletRequest request;
+	
 	
 	/**
 	 * get和set
@@ -321,6 +342,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+transferStationService.VehicleDistribution(VehicleList));
+		response.getWriter().write(""+transferStationService.vehicleDistribution(vehicleList,teamNum));
 	}
 }

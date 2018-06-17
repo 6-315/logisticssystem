@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 /**
  * 中转站管理 的DAO接口
  * @author LW
@@ -74,6 +76,10 @@ public interface TransferStationDao {
 
 
 public String getTransferStationByNum(String unit_num);
+
+public team getTeamById(String trim);
+
+public vehicle getVehicleById(String trim);
 
 
 
