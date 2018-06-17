@@ -6,6 +6,7 @@ import java.util.List;
 import com.logistics.domain.*;
 import com.logistics.expressmanagement.DTO.*;
 import com.logistics.expressmanagement.VO.ExpressInfoVO;
+import com.logistics.expressmanagement.VO.ReservationOrderHistoryVO;
 import com.logistics.expressmanagement.VO.ReservationVO;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
 
@@ -600,6 +601,67 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		}
 		expressVO.setListExpressInfoDTO(listExpressInfoDTO);
 		return expressVO;
+	}
+
+	/**
+	 * 历史订单
+	 */
+	@Override
+	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo) {
+		List<reservation> listReservation = new ArrayList<>();
+		
+		String reservationOrderHistoryCountHql = " select count(*) from reservation where 1=1 ";
+		String listReservationOrderHistoryInfoHql = " from reservation where 1=1  ";
+		reservationOrderHistoryCountHql = reservationOrderHistoryCountHql + " and reservation_user ='"+userInfo.getUserinfo_id().trim()+"' ";
+		listReservationOrderHistoryInfoHql = listReservationOrderHistoryInfoHql + " and reservation_user ='"+userInfo.getUserinfo_id().trim()+"' ";
+		
+		/**
+		 * 根据关键字进行模糊查询
+		 */
+		if(reservationOrderHistoryVO.getSearch()!=null&&reservationOrderHistoryVO.getSearch().trim().length()>0) {
+			String search = "%"+reservationOrderHistoryVO.getSearch().trim()+"%";
+			reservationOrderHistoryCountHql = reservationOrderHistoryCountHql + " and reservation_num like '"+search+"' ";
+			listReservationOrderHistoryInfoHql = listReservationOrderHistoryInfoHql + " and reservation_num like '"+search+"' ";
+		}
+		/**
+		 * 根据状态筛选(默认显示未完成的预约单)
+		 */
+		if(reservationOrderHistoryVO.getState()!=null&&reservationOrderHistoryVO.getState().trim().length()>0) {
+			reservationOrderHistoryCountHql = reservationOrderHistoryCountHql + " and reservation_state ='"+reservationOrderHistoryVO.getState().trim()+"' ";
+			listReservationOrderHistoryInfoHql = listReservationOrderHistoryInfoHql + " and reservation_state ='"+reservationOrderHistoryVO.getState().trim()+"' ";
+		}else {
+			reservationOrderHistoryCountHql = reservationOrderHistoryCountHql + " and reservation_state ='未完成' ";
+			listReservationOrderHistoryInfoHql = listReservationOrderHistoryInfoHql + " and reservation_state ='未完成' ";
+		}
+		
+		listReservationOrderHistoryInfoHql = listReservationOrderHistoryInfoHql + " order by reservation_modifytime desc ";
+		int reservationOrderHistoryCount = expressManagementDao.getCount(reservationOrderHistoryCountHql);
+		// 设置总数量
+		reservationOrderHistoryVO.setTotalRecords(reservationOrderHistoryCount);
+		// 设置总页数
+		reservationOrderHistoryVO.setTotalPages(((reservationOrderHistoryCount - 1) / reservationOrderHistoryVO.getPageSize()) + 1);
+		// 判断是否拥有上一页
+		if (reservationOrderHistoryVO.getPageIndex() <= 1) {
+			reservationOrderHistoryVO.setHavePrePage(false);
+		} else {
+			reservationOrderHistoryVO.setHavePrePage(true);
+		}
+		// 判断是否拥有下一页
+		if (reservationOrderHistoryVO.getPageIndex() >= reservationOrderHistoryVO.getTotalPages()) {
+			reservationOrderHistoryVO.setHaveNextPage(false);
+		} else {
+			reservationOrderHistoryVO.setHaveNextPage(true);
+		}
+		
+		listReservation = (List<reservation>) expressManagementDao.queryForPage(listReservationOrderHistoryInfoHql, reservationOrderHistoryVO.getPageIndex(), reservationOrderHistoryVO.getPageSize());
+		for (reservation reservationInfo : listReservation) {
+			if(reservationOrderHistoryVO.getSearch()!=null&&reservationOrderHistoryVO.getSearch().trim().length()>0) {
+				reservationInfo.setReservation_num(reservationInfo.getReservation_num().replaceAll(reservationOrderHistoryVO.getSearch(), "<mark>"+reservationOrderHistoryVO.getSearch()+"</mark>"));
+			}
+		}
+		reservationOrderHistoryVO.setListReservation(listReservation);
+		
+		return reservationOrderHistoryVO;
 	}
 
 }

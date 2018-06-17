@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.logistics.domain.*;
 import com.logistics.expressmanagement.DTO.*;
-import com.logistics.expressmanagement.VO.ExpressInfoVO;
-import com.logistics.expressmanagement.VO.ReservationVO;
+import com.logistics.expressmanagement.VO.*;
 
 /**
  * 快件管理的service层接口
@@ -36,6 +35,8 @@ public interface ExpressManagementService {
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
 	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
+
+	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
 
 }
