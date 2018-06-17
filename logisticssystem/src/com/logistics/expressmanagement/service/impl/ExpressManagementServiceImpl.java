@@ -50,8 +50,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			expressInfo.setExpressinfo_modifytime(TimeUtil.getStringSecond());
 			reservationExpressInfoDTO.setExpressInfo(expressInfo);
 			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getExpressInfo());
-
-			reservation reservationInfo = reservationExpressInfoDTO.getReservationInfo();
+			reservation reservationInfo = new reservation();
 			reservationInfo.setReservation_id(BuildUuid.getUuid());
 			reservationInfo.setReservation_num(CreateNumberUtil.getTimeNumberT());
 			reservationInfo.setReservation_user(userInfo.getUserinfo_id());
@@ -59,7 +58,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			reservationInfo.setReservation_state("待受理");
 			reservationExpressInfoDTO.setReservationInfo(reservationInfo);
 			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getReservationInfo());
-
 			return reservationExpressInfoDTO;
 		}
 		return null;
@@ -670,7 +668,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				if (expressDetailInfo != null) {
 					reservationOrderHistoryDTO.setExpressDetailInfo(expressDetailInfo);
 				}
-				//将关键字高亮
+				// 将关键字高亮
 				if (reservationOrderHistoryVO.getSearch() != null
 						&& reservationOrderHistoryVO.getSearch().trim().length() > 0) {
 					reservationInfo.setReservation_num(

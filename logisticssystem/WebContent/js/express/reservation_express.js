@@ -43,11 +43,10 @@
                                 'reservationExpressInfoDTO.expressInfo.expressinfo_mark': this.view_express.expressinfo_mark,
                                 'reservationExpressInfoDTO.expressInfo.expressinfo_protectprice': this.view_express.expressinfo_protectprice,
                                 'reservationExpressInfoDTO.expressInfo.expressinfo_productname': this.view_express.expressinfo_productname,
-                                'reservationExpressInfoDTO.expressInfo.expressinfo_productweight': this.view_express.expressinfo_productweight,
-                                'reservationExpressInfoDTO.reservation.reservation_createtime': 'kaishi'
+                                'reservationExpressInfoDTO.expressInfo.expressinfo_productweight': this.view_express.expressinfo_productweight
                             },
                             success: function () {
-                                console.log('kaishi')
+                                
                             }
                         })
                 }
