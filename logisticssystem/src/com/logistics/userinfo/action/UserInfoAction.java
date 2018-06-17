@@ -17,8 +17,10 @@ import com.logistics.domain.staff_basicinfo;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.userinfo.service.UserInfoService;
 import com.opensymphony.xwork2.ActionSupport;
+
 /**
  * 用户信息Action层
+ * 
  * @author LW
  *
  */
@@ -73,6 +75,7 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	 * 实现结束
 	 * @throws IOException 
 	 */
+
 	public void userInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
@@ -81,6 +84,73 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 		response.getWriter().write("");
+
+	public String userIndex() {
+		return "userIndex";
+	}
+
+	/**
+	 * 跳转到我要寄件的页面
+	 * 
+	 * @return
+	 */
+	public String pageSendExpress() {
+		return "pageSendExpress";
+	}
+
+	/**
+	 * 跳转到我要查件的页面
+	 * 
+	 * @return
+	 */
+	public String pageSearchExpress() {
+		return "pageSearchExpress";
+	}
+
+	/**
+	 * 跳转到我的快件的页面
+	 * 
+	 * @return
+	 */
+	public String pageMyExpress() {
+		return "pageMyExpress";
+	}
+
+	/**
+	 * 跳转到用户信息页面
+	 * 
+	 * @return
+	 */
+	public String pageUserInfo() {
+		return "pageUserInfo";
+	}
+
+	/**
+	 * 地址管理
+	 * 
+	 * @return
+	 */
+	public String pageUserAddress() {
+		return "pageUserAddress";
+	}
+
+	/**
+	 * 更改密码
+	 * 
+	 * @return
+	 */
+	public String pageUpdatePassword() {
+		return "pageUpdatePassword";
+	}
+
+	/**
+	 * 跳转到我的消息页面
+	 * 
+	 * @return
+	 */
+	public String pageUserMessage() {
+		return "pageUserMessage";
+
 	}
 
 }

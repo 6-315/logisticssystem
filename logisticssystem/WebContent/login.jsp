@@ -39,7 +39,7 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button v-on:click="login" id="user_login" class="btn btn-primary btn-block btn-flat">登录</button>
+                        <button :disabled="disabled" v-on:click="login" id="user_login" class="btn btn-primary btn-block btn-flat">登录</button>
                     </div>
                     <!-- /.col -->
                 </div>

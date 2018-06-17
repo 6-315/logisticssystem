@@ -44,22 +44,23 @@
 		<div class="site-menubar-body">
 			<ul class="site-menu">
 				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/user-index.jsp"><span
+					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
 						class="site-menu-title">首页</span></a></li>
 				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/user-order.jsp"><span
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
 						class="site-menu-title">我要寄件</span></span> </a></li>
 				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/user-search.jsp"> <span
-						class="site-menu-title">我要查件</span></a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/user-myorder.jsp"> <span
-						class="site-menu-title">我的订单</span></span>
+					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+						<span class="site-menu-title">我要查件</span>
 				</a></li>
-				<%--<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/user-userinfo.jsp"> <span
-						class="site-menu-title">我的信息</span></span>
-				</a></li>--%>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+						<span class="site-menu-title">我的订单</span></span>
+				</a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+						<span class="site-menu-title">用户信息</span></span>
+				</a></li>
 			</ul>
 		</div>
 	</div>
@@ -84,10 +85,11 @@
 							<li class="active"><a
 								href="${pageContext.request.contextPath}/user-userinfo.jsp">基本信息</a></li>
 							<li><a
-								href="${pageContext.request.contextPath}/user-useraddress.jsp">地址管理</a></li>
+								href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">地址管理</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/user-updatepassword.jsp">密码修改</a></li>
-							<li><a href="${pageContext.request.contextPath}/user-mymessage.jsp">我的消息</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/user-mymessage.jsp">我的消息</a></li>
 						</ul>
 					</div>
 					<div class="col-sm-10 b-left">

@@ -23,17 +23,26 @@
             <div class="navbar-other">2018，全新开始</div>
         </div>
         <div style="float:right;marign:auto;color:#FFF" class="navlogin">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a style="text-decoration:none;" href="#" class="navbar-avatar">
-				     <span class="avatar" style="vertical-align:middle;">
-						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
-					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
-                    </a>
-                </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
-                </li>
-            </ul>
+            <ul class="site-menu">
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+						class="site-menu-title">首页</span></a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+						class="site-menu-title">我要寄件</span></span> </a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+						<span class="site-menu-title">我要查件</span>
+				</a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+						<span class="site-menu-title">我的订单</span></span>
+				</a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+						<span class="site-menu-title">用户信息</span></span>
+				</a></li>
+			</ul>
         </div>
     </div>
 </nav>
