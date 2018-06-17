@@ -38,30 +38,25 @@
 <div class="site-menubar navbar-nav">
     <div class="site-menubar-body">
         <ul class="site-menu">
-            <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-index.jsp"><span
-                        class="site-menu-title">首页</span></a>
-            </li>
-            <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-order.jsp"><span
-                        class="site-menu-title">我要寄件</span></span>
-                </a>
-            </li>
-            <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-search.jsp">
-                    <span class="site-menu-title">我要查件</span></a>
-            </li>
-            <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-myorder.jsp">
-                    <span class="site-menu-title">我的订单</span></span>
-                </a>
-            </li>
-            <li class="site-menu-item">
-                <a href="${pageContext.request.contextPath}/user-userinfo.jsp">
-                    <span class="site-menu-title">用户信息</span></span>
-                </a>
-            </li>
-        </ul>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+						class="site-menu-title">首页</span></a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+						class="site-menu-title">我要寄件</span></span> </a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+						<span class="site-menu-title">我要查件</span>
+				</a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+						<span class="site-menu-title">我的订单</span></span>
+				</a></li>
+				<li class="site-menu-item"><a
+					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+						<span class="site-menu-title">用户信息</span></span>
+				</a></li>
+			</ul>
     </div>
 </div>
 <div class="page" style="margin-top:110px">

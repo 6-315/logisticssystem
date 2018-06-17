@@ -4,10 +4,24 @@
 		el : '#sslogin',
 		data : {
 			user : '',
-			password : ''
+			password : '',
+            disabled: false
 		},
 		methods : {
 			login : function(event) {
+				//
+				this.disabled = true;
+				//验证数据的正确性
+				if('' === this.user || this.user === null){
+					toastr.error('用户名不为空')
+					this.disabled = false
+					return
+				}
+				if('' === this.password || this.password === null){
+					toastr.error('密码不为空')
+					this.disabled = false
+					return
+				}
 				$.ajax({
 					url : '/logisticssystem/loginregister/loginregister_login',
 					type : 'POST',
@@ -43,6 +57,7 @@
                                     window.location = '/logisticssystem/loginregister/loginregister_pageStaff'
                                     break;
 							}
+							this.disabled = false
                         	return
                         }
 					}
