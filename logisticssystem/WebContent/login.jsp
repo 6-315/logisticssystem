@@ -52,7 +52,7 @@
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
