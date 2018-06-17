@@ -115,7 +115,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 预约列表
 	 */
 	private ReservationVO reservationVO;
-	
 
 	public ReservationVO getReservationVO() {
 		return reservationVO;
@@ -352,15 +351,16 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(""
-				+ expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo,staffInfo));
+		response.getWriter().write("" + expressManagementService
+				.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo));
 	}
 
 	/**
 	 * 获得快件信息列表
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
-	public void  queryExpressInfo() throws IOException {
+	public void queryExpressInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -370,12 +370,13 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(""+expressManagementService.queryExpressInfo(expressVO,staffInfo));
+		response.getWriter().write("" + expressManagementService.queryExpressInfo(expressVO, staffInfo));
 	}
-	
+
 	/**
 	 * 获得预约列表
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void queryReservationInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -387,9 +388,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(""+expressManagementService.queryReservationInfo(reservationVO,staffInfo));
-		
+		response.getWriter().write("" + expressManagementService.queryReservationInfo(reservationVO, staffInfo));
+
 	}
-	
-	
+
 }

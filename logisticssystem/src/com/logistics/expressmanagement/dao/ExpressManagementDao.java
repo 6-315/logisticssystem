@@ -75,7 +75,7 @@ public interface ExpressManagementDao {
 
 	public express getExpressById(String express_id);
 
-	public express_route getExpressRouteInfoByExpressId(String express_id);
+	public String getExpressRouteInfoByExpressId(String express_id);
 
 	public String getMaxNumber(String hql);
 
