@@ -123,7 +123,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 历史预约单VO
 	 */
 	private ReservationOrderHistoryVO reservationOrderHistoryVO;
-	
 
 	public ReservationOrderHistoryVO getReservationOrderHistoryVO() {
 		return reservationOrderHistoryVO;
@@ -293,7 +292,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
-				.write("" + expressManagementService.completePickExpress(expressAndCirculationDTO, staffInfo));
+				.write("" + expressManagementService.completePickExpress(staffInfo));
 	}
 
 	/**
@@ -419,7 +418,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	/**
 	 * 查看用户历史订单
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void queryOrderHistory() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -429,15 +429,15 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		if(userInfo.getUserinfo_id()!=null&&userInfo.getUserinfo_id().trim().length()>0) {
-			response.getWriter().write(""+expressManagementService.queryOrderHistory(reservationOrderHistoryVO,userInfo));
-		}else {
+		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0) {
+			response.getWriter()
+					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
+		} else {
 			HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 			userinfo userInfo = (userinfo) session.getAttribute("userInfoSession");
-			response.getWriter().write(""+expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
+			response.getWriter()
+					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
 		}
-		
-		
-		
+
 	}
 }

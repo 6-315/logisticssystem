@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.logistics.domain.address;
 import com.logistics.domain.userinfo;
+import com.logistics.expressmanagementW.VO.ExpressinfoAndExpressVO;
 import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 
 /**
@@ -18,6 +19,12 @@ public interface UserInfoService {
 
 	List<address> getAllAddress(UserInfoSessionDTO userInfoSessionDTO);
 
-	String judgePassword(String oldPassword);
+	String judgePassword(String oldPassword, UserInfoSessionDTO userInfoSessionDTO);
+
+	String updatePassword(userinfo userInfo);
+
+	String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO);
+
+	ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id, ExpressinfoAndExpressVO expressinfoAndExpressVO);
 
 }

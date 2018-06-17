@@ -6,7 +6,7 @@
 	<package name="routemanagement" namespace="/routemanagement" extends="struts-default"
 		strict-method-invocation="false">
 		<action name="routemanagement_*"
-			class="com.logistics.routemanagement.action.RoutemanagementAction" method="{1}">
+			class="com.logistics.routemanagement.action.RouteManagementAction" method="{1}">
 			
 
 		
