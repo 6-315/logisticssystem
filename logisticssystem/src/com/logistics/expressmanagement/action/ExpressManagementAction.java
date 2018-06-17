@@ -437,8 +437,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 			HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 			UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 			userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-			response.getWriter()
-					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo.getUserInfoSession()));
+			response.getWriter().write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO,
+					userInfo.getUserInfoSession()));
 		}
 
 	}
