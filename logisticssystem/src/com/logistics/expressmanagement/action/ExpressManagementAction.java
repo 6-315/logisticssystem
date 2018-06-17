@@ -115,6 +115,31 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 预约列表
 	 */
 	private ReservationVO reservationVO;
+	/**
+	 * 用户表
+	 */
+	private userinfo userInfo;
+	/**
+	 * 历史预约单VO
+	 */
+	private ReservationOrderHistoryVO reservationOrderHistoryVO;
+	
+
+	public ReservationOrderHistoryVO getReservationOrderHistoryVO() {
+		return reservationOrderHistoryVO;
+	}
+
+	public void setReservationOrderHistoryVO(ReservationOrderHistoryVO reservationOrderHistoryVO) {
+		this.reservationOrderHistoryVO = reservationOrderHistoryVO;
+	}
+
+	public userinfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(userinfo userInfo) {
+		this.userInfo = userInfo;
+	}
 
 	public ReservationVO getReservationVO() {
 		return reservationVO;
@@ -392,4 +417,27 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	}
 
+	/**
+	 * 查看用户历史订单
+	 * @throws IOException 
+	 */
+	public void queryOrderHistory() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		if(userInfo.getUserinfo_id()!=null&&userInfo.getUserinfo_id().trim().length()>0) {
+			response.getWriter().write(""+expressManagementService.queryOrderHistory(reservationOrderHistoryVO,userInfo));
+		}else {
+			HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+			userinfo userInfo = (userinfo) session.getAttribute("userInfoSession");
+			response.getWriter().write(""+expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
+		}
+		
+		
+		
+	}
 }
