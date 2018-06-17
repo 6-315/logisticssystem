@@ -59,10 +59,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			reservationExpressInfoDTO.setReservationInfo(reservationInfo);
 			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getReservationInfo());
 
-			System.out.println("添加成功");
 			return reservationExpressInfoDTO;
 		}
-		System.out.println("添加失败");
 		return null;
 
 	}
@@ -79,11 +77,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				updateReservationInfo.setReservation_state(reservationInfo.getReservation_state());
 				updateReservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao.saveOrUpdateObject(updateReservationInfo);
-				System.out.println("已成功受理");
 				return "success";
 			}
 		}
-		System.out.println("受理失败");
 		return "error";
 	}
 
@@ -108,14 +104,12 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							updateReservation.setReservation_state("等待上门取件");
 							updateReservation.setReservation_modifytime(TimeUtil.getStringSecond());
 							expressManagementDao.saveOrUpdateObject(updateReservation);
-							System.out.println("分配成功");
 							return "success";
 						}
 					}
 				}
 			}
 		}
-		System.out.println("分配失败");
 		return "error";
 	}
 
@@ -139,7 +133,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							reservationInfo.setReservation_state("已完成");
 							reservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
 							expressManagementDao.saveOrUpdateObject(reservationInfo);
-
 							if (reservationInfo.getReservation_expressinfo() != null
 									&& reservationInfo.getReservation_expressinfo().trim().length() > 0
 									&& reservationInfo.getReservation_user() != null
@@ -161,7 +154,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 									expressInfo.setExpress_modifytime(TimeUtil.getStringSecond());
 									expressManagementDao.saveOrUpdateObject(expressInfo);
 									expressAndCirculationDTO.setExpressInfo(expressInfo);
-									System.out.println("生成快件单成功");
 									// 生成流转单
 									express_circulation expressCirculation = new express_circulation();
 									expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
@@ -186,7 +178,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 															TimeUtil.getStringSecond());
 													expressManagementDao.saveOrUpdateObject(expressCirculation);
 													expressAndCirculationDTO.setExpressCirculation(expressCirculation);
-													System.out.println("生成流转单成功");
 													return expressAndCirculationDTO;
 												}
 											}
@@ -199,7 +190,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				}
 			}
 		}
-		System.out.println("交易失败");
 		return null;
 	}
 
@@ -216,13 +206,11 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						updateExpress.setExpress_state(expressInfo.getExpress_state());
 						updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
 						expressManagementDao.saveOrUpdateObject(updateExpress);
-						System.out.println("快件已到达中转站");
 						return "success";
 					}
 				}
 			}
 		}
-		System.out.println("未知错误");
 		return "error";
 	}
 
