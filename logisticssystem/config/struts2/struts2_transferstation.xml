@@ -6,9 +6,7 @@
 	<package name="transferstation" namespace="/transferstation" extends="struts-default"
 		strict-method-invocation="false">
 		<action name="transferstation_*"
-			class="com.logistics.transferstation.action.TransferstationAction" method="{1}">
-			
-
+			class="com.logistics.transferstation.action.TransferStationAction" method="{1}">
 		
 		</action>
 	</package>

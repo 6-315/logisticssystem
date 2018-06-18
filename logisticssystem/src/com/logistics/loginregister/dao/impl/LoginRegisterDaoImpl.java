@@ -6,10 +6,15 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.userinfo;
 import com.logistics.loginregister.dao.LoginRegisterDao;
+
 /**
  * 注册登陆DAO实现层
- * @author LW 
+ * 
+ * @author LW
  *
  */
 public class LoginRegisterDaoImpl implements LoginRegisterDao {
@@ -63,12 +68,13 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
-		query.setFirstResult(offset - 1);
+		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
 		List<?> list = query.list();
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -85,6 +91,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -93,6 +100,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -105,4 +113,51 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 		return list;
 	}
 
+	/**
+	 * 用户登陆判断
+	 */
+	@Override
+	public userinfo loginByUser(String username, String password) {
+		Session session = getSession();
+		String hql = "from userinfo where userinfo_phonenumber='" + username + "" + "'and userinfo_password ='"
+				+ password + "'";
+		Query query = session.createQuery(hql);
+		List<userinfo> listuserinfo = query.list();
+		if (listuserinfo.size() > 0) {
+			if (listuserinfo.get(0).getUserinfo_password() != null
+					&& listuserinfo.get(0).getUserinfo_phonenumber() != null) {
+				if (listuserinfo.get(0).getUserinfo_password().equals(password)
+						&& listuserinfo.get(0).getUserinfo_phonenumber().equals(username)) {
+					return listuserinfo.get(0);
+				}
+			}
+
+		}
+		return null;
+	}
+
+	/**
+	 * 员工登陆判断
+	 */
+	@Override
+	public staff_basicinfo loginByStaff(String username, String password) {
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_num='" + username + "" + "'and staff_password ='" + password
+				+ "'";
+		Query query = session.createQuery(hql);
+		List<staff_basicinfo> liststaff_basicinfo = query.list();
+		if (liststaff_basicinfo.size() > 0) {
+			if (liststaff_basicinfo.get(0).getStaff_password() != null
+					&& liststaff_basicinfo.get(0).getStaff_num() != null) {
+				if (liststaff_basicinfo.get(0).getStaff_password().equals(password)
+						&& liststaff_basicinfo.get(0).getStaff_num().equals(username)) {
+					return liststaff_basicinfo.get(0);
+				}
+			}
+		}
+		return null;
+	}
+	/**
+	 * 查找员工表是否有此人
+	 */
 }

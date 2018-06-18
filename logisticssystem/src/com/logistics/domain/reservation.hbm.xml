@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.reservation" table="RESERVATION">
+        <id name="reservation_id" type="java.lang.String">
+            <column name="reservation_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="reservation_num" type="java.lang.String">
+            <column name="reservation_num" />
+        </property>
+        <property name="reservation_expressinfo" type="java.lang.String">
+            <column name="reservation_expressinfo" />
+        </property>
+        <property name="reservation_unit" type="java.lang.String">
+            <column name="reservation_unit" />
+        </property>
+        <property name="reservation_distributiontor" type="java.lang.String">
+            <column name="reservation_distributiontor" />
+        </property>
+        <property name="reservation_user" type="java.lang.String">
+            <column name="reservation_user" />
+        </property>
+        <property name="reservation_state" type="java.lang.String">
+            <column name="reservation_state" />
+        </property>
+        <property name="reservation_createtime" type="java.lang.String">
+            <column name="reservation_createtime" />
+        </property>
+        <property name="reservation_modifytime" type="java.lang.String">
+            <column name="reservation_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>

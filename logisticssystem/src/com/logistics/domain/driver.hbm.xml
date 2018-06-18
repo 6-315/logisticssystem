@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.driver" table="DRIVER">
+        <id name="driver_id" type="java.lang.String">
+            <column name="driver_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="driver_basicinfoid" type="java.lang.String">
+            <column name="driver_basicinfoid" />
+        </property>
+        <property name="driver_vehicle" type="java.lang.String">
+            <column name="driver_vehicle" />
+        </property>
+        <property name="driver_belong_team" type="java.lang.String">
+            <column name="driver_belong_team" />
+        </property>
+        <property name="driver_createtime" type="java.lang.String">
+            <column name="driver_createtime" />
+        </property>
+        <property name="driver_modifytime" type="java.lang.String">
+            <column name="driver_modifytime" />
+        </property>
+        <property name="driver_state" type="java.lang.String">
+            <column name="driver_state" />
+        </property>
+    </class>
+</hibernate-mapping>

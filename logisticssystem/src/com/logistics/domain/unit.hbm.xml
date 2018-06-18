@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.unit" table="UNIT">
+        <id name="unit_id" type="java.lang.String">
+            <column name="unit_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="unit_num" type="java.lang.String">
+            <column name="unit_num" />
+        </property>
+        <property name="unit_name" type="java.lang.String">
+            <column name="unit_name" />
+        </property>
+        <property name="unit_address" type="java.lang.String">
+            <column name="unit_address" />
+        </property>
+        <property name="unit_detailaddress" type="java.lang.String">
+            <column name="unit_detailaddress" />
+        </property>
+        <property name="unit_type" type="java.lang.String">
+            <column name="unit_type" />
+        </property>
+        <property name="unit_superiorunit" type="java.lang.String">
+            <column name="unit_superiorunit" />
+        </property>
+        <property name="unit_creator" type="java.lang.String">
+            <column name="unit_creator" />
+        </property>
+        <property name="unit_state" type="java.lang.String">
+            <column name="unit_state" />
+        </property>
+        <property name="unit_admin" type="java.lang.String">
+            <column name="unit_admin" />
+        </property>
+        <property name="unit_createtime" type="java.lang.String">
+            <column name="unit_createtime" />
+        </property>
+        <property name="unit_modifytime" type="java.lang.String">
+            <column name="unit_modifytime" />
+        </property>
+        <property name="unit_phonenumber" type="java.lang.String">
+            <column name="unit_phonenumber" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -2,6 +2,9 @@ package com.logistics.userinfo.dao;
 
 import java.util.List;
 
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.userinfo;
+
 /**
  * 用户信息DAO层接口
  * @author LW
@@ -49,6 +52,10 @@ public interface UserinfoDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	public userinfo getUserInfo(String userinfo_id);
+
+	public expressinfo getExpressInfoById(String express_id);
 
 	/**
 	 * 
