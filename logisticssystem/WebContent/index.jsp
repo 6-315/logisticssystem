@@ -76,18 +76,30 @@
                                 </ul>
                                 <div class="yto-city-cont">
                                     <dl id="sendProC" class="ytoprov" :style="[selectProvince?bl:no]">
-                                        <dd v-for="province in cityData.86" :key="province." title="" value="">{{}}</dd>
+                                        <dd @click="inputProvince(pro.provinceID,pro.province)" v-for="pro in province"
+                                            :key="pro.id"
+                                            :title="pro.province"
+                                            :value="pro.provinceID">{{pro.province}}
+                                        </dd>
                                     </dl>
                                     <%-- <dl  class="ytoprov" style="display: block;">
 
                                      </dl>--%>
                                     <dl id="cityC" class="ytocity" :style="[selectCity ? bl : no]">
-
+                                        <dd @click="inputCity(cit.cityID,cit.city)" v-for="cit in city"
+                                            :key="cit.id"
+                                            :title="cit.city"
+                                            :value="cit.cityID">{{cit.city}}
+                                        </dd>
                                     </dl>
                                     <%--<dl class="ytocity" style="display: none;">
                                     </dl>--%>
                                     <dl id="xianC" class="ytodist" :style="[selectCounty ? bl : no]">
-
+                                        <dd v-for="cou in country"
+                                            :key="cou.id"
+                                            :title="cou.area"
+                                            :value="cou.areaID">{{cou.area}}
+                                        </dd>
                                     </dl>
                                 </div>
                             </div>
