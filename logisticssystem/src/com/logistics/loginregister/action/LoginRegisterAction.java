@@ -15,6 +15,9 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.logistics.domain.userinfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.logistics.domain.hat_area;
+import com.logistics.domain.hat_city;
+import com.logistics.domain.hat_province;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.loginregister.DTO.DeliveryAdminStaffDTO;
@@ -85,6 +88,15 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	private String password;
 	private StaffManagerVO staffManagerVO;
 	private String type;
+	private String cityFatherId;
+
+	public String getCityFatherId() {
+		return cityFatherId;
+	}
+
+	public void setCityFatherId(String cityFatherId) {
+		this.cityFatherId = cityFatherId;
+	}
 
 	public String getType() {
 		return type;
@@ -149,6 +161,47 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
+	}
+
+	/**
+	 * 获取所有省份
+	 * 
+	 * @author JXX
+	 * @throws IOException
+	 */
+	public void getAllProvince() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllProvince()));
+	}
+
+	/**
+	 * 根据省份provinceID获取相应的市
+	 * 
+	 * @author JXX
+	 * @throws IOException
+	 */
+	public void getAllCityByProvinceID() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllCityByProvinceID(cityFatherId)));
+	}
+
+	/**
+	 * 根据市id获取区id
+	 * 
+	 * @throws IOException
+	 */
+	public void getAllCountryByCityID() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllCountryByCityID(cityFatherId)));
 	}
 
 	/**
