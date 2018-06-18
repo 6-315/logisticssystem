@@ -62,13 +62,13 @@ public class ExpressmanagementByLiWei {
 	/**
 	 * 根据快件ID获取配送点地址
 	 */
-	@Test
-	public void allUnit() {
-		express expressNew = new express();
-		expressNew.setExpress_id("999");
-		List<unit> listUnit = expressManagementService2.getAddressByUnit(expressNew);
-		System.out.println("???????????????" + listUnit);
-	}
+	// @Test
+	/*
+	 * public void allUnit() { express expressNew = new express();
+	 * expressNew.setExpress_id("999"); List<unit> listUnit =
+	 * expressManagementService2.getAddressByUnit(expressNew);
+	 * System.out.println("???????????????" + listUnit); }
+	 */
 
 	/**
 	 * 查看快件详情

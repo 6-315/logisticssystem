@@ -81,6 +81,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	private express expressNew;
 	private GetWeightDTO getWeightDTO;
 	private GetExpressAndDispatcherDTO getExpressAndDispatcherDTO;
+	private String address;
 
 	public GetExpressAndDispatcherDTO getGetExpressAndDispatcherDTO() {
 		return getExpressAndDispatcherDTO;
@@ -100,6 +101,14 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 	public express getExpressNew() {
 		return expressNew;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public void setExpressNew(express expressNew) {
@@ -150,9 +159,8 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		List<unit> listUnit = new ArrayList<>();
-		listUnit = expressManagementService2.getAddressByUnit(expressNew);
+		listUnit = expressManagementService2.getAddressByUnit(address);
 		response.getWriter().write(gson.toJson(listUnit));
-
 	}
 
 	/**
@@ -225,7 +233,8 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo,expressNew));
+		response.getWriter()
+				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew));
 
 	}
 }

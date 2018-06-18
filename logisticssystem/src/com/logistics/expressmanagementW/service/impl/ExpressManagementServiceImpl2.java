@@ -159,19 +159,15 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<unit> getAddressByUnit(express expressNew) {
-		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+	public List<unit> getAddressByUnit(String address) {
+		if (address != null && address.trim().length() > 0) {
 			List<unit> listUint = new ArrayList<>();
-			expressinfo expressInfo = new expressinfo();
-			express getExpress = new express();
-			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());// 获取快件详细信息
-			expressInfo = expressManagementDao2.getExpressInfo(getExpress.getExpress_expressinfoid());// 获取快件信息详细信息
-			if (expressInfo != null) {
-				listUint = (List<unit>) expressManagementDao2.listObject("from unit where unit_address = '"
-						+ expressInfo.getExpressinfo_addresseeaddress() + "' and unit_type = '配送点'");
-				if (listUint.size() > 0) {
-					return listUint;
-				}
+			listUint = (List<unit>) expressManagementDao2
+					.listObject("from unit where unit_address = '" + address + "' and unit_type = '配送点'");
+			if (listUint.size() > 0) {
+				return listUint;
+			} else {
+				return null;
 			}
 		}
 		return null;
