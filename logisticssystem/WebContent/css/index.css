@@ -1,14 +1,16 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
-    line-style-type:none;
+    line-style-type: none;
     text-decoration: none;
 }
+
 body {
 
     overflow-y: scroll;
 
 }
+
 .navbar {
     border-radius: 4px;
     position: relative;
@@ -55,20 +57,23 @@ body {
     font-size: 18px;
     line-height: 20px;
 }
-.navlogin ul{
-    display:inline;
+
+.navlogin ul {
+    display: inline;
     white-space: nowrap;
     color: #FFF;
     margin: auto;
 }
 
-.navlogin ul,ul li{
+.navlogin ul, ul li {
     list-style: none;
     display: inline-block;
-    white-space:nowrap;
+    white-space: nowrap;
     color: #FFF;
     padding-left: 8px;
 }
-.navlogin ul li a{
+
+.navlogin ul li a {
     color: #FFF;
 }
+

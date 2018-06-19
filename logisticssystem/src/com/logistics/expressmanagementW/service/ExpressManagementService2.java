@@ -24,7 +24,7 @@ public interface ExpressManagementService2 {
 
 	String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO);
 
-	List<unit> getAddressByUnit(express expressNew);
+	List<unit> getAddressByUnit(String address);
 
 	List<ExpressCirculationAndUnitDTO> getExpressCirculation(express expressNew);
 
