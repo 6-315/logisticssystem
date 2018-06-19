@@ -117,6 +117,7 @@
                             <label class="col-sm-2 control-label">昵称</label>
                             <div class="col-sm-4">
                                 <input id="nickname"
+                                       v-model="userinfo_nickname"
                                        onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"
                                        maxlength="15" value="18296929245" title="nickname"
                                        class="form-control">
@@ -297,10 +298,10 @@
 <script type="text/javascript"
         src="http://ec.yto.net.cn/assets/js/page.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script src="${pageContext.request.contextPath}/js/user/user-index.js"></script>
 </body>
 </html>
