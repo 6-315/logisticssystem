@@ -704,12 +704,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		if (userInfo.getUserInfoSession() != null) {
 			String hql = "from reservation where reservation_user='" + userInfo.getUserInfoSession().getUserinfo_id()
 					+ "' ";
-
-			if (state != null) {
+			if (state != null && state.trim().length() > 0) {
 				hql = hql + " and reservation_state='" + state + "' ";
 			}
 			hql = hql + " order by reservation_createtime desc ";
-
 			listUserReservation = (List<reservation>) expressManagementDao.listObject(hql);
 			if (listUserReservation != null) {
 				for (reservation reservationInfo : listUserReservation) {
