@@ -44,9 +44,9 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
 			userInfo.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);
-			return "成功";
+			return "success";
 		} else {
-			return "重复";
+			return "error";
 		}
 	}
 
