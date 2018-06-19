@@ -154,112 +154,127 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">预约单编号</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.reservation.reservation_num" type="text"
+                            <input v-model="reservationExpressDTO.reservation.reservation_num"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">预约单状态</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.reservation.reservation_state" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.reservation.reservation_state"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">下单时间</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.reservation.reservation_createtime" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.reservation.reservation_createtime"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">内件品名</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_productname" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_productname"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">物品重量</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_productweight" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_productweight"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">发件人姓名</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_senderrealname" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_senderrealname"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">发件人地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_senderaddress" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_senderaddress"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">发件人详细地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_senderdetailaddress" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_senderdetailaddress"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">发件人联系方式</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_senderphonenumber" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_senderphonenumber"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">收件人姓名</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_addresseerealname" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_addresseerealname"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">收件人地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_addresseeaddress" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_addresseeaddress"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">收件人详细地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_adderdetailaddress" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_adderdetailaddress"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">收件人联系方式</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.expressinfo.expressinfo_addresseephonenumber" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.expressinfo.expressinfo_addresseephonenumber"
+                                   type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">配送点地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.unit.unit_address" type="text"
+                            <input v-model="reservationData.reservationExpressDTO.unit.unit_address" type="text"
                                    class="form-control" disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">配送点详细地址</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.unit.unit_detailaddress" type="text" class="form-control"
+                            <input v-model="reservationData.reservationExpressDTO.unit.unit_detailaddress" type="text"
+                                   class="form-control"
                                    disabled>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">配送点联系方式</label>
                         <div class="col-sm-10">
-                            <input v-model="reservationData.unit.unit_phonenumber" type="text" class="form-control"
+                            <input v-model="reservationData.reservationExpressDTO.unit.unit_phonenumber" type="text"
+                                   class="form-control"
                                    disabled>
                         </div>
                     </div>
