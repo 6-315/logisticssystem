@@ -50,14 +50,17 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			expressInfo.setExpressinfo_modifytime(TimeUtil.getStringSecond());
 			reservationExpressInfoDTO.setExpressInfo(expressInfo);
 			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getExpressInfo());
-			reservation reservationInfo = new reservation();
-			reservationInfo.setReservation_id(BuildUuid.getUuid());
-			reservationInfo.setReservation_num(CreateNumberUtil.getTimeNumberT());
-			reservationInfo.setReservation_user(userInfo.getUserinfo_id());
-			reservationInfo.setReservation_expressinfo(reservationExpressInfoDTO.getExpressInfo().getExpressinfo_id());
-			reservationInfo.setReservation_state("待受理");
-			reservationExpressInfoDTO.setReservationInfo(reservationInfo);
-			expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getReservationInfo());
+			reservation reservationInfo = reservationExpressInfoDTO.getReservationInfo();
+			if (reservationInfo.getReservation_unit() != null
+					&& reservationInfo.getReservation_unit().trim().length() > 0) {
+				reservationInfo.setReservation_id(BuildUuid.getUuid());
+				reservationInfo.setReservation_num(CreateNumberUtil.getTimeNumberT());
+				reservationInfo.setReservation_user(userInfo.getUserinfo_id());
+				reservationInfo.setReservation_expressinfo(expressInfo.getExpressinfo_id());
+				reservationInfo.setReservation_state("待受理");
+				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+				expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getReservationInfo());
+			}
 			return reservationExpressInfoDTO;
 		}
 		return null;
