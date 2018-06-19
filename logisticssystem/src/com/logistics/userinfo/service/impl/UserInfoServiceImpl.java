@@ -47,6 +47,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			if (userInfoNew != null) {
 				
 				userInfoSessionDTO.setUserInfoSession(userInfoNew);
+				
 			}
 			return userInfoSessionDTO;
 
