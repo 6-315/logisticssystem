@@ -444,4 +444,24 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		}
 
 	}
+	
+	/**
+	 * 用户查看自己的预约单
+	 * @throws IOException 
+	 */
+	public void queryUserReservation() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
+		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo)));
+	}
+	
+	
 }

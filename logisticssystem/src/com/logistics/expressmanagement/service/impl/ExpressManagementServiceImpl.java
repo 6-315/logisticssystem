@@ -11,6 +11,7 @@ import com.logistics.expressmanagement.VO.ReservationVO;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
 
 import com.logistics.expressmanagement.service.ExpressManagementService;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 
 import util.BuildUuid;
 import util.CreateNumberUtil;
@@ -687,6 +688,36 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			reservationOrderHistoryVO.setListReservationOrderHistoryDTO(listReservationOrderHistoryDTO);
 		}
 		return reservationOrderHistoryVO;
+	}
+
+	/**
+	 * 用户查看自己的预约单
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public ReservationExpressInfoDTO queryUserReservation(UserInfoSessionDTO userInfo) {
+		ReservationExpressInfoDTO reservationExpressInfoDTO = null;
+		List<reservation> listUserReservation = new ArrayList<>();
+
+		listUserReservation = (List<reservation>) expressManagementDao
+				.listObject("from reservation where reservation_user='" + userInfo.getUserInfoSession().getUserinfo_id()
+						+ "' order by reservation_createtime desc ");
+		if (listUserReservation != null) {
+			for (reservation reservationInfo : listUserReservation) {
+				reservationExpressInfoDTO = new ReservationExpressInfoDTO();
+				if (reservationInfo.getReservation_expressinfo() != null
+						&& reservationInfo.getReservation_expressinfo().trim().length() > 0) {
+					expressinfo expressDetailInfo = expressManagementDao
+							.getExpressInfoById(reservationInfo.getReservation_expressinfo());
+					if (expressDetailInfo != null) {
+						reservationExpressInfoDTO.setExpressInfo(expressDetailInfo);
+					}
+				}
+				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+			}
+			return reservationExpressInfoDTO;
+		}
+		return null;
 	}
 
 }
