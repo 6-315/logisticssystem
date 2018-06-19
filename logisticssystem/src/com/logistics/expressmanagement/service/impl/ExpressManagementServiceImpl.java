@@ -265,7 +265,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						expressRoute.setExpress_route_belongexpress(expressInfo.getExpress_id());
 						expressRoute.setExpress_route_state("未完成");
 
-						String hql = "select express_route_superior from express_route order by --express_route_superior desc limit 1 ";
+						String hql = "select express_route_superior from express_route where express_route_belongexpress='"+expressInfo.getExpress_id()+"' order by --express_route_superior desc limit 1 ";
 						String number = expressManagementDao.getMaxNumber(hql);
 						System.out.println("66666" + number);
 						if (number != null && number.trim().length() > 0) {
@@ -715,8 +715,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					}
 				}
 				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+				listReservationExpressInfoDTO.add(reservationExpressInfoDTO);
 			}
-			listReservationExpressInfoDTO.add(reservationExpressInfoDTO);
+			
 			return listReservationExpressInfoDTO;
 		}
 		return null;
