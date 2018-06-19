@@ -89,6 +89,16 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	private StaffManagerVO staffManagerVO;
 	private String type;
 	private String cityFatherId;
+	// 预约单信息
+	private String reversationNum;
+
+	public String getReversationNum() {
+		return reversationNum;
+	}
+
+	public void setReversationNum(String reversationNum) {
+		this.reversationNum = reversationNum;
+	}
 
 	public String getCityFatherId() {
 		return cityFatherId;
@@ -215,6 +225,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * 跳转到成功页面
 	 */
 	public String pageReservationSuccess() {
+		System.out.println(reversationNum);
 		return "pageReservationSuccess";
 	}
 
