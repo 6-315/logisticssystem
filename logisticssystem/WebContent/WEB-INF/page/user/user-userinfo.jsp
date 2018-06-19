@@ -11,6 +11,8 @@
           href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top"
@@ -164,34 +166,36 @@
             </div>
         </div>
     </div>
-</div>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="updateUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">×
-                </button>
-                <h4 class="modal-title" id="myModal">
-                    更改用户信息
-                </h4>
-            </div>
-            <div class="modal-body">
-                更改后不可还原，点击确定后更改
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">关闭
-                </button>
-                <button @click="updateUserInfo" type="button" class="btn btn-danger">
-                    确定
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="updateUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModal">
+                        更改用户信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    更改后不可还原，点击确定后更改
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button @click="updateUserInfo" type="button" class="btn btn-danger">
+                        确定
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div><!-- /.modal -->
+</div>
+
 <%--<div class="modal fade" id="avatar-modal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

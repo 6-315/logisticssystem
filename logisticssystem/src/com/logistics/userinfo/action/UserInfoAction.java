@@ -225,16 +225,14 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		/*
-		 * HttpSession session = ServletActionContext.getRequest().getSession();
-		 * UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO)
-		 * session.getAttribute("userInfoSession");
-		 */
-		// response.getWriter().write(gson);
 		UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
 		userInfoSessionDTO = userInfoService.updateUserInfo(userInfo);
 		request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
-
+		if (userInfoSessionDTO != null) {
+			response.getWriter().write("Success");
+		} else {
+			response.getWriter().write("ERROR");
+		}
 	}
 
 	/**

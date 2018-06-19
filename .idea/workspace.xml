@@ -21,23 +21,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="208">
-      <file leaf-file-name="user-index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user-index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="361">
+              <caret line="49" column="81" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="81" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user-index.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="user-index.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="138" column="45" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="45" />
+            <state relative-caret-position="343">
+              <caret line="156" column="93" selection-start-line="156" selection-start-column="93" selection-end-line="156" selection-end-column="93" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="getSessionData.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/public/getSessionData.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user-userinfo.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="151" column="62" selection-start-line="151" selection-start-column="48" selection-end-line="151" selection-end-column="62" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user-userinfo.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-userinfo.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="28" column="59" lean-forward="true" selection-start-line="28" selection-start-column="59" selection-end-line="28" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -122,10 +152,10 @@
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/express/reservation_express.js" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/reservation_success.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/public/getSessionData.js" />
-        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-userinfo.js" />
-        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-index.js" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp" />
       </list>
     </option>
   </component>
@@ -582,12 +612,12 @@
       <workItem from="1529366427772" duration="6908000" />
       <workItem from="1529383307118" duration="2327000" />
       <workItem from="1529395650304" duration="17072000" />
-      <workItem from="1529416085629" duration="6794000" />
+      <workItem from="1529416085629" duration="11215000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178636000" />
+    <option name="totallyTimeSpent" value="183057000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -852,27 +882,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/public/getSessionData.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="285" column="70" lean-forward="true" selection-start-line="285" selection-start-column="70" selection-end-line="285" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-userinfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/reservation_express.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1159">
@@ -880,20 +889,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp">
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-userinfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="138" column="45" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="45" />
+        <state relative-caret-position="315">
+          <caret line="28" column="59" lean-forward="true" selection-start-line="28" selection-start-column="59" selection-end-line="28" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/public/getSessionData.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-userinfo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="151" column="62" selection-start-line="151" selection-start-column="48" selection-end-line="151" selection-end-column="62" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="361">
+          <caret line="49" column="81" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/user/user-index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="156" column="93" selection-start-line="156" selection-start-column="93" selection-end-line="156" selection-end-column="93" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

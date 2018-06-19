@@ -20,6 +20,7 @@
                 $('#updateUserInfo').modal()
             },
             updateUserInfo: function () {
+                console.log('kaishifdfd')
                 //更新用户数据
                 $.ajax({
                     url: '/logisticssystem/userinfo/userinfo_updateUserInfo',
@@ -39,8 +40,10 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
+                            $('#updateUserInfo').modal('hide')
                             toastr.success('修改成功')
                         } else {
+                            $('#updateUserInfo').modal('hide')
                             toastr.error('修改失败')
                         }
                     }
