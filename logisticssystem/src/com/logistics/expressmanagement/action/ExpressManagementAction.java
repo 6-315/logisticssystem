@@ -294,7 +294,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + expressManagementService.completePickExpress(staffInfo));
+		response.getWriter().write(gson.toJson(expressManagementService.completePickExpress(staffInfo)));
 	}
 
 	/**
@@ -359,7 +359,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.queryAllRouteWithUnit(unitInfo));
+		response.getWriter().write(gson.toJson(expressManagementService.queryAllRouteWithUnit(unitInfo)));
 	}
 
 	/**
@@ -396,7 +396,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + expressManagementService.queryExpressInfo(expressVO, staffInfo));
+		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressVO, staffInfo)));
 	}
 
 	/**
@@ -414,7 +414,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + expressManagementService.queryReservationInfo(reservationVO, staffInfo));
+		response.getWriter()
+				.write(gson.toJson(expressManagementService.queryReservationInfo(reservationVO, staffInfo)));
 
 	}
 
@@ -438,8 +439,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 			HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 			UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 			userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-			response.getWriter().write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO,
-					userInfo.getUserInfoSession()));
+			response.getWriter().write(gson.toJson(expressManagementService.queryOrderHistory(reservationOrderHistoryVO,
+					userInfo.getUserInfoSession())));
 		}
 
 	}
