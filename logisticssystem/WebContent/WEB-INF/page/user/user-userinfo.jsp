@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8">
-    <title>我的订单</title>
+    <title>我的信息</title>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet"
@@ -126,34 +126,18 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">手机号码</label>
                             <div class="col-sm-4">
-                                <input
-                                        onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"
-                                        value="18296929245" class="form-control" title="username"
-                                        readonly="">
+                                <input class="form-control" title="username" readonly="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">性别</label>
                             <div class="col-sm-4">
-
                                 <label class="radio-inline">
-                                    <div class="iradio_flat-grey" style="position: relative;">
-                                        <input value="M"
-                                               style="position: absolute; opacity: 0;" type="radio">
-                                        <ins class="iCheck-helper"
-                                             style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins>
-                                    </div>
+                                    <input name="staff_sex" type="radio">
                                     男</label>
                                 <label class="radio-inline">
-                                    <div
-                                            class="iradio_flat-grey" style="position: relative;">
-                                        <input value="F"
-                                               style="position: absolute; opacity: 0;" type="radio">
-                                        <ins class="iCheck-helper"
-                                             style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins>
-                                    </div>
+                                    <input name="staff_sex" type="radio">
                                     女</label>
-
                             </div>
                         </div>
                         <div class="form-group">
@@ -296,12 +280,10 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/iCheck/icheck.js"></script>
 <script type="text/javascript"
-        src="http://ec.yto.net.cn/assets/js/page.js"></script>
-<script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<script src="${pageContext.request.contextPath}/js/user/user-index.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/user-userinfo.js"></script>
 </body>
 </html>

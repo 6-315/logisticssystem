@@ -65,7 +65,7 @@
         </ul>
     </div>
 </div>
-<div class="page" style="margin-top: 110px">
+<div id="reverservationList" class="page" style="margin-top: 110px">
     <div class="showpic">
         <ul>
             <li class="activeImg"
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div id="yuyue" class="container m_top_30">
+    <div class="container m_top_30">
         <div class="yto-box">
             <h5>预约情况</h5>
             <div class="panel panel-default">
@@ -149,5 +149,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/user-index.js"></script>
 </body>
 </html>
