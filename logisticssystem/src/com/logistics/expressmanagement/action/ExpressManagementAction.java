@@ -124,6 +124,19 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 历史预约单VO
 	 */
 	private ReservationOrderHistoryVO reservationOrderHistoryVO;
+	/**
+	 * 状态
+	 */
+	private String state = "";
+	
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public ReservationOrderHistoryVO getReservationOrderHistoryVO() {
 		return reservationOrderHistoryVO;
@@ -252,12 +265,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateReservation() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.updateReservation(reservationInfo));
 	}
@@ -268,12 +275,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateReservationWithDistributor() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter()
 				.write("" + expressManagementService.updateReservationWithDistributor(reservationWithDistributorDTO));
@@ -303,12 +304,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateExpressState() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.updateExpressState(expressInfo));
 	}
@@ -336,12 +331,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void saveExpressRoute() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo));
 	}
@@ -368,12 +357,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateVehicleAndExpressCirculationAndExpressInfo() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
@@ -460,8 +443,26 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo)));
+		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo,state)));
 	}
 	
+	/**
+	 * 取消预约单
+	 * @throws IOException 
+	 */
+	public void cancelReservation() throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(""+expressManagementService.cancelReservation(reservationInfo,state));
+	}
+	
+	/**
+	 * 修改预约单
+	 * @throws IOException 
+	 */
+	public void updateReservationInfo() throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(""+expressManagementService.updateReservationInfo(reservationExpressInfoDTO));
+		
+	}
 	
 }
