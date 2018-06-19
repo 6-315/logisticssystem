@@ -128,7 +128,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 状态
 	 */
 	private String state = "";
-	
 
 	public String getState() {
 		return state;
@@ -427,10 +426,11 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		}
 
 	}
-	
+
 	/**
 	 * 用户查看自己的预约单
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void queryUserReservation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -443,26 +443,28 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo,state)));
+		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo, state)));
 	}
-	
+
 	/**
 	 * 取消预约单
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void cancelReservation() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+expressManagementService.cancelReservation(reservationInfo,state));
+		response.getWriter().write("" + expressManagementService.cancelReservation(reservationInfo));
 	}
-	
+
 	/**
 	 * 修改预约单
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void updateReservationInfo() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(""+expressManagementService.updateReservationInfo(reservationExpressInfoDTO));
-		
+		response.getWriter().write("" + expressManagementService.updateReservationInfo(reservationExpressInfoDTO));
+
 	}
-	
+
 }
