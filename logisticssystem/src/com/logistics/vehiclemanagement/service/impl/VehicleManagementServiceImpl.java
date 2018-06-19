@@ -8,15 +8,14 @@ import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.domain.vehiclecirculation;
-import com.logistics.vehiclemanagement.DTO.VehicleDTO;
-import com.logistics.vehiclemanagement.DTO.Vehicle_TeamDTO;
+import com.logistics.vehiclemanagement.DTO.VehicleDTOManager;
+import com.logistics.vehiclemanagement.DTO.VehicleTeamManagerDTO;
 import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 import util.BuildUuid;
-import util.CreateNumberUtil;
 import util.TimeUtil;
 
 /**
@@ -78,11 +77,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车辆信息DTO
 		 */
-		List<VehicleDTO> listVehicleDTO = new ArrayList<>();
+		List<VehicleDTOManager> listVehicleDTO = new ArrayList<>();
 		/**
 		 * 车队DTO
 		 */
-		Vehicle_TeamDTO vehicleBelongTeamDTO = null;
+		VehicleTeamManagerDTO vehicleBelongTeamDTO = null;
 		/**
 		 * 车队信息
 		 */
@@ -94,7 +93,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车辆DTO
 		 */
-		VehicleDTO vehicleDTO;
+		VehicleDTOManager vehicleDTO;
 		/**
 		 * 车队队长
 		 */
@@ -193,11 +192,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			/**
 			 * 车队DTO
 			 */
-			vehicleBelongTeamDTO = new Vehicle_TeamDTO();
+			vehicleBelongTeamDTO = new VehicleTeamManagerDTO();
 			/**
 			 * 车辆DTO
 			 */
-			vehicleDTO = new VehicleDTO();
+			vehicleDTO = new VehicleDTOManager();
 			/**
 			 * 查询车辆购置人
 			 */
@@ -237,7 +236,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
 				vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 			}
-
+			
 			/**
 			 * 将关键字高亮
 			 */
@@ -448,7 +447,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车队信息DTO
 		 */
-		List<Vehicle_TeamDTO> listTeamDTO = new ArrayList<>();
+		List<VehicleTeamManagerDTO> listTeamDTO = new ArrayList<>();
 		/**
 		 * 车队信息
 		 */
@@ -456,7 +455,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车队DTO
 		 */
-		Vehicle_TeamDTO teamDTO;
+		VehicleTeamManagerDTO teamDTO;
 		/**
 		 * 获取数量
 		 */
@@ -534,14 +533,14 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		teamInfo = (List<team>) vehicleManagementDao.queryForPage(listTeamDTOCountHql, teamInfoVO.getPageIndex(),
 				teamInfoVO.getPageSize());
 		for (team team : teamInfo) {
-			teamDTO = new Vehicle_TeamDTO();
+			teamDTO = new VehicleTeamManagerDTO();
 			/**
 			 * 查询队长信息
 			 */
 			staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
 			if (teamLeader != null) {
 				teamDTO.setStaff_BasicInfoLeader(teamLeader);
-			}
+			}		
 			/**
 			 * 查询所属单位
 			 */
@@ -653,4 +652,5 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		System.out.println("流转失败！");
 		return "error";
 	}
+	
 }

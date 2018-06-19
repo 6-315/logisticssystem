@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
@@ -248,7 +249,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 
 	 */
 	public String vehicleDistribution(String vehicleList, String teamNum) {
-		if (teamNum != null) {
+		team team = transferStationDao.getTeamById(teamNum);
+		System.out.println("888888"+team);
+		if (team != null) {
 			String[] vehicleListDistribute = vehicleList.split(",");
 			for (String eachVehicleId : vehicleListDistribute) {
 				/**
@@ -262,6 +265,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 						
 						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
+						vehicle.setVehicle_createtime(TimeUtil.getStringSecond());
+						vehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
 						System.out.println("分配成功");
 					} else {
 						System.out.println("分配失败");
@@ -296,7 +301,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 		/**
 		 * 如果车队编号不为空
 		 */
-		if (teamNum != null) {
+		team team = transferStationDao.getTeamById(teamNum);
+		System.out.println("6666666"+team);
+		if (team != null) {
 			/**
 			 * 实例化一个司机集合
 			 */
@@ -316,6 +323,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 						
 						System.out.println("qwqwqw");
 						driver.setDriver_belong_team(teamNum);
+						driver.setDriver_createtime(TimeUtil.getStringSecond());
+						driver.setDriver_modifytime(TimeUtil.getStringSecond());
 						System.out.println("分配成功");
 					} else {
 						System.out.println("分配失败");
@@ -330,6 +339,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		
 		return null;
-		
 	}
+	
+	
 }

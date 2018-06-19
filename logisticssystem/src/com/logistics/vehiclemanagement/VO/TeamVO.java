@@ -2,13 +2,13 @@ package com.logistics.vehiclemanagement.VO;
 
 import java.util.List;
 
-import com.logistics.vehiclemanagement.DTO.Vehicle_TeamDTO;
+import com.logistics.vehiclemanagement.DTO.VehicleTeamManagerDTO;
 
 public class TeamVO {
 	/**
 	 * 车队信息ListDTO
 	 */
-	private List<Vehicle_TeamDTO> listTeamDTO;
+	private List<VehicleTeamManagerDTO> listTeamDTO;
 	/**
 	 * 需要显示的页码
 	 */
@@ -55,11 +55,11 @@ public class TeamVO {
 	 */
 	private String idList;
 
-	public List<Vehicle_TeamDTO> getListTeamDTO() {
+	public List<VehicleTeamManagerDTO> getListTeamDTO() {
 		return listTeamDTO;
 	}
 
-	public void setListTeamDTO(List<Vehicle_TeamDTO> listTeamDTO) {
+	public void setListTeamDTO(List<VehicleTeamManagerDTO> listTeamDTO) {
 		this.listTeamDTO = listTeamDTO;
 	}
 
