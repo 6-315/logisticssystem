@@ -740,7 +740,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 * 取消订单
 	 */
 	@Override
-	public String cancelReservation(reservation reservationInfo, String state) {
+	public String cancelReservation(reservation reservationInfo) {
 		if (reservationInfo.getReservation_id() != null && reservationInfo.getReservation_id().trim().length() > 0) {
 			reservation updateReservation = expressManagementDao
 					.getReservationInfoById(reservationInfo.getReservation_id());
@@ -750,7 +750,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if ("已完成".equals(updateReservation.getReservation_state())) {
 						return "completed";
 					} else {
-						updateReservation.setReservation_state(state);
+						updateReservation.setReservation_state("已取消");
 						updateReservation.setReservation_modifytime(TimeUtil.getStringSecond());
 						expressManagementDao.saveOrUpdateObject(updateReservation);
 						return "success";
