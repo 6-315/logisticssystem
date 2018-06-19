@@ -68,7 +68,12 @@
         </ol>
         <div class="yto-box">
             <div id="reservation_success" class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                
+                <div style="floatl:left;width: 500px;height: 80px;margin-top: 100px;text-align: center">
+                    <h2>预约成功，等待受理，您的预约单号为 <b style="color: orangered">${reversationNum}</b>!</h2>
+                </div>
+                <div style="width: 500px;height: 80px">
+                    <span id="miaoshu"></span>秒后跳转到列表页
+                </div>
             </div>
             <%--<div class="yto-trace">
 
@@ -97,5 +102,20 @@
 </footer>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script>
+    (function () {
+        var i = 3
+        setInterval(function () {
+            $('#miaoshu').text(i)
+            i--
+            if(i<=0){
+                window.location='/logisticssystem/userinfo/userinfo_userIndex'
+            }
+        },1000)
+    })()
+</script>
 </body>
 </html>

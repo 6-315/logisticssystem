@@ -1,5 +1,5 @@
 (function () {
-    let reservationExpressInfoDTO = {
+    var reservationExpressInfoDTO = {
         reservationInfo: {},
         expressInfo: {}
     }
@@ -86,7 +86,8 @@
                                 var dto = JSON.parse(data)
                                 reservationExpressInfoDTO = dto
                                 console.log('reservationExpressInfoDTO:', reservationExpressInfoDTO)
-                                // window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess'
+                                console.log('fdfd:', reservationExpressInfoDTO.reservationInfo.reservation_num)
+                                window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess?reversationNum=' + reservationExpressInfoDTO.reservationInfo.reservation_num
                                 return
                             } else {
                                 toastr.error('预约失败，请重新下单')
