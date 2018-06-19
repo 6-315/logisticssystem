@@ -1,18 +1,21 @@
 (function () {
-    /*    let reservationData = {
-            userinfo_id: userInfoSession.userinfo_id,
-            userinfo_username: userInfoSession.userinfo_username,
-            userinfo_nickname: userInfoSession.userinfo_nickname,
-            userinfo_phonenumber: userInfoSession.userinfo_phonenumber,
-            userinfo_email: userInfoSession.userinfo_email,
-            userinfo_mark: userInfoSession.userinfo_mark
-        }*/
+    let reservationData = {
+        reservationExpressList: []
+    }
     const reservationList = new Vue({
-        el: '#userinfo',
+        el: '#reverservationList',
         data: reservationData,
         methods: {},
-        mounted:{
-
+        mounted() {
+            $.ajax({
+                url: '/logisticssystem/expressmanagement/expressmanagement_queryUserReservation',
+                type: 'POST',
+                data: '',
+                success: function (data) {
+                    let pro = JSON.parse(data)
+                    reservationData.reservationExpressList = pro
+                }
+            })
         }
     })
 })()

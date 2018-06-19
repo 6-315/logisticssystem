@@ -65,7 +65,7 @@
         </ul>
     </div>
 </div>
-<div class="page" style="margin-top: 110px">
+<div id="reverservationList" class="page" style="margin-top: 110px">
     <div class="showpic">
         <ul>
             <li class="activeImg"
@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div id="yuyue" class="container m_top_30">
+    <div class="container m_top_30">
         <div class="yto-box">
             <h5>预约情况</h5>
             <div class="panel panel-default">
@@ -109,10 +109,22 @@
                             <th>快件品名</th>
                             <th>快件备注</th>
                             <th>状态</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-
+                        <tr v-for="reser in reservationExpressList" :key="reser.reservationInfo.reservation_id">
+                            <td>{{reser.reservationInfo.reservation_num}}</td>
+                            <td>buzhidao</td>
+                            <td>{{reser.reservationInfo.reservation_createtime}}</td>
+                            <td>{{reser.expressInfo.expressinfo_productname}}</td>
+                            <td>{{reser.expressInfo.expressinfo_mark}}</td>
+                            <td>{{reser.reservationInfo.reservation_state}}</td>
+                            <td>
+                                <a href="#" class="btn btn-default">详情</a>
+                                <a href="#" class="btn btn-danger">删除</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -149,5 +161,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/user-index.js"></script>
 </body>
 </html>
