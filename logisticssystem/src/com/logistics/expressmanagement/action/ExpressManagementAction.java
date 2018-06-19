@@ -242,8 +242,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
 		System.out.println("fdfd:" + reservationExpressInfoDTO);
-		response.getWriter().write("" + expressManagementService.addReservationAndExpressInfo(reservationExpressInfoDTO,
-				userInfo.getUserInfoSession()));
+		response.getWriter().write(gson.toJson(expressManagementService
+				.addReservationAndExpressInfo(reservationExpressInfoDTO, userInfo.getUserInfoSession())));
 	}
 
 	/**
