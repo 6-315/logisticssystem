@@ -58,6 +58,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				reservationInfo.setReservation_user(userInfo.getUserinfo_id());
 				reservationInfo.setReservation_expressinfo(expressInfo.getExpressinfo_id());
 				reservationInfo.setReservation_state("待受理");
+				reservationInfo.setReservation_createtime(TimeUtil.getStringSecond());
+				reservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
 				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
 				expressManagementDao.saveOrUpdateObject(reservationExpressInfoDTO.getReservationInfo());
 			}
