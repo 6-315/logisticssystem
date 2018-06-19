@@ -11,6 +11,10 @@ public class ReservationExpressInfoDTO {
 	 * 快件详细信息表
 	 */
 	private expressinfo expressInfo;
+	/**
+	 * 单位表
+	 */
+	private unit unitInfo;
 
 	public reservation getReservationInfo() {
 		return reservationInfo;
@@ -28,9 +32,18 @@ public class ReservationExpressInfoDTO {
 		this.expressInfo = expressInfo;
 	}
 
+	public unit getUnitInfo() {
+		return unitInfo;
+	}
+
+	public void setUnitInfo(unit unitInfo) {
+		this.unitInfo = unitInfo;
+	}
+
 	@Override
 	public String toString() {
-		return "ReservationExpressInfoDTO [reservationInfo=" + reservationInfo + ", expressInfo=" + expressInfo + "]";
+		return "ReservationExpressInfoDTO [reservationInfo=" + reservationInfo + ", expressInfo=" + expressInfo
+				+ ", unitInfo=" + unitInfo + "]";
 	}
 
 }
