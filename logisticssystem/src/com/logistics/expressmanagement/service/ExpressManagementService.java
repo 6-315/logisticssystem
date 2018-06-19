@@ -2,9 +2,11 @@ package com.logistics.expressmanagement.service;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
 import com.logistics.domain.*;
 import com.logistics.expressmanagement.DTO.*;
 import com.logistics.expressmanagement.VO.*;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 
 /**
  * 快件管理的service层接口
@@ -37,6 +39,8 @@ public interface ExpressManagementService {
 	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
+
+	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo);
 
 
 }

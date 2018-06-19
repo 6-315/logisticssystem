@@ -1,10 +1,21 @@
 (function () {
-    const reservationData = {}
+    let reservationData = {
+        reservationExpressList: []
+    }
     const reservationList = new Vue({
-        el: 'yuyue',
+        el: '#reverservationList',
         data: reservationData,
-        methods:{
-
+        methods: {},
+        mounted() {
+            $.ajax({
+                url: '/logisticssystem/expressmanagement/expressmanagement_queryUserReservation',
+                type: 'POST',
+                data: '',
+                success: function (data) {
+                    let pro = JSON.parse(data)
+                    reservationData.reservationExpressList = pro
+                }
+            })
         }
     })
 })()
