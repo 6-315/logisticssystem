@@ -46,6 +46,9 @@
         methods: {
             openDetail: function (reser) {
                 console.log(reser)
+                console.log('fdfd:', reser.reservationInfo.reservation_num)
+                reservationData.reservationExpressDTO.reservation.reservation_num = reser.reservationInfo.reservation_num
+                console.log('lplp:', reservationData.reservationExpressDTO.reservation.reservation_num)
                 $('#reservationDetail').modal()
             }
         },
