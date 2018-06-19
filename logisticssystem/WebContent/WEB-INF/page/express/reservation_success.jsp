@@ -30,7 +30,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -38,42 +39,40 @@
 <div class="site-menubar navbar-nav">
     <div class="site-menubar-body">
         <ul class="site-menu">
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
-						class="site-menu-title">首页</span></a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
-						class="site-menu-title">我要寄件</span></span> </a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
-						<span class="site-menu-title">我要查件</span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
-						<span class="site-menu-title">我的订单</span></span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
-						<span class="site-menu-title">用户信息</span></span>
-				</a></li>
-			</ul>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+                    class="site-menu-title">首页</span></a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+                    class="site-menu-title">我要寄件</span></span> </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+                <span class="site-menu-title">我要查件</span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+                <span class="site-menu-title">我的订单</span></span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+                <span class="site-menu-title">用户信息</span></span>
+            </a></li>
+        </ul>
     </div>
 </div>
 <div class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
-            <li class="active">&nbsp;我要查件</li>
+            <li class="active">&nbsp;预约成功</li>
         </ol>
         <div class="yto-box">
-            <form method="post" id="history_search" action="/order/trace.htm" class="form-horizontal m_bottom_30">
-                <div id="reservation_success" class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                	
-                </div>
-            </form>
-            <div class="yto-trace">
-
+            <div id="reservation_success" class="input-group input-group-lg col-sm-8 col-sm-offset-2">
+                
             </div>
+            <%--<div class="yto-trace">
+
+            </div>--%>
         </div>
     </div>
 </div>

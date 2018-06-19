@@ -1,5 +1,5 @@
 (function () {
-    const reservationExpressInfoDTO = {
+    let reservationExpressInfoDTO = {
         reservationInfo: {},
         expressInfo: {}
     }
@@ -19,7 +19,8 @@
             expressinfo_productweight: ''
         },
         reservationInfo: {
-            reservation_unit: ''
+            reservation_unit: '',
+            reservation_num: ''
         },
         distributionList: [],
         disabled: false,
@@ -82,7 +83,10 @@
                         },
                         success: function (data) {
                             if (data !== null) {
-                                window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess'
+                                var dto = JSON.parse(data)
+                                reservationExpressInfoDTO = dto
+                                console.log('reservationExpressInfoDTO:', reservationExpressInfoDTO)
+                                // window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess'
                                 return
                             } else {
                                 toastr.error('预约失败，请重新下单')
