@@ -1,9 +1,10 @@
 (function () {
+    let reservationData = {
+        reservationExpressList: []
+    }
     const reservationList = new Vue({
         el: '#reverservationList',
-        data: {
-            reservationExpressList: []
-        },
+        data: reservationData,
         methods: {},
         mounted() {
             $.ajax({
@@ -12,8 +13,7 @@
                 data: '',
                 success: function (data) {
                     let pro = JSON.parse(data)
-                    console.log('fdfd:', pro)
-                    // reservationData.province = pro
+                    reservationData.reservationExpressList = pro
                 }
             })
         }
