@@ -42,8 +42,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 			UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
 			userInfoDao.saveOrUpdateObject(userInfo);
 			userinfo userInfoNew = new userinfo();
+			userInfoNew.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			userInfoNew = userInfoDao.getUserInfo(userInfo.getUserinfo_id());
 			if (userInfoNew != null) {
+				
 				userInfoSessionDTO.setUserInfoSession(userInfoNew);
 			}
 			return userInfoSessionDTO;
