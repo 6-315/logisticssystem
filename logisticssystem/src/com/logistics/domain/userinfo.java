@@ -40,15 +40,21 @@ public class userinfo {
 	 */
 	private String userinfo_mark;
 	/**
-
+	 * 
 	 * 用户姓名
 	 */
 	private String userinfo_username;
 	/**
-
+	 * 
 	 * 用户最后一次登录时间
 	 */
+
 	private String userinfo_lastlytime;
+	/**
+	 * 用户性别
+	 */
+
+	private String userinfo_sex;
 
 	public String getUserinfo_id() {
 		return userinfo_id;
@@ -114,7 +120,6 @@ public class userinfo {
 		this.userinfo_mark = userinfo_mark;
 	}
 
-
 	public String getUserinfo_username() {
 		return userinfo_username;
 	}
@@ -122,7 +127,6 @@ public class userinfo {
 	public void setUserinfo_username(String userinfo_username) {
 		this.userinfo_username = userinfo_username;
 	}
-
 
 	public String getUserinfo_lastlytime() {
 		return userinfo_lastlytime;
@@ -132,14 +136,22 @@ public class userinfo {
 		this.userinfo_lastlytime = userinfo_lastlytime;
 	}
 
+	public String getUserinfo_sex() {
+		return userinfo_sex;
+	}
+
+	public void setUserinfo_sex(String userinfo_sex) {
+		this.userinfo_sex = userinfo_sex;
+	}
+
 	@Override
 	public String toString() {
 		return "userinfo [userinfo_id=" + userinfo_id + ", userinfo_nickname=" + userinfo_nickname
 				+ ", userinfo_password=" + userinfo_password + ", userinfo_phonenumber=" + userinfo_phonenumber
 				+ ", userinfo_email=" + userinfo_email + ", userinfo_createtime=" + userinfo_createtime
 				+ ", userinfo_modifytime=" + userinfo_modifytime + ", userinfo_mark=" + userinfo_mark
-				+ ", userinfo_username=" + userinfo_username + ", userinfo_lastlytime=" + userinfo_lastlytime + "]";
+				+ ", userinfo_username=" + userinfo_username + ", userinfo_lastlytime=" + userinfo_lastlytime
+				+ ", userinfo_sex=" + userinfo_sex + "]";
 	}
-
 
 }
