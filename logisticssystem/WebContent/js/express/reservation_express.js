@@ -82,8 +82,7 @@
                         },
                         success: function (data) {
                             if (data !== null) {
-                                console.log('fdfdfd')
-                                // window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess'
+                                window.location = '/logisticssystem/loginregister/loginregister_pageReservationSuccess'
                                 return
                             } else {
                                 toastr.error('预约失败，请重新下单')
