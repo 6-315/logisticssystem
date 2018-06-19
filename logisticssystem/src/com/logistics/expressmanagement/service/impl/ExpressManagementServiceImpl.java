@@ -265,7 +265,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						expressRoute.setExpress_route_belongexpress(expressInfo.getExpress_id());
 						expressRoute.setExpress_route_state("未完成");
 
-						String hql = "select express_route_superior from express_route where express_route_belongexpress='"+expressInfo.getExpress_id()+"' order by --express_route_superior desc limit 1 ";
+						String hql = "select express_route_superior from express_route where express_route_belongexpress='"
+								+ expressInfo.getExpress_id() + "' order by --express_route_superior desc limit 1 ";
 						String number = expressManagementDao.getMaxNumber(hql);
 						System.out.println("66666" + number);
 						if (number != null && number.trim().length() > 0) {
@@ -695,32 +696,95 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo) {
+	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo, String state) {
 		List<ReservationExpressInfoDTO> listReservationExpressInfoDTO = new ArrayList<>();
 		ReservationExpressInfoDTO reservationExpressInfoDTO = null;
 		List<reservation> listUserReservation = new ArrayList<>();
 
-		listUserReservation = (List<reservation>) expressManagementDao
-				.listObject("from reservation where reservation_user='" + userInfo.getUserInfoSession().getUserinfo_id()
-						+ "' order by reservation_createtime desc ");
-		if (listUserReservation != null) {
-			for (reservation reservationInfo : listUserReservation) {
-				reservationExpressInfoDTO = new ReservationExpressInfoDTO();
-				if (reservationInfo.getReservation_expressinfo() != null
-						&& reservationInfo.getReservation_expressinfo().trim().length() > 0) {
-					expressinfo expressDetailInfo = expressManagementDao
-							.getExpressInfoById(reservationInfo.getReservation_expressinfo());
-					if (expressDetailInfo != null) {
-						reservationExpressInfoDTO.setExpressInfo(expressDetailInfo);
-					}
-				}
-				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
-				listReservationExpressInfoDTO.add(reservationExpressInfoDTO);
+		if (userInfo.getUserInfoSession() != null) {
+			String hql = "from reservation where reservation_user='" + userInfo.getUserInfoSession().getUserinfo_id()
+					+ "' ";
+
+			if (state != null) {
+				hql = hql + " and reservation_state='" + state + "' ";
 			}
-			
-			return listReservationExpressInfoDTO;
+			hql = hql + " order by reservation_createtime desc ";
+
+			listUserReservation = (List<reservation>) expressManagementDao.listObject(hql);
+			if (listUserReservation != null) {
+				for (reservation reservationInfo : listUserReservation) {
+					reservationExpressInfoDTO = new ReservationExpressInfoDTO();
+					if (reservationInfo.getReservation_expressinfo() != null
+							&& reservationInfo.getReservation_expressinfo().trim().length() > 0) {
+						expressinfo expressDetailInfo = expressManagementDao
+								.getExpressInfoById(reservationInfo.getReservation_expressinfo());
+						if (expressDetailInfo != null) {
+							reservationExpressInfoDTO.setExpressInfo(expressDetailInfo);
+						}
+					}
+					if (reservationInfo.getReservation_unit() != null
+							&& reservationInfo.getReservation_unit().trim().length() > 0) {
+						unit unitInfo = expressManagementDao.getUnitInfoById(reservationInfo.getReservation_unit());
+						if (unitInfo != null) {
+							reservationExpressInfoDTO.setUnitInfo(unitInfo);
+						}
+					}
+					reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+					listReservationExpressInfoDTO.add(reservationExpressInfoDTO);
+				}
+				return listReservationExpressInfoDTO;
+			}
 		}
 		return null;
+	}
+
+	/**
+	 * 取消订单
+	 */
+	@Override
+	public String cancelReservation(reservation reservationInfo, String state) {
+		if (reservationInfo.getReservation_id() != null && reservationInfo.getReservation_id().trim().length() > 0) {
+			reservation updateReservation = expressManagementDao
+					.getReservationInfoById(reservationInfo.getReservation_id());
+			if (updateReservation != null) {
+				if (updateReservation.getReservation_state() != null
+						&& updateReservation.getReservation_state().trim().length() > 0) {
+					if ("已完成".equals(updateReservation.getReservation_state())) {
+						return "completed";
+					} else {
+						updateReservation.setReservation_state(state);
+						updateReservation.setReservation_modifytime(TimeUtil.getStringSecond());
+						expressManagementDao.saveOrUpdateObject(updateReservation);
+						return "success";
+					}
+
+				}
+			}
+		}
+		return "error";
+	}
+
+	/**
+	 * 修改预约单信息
+	 */
+	@Override
+	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO) {
+		if (reservationExpressInfoDTO != null) {
+			if ("已完成".equals(reservationExpressInfoDTO.getReservationInfo().getReservation_state())) {
+				return "complete";
+			}
+			if (reservationExpressInfoDTO.getExpressInfo() != null) {
+				expressinfo updateExpressDetailInfo = reservationExpressInfoDTO.getExpressInfo();
+				expressManagementDao.saveOrUpdateObject(updateExpressDetailInfo);
+				if (reservationExpressInfoDTO.getReservationInfo() != null) {
+					reservation updateReservation = reservationExpressInfoDTO.getReservationInfo();
+					updateReservation.setReservation_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao.saveOrUpdateObject(updateReservation);
+					return "success";
+				}
+			}
+		}
+		return "error";
 	}
 
 }

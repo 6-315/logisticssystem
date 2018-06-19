@@ -40,7 +40,11 @@ public interface ExpressManagementService {
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
-	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo);
+	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo, String state);
+
+	public String cancelReservation(reservation reservationInfo, String state);
+
+	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 
 
 }

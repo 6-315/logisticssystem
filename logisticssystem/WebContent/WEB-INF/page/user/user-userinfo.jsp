@@ -114,85 +114,49 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-2 control-label">真实姓名</label>
+                            <div class="col-sm-4">
+                                <input v-model="userinfo_username"
+                                       title="nickname"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-2 control-label">昵称</label>
                             <div class="col-sm-4">
-                                <input id="nickname"
-                                       v-model="userinfo_nickname"
-                                       onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"
-                                       maxlength="15" value="18296929245" title="nickname"
+                                <input v-model="userinfo_nickname"
+                                       title="nickname"
                                        class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">手机号码</label>
                             <div class="col-sm-4">
-                                <input class="form-control" title="username" readonly="">
+                                <input v-model="userinfo_phonenumber" class="form-control" title="username" readonly="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">性别</label>
                             <div class="col-sm-4">
                                 <label class="radio-inline">
-                                    <input name="staff_sex" type="radio">
+                                    <input value="男" name="userinfo_sex" type="radio" v-model="userinfo_sex">
                                     男</label>
                                 <label class="radio-inline">
-                                    <input name="staff_sex" type="radio">
+                                    <input value="女" name="userinfo_sex" type="radio" v-model="userinfo_sex">
                                     女</label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-2 control-label">出生日期</label>
-                            <div class="col-sm-4">
-                                <input class="form-control time-control" value="" id="birthday"
-                                       size="16" type="text"> <input value=""
-                                                                     id="birthday_hidden" type="hidden">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">邮箱</label>
                             <div class="col-sm-4">
-                                <input
-                                        onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"
-                                        value="" title="email" class="form-control"
-                                        placeholder="请输入邮箱">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">所在地区</label>
-                            <div class="col-sm-4">
-                                <input value="0" type="hidden">
-                                <div class="dropdown yto-city">
-                                    <input class="form-control " placeholder="请输入所在地区"
-                                           id="address" value="" data-regionid="regionId"
-                                           readonly="readonly" type="text">
-                                    <div class="yto-city-box dropdown-menu">
-                                        <ul>
-                                            <li class="hover">省份</li>
-                                            <li>市区</li>
-                                            <li>县区</li>
-                                        </ul>
-                                        <div class="yto-city-cont">
-                                            <dl class="ytoprov"></dl>
-                                            <dl class="ytocity"></dl>
-                                            <dl class="ytodist"></dl>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">详细地址</label>
-                            <div class="col-sm-4">
-                                <input
-                                        onkeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"
-                                        id="fullAddress" maxlength="30" value="" title="address"
-                                        class="form-control" placeholder="请输入详细地址">
+                                <input v-model="userinfo_email" value="" title="email" class="form-control"
+                                       placeholder="请输入邮箱">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2  col-sm-4">
-                                <input value="修改" class="btn btn-primary btn-block m_top_20"
-                                       type="submit">
+                                <input @click="confirmUserInfo" value="修改" class="btn btn-primary btn-block m_top_20"
+                                       type="button">
                             </div>
                         </div>
                     </form>
@@ -201,7 +165,34 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="avatar-modal" role="dialog">
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="updateUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModal">
+                    更改用户信息
+                </h4>
+            </div>
+            <div class="modal-body">
+                更改后不可还原，点击确定后更改
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button @click="updateUserInfo" type="button" class="btn btn-danger">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<%--<div class="modal fade" id="avatar-modal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -252,7 +243,7 @@
             <!-- </form> -->
         </div>
     </div>
-</div>
+</div>--%>
 <footer class="page-footer" style="height: 72px">
     <div class="container">
         <div class="row">
