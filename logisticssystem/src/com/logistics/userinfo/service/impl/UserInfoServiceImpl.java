@@ -65,7 +65,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			if (listaddress.size() > 0) {
 				return listaddress;
 			}
-		}
+		} 
 		return null;
 	}
 
