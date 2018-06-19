@@ -695,7 +695,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ReservationExpressInfoDTO queryUserReservation(UserInfoSessionDTO userInfo) {
+	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo) {
+		List<ReservationExpressInfoDTO> listReservationExpressInfoDTO = new ArrayList<>();
 		ReservationExpressInfoDTO reservationExpressInfoDTO = null;
 		List<reservation> listUserReservation = new ArrayList<>();
 
@@ -715,7 +716,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				}
 				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
 			}
-			return reservationExpressInfoDTO;
+			listReservationExpressInfoDTO.add(reservationExpressInfoDTO);
+			return listReservationExpressInfoDTO;
 		}
 		return null;
 	}

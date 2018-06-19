@@ -40,7 +40,7 @@ public interface ExpressManagementService {
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
-	public ReservationExpressInfoDTO queryUserReservation(UserInfoSessionDTO userInfo);
+	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo);
 
 
 }
