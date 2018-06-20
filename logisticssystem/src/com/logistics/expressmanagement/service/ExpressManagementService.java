@@ -42,7 +42,7 @@ public interface ExpressManagementService {
 
 	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo, String state);
 
-	public String cancelReservation(reservation reservationInfo, String state);
+	public String cancelReservation(reservation reservationInfo);
 
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 

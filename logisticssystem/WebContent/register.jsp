@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
     <title>注册</title>
 </head>
 <body class="hold-transition register-page">
@@ -19,39 +20,43 @@
         <a href="${pageContext.request.contextPath}/index.jsp"><b>Note3</b>物流</a>
     </div>
 
-    <div class="card">
+    <div id="register" class="card">
         <div class="card-body register-card-body">
             <p class="login-box-msg">注册</p>
-
-            <form action="" method="post">
-                <div class="form-group has-feedback">
-                    <input type="text" class="form-control" placeholder="手机号码">
+            <%--<form>--%>
+            <div class="form-group has-feedback">
+                <input v-model="userinfo_phonenumber" type="text" class="form-control" placeholder="手机号码">
+            </div>
+            <div class="form-group has-feedback">
+                <input v-model="userinfo_email" type="email" class="form-control" placeholder="电子邮件">
+            </div>
+            <div class="form-group has-feedback">
+                <input v-model="userinfo_password" type="password" class="form-control" placeholder="密码">
+            </div>
+            <div class="form-group has-feedback">
+                <input @change="comparePassword" v-model="userinfo_confirmPassword" type="password" class="form-control" placeholder="确认密码">
+            </div>
+            <div class="row">
+                <!-- /.col -->
+                <div class="col-6">
+                    <button @click="registerUser" type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
                 </div>
-                <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="电子邮件">
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="密码">
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="确认密码">
-                </div>
-                <div class="row">
-                    <!-- /.col -->
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+                <!-- /.col -->
+            </div>
+            <%--</form>--%>
             <a href="${pageContext.request.contextPath}/login.jsp" class="text-center">已有账号？</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
 </div>
-<script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/user/user-register.js"></script>
 <script>
     $(function () {
         $('input').iCheck({
