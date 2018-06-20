@@ -92,6 +92,14 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	// 预约单信息
 	private String reversationNum;
 
+	public userinfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(userinfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	public String getReversationNum() {
 		return reversationNum;
 	}
@@ -148,27 +156,23 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		this.password = password;
 	}
 
-	public userinfo getUserinfo() {
-		return userInfo;
-	}
-
-	public void setUserinfo(userinfo userinfo) {
-		this.userInfo = userinfo;
-	}
-
 	/**
 	 * 注册方法
 	 *
 	 * @throws IOException
 	 */
 	public void register() throws IOException {
+		System.out.println("kkkkkkkkkkkkk");
+		System.out.println("oooooooo" + userInfo.getUserinfo_password());
 		if (userInfo.getUserinfo_phonenumber() != null && userInfo.getUserinfo_password() != null
 				&& userInfo.getUserinfo_phonenumber().trim().length() > 0
 				&& userInfo.getUserinfo_password().trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setPrettyPrinting();// 格式化json数据
 			Gson gson = gsonBuilder.create();
+			System.out.println("ppppppppppppppp");
 			response.setContentType("text/html;charset=utf-8");
+			System.out.println("oooooooooooooooooo" + userInfo);
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
