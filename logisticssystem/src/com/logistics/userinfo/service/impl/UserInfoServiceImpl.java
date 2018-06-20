@@ -115,6 +115,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 					 * 新地址
 					 */
 					addressNew.setAddress_id(BuildUuid.getUuid());
+					addressNew.setAddress_state("1");
 					addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
 					addressNew.setAddress_createtime(TimeUtil.getStringSecond());
 					addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
@@ -124,6 +125,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 				}
 				addressNew.setAddress_id(BuildUuid.getUuid());
+				addressNew.setAddress_state("1");
 				addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
 				addressNew.setAddress_createtime(TimeUtil.getStringSecond());
 				addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
@@ -132,6 +134,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 			}
 			addressNew.setAddress_id(BuildUuid.getUuid());
+			addressNew.setAddress_state("1");
 			addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
 			addressNew.setAddress_createtime(TimeUtil.getStringSecond());
 			addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
