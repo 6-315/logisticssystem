@@ -277,7 +277,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateReservation() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.updateReservation(idList,state));
+		response.getWriter().write("" + expressManagementService.updateReservation(idList, state));
 	}
 
 	/**
@@ -287,8 +287,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateReservationWithDistributor() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter()
-				.write("" + expressManagementService.updateReservationWithDistributor(idList,distributor));
+		response.getWriter().write("" + expressManagementService.updateReservationWithDistributor(idList, distributor));
 	}
 
 	/**
@@ -478,5 +477,23 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write("" + expressManagementService.updateReservationInfo(reservationExpressInfoDTO));
 
 	}
+
+	/**
+	 * 重定向到action
+	 */
+	public String skipPage() {
+		return "add";
+	}
+
+	/*
+	 * 跳转到添加快件的页面
+	 */
+	public String pageAddExpress() {
+		return "pageAddExpress";
+	}
+
+	/**
+	 * 查看当前预约单信息
+	 */
 
 }
