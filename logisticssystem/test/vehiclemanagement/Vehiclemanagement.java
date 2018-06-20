@@ -127,6 +127,10 @@ public class Vehiclemanagement {
 	@Test
 	public void exchangeVehicleTest() {
 		vehiclecirculation vehicleCirculation = new vehiclecirculation();
-		vehicleCirculation.setVehiclecirculation_initiative("");
+		vehicleCirculation.setVehiclecirculation_vehicle_id("2");
+		vehicleCirculation.setVehiclecirculation_initiative("22");
+		vehicleCirculation.setVehiclecirculation_acceptd("33");
+		vehicleManagementService.exchangeVehicle(vehicleCirculation);
+		
 	}
 }

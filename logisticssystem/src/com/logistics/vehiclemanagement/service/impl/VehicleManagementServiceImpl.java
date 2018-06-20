@@ -8,15 +8,14 @@ import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
 import com.logistics.domain.vehiclecirculation;
-import com.logistics.vehiclemanagement.DTO.VehicleDTO;
-import com.logistics.vehiclemanagement.DTO.Vehicle_TeamDTO;
+import com.logistics.vehiclemanagement.DTO.VehicleDTOManager;
+import com.logistics.vehiclemanagement.DTO.VehicleTeamManagerDTO;
 import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
 import util.BuildUuid;
-import util.CreateNumberUtil;
 import util.TimeUtil;
 
 /**
@@ -78,11 +77,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车辆信息DTO
 		 */
-		List<VehicleDTO> listVehicleDTO = new ArrayList<>();
+		List<VehicleDTOManager> listVehicleDTO = new ArrayList<>();
 		/**
 		 * 车队DTO
 		 */
-		Vehicle_TeamDTO vehicleBelongTeamDTO = null;
+		VehicleTeamManagerDTO vehicleBelongTeamDTO = null;
 		/**
 		 * 车队信息
 		 */
@@ -94,7 +93,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车辆DTO
 		 */
-		VehicleDTO vehicleDTO;
+		VehicleDTOManager vehicleDTO;
 		/**
 		 * 车队队长
 		 */
@@ -193,11 +192,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			/**
 			 * 车队DTO
 			 */
-			vehicleBelongTeamDTO = new Vehicle_TeamDTO();
+			vehicleBelongTeamDTO = new VehicleTeamManagerDTO();
 			/**
 			 * 车辆DTO
 			 */
-			vehicleDTO = new VehicleDTO();
+			vehicleDTO = new VehicleDTOManager();
 			/**
 			 * 查询车辆购置人
 			 */
@@ -237,7 +236,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
 				vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 			}
-
+			
 			/**
 			 * 将关键字高亮
 			 */
@@ -282,16 +281,40 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				/**
 				 * 更新所需要更新的属性
 				 */
+				/**
+				 * 如果车辆信息的状态不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_state() != null && vehicleInfo.getVehicle_state().trim().length() > 0) {
+					/**
+					 * 根据得到车辆状态更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_state(vehicleInfo.getVehicle_state());
 				}
+				/**
+				 * 如果车辆信息的所属单位不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_unit() != null && vehicleInfo.getVehicle_unit().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新单位更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_unit(vehicleInfo.getVehicle_unit());
 				}
+				/**
+				 * 如果车辆信息的所属队伍不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_team() != null && vehicleInfo.getVehicle_team().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新队伍更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_team(vehicleInfo.getVehicle_team());
 				}
+				/**
+				 * 如果车辆信息的备注不为空并且长度大于零
+				 */
 				if (vehicleInfo.getVehicle_mark() != null && vehicleInfo.getVehicle_mark().trim().length() > 0) {
+					/**
+					 * 根据得到车辆新备注更新车辆状态
+					 */
 					updateVehicleInfo.setVehicle_mark(vehicleInfo.getVehicle_mark());
 				}
 				updateVehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
@@ -424,7 +447,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车队信息DTO
 		 */
-		List<Vehicle_TeamDTO> listTeamDTO = new ArrayList<>();
+		List<VehicleTeamManagerDTO> listTeamDTO = new ArrayList<>();
 		/**
 		 * 车队信息
 		 */
@@ -432,7 +455,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 车队DTO
 		 */
-		Vehicle_TeamDTO teamDTO;
+		VehicleTeamManagerDTO teamDTO;
 		/**
 		 * 获取数量
 		 */
@@ -510,14 +533,14 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		teamInfo = (List<team>) vehicleManagementDao.queryForPage(listTeamDTOCountHql, teamInfoVO.getPageIndex(),
 				teamInfoVO.getPageSize());
 		for (team team : teamInfo) {
-			teamDTO = new Vehicle_TeamDTO();
+			teamDTO = new VehicleTeamManagerDTO();
 			/**
 			 * 查询队长信息
 			 */
 			staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
 			if (teamLeader != null) {
 				teamDTO.setStaff_BasicInfoLeader(teamLeader);
-			}
+			}		
 			/**
 			 * 查询所属单位
 			 */
@@ -554,30 +577,66 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@Override
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation) {
+		/**
+		 * 判断前台传过来的扭转车辆是不是为空
+		 */
 		if (vehicleCirculation != null) {
 			if (vehicleCirculation.getVehiclecirculation_vehicle_id() != null
 					&& vehicleCirculation.getVehiclecirculation_vehicle_id().trim().length() > 0) {
+				System.out.println("11111");
+				/**
+				 * 得到车辆信息
+				 */
 				vehicle vehicleInfo = vehicleManagementDao
 						.getVehicleInfoById(vehicleCirculation.getVehiclecirculation_vehicle_id());
+				/**
+				 * 判断得到的车辆信息是不是为空
+				 */
 				if (vehicleInfo != null) {
+					System.out.println("22222");
+					/**
+					 * 判断得到车辆扭转的承接方和接收方是不是为空
+					 */
 					if (vehicleCirculation.getVehiclecirculation_initiative() != null
 							&& vehicleCirculation.getVehiclecirculation_acceptd() != null
 							&& vehicleCirculation.getVehiclecirculation_initiative().trim().length() > 0
 							&& vehicleCirculation.getVehiclecirculation_acceptd().trim().length() > 0) {
+
+						/**
+						 * 得到承接方的单位信息
+						 */
 						unit initiativeUnit = vehicleManagementDao
 								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_initiative());
+						System.out.println("6666" + initiativeUnit);
+						/**
+						 * 得到接收方的单位信息
+						 */
 						unit acceptedUnit = vehicleManagementDao
 								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_acceptd());
+						System.out.println("7777" + acceptedUnit);
+						System.out.println("33333");
+						/**
+						 * 判断承接单位和接收单位是不是为空
+						 */
 						if (initiativeUnit != null && acceptedUnit != null) {
+							System.out.println("44444");
+							/**
+							 * 设置接收方的单位这辆车辆信息，车辆的扭转状态，车辆行驶方向，车辆载货状态，所属车队，生成更改时间
+							 */
 							vehicleInfo.setVehicle_unit(vehicleCirculation.getVehiclecirculation_acceptd());
 							vehicleInfo.setVehicle_distribution_state("未分配至车队");
 							vehicleInfo.setVehicle_drivingdirection("无");
 							vehicleInfo.setVehicle_express_state("空闲");
 							vehicleInfo.setVehicle_team("无");
 							vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+							/**
+							 * 更新车辆信息
+							 */
 							vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 							System.out.println("车辆信息更新成功");
-							
+							/**
+							 * 设置车辆扭转表中的信息
+							 */
 							vehicleCirculation.setVehiclecirculation_id(BuildUuid.getUuid());
 							vehicleCirculation.setVehiclecirculation_time(TimeUtil.getStringSecond());
 							vehicleCirculation.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
@@ -593,5 +652,5 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		System.out.println("流转失败！");
 		return "error";
 	}
-
+	
 }
