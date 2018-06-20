@@ -285,7 +285,7 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 	 * 
 	 * @throws IOException
 	 */
-	public void addAddress() throws IOException {
+	public void addAddress() throws IOException { 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();	
