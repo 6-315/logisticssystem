@@ -19,7 +19,7 @@ public interface PersonnelManagementService {
 
 	List<position> getLowerPosition(staff_basicinfo staffBasicinfo);
 
-	String deleteListStaff(String staffListIdS);
+	String removeListStaff(String staffListIdS);
 
 	String updateStaffUnit(staff_basicinfo staffBasicinfo);
 

@@ -71,8 +71,8 @@ public class Personnelmanagement {
 	 */
 	@Test
 	public void deleteListStaff() {
-		String staffListIdS = "1,2,3,4,5";
-		personnelManagementService.deleteListStaff(staffListIdS);
+		String staffListIdS = "b952e95f-a7ab-4693-a4b0-e4d4269dd533";
+		personnelManagementService.removeListStaff(staffListIdS);
 
 	}
 	/**

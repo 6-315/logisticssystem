@@ -185,12 +185,12 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	
 	@Override
 	public unit getUnitAdmin(staff_basicinfo staffBasicinfo) {
-		unit Unit=new unit();
+		unit unit=new unit();
 		Session session=getSession();
 		String hql="from unit where unit_id='"+staffBasicinfo.getStaff_unit()+"'";
 		Query query=session.createQuery(hql);
-		Unit = (unit) query.uniqueResult();
-		return Unit;
+		unit = (unit) query.uniqueResult();
+		return unit;
 	}
 
 }

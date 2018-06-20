@@ -252,7 +252,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	 * 批量删除
 	 */
 	@Override
-	public String deleteListStaff(String staffListIdS) {
+	public String removeListStaff(String staffListIdS) {
 		if (staffListIdS.trim().length() > 0) {
 			String[] delete = staffListIdS.split(",");
 			staff_basicinfo staffBasicinfo = null;
@@ -264,7 +264,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				}
 			}
 		}
-		return "Success";
+		return "success";
 	}
 
 	/**
@@ -282,13 +282,13 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
 			System.out.println("成功！");
 		}
-		return "Success";
+		return "success";
 	}
 
 	/**
 	 * 修改员工职位
 	 * 
-	 * @return Success
+	 * @return success
 	 */
 	@Override
 	public String updateStaffPosition(staff_basicinfo staffBasicinfo) {
@@ -308,7 +308,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
 			System.out.println("成功！");
 		}
-		return "Success";
+		return "success";
 	}
 
 	/**
@@ -324,7 +324,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
 			System.out.println("成功！");
 		}
-		return "Success";
+		return "success";
 	}
 
 	/**

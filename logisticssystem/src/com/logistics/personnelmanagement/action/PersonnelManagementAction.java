@@ -150,6 +150,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerVO = new StaffManagerVO();
 		staffManagerVO.setPageIndex(pageIndex);
 		staffManagerVO.setSearch(search);
+		staffManagerVO.setBelongUnit(belongUnit);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
@@ -200,12 +201,12 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 	 * 
 	 * @throws IOException
 	 */
-	public void deleteListStaff() throws IOException {
+	public void removeListStaff() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.deleteListStaff(staffListIdS));
+		response.getWriter().write("" + personnelManagementService.removeListStaff(staffListIdS));
 	}
 
 	/**
