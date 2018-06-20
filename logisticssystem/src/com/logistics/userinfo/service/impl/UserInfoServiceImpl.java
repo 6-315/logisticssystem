@@ -79,12 +79,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public String judgePassword(String oldPassword, UserInfoSessionDTO userInfoSessionDTO) {
 		if (oldPassword != null && oldPassword.trim().length() > 0 && userInfoSessionDTO != null) {
 			if (oldPassword.equals(userInfoSessionDTO.getUserInfoSession().getUserinfo_password())) {
-				System.out.println("正确");
-				return "Success";
+				return "success";
 
 			}
-			System.out.println("错误");
-			return "Error";
+			return "error";
 		}
 		return null;
 	}
@@ -95,11 +93,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public String updatePassword(userinfo userInfo) {
 		if (userInfo != null) {
-			System.out.println("成功");
 			userInfoDao.saveOrUpdateObject(userInfo);
-			return "Success";
+			return "success";
 		}
-		return "Error";
+		return "error";
 	}
 
 	/**
@@ -115,9 +112,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 			addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
 			System.out.println("iiiiiiiiiiii" + addressNew);
 			userInfoDao.saveOrUpdateObject(addressNew);
-			return "Success";
+			return "success";
 		}
-		return "Error";
+		return "error";
 	}
 
 	/**
