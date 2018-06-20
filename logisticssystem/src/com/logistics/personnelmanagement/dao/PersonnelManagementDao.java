@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 
 /**
  * 人事管理DAO接口
@@ -45,19 +46,43 @@ public interface PersonnelManagementDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	/**
+	 * 查找员工表是否有此人（批量删除）
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public staff_basicinfo getstaffById(String id);
 
+	/**
+	 * 查找员工表是否有此人（修改员工单位）
+	 * 
+	 * @param staff_id
+	 * @return
+	 */
 	public staff_basicinfo getstaffBasicinfo(String staff_id);
 
+	/**
+	 * 查找什么职位
+	 * 
+	 * @param staffBasicinfo
+	 * @return
+	 */
 	public position getPosition(staff_basicinfo staffBasicinfo);
 
-	public String getstaffBasicinfoMaxNum();
+	/**
+	 * 获得作答员工工号
+	 * 
+	 * @return
+	 */
 
+	public String getstaffBasicinfoMaxNum();
 
 	/**
 	 * 
 	 * @param trim
 	 * @return
 	 */
-
+    public unit getUnitAdmin(staff_basicinfo staffBasicinfo) ;
 }

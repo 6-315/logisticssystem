@@ -69,6 +69,7 @@ public interface RouteManagementDao {
 	 */
 
 	public staff_basicinfo getStaff_Basicinfo(String sql);
+
 	/**
 	 * 获取unit单条数据
 	 * 
@@ -78,17 +79,21 @@ public interface RouteManagementDao {
 	public unit getRoute_Departurestation(String sql1);
 
 	public unit getRoute_Terminalstation(String sql2);
-/**
- * 根据route_id查route表单条信息
- * @param route_id
- * @return
- */
-	public route getRouteById(String route_id);
-/**
- *  获取最大路线编号
- * @return
- */
-	public route getMaxRouteNum();
 
+	/**
+	 * 根据route_id查route表单条信息
+	 * 
+	 * @param route_id
+	 * @return
+	 */
+	public route getRouteById(String route_id);
+
+	/**
+	 * 获取最大路线编号
+	 * 
+	 * @return
+	 */
+
+	public String getMaxRouteNum(String route_num);
 
 }

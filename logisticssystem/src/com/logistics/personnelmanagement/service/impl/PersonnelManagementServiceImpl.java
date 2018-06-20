@@ -295,8 +295,15 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		if (staffBasicinfo.getStaff_id().trim().length() > 0
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
 			staff_basicinfo staffBasicinfoNew = new staff_basicinfo();
-			staffBasicinfoNew = personnelManagementDao.getstaffBasicinfo(staffBasicinfo.getStaff_id());
+			unit Unit=new unit();
+			
+			staffBasicinfoNew = personnelManagementDao.getstaffBasicinfo(staffBasicinfo.getStaff_id());		
+			staffBasicinfoNew.setStaff_unit(staffBasicinfo.getStaff_unit());			
 			staffBasicinfoNew.setStaff_position(staffBasicinfo.getStaff_position());
+		
+			//更改上级领导，根据输入的职位，查到此职位的所属单位，再查这个单位的上级单位，再查到谁是这个所属单位的人的信息，得到名字
+			Unit=personnelManagementDao.getUnitAdmin(staffBasicinfoNew);
+			staffBasicinfoNew.setStaff_superiorleader(Unit.getUnit_admin());
 			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
 			System.out.println("成功！");
@@ -326,7 +333,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@Override
 	public staff_basicinfo addStaff(staff_basicinfo staffBasicinfo) {
 		List<staff_basicinfo> staffBasicInfoNew = new ArrayList<>();
-		List<staff_basicinfo> staffBasicInfoNew2 = new ArrayList<>();
 		staff_basicinfo staff_basicinfo = new staff_basicinfo();
 		String maxStaffNum = personnelManagementDao.getstaffBasicinfoMaxNum();
 		System.out.println("youyouyoyuyoyu" + maxStaffNum);

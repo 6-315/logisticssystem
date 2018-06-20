@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
 /**
@@ -148,7 +149,7 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	}
 
 	/**
-	 * 查找是什么单位
+	 * 查找是什么职位
 	 */
 	@Override
 	public position getPosition(staff_basicinfo staffBasicinfo) {
@@ -177,6 +178,19 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		Query query = session.createSQLQuery(hql);
 		String num = (String) query.uniqueResult();
 		return num;
+	}
+	/**
+	 * 根据单位查上级单位
+	 */
+	
+	@Override
+	public unit getUnitAdmin(staff_basicinfo staffBasicinfo) {
+		unit Unit=new unit();
+		Session session=getSession();
+		String hql="from unit where unit_id='"+staffBasicinfo.getStaff_unit()+"'";
+		Query query=session.createQuery(hql);
+		Unit = (unit) query.uniqueResult();
+		return Unit;
 	}
 
 }
