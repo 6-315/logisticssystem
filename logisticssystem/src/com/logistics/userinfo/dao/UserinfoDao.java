@@ -60,6 +60,8 @@ public interface UserinfoDao {
 
 	public address getAddressByState();
 
+	public address getAddressById(String address_id);
+
 	/**
 	 * 
 	 * @param trim

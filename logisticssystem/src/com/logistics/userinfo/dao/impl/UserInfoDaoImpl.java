@@ -159,11 +159,30 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		Session session = getSession();
 		String hql = " from address where address_isdefault = '是'";
 		Query query = session.createQuery(hql);
+
 		addressNew = (address) query.uniqueResult();
 		if (addressNew != null) {
 			return addressNew;
 		}
 		return null;
+	}
+
+	/**
+	 * 根据ID查询地址表
+	 */
+	@Override
+	public address getAddressById(String address_id) {
+		address addressNew = new address();
+		Session session = getSession();
+		String hql = " from address where address_id =:ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", address_id);
+		addressNew = (address) query.uniqueResult();
+		if (addressNew != null) {
+			return addressNew;
+		}
+		return null;
+
 	}
 
 }
