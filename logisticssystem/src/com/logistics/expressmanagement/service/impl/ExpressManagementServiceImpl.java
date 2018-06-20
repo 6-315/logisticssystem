@@ -794,4 +794,28 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		return "error";
 	}
 
+	/**
+	 * 查看当前预约信息
+	 */
+	@Override
+	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList) {
+		ReservationExpressInfoDTO reservationExpressInfoDTO = new ReservationExpressInfoDTO();
+		if (idList != null && idList.trim().length() > 0) {
+			reservation reservationInfo = expressManagementDao.getReservationInfoById(idList);
+			if (reservationInfo != null) {
+				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+				if (reservationInfo.getReservation_expressinfo() != null
+						&& reservationInfo.getReservation_expressinfo().trim().length() > 0) {
+					expressinfo expressDetailInfo = expressManagementDao
+							.getExpressInfoById(reservationInfo.getReservation_expressinfo());
+					if (expressDetailInfo != null) {
+						reservationExpressInfoDTO.setExpressInfo(expressDetailInfo);
+						return reservationExpressInfoDTO;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 }

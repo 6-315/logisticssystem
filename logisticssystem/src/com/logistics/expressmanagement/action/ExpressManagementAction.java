@@ -494,6 +494,19 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	/**
 	 * 查看当前预约单信息
+	 * @throws IOException 
 	 */
+	public void queryCurrentReservationInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
+	}
+	
+	
 
 }

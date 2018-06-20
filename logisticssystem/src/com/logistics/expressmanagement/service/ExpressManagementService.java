@@ -46,5 +46,7 @@ public interface ExpressManagementService {
 
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 
+	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
+
 
 }
