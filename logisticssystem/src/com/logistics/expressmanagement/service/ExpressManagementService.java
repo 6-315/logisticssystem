@@ -34,7 +34,7 @@ public interface ExpressManagementService {
 
 	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
 
-	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo, String isDistributed);
 
 	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
 
@@ -45,6 +45,8 @@ public interface ExpressManagementService {
 	public String cancelReservation(reservation reservationInfo);
 
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
+
+	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
 
 
 }

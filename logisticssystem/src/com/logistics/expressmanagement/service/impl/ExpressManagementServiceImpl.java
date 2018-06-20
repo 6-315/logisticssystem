@@ -352,7 +352,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo) {
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo,
+			String isDistributed) {
 		List<ReservationDTO> listReservationDTO = new ArrayList<>();
 		ReservationDTO reservationDTO;
 		List<reservation> listReservation = new ArrayList<>();
@@ -376,9 +377,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					listReservationInfoHql = listReservationInfoHql + " reservation_distributiontor='"
 							+ distributor.getDistributiontor_id() + "' ";
 				}
-			}
-
-			if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+			} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 				if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 					String unit = "%" + reservationVO.getUnit() + "%";
 					reservationCountHql = reservationCountHql + " reservation_unit ='" + unit + "' ";
@@ -421,6 +420,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			String search = "%" + reservationVO.getSearch().trim() + "%";
 			reservationCountHql = reservationCountHql + " and reservation_num like '" + search + "' ";
 			listReservationInfoHql = listReservationInfoHql + " and reservation_num like '" + search + "' ";
+		}
+		/**
+		 * 根据是否分配进行筛选
+		 */
+		if (isDistributed != null && isDistributed.trim().length() > 0) {
+			if ("是".equals(isDistributed)) {
+				reservationCountHql = reservationCountHql
+						+ " and ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
+				listReservationInfoHql = listReservationInfoHql
+						+ " and  ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
+			}
+			if ("否".equals(isDistributed)) {
+				reservationCountHql = reservationCountHql
+						+ " and ( reservation_distributiontor ='' or reservation_distributiontor =null )  ";
+				listReservationInfoHql = listReservationInfoHql
+						+ " and  ( reservation_distributiontor ='' or reservation_distributiontor =null )  ";
+			}
 		}
 		/**
 		 * 根据状态分类查询
@@ -792,6 +808,30 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			}
 		}
 		return "error";
+	}
+
+	/**
+	 * 查看当前预约信息
+	 */
+	@Override
+	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList) {
+		ReservationExpressInfoDTO reservationExpressInfoDTO = new ReservationExpressInfoDTO();
+		if (idList != null && idList.trim().length() > 0) {
+			reservation reservationInfo = expressManagementDao.getReservationInfoById(idList);
+			if (reservationInfo != null) {
+				reservationExpressInfoDTO.setReservationInfo(reservationInfo);
+				if (reservationInfo.getReservation_expressinfo() != null
+						&& reservationInfo.getReservation_expressinfo().trim().length() > 0) {
+					expressinfo expressDetailInfo = expressManagementDao
+							.getExpressInfoById(reservationInfo.getReservation_expressinfo());
+					if (expressDetailInfo != null) {
+						reservationExpressInfoDTO.setExpressInfo(expressDetailInfo);
+						return reservationExpressInfoDTO;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 }
