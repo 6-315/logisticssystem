@@ -15,6 +15,10 @@ public class ReservationDTO {
 	 * 用户表
 	 */
 	private userinfo userInfo;
+	/**
+	 * 配送点信息
+	 */
+	private unit unitInfo;
 
 	public reservation getReservationInfo() {
 		return reservationInfo;
@@ -40,10 +44,18 @@ public class ReservationDTO {
 		this.userInfo = userInfo;
 	}
 
+	public unit getUnitInfo() {
+		return unitInfo;
+	}
+
+	public void setUnitInfo(unit unitInfo) {
+		this.unitInfo = unitInfo;
+	}
+
 	@Override
 	public String toString() {
 		return "ReservationDTO [reservationInfo=" + reservationInfo + ", expressInfo=" + expressInfo + ", userInfo="
-				+ userInfo + "]";
+				+ userInfo + ", unitInfo=" + unitInfo + "]";
 	}
 
 }

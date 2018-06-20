@@ -352,8 +352,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo,
-			String isDistributed) {
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo) {
 		List<ReservationDTO> listReservationDTO = new ArrayList<>();
 		ReservationDTO reservationDTO;
 		List<reservation> listReservation = new ArrayList<>();
@@ -424,14 +423,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		/**
 		 * 根据是否分配进行筛选
 		 */
-		if (isDistributed != null && isDistributed.trim().length() > 0) {
-			if ("是".equals(isDistributed)) {
+		if (reservationVO.getIsDistributed() != null && reservationVO.getIsDistributed().trim().length() > 0) {
+			if ("是".equals(reservationVO.getIsDistributed())) {
 				reservationCountHql = reservationCountHql
 						+ " and ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
 				listReservationInfoHql = listReservationInfoHql
 						+ " and  ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
 			}
-			if ("否".equals(isDistributed)) {
+			if ("否".equals(reservationVO.getIsDistributed())) {
 				reservationCountHql = reservationCountHql
 						+ " and ( reservation_distributiontor ='' or reservation_distributiontor =null )  ";
 				listReservationInfoHql = listReservationInfoHql
@@ -494,6 +493,13 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					userinfo userInfo = expressManagementDao.getUserInfoById(reservationInfo.getReservation_user());
 					if (userInfo != null) {
 						reservationDTO.setUserInfo(userInfo);
+					}
+					if (reservationInfo.getReservation_unit() != null
+							&& reservationInfo.getReservation_unit().trim().length() > 0) {
+						unit unitInfo = expressManagementDao.getUnitInfoById(reservationInfo.getReservation_unit());
+						if (unitInfo != null) {
+							reservationDTO.setUnitInfo(unitInfo);
+						}
 					}
 				}
 				reservationDTO.setReservationInfo(reservationInfo);
