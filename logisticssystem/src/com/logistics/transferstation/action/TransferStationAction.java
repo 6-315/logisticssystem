@@ -12,9 +12,9 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
-import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -27,7 +27,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 public class TransferStationAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
-     
+
 	/**
 	 * 使用域模型将unit放到Struts中
 	 */
@@ -45,6 +45,67 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * 使用域模型将staff_basicinfo放到Struts中
 	 */
 	private staff_basicinfo staff_BasicInfo;
+	/**
+	 * 根据Id删除中转站信息
+	 */
+	private String idList;
+	/**
+	 * 根据Id查询管理员字段
+	 */
+	private String admin;
+	/**
+	 * 分配车辆的集合
+	 */
+	private String vehicleList;
+	/**
+	 * 车队编号
+	 */
+	private String teamNum;
+	/**
+	 * 司机
+	 * 
+	 */
+	private driver driver;
+	/**
+	 * 司机的集合
+	 * 
+	 * @return
+	 */
+	private String driverList;
+
+	public String getDriverList() {
+		return driverList;
+	}
+
+	public void setDriverList(String driverList) {
+		this.driverList = driverList;
+	}
+
+	public driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(driver driver) {
+		this.driver = driver;
+	}
+
+	public String getTeamNum() {
+		return teamNum;
+	}
+
+	public void setTeamNum(String teamNum) {
+		this.teamNum = teamNum;
+	}
+
+	/**
+	 * 分页查询的字段
+	 */
+	private String state;
+	private String address;
+	private String num;
+	private String superiorunit;
+	private String search;
+	private int page;
 
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
@@ -62,7 +123,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		this.staff_BasicInfo = staff_basicinfo;
 	}
 
-
 	public staff_basicinfo getBasicinfo() {
 		return staff_BasicInfo;
 	}
@@ -70,32 +130,29 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	public void setBasicinfo(staff_basicinfo basicinfo) {
 		this.staff_BasicInfo = basicinfo;
 	}
-	
-	
-	
-	
-public staff_basicinfo getStaff_BasicInfo() {
+
+	public staff_basicinfo getStaff_BasicInfo() {
 		return staff_BasicInfo;
 	}
 
 	public void setStaff_BasicInfo(staff_basicinfo staff_BasicInfo) {
 		this.staff_BasicInfo = staff_BasicInfo;
 	}
-	/**
-	 * 根据Id删除中转站信息
-	 */
-	private String idList;
-	/**
-	 * 根据Id查询管理员字段
-	 */
-	private String admin;
 
-public String getIdList() {
+	public String getIdList() {
 		return idList;
 	}
 
 	public void setIdList(String idList) {
 		this.idList = idList;
+	}
+
+	public String getVehicleList() {
+		return vehicleList;
+	}
+
+	public void setVehicleList(String vehicleList) {
+		this.vehicleList = vehicleList;
 	}
 
 	public String getAdmin() {
@@ -105,15 +162,6 @@ public String getIdList() {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
-/**
- * 分页查询的字段
- */
-	private String state;
-	private String address;
-	private String num;
-	private String superiorunit;
-	private String search;
-	private int page;
 
 	public String getState() {
 		return state;
@@ -238,15 +286,14 @@ public String getIdList() {
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		
-		
+
 	}
-	
-	
+
 	/**
 	 * 查询中转站
+	 * @throws IOException 
 	 */
-	public void queryTransferStation() {
+	public void queryTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -260,10 +307,11 @@ public String getIdList() {
 		unitManagerVO.setPageIndex(page);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO,staffBasicinfo);
-		//listunit = transferStationService.queryTransferStation();
+		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO, staffBasicinfo);
+		response.getWriter().write(gson.toJson(unitManagerVO));
+		// listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
-		
+
 	}
 
 	/**
@@ -278,15 +326,8 @@ public String getIdList() {
 		Gson gson = gsonBuilder.create();
 
 		response.setContentType("text/html;charset=utf-8");
-
-		unit transferStation = new unit();
-		transferStation.setUnit_name("lailiang");
-		transferStation.setUnit_address("hubei");
-		transferStation.setUnit_detailaddress("hubeiwuhan");
-		transferStation.setUnit_type("zhongzhuangzhan");
-		transferStation.setUnit_creator("zonggongsi");
-		transferStation.setUnit_state("zhengchang");
-		transferStation.setUnit_phonenumber("123");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter().write("" + transferStationService.addTransferStation(transferStation));
 
 		System.out.println("qqqqq");
@@ -313,7 +354,7 @@ public String getIdList() {
 	 * @throws IOException
 	 */
 
-	public void TransferStation() throws IOException {
+	public void updateTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -321,4 +362,32 @@ public String getIdList() {
 		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation));
 	}
 
+	/**
+	 * 分配车辆
+	 * 
+	 * @throws IOException
+	 */
+	public void vehicleDistribution() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.vehicleDistribution(vehicleList, teamNum));
+	}	
+	public void driverRecruit() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.driverRecruit(null));
+	}
+
+	public void driverDistribution() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.driverDistribution(driverList, teamNum));
+	}
+	
 }

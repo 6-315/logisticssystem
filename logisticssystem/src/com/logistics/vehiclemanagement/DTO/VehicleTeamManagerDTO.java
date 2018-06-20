@@ -10,7 +10,7 @@ import com.logistics.domain.*;
  * @author LMJ
  *
  */
-public class Vehicle_TeamDTO {
+public class VehicleTeamManagerDTO {
 	/**
 	 * 车队表
 	 */

@@ -241,6 +241,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到预约管理页面
+	 */
+	public String pageReservationManager() {
+		return "pageReservationManager";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
