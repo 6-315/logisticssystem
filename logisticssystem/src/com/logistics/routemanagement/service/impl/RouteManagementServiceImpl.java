@@ -36,9 +36,24 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 */
 	@Override
 	public route addRout(route rout) {
+		route route = new route();
+	String	routeMax = routeManagementDao.getMaxRouteNum(route.getRoute_num());
+		if(routeMax!=null) {
+			routeMax=routeMax.replaceAll("[A]", "");
+			int nextNum=Integer.parseInt(routeMax);
+			nextNum=nextNum+1;
+			String num=String.format("%03d", nextNum);
+			rout.setRoute_num("A"+num);
+			System.out.println("eeee");
+		}else {
+			int nextNum=1;
+			String num=String.format("%03d", nextNum);
+			rout.setRoute_num("A"+num);
+		}
 		rout.setRoute_id(BuildUuid.getUuid());
-		rout.setRoute_num("A006");
-		routeManagementDao.saveOrUpdateObject(rout);
+		if(rout!=null) {
+			routeManagementDao.saveOrUpdateObject(rout);
+		}
 		return rout;
 	}
 
@@ -46,18 +61,22 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 * 更改路线信息
 	 */
 	@Override
-	public route updateRoutInfo(route rout) {
+	public String updateRoutInfo(route rout) {
+		if(rout.getRoute_id().trim().length() > 0) {
 		routeManagementDao.saveOrUpdateObject(rout);
-		return rout;
+		}
+		return "success";
 	}
 
 	/**
 	 * 更改路线状态
 	 */
 	@Override
-	public route updateRouteState(route rout) {
+	public String updateRouteState(route rout) {
+		if(rout.getRoute_id().trim().length()>0 && rout.getRoute_state().trim().length()>0) {
 		routeManagementDao.saveOrUpdateObject(rout);
-		return rout;
+		}
+		return "success";
 
 	}
 
@@ -67,7 +86,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 * @return
 	 */
 	@Override
-	public String deleteListRoute(String routeIds) {
+	public String removeListRoute(String routeIds) {
 		String[] routeIDArray = routeIds.split(",");
 		route deleteRoute = null;
 		for (String routeId : routeIDArray) {
@@ -77,7 +96,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				routeManagementDao.removeObject(deleteRoute);
 			}
 		}
-		return "Success";
+		return "sccess";
 	}
 
 	/**

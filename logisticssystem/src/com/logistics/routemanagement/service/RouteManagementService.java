@@ -13,11 +13,11 @@ public interface RouteManagementService {
 
 	route addRout(route rout);
 
-	route updateRoutInfo(route rout);
+	String updateRoutInfo(route rout);
 
-	route updateRouteState(route rout);
+	String updateRouteState(route rout);
 
-	String deleteListRoute(String routeId);
+	String removeListRoute(String routeId);
 
 	RouteManagerVO getRouteManagerVO(RouteManagerVO routManagerVO);
 
