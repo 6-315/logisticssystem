@@ -266,7 +266,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		vehicleInfoVO.setUnit(unit);
 		vehicleInfoVO.setTeam(team);
 		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
-		response.getWriter().write("" + vehicleInfoVO);
+		response.getWriter().write(gson.toJson(vehicleInfoVO));
 	}
 
 	/**
@@ -372,7 +372,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setUnit(unit);
 		teamInfoVO.setTeamLeader(teamLeader);
 		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO);
-		response.getWriter().write("" + teamInfoVO);
+		response.getWriter().write(gson.toJson(teamInfoVO));
 	}
 
 	/**

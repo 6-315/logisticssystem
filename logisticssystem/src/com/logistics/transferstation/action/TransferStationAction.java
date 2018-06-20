@@ -291,8 +291,9 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 
 	/**
 	 * 查询中转站
+	 * @throws IOException 
 	 */
-	public void queryTransferStation() {
+	public void queryTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
@@ -307,6 +308,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO, staffBasicinfo);
+		response.getWriter().write(gson.toJson(unitManagerVO));
 		// listunit = transferStationService.queryTransferStation();
 		System.out.println("chaxun action");
 

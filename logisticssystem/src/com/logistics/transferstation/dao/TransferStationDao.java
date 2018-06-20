@@ -77,13 +77,19 @@ public interface TransferStationDao {
 
 
 public String getTransferStationByNum(String unit_num);
-
+/**
+ * 根据id查询车队
+ * @param trim
+ * @return
+ */
 public team getTeamById(String trim);
-
+/**
+ * 根据id查询车辆
+ */
 public vehicle getVehicleById(String trim);
 /**
  * 
- * @param trim
+ * 根据id查询司机
  * @return
  */
 public driver getDriverById(String trim);

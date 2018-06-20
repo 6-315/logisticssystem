@@ -270,17 +270,20 @@ public class TransferStationServiceImpl implements TransferStationService {
 						System.out.println("分配成功");
 					} else {
 						System.out.println("分配失败");
+						return "fail";
 					}
 				} else {
 					System.out.println("分配失败");
+					return "fail";
 				}
 
 			}
 		}else {
 			System.out.println("meinjin");
+			return "fail";
 		}
 		
-		return null;
+		return "fail";
 	}
 	/**
 	 * 招募司机
@@ -326,19 +329,24 @@ public class TransferStationServiceImpl implements TransferStationService {
 						driver.setDriver_createtime(TimeUtil.getStringSecond());
 						driver.setDriver_modifytime(TimeUtil.getStringSecond());
 						System.out.println("分配成功");
+						return "success";
 					} else {
 						System.out.println("分配失败");
+						return "fail";
 					}
 				} else {
 					System.out.println("分配失败");
+					return "fail";
 				}
 
 			}
 		}else {
+			
 			System.out.println("meinjin");
+			return "fail";
 		}
 		
-		return null;
+		return "fail";
 	}
 	
 	
