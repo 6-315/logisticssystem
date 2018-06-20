@@ -45,6 +45,10 @@ public class ReservationVO {
 	 * 根据所属单位筛选
 	 */
 	private String unit = "";
+	/**
+	 * 根据是否分配进行筛选
+	 */
+	private String isDistributed = "";
 
 	public List<ReservationDTO> getListReservationInfoDTO() {
 		return listReservationInfoDTO;
@@ -126,12 +130,20 @@ public class ReservationVO {
 		this.unit = unit;
 	}
 
+	public String getIsDistributed() {
+		return isDistributed;
+	}
+
+	public void setIsDistributed(String isDistributed) {
+		this.isDistributed = isDistributed;
+	}
+
 	@Override
 	public String toString() {
 		return "ReservationVO [listReservationInfoDTO=" + listReservationInfoDTO + ", pageIndex=" + pageIndex
 				+ ", totalRecords=" + totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages
 				+ ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state="
-				+ state + ", unit=" + unit + "]";
+				+ state + ", unit=" + unit + ", isDistributed=" + isDistributed + "]";
 	}
 
 }

@@ -465,10 +465,11 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		reservationVO.setSearch(search);
 		reservationVO.setState(state);
 		reservationVO.setUnit(unit);
+		reservationVO.setIsDistributed(isDistributed);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
-				.write(gson.toJson(expressManagementService.queryReservationInfo(reservationVO, staffInfo, isDistributed)));
+				.write(gson.toJson(expressManagementService.queryReservationInfo(reservationVO, staffInfo)));
 
 	}
 
