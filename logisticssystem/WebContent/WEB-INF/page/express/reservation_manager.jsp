@@ -269,16 +269,17 @@
                                     <tr>
                                         <th>预约单号</th>
                                         <th>发件人姓名</th>
-                                        <th>用户联系方式</th>
-                                        <th>用户详细地址</th>
+                                        <th>发件人联系方式</th>
+                                        <th>发件人详细地址</th>
                                         <th>
                                             <span role="presentation" class="dropdown"> <a
                                                     class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
                                                     class="caret"></span></a>
 													<ul class="dropdown-menu">
                                                         <li><a href="#">所有</a></li>
-														<li><a href="#">单位1</a></li>
-														<li><a href="#">单位2</a></li>
+														<li v-for="unit in unitList" :key="unit.unit_id">
+                                                            <a href="#">{{unit_name}}</a>
+                                                        </li>
 													</ul>
 											</span>
                                         </th>
@@ -312,14 +313,20 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
+                                    <tr v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
+                                        :key="index">
+                                        <td>{{reservationDTO.reservationInfo.reservation_num}}</td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
+                                        <td>{{reservationDTO.reservationInfo.reservation_unit}}</td>
+                                        <td v-if="reservationDTO.reservationInfo.reservation_distributiontor">
+                                            是
+                                        </td>
+                                        <td v-else>
+                                            否
+                                        </td>
+                                        <td>{{reservationDTO.reservationInfo.reservation_state}}</td>
                                         <td>
                                             <a href="#">详情</a>
                                             <span role="presentation" class="dropdown"> <a
@@ -334,46 +341,6 @@
                                                 </ul>
                                             </span>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                    </tr>
-                                    <tr>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                    </tr>
-                                    <tr>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                    </tr>
-                                    <tr>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
-                                        <td>qe</td>
                                     </tr>
                                     </tbody>
                                 </table>
