@@ -108,7 +108,18 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        <tr v-for="addre in addressList" :key="addre.address_id">
+                            <td>{{addre.address_realname}}</td>
+                            <td>{{addre.address_phonenumber}}</td>
+                            <td>{{addre.address_address}}</td>
+                            <td>{{addre.address_detailaddress}}</td>
+                            <td>{{addre.address_postalnumber}}</td>
+                            <td>{{addre.address_isdefault}}</td>
+                            <td>
+                                <a href="#" class="btn btn-primary">修改</a>
+                                <a href="#" class="btn btn-danger">删除</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

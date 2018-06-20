@@ -135,7 +135,6 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
-
                             $('#addAddress').modal('hide')
                         }
                     }
@@ -149,7 +148,7 @@
                 data: {},
                 success: function (data) {
                     let addressList = JSON.parse(data)
-                    console.log('ko-----------:', addressList)
+                    addressData.addressList = addressList
                 }
             })
         }
