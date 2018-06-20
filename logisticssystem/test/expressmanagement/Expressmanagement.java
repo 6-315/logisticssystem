@@ -66,19 +66,19 @@ public class Expressmanagement {
 	/**
 	 * 受理客户预约
 	 */
-	@Test
+	/*@Test
 	public void updateReservationTest() {
 		reservation reservationInfo = new reservation();
 		reservationInfo.setReservation_id("2176f29b-f0f4-42db-a91f-7e86fa3ed2db");
 		reservationInfo.setReservation_state("已受理");
 		expressManagementService.updateReservation(reservationInfo);
 		
-	}
+	}*/
 	
 	/**
 	 * 分配配送员
 	 */
-	@Test
+	/*@Test
 	public void updateReservationWithDistributorTest() {
 		ReservationWithDistributorDTO reservationWithDistributorDTO = new ReservationWithDistributorDTO();
 		distributiontor distributor = new distributiontor();
@@ -88,7 +88,7 @@ public class Expressmanagement {
 		reservationWithDistributorDTO.setDistributor(distributor);
 		reservationWithDistributorDTO.setReservationInfo(reservationInfo);
 		expressManagementService.updateReservationWithDistributor(reservationWithDistributorDTO);
-	}
+	}*/
 	
 	/**
 	 * 上门取件
