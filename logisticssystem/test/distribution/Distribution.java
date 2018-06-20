@@ -44,21 +44,13 @@ public class Distribution {
 		distribution.setUnit_detailaddress("江西省/萍乡市/安源区/东大街");
 		distribution.setUnit_phonenumber("110");
 		distribution.setUnit_type("配送点");
-		distribution.setUnit_superiorunit("萍乡中转站");
-		distributionService.addDistributionAction(distribution);
+		distributionService.addDistribution(distribution);
 	}
 	/**
 	 * 查询单位的的测试方法
 	 */
 
-	@Test
-	public void getUnitManagerVO() {
-		UnitManagerVO unitManagerVO = new UnitManagerVO();
-		int page = 1;
-		unitManagerVO.setPageIndex(page);
-
-		unitManagerVO = distributionService.getUnitManagerVO(unitManagerVO);
-		System.out.println("ceshi :"+unitManagerVO);
+	
 	}
 
-}
+

@@ -121,7 +121,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	public unit getTransferStationInfoById(String trim) {
 		unit transferStation = new unit();
 		Session session = getSession();
-		String hql = "from unit where unit_id = :ID";
+		String hql = "from unit where unit_id = :ID ";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", trim);
 		transferStation = (unit) query.uniqueResult();
@@ -145,7 +145,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	}
 
 	/**
-	 * 按照倒序查单位
+	 * 按照倒序查中转站编号最大值
 	 */
 	@Override
 	public String getTransferStationByNum(String unit_num) {

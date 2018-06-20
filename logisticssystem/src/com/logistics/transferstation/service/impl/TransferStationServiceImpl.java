@@ -42,7 +42,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 		unit unit = new unit();
 		String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
 		System.out.println("iiiii" + maxNum);
-
 		if (maxNum != null) {
 			maxNum = maxNum.replaceAll("[A]", "");
 			int nextNum = Integer.parseInt(maxNum);
@@ -179,7 +178,22 @@ public class TransferStationServiceImpl implements TransferStationService {
 			listTransferStationHql = listTransferStationHql + " and unit_superiorunit = '"
 					+ transferStationVO.getSuperiorunit().trim() + "'";
 		}
+		/**
+		 * 
+		 */
 
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0) {
+			System.out.println("qawewrfds"+staffBasicinfo);
+			unit staff_unit = transferStationDao.getTransferStationInfoById(staffBasicinfo.getStaff_unit());
+			System.out.println("adawdas"+staff_unit);
+			if (staff_unit != null) {
+				transferStationCountHql = transferStationCountHql + " and (unit_id ='" + staff_unit.getUnit_id()
+						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
+				listTransferStationHql = listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id()
+						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
+				System.out.println("12312321441:-----------" + transferStationCountHql);
+			}
+		}
 		/**
 		 * 分页
 		 */
@@ -217,7 +231,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 		// 遍历unit表
 		for (unit unit : listUnit) {
+			/**
+			 * 单位创建者的信息
+			 */
 			staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
+			/**
+			 * 单位管理员信息
+			 */
 			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unit.getUnit_admin());
 
 			// 模糊查询显示高亮
@@ -226,11 +246,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 						"<mark>" + transferStationVO.getSearch() + "</mark>"));
 				System.out.println("987654321");
 			}
+
 			// 实例化unitManagerDTO
 			unitManagerDTO = new UnitManagerDTO();
 			// 把unit_Creator和unit_Admin set进unitManagerDTO
 			unitManagerDTO.setUnit_Admin(unit_Admin);
 			unitManagerDTO.setUnit_Creator(unit_Creator);
+
 			// 把unit set进unitManagerDTO
 			unitManagerDTO.setUnit(unit);
 			// 将DTO放在listDTO
@@ -250,7 +272,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 	public String vehicleDistribution(String vehicleList, String teamNum) {
 		team team = transferStationDao.getTeamById(teamNum);
-		System.out.println("888888"+team);
+		System.out.println("888888" + team);
 		if (team != null) {
 			String[] vehicleListDistribute = vehicleList.split(",");
 			for (String eachVehicleId : vehicleListDistribute) {
@@ -262,7 +284,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
 					System.out.println("ghghghg" + vehicle);
 					if (vehicle != null) {
-						
+
 						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
 						vehicle.setVehicle_createtime(TimeUtil.getStringSecond());
@@ -278,13 +300,14 @@ public class TransferStationServiceImpl implements TransferStationService {
 				}
 
 			}
-		}else {
+		} else {
 			System.out.println("meinjin");
 			return "fail";
 		}
-		
+
 		return "fail";
 	}
+
 	/**
 	 * 招募司机
 	 */
@@ -295,6 +318,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		transferStationDao.saveOrUpdateObject(driver);
 		return "success";
 	}
+
 	/**
 	 * 分配司机到车队
 	 */
@@ -305,7 +329,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 * 如果车队编号不为空
 		 */
 		team team = transferStationDao.getTeamById(teamNum);
-		System.out.println("6666666"+team);
+		System.out.println("6666666" + team);
 		if (team != null) {
 			/**
 			 * 实例化一个司机集合
@@ -323,7 +347,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					driver driver = transferStationDao.getDriverById(eachDriverId);
 					System.out.println("ghghghg" + driver);
 					if (driver != null) {
-						
+
 						System.out.println("qwqwqw");
 						driver.setDriver_belong_team(teamNum);
 						driver.setDriver_createtime(TimeUtil.getStringSecond());
@@ -340,14 +364,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 				}
 
 			}
-		}else {
-			
+		} else {
+
 			System.out.println("meinjin");
 			return "fail";
 		}
-		
+
 		return "fail";
 	}
-	
-	
+
 }

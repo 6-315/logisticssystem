@@ -82,7 +82,8 @@ public class Transferstation {
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		/*String search = "l";
 		transferStationVO.setSearch(search);*/
-		transferStationVO.setSuperiorunit("");
+		staffBasicInfo.setStaff_id("78e07c34-735f-45d4-a870-3e5bebe5ddc4");
+		staffBasicInfo.setStaff_unit("77e07c34-735f-45d4-a870-3e5bebe5ddc2");
 		transferStationVO = transferStationService.queryTransferStation(transferStationVO,staffBasicInfo);
 		System.out.println("chaxun"+transferStationVO);
 		

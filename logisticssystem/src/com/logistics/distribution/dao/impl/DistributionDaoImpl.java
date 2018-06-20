@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.distribution.dao.DistributionDao;
+import com.logistics.domain.team;
+import com.logistics.domain.unit;
 /**
  * 配送点管理的DAO实现层
  * @author LW
@@ -103,6 +105,28 @@ public class DistributionDaoImpl implements DistributionDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	@Override
+	public unit getDistributionInfoById(String trim ) {
+		unit unit = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		unit = (unit) query.uniqueResult();
+		return unit;
+	}
+
+	@Override
+	public String getDistributionByNum(String unit_num) {
+		Session session = getSession();
+		String hql = "select substring(unit_num,5) from unit where unit_type=:num  order by --substring(unit_num, 5) desc limit 1";
+		System.out.println(hql);
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("num", "配送点");
+		String maxNum = (String) query.uniqueResult();
+		return maxNum;
 	}
 
 }

@@ -373,8 +373,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + transferStationService.vehicleDistribution(vehicleList, teamNum));
-	}
-
+	}	
 	public void driverRecruit() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
@@ -390,4 +389,5 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + transferStationService.driverDistribution(driverList, teamNum));
 	}
+	
 }
