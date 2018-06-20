@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iZimodal/iziModal.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -61,11 +62,11 @@
         </ul>
     </div>
 </div>
-<div class="page" style="margin-top:110px">
+<div id="useraddress" class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
-            <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
-            <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">&nbsp;我的信息</a></li>
+            <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex">首页&nbsp;</a></li>
+            <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">&nbsp;我的信息</a></li>
             <li>&nbsp;地址管理</li>
         </ol>
         <div class="yto-box">
@@ -92,50 +93,193 @@
                         <li role="presentation" class="active">地址管理</li>
                     </ul>--%>
                     <div class="m_top_30">
-                        <a class="btn btn-primary btn-sm" href="#" data-pagetype="0"
-                           data-toggle="modal" data-target="#myModal">+ 新增地址</a>
+                        <a @click="addAddressShow" class="btn btn-primary btn-sm">+ 新增地址</a>
                     </div>
                     <table class="table table-bordered table-hover m_top_10">
                         <thead>
                         <tr>
                             <th>姓名</th>
-                            <th>手机</th>
+                            <th>联系方式</th>
+                            <th>地址</th>
                             <th>详细地址</th>
-                            <th>公司名称</th>
-                            <th width="170">操作</th>
+                            <th>邮政编号</th>
+                            <th>是否为默认地址</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr v-for="addre in addressList" :key="addre.address_id">
+                            <td>{{addre.address_realname}}</td>
+                            <td>{{addre.address_phonenumber}}</td>
+                            <td>{{addre.address_address}}</td>
+                            <td>{{addre.address_detailaddress}}</td>
+                            <td>{{addre.address_postalnumber}}</td>
+                            <td>{{addre.address_isdefault}}</td>
+                            <td>
+                                <a @click="openMorenAddress(addre)" href="#"
+                                   class="btn btn-primary">默认地址</a>
+                                <%--<a href="#" class="btn btn-primary">修改</a>--%>
+                                <a @click="openDeleteAddress(addre)" href="#" class="btn btn-danger">删除</a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
-                        <%--<nav>
-                            <ul class="pagination">
-                            </ul>
-                            <span class="pagination-info">
-                        共 0  条
-            </span>
-                            <div class="pagination-set">
-                                <select name="limit"
-                                        class="form-control"&lt;%&ndash; onchange="window.location = '' + this.value;"&ndash;%&gt;>
-                                    <!--  <option value="50">-每页显示条数-</option> -->
-                                    <option value="10" selected="selected">10</option>
-
-                                    <option value="50">50</option>
-
-                                    <option value="100">100</option>
-
-                                    <option value="200">200</option>
-
-                                    <option value="500">500</option>
-
-                                </select>
-                                <span>条/页</span>
-                            </div>
-                        </nav>--%>
                 </div>
             </div>
         </div>
     </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModal">
+                        添加地址
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal fv-form fv-form-bootstrap" novalidate="novalidate">
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">姓名</label>
+                            <div class="col-sm-6">
+                                <input v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
+                                <small style="display: none;" class="help-block">请输入您的姓名
+                                </small>
+                                <small style="display: none;" class="help-block">请填写15字符之内、中文或英文
+                                </small>
+                                <small style="display: none;" class="help-block">Please enter a value with valid
+                                    length
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">联系方式</label>
+                            <div class="col-sm-6">
+                                <input v-model="address.address_phonenumber" class="form-control"
+                                       placeholder="手机号码">
+                                <small style="display: none;" class="help-block">请输入正确的手机
+                                </small>
+                                <small style="display: none;" class="help-block">Please enter a valid value
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">地址 省/市/区</label>
+                            <div class="col-sm-6 dropdown yto-city" :class="{open : isOpen}">
+                                <input v-model="address.address_address" @focus="openBox" readonly="readonly"
+                                       type="text" placeholder="请输入省市区"
+                                       class="form-control">
+                                <div @mouseleave="closeBox" class="yto-city-box dropdown-menu">
+                                    <ul>
+                                        <li @click="selectProvinceMethod" style="color: #000;"
+                                            :class="{hover : selectProvince}">省份
+                                        </li>
+                                        <li @click="selectCityMethod" id="city" :class="{hover : selectCity}"
+                                            style="color: #000;">市
+                                        </li>
+                                        <li @click="selectCountyMethod" :class="{hover : selectCounty}"
+                                            style="color: #000;">区
+                                        </li>
+                                    </ul>
+                                    <div class="yto-city-cont">
+                                        <dl id="sendProC" class="ytoprov"
+                                            :style="[selectProvince?bl:no]">
+                                            <dd @click="inputProvince(pro.provinceID,pro.province)"
+                                                v-for="pro in province" :key="pro.id" :title="pro.province"
+                                                :value="pro.provinceID">{{pro.province}}
+                                            </dd>
+                                        </dl>
+                                        <dl id="cityC" class="ytocity" :style="[selectCity ? bl : no]">
+                                            <dd @click="inputCity(cit.cityID,cit.city)"
+                                                v-for="cit in city" :key="cit.id" :title="cit.city"
+                                                :value="cit.cityID">{{cit.city}}
+                                            </dd>
+                                        </dl>
+                                        <dl id="xianC" class="ytodist"
+                                            :style="[selectCounty ? bl : no]">
+                                            <dd @click="inputCountry(cou.area)" v-for="cou in country"
+                                                :key="cou.id" :title="cou.area" :value="cou.areaID">{{cou.area}}
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">详细地址</label>
+                            <div class="col-sm-6">
+                                <input v-model="address.address_detailaddress" class="form-control"
+                                       placeholder="输入详细地址">
+                                <small style="display: none;" class="help-block">请输入正确的详细地址
+                                </small>
+                                <small style="display: none;" class="help-block">Please enter a value with
+                                    valid length
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">邮政编码</label>
+                            <div class="col-sm-6">
+                                <input v-model="address.address_postalnumber" class="form-control"
+                                       placeholder="可填写邮政编码（选填）">
+                                <small style="display: none;" class="help-block">请输入正确的邮政编码
+                                </small>
+                                <small style="display: none;" class="help-block">Please enter a value with
+                                    valid length
+                                </small>
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label class="col-sm-4 control-label">设置为默认地址</label>
+                            <div class="col-sm-6" style="margin-top:8px;">
+                                <input v-model="setMoRen" type="checkbox">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button @click="addAddress" :disabled="disabled" type="button"
+                            class="btn btn-primary">
+                        保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="deleteAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="deleteMyAddress">
+                        删除地址
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    删除地址后不可还原，点击确定后删除
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button :disabled="deleteOn" @click="deleteAddressMethod" type="button" class="btn btn-danger">
+                        删除
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 <footer class="page-footer" style="height: 72px">
     <div class="container">
@@ -156,18 +300,14 @@
         </div>
     </div>
 </footer>
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
-<script type="text/javascript" src="http://ec.yto.net.cn/assets/js/page.js"></script>
-<%--<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/iziModal.min.js"></script>--%>
-<script>
-
-</script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/user-useraddress.js"></script>
 </body>
 </html>

@@ -25,7 +25,21 @@
                         'userInfo.userinfo_password': userInfo.userinfo_password
                     },
                     success: function (data) {
-                        console.log('lp:', data)
+                        if (data === 'success') {
+                            $.ajax({
+                                url: '/logisticssystem/loginregister/loginregister_login',
+                                type: 'POST',
+                                data: {
+                                    username: userInfo.userinfo_phonenumber,
+                                    password: userInfo.userinfo_password
+                                },
+                                success: function (data) {
+                                    window.location = '/logisticssystem/loginregister/loginregister_pageUser'
+                                }
+                            })
+                        } else {
+
+                        }
                     }
                 })
             }
