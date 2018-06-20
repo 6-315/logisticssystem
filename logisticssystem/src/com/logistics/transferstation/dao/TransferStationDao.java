@@ -2,6 +2,7 @@ package com.logistics.transferstation.dao;
 
 import java.util.List;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 /**
@@ -65,8 +66,5 @@ public interface TransferStationDao {
 	 */
 	public staff_basicinfo getBasicinfoById(String trim);
 
-
-	
-	
 	
 }

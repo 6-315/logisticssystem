@@ -208,7 +208,6 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + personnelManagementService.removeListStaff(staffListIdS));
 	}
-
 	/**
 	 * 修改员工单位
 	 * 
@@ -219,34 +218,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.updateStaffUnit(staffBasicInfo));
+		response.getWriter().write("" + personnelManagementService.updateStaffInfo(staffBasicInfo));
 	}
-
-	/**
-	 * 就该员工职位
-	 * 
-	 * @throws IOException
-	 */
-	public void updateStaffPosition() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
-		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.updateStaffPosition(staffBasicInfo));
-
-	}
-
-	/**
-	 * 修改员工状态
-	 */
-	public void updateStaffState() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
-		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + personnelManagementService.updateStaffState(staffBasicInfo));
-	}
-
 	/**
 	 * 添加员工
 	 * 

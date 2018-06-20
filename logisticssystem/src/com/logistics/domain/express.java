@@ -24,6 +24,10 @@ public class express {
 	 */
 	private String express_belong;
 	/**
+	 * 快件所在单位
+	 */
+	private String express_belongunit;
+	/**
 	 * 状态
 	 */
 	private String express_state;
@@ -76,6 +80,14 @@ public class express {
 		this.express_belong = express_belong;
 	}
 
+	public String getExpress_belongunit() {
+		return express_belongunit;
+	}
+
+	public void setExpress_belongunit(String express_belongunit) {
+		this.express_belongunit = express_belongunit;
+	}
+
 	public String getExpress_state() {
 		return express_state;
 	}
@@ -119,9 +131,10 @@ public class express {
 	@Override
 	public String toString() {
 		return "express [express_id=" + express_id + ", express_expressinfoid=" + express_expressinfoid
-				+ ", express_number=" + express_number + ", express_belong=" + express_belong + ", express_state="
-				+ express_state + ", express_originating=" + express_originating + ", express_end=" + express_end
-				+ ", express_createtime=" + express_createtime + ", express_modifytime=" + express_modifytime + "]";
+				+ ", express_number=" + express_number + ", express_belong=" + express_belong + ", express_belongunit="
+				+ express_belongunit + ", express_state=" + express_state + ", express_originating="
+				+ express_originating + ", express_end=" + express_end + ", express_createtime=" + express_createtime
+				+ ", express_modifytime=" + express_modifytime + "]";
 	}
 
 }

@@ -3,40 +3,61 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.logistics.domain.vehicle" table="VEHICLE">
-        <id name="vehicle_id" type="java.lang.String">
-            <column name="vehicle_id" />
-            <generator class="assigned" />
-        </id>
-        <property name="vehicle_num" type="java.lang.String">
-            <column name="vehicle_num" />
-        </property>
-        <property name="vehicle_platenum" type="java.lang.String">
-            <column name="vehicle_platenum" />
-        </property>
-        <property name="vehicle_state" type="java.lang.String">
-            <column name="vehicle_state" />
-        </property>
-        <property name="vehicle_unit" type="java.lang.String">
-            <column name="vehicle_unit" />
-        </property>
-        <property name="vehicle_acquisitiontime" type="java.lang.String">
-            <column name="vehicle_acquisitiontime" />
-        </property>
-        <property name="vehicle_acquisitionpeople" type="java.lang.String">
-            <column name="vehicle_acquisitionpeople" />
-        </property>
-        <property name="vehicle_team" type="java.lang.String">
-            <column name="vehicle_team" />
-        </property>
-        <property name="vehicle_mark" type="java.lang.String">
-            <column name="vehicle_mark" />
-        </property>
-        <property name="vehicle_createtime" type="java.lang.String">
-            <column name="vehicle_createtime" />
-        </property>
-        <property name="vehicle_modifytime" type="java.lang.String">
-            <column name="vehicle_modifytime" />
-        </property>
-    </class>
+	<class name="com.logistics.domain.vehicle" table="VEHICLE">
+		<id name="vehicle_id" type="java.lang.String">
+			<column name="vehicle_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="vehicle_num" type="java.lang.String">
+			<column name="vehicle_num" />
+		</property>
+		<property name="vehicle_platenum" type="java.lang.String">
+			<column name="vehicle_platenum" />
+		</property>
+		<property name="vehicle_current_weight"
+			type="java.lang.String">
+			<column name="vehicle_current_weight" />
+		</property>
+		<property name="vehicle_standard" type="java.lang.String">
+			<column name="vehicle_standard" />
+		</property>
+		<property name="vehicle_state" type="java.lang.String">
+			<column name="vehicle_state" />
+		</property>
+		<property name="vehicle_distribution_state"
+			type="java.lang.String">
+			<column name="vehicle_distribution_state" />
+		</property>
+		<property name="vehicle_express_state"
+			type="java.lang.String">
+			<column name="vehicle_express_state" />
+		</property>
+		<property name="vehicle_drivingdirection"
+			type="java.lang.String">
+			<column name="vehicle_drivingdirection" />
+		</property>
+		<property name="vehicle_unit" type="java.lang.String">
+			<column name="vehicle_unit" />
+		</property>
+		<property name="vehicle_acquisitiontime"
+			type="java.lang.String">
+			<column name="vehicle_acquisitiontime" />
+		</property>
+		<property name="vehicle_acquisitionpeople"
+			type="java.lang.String">
+			<column name="vehicle_acquisitionpeople" />
+		</property>
+		<property name="vehicle_team" type="java.lang.String">
+			<column name="vehicle_team" />
+		</property>
+		<property name="vehicle_mark" type="java.lang.String">
+			<column name="vehicle_mark" />
+		</property>
+		<property name="vehicle_createtime" type="java.lang.String">
+			<column name="vehicle_createtime" />
+		</property>
+		<property name="vehicle_modifytime" type="java.lang.String">
+			<column name="vehicle_modifytime" />
+		</property>
+	</class>
 </hibernate-mapping>

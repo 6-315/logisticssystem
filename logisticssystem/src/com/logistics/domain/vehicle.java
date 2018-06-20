@@ -20,9 +20,30 @@ public class vehicle {
 	 */
 	private String vehicle_platenum;
 	/**
+	 * 车辆当前重量
+	 */
+	private String vehicle_current_weight;
+	/**
+	 * 车辆载重规则
+	 */
+
+	private String vehicle_standard;
+	/**
 	 * 车辆状态
 	 */
 	private String vehicle_state;
+	/**
+	 * 车辆分配状态
+	 */
+	private String vehicle_distribution_state;
+	/**
+	 * 车辆装载状态
+	 */
+	private String vehicle_express_state;
+	/**
+	 * 车辆当前所在单位
+	 */
+	private String vehicle_drivingdirection;
 	/**
 	 * 车辆所属单位
 	 */
@@ -76,12 +97,52 @@ public class vehicle {
 		this.vehicle_platenum = vehicle_platenum;
 	}
 
+	public String getVehicle_current_weight() {
+		return vehicle_current_weight;
+	}
+
+	public void setVehicle_current_weight(String vehicle_current_weight) {
+		this.vehicle_current_weight = vehicle_current_weight;
+	}
+
+	public String getVehicle_standard() {
+		return vehicle_standard;
+	}
+
+	public void setVehicle_standard(String vehicle_standard) {
+		this.vehicle_standard = vehicle_standard;
+	}
+
 	public String getVehicle_state() {
 		return vehicle_state;
 	}
 
 	public void setVehicle_state(String vehicle_state) {
 		this.vehicle_state = vehicle_state;
+	}
+
+	public String getVehicle_distribution_state() {
+		return vehicle_distribution_state;
+	}
+
+	public void setVehicle_distribution_state(String vehicle_distribution_state) {
+		this.vehicle_distribution_state = vehicle_distribution_state;
+	}
+
+	public String getVehicle_express_state() {
+		return vehicle_express_state;
+	}
+
+	public void setVehicle_express_state(String vehicle_express_state) {
+		this.vehicle_express_state = vehicle_express_state;
+	}
+
+	public String getVehicle_drivingdirection() {
+		return vehicle_drivingdirection;
+	}
+
+	public void setVehicle_drivingdirection(String vehicle_drivingdirection) {
+		this.vehicle_drivingdirection = vehicle_drivingdirection;
 	}
 
 	public String getVehicle_unit() {
@@ -143,7 +204,10 @@ public class vehicle {
 	@Override
 	public String toString() {
 		return "vehicle [vehicle_id=" + vehicle_id + ", vehicle_num=" + vehicle_num + ", vehicle_platenum="
-				+ vehicle_platenum + ", vehicle_state=" + vehicle_state + ", vehicle_unit=" + vehicle_unit
+				+ vehicle_platenum + ", vehicle_current_weight=" + vehicle_current_weight + ", vehicle_standard="
+				+ vehicle_standard + ", vehicle_state=" + vehicle_state + ", vehicle_distribution_state="
+				+ vehicle_distribution_state + ", vehicle_express_state=" + vehicle_express_state
+				+ ", vehicle_drivingdirection=" + vehicle_drivingdirection + ", vehicle_unit=" + vehicle_unit
 				+ ", vehicle_acquisitiontime=" + vehicle_acquisitiontime + ", vehicle_acquisitionpeople="
 				+ vehicle_acquisitionpeople + ", vehicle_team=" + vehicle_team + ", vehicle_mark=" + vehicle_mark
 				+ ", vehicle_createtime=" + vehicle_createtime + ", vehicle_modifytime=" + vehicle_modifytime + "]";

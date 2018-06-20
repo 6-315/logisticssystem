@@ -6,7 +6,7 @@
 	<package name="personnelmanagement" namespace="/personnelmanagement" extends="struts-default"
 		strict-method-invocation="false">
 		<action name="personnelmanagement_*"
-			class="com.logistics.personnelmanagement.action.PersonnelmanagementAction" method="{1}">
+			class="com.logistics.personnelmanagement.action.PersonnelManagementAction" method="{1}">
 			
 
 		

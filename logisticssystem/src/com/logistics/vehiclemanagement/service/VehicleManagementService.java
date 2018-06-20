@@ -2,6 +2,7 @@ package com.logistics.vehiclemanagement.service;
 
 import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
+import com.logistics.domain.vehiclecirculation;
 import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 
@@ -17,7 +18,7 @@ public interface VehicleManagementService {
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int addVehicle(vehicle vehicleInfo);
+	public String addVehicle(vehicle vehicleInfo);
 
 	/**
 	 * 查询车辆
@@ -30,13 +31,13 @@ public interface VehicleManagementService {
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public int updateVehicle(vehicle vehicleInfo);
+	public String updateVehicle(vehicle vehicleInfo);
 
 	/**
 	 * 根据id批量删除车辆
 	 * @param ids
 	 */
-	public String deleteVehicle(VehicleVO vehicleInfoVO);
+	public String deleteVehicle(String idList);
 
 	/**
 	 * 添加车队
@@ -54,9 +55,9 @@ public interface VehicleManagementService {
 
 	/**
 	 * 批量删除车队
-	 * @param teamInfoVO
+	 * @param idList
 	 */
-	public String deleteTeam(TeamVO teamInfoVO);
+	public String deleteTeam(String idList);
 
 	/**
 	 * 查询车队信息
@@ -65,9 +66,6 @@ public interface VehicleManagementService {
 	 */
 	public TeamVO queryTeam(TeamVO teamInfoVO);
 
-	
-
-	
-	
+	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
 
 }

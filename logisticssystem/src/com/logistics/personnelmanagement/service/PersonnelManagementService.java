@@ -21,13 +21,16 @@ public interface PersonnelManagementService {
 
 	String removeListStaff(String staffListIdS);
 
-	String updateStaffUnit(staff_basicinfo staffBasicinfo);
 
-	String updateStaffPosition(staff_basicinfo staffBasicinfo);
 
-	String updateStaffState(staff_basicinfo staffBasicinfo);
 
 	staff_basicinfo addStaff(staff_basicinfo staffBasicinfo);
+
+	String updateStaffInfo(staff_basicinfo staffBasicInfo);
+
+	String updateStaffUnit(staff_basicinfo staffBasicinfo);
+
+	String updateStaffState(staff_basicinfo staffBasicinfo);
 
 
 	

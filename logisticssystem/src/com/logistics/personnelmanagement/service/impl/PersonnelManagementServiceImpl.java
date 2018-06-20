@@ -188,10 +188,10 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<unit> getLowerUnit(staff_basicinfo staffBasicinfo) {
-		if (staffBasicinfo.getStaff_id().trim().length() > 0
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
+				&& staffBasicinfo.getStaff_position() != null
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
 			List<unit> listUnit = new ArrayList<>();
-			List<unit> listUnitByp = new ArrayList<>();
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
 			if ("总公司".equals(positionNew.getPosition_name())) {
@@ -216,7 +216,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<position> getLowerPosition(staff_basicinfo staffBasicinfo) {
-		if (staffBasicinfo.getStaff_id().trim().length() > 0
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
+				&& staffBasicinfo.getStaff_position() != null
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
@@ -281,34 +282,40 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
 			System.out.println("成功！");
+			return "success";
 		}
-		return "success";
+		return "error";
 	}
 
 	/**
-	 * 修改员工职位
+	 * 修改员工信息
 	 * 
 	 * @return success
 	 */
 	@Override
-	public String updateStaffPosition(staff_basicinfo staffBasicinfo) {
-		if (staffBasicinfo.getStaff_id().trim().length() > 0
-				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
-			staff_basicinfo staffBasicinfoNew = new staff_basicinfo();
-			unit Unit=new unit();
-			
-			staffBasicinfoNew = personnelManagementDao.getstaffBasicinfo(staffBasicinfo.getStaff_id());		
-			staffBasicinfoNew.setStaff_unit(staffBasicinfo.getStaff_unit());			
-			staffBasicinfoNew.setStaff_position(staffBasicinfo.getStaff_position());
-		
-			//更改上级领导，根据输入的职位，查到此职位的所属单位，再查这个单位的上级单位，再查到谁是这个所属单位的人的信息，得到名字
-			Unit=personnelManagementDao.getUnitAdmin(staffBasicinfoNew);
-			staffBasicinfoNew.setStaff_superiorleader(Unit.getUnit_admin());
-			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
-			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
-			System.out.println("成功！");
+	public String updateStaffInfo(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo != null
+				&& staffBasicinfo.getStaff_id().trim().length() > 0) {
+
+			if (staffBasicinfo.getStaff_id().trim().length() > 0
+					&& staffBasicinfo.getStaff_position().trim().length() > 0) {
+				staff_basicinfo staffBasicinfoNew = new staff_basicinfo();
+				unit Unit = new unit();
+
+				staffBasicinfoNew = personnelManagementDao.getstaffBasicinfo(staffBasicinfo.getStaff_id());
+				staffBasicinfoNew.setStaff_unit(staffBasicinfo.getStaff_unit());
+				staffBasicinfoNew.setStaff_position(staffBasicinfo.getStaff_position());
+
+				// 更改上级领导，根据输入的职位，查到此职位的所属单位，再查这个单位的上级单位，再查到谁是这个所属单位的人的信息，得到名字
+				Unit = personnelManagementDao.getUnitAdmin(staffBasicinfoNew);
+				staffBasicinfoNew.setStaff_superiorleader(Unit.getUnit_admin());
+				staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
+				personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
+				System.out.println("成功！");
+			}
+			return "success";
 		}
-		return "success";
+		return "error";
 	}
 
 	/**
@@ -319,10 +326,21 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		if (staffBasicinfo.getStaff_id().trim().length() > 0 && staffBasicinfo.getStaff_state().trim().length() > 0) {
 			staff_basicinfo staffBasicinfoNew = new staff_basicinfo();
 			staffBasicinfoNew = personnelManagementDao.getstaffBasicinfo(staffBasicinfo.getStaff_id());
-			staffBasicinfoNew.setStaff_state(staffBasicinfo.getStaff_state());
-			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
+			if (staffBasicinfo.getStaff_unit() != null && staffBasicinfo.getStaff_unit().trim().length() > 0) {
+				System.out.println("oooooooo" + staffBasicinfo.getStaff_unit());
+				staffBasicinfoNew.setStaff_unit(staffBasicinfo.getStaff_unit());
+				System.out.println("单位成功！");
+			} else if (staffBasicinfo.getStaff_position() != null
+					&& staffBasicinfo.getStaff_position().trim().length() > 0) {
+				staffBasicinfoNew.setStaff_position(staffBasicinfo.getStaff_position());
+				System.out.println("职位成功！");
+			} else if (staffBasicinfo.getStaff_state() != null && staffBasicinfo.getStaff_state().trim().length() > 0) {
+				staffBasicinfoNew.setStaff_state(staffBasicinfo.getStaff_state());
+				System.out.println("状态成功！");
+			}
+			staffBasicinfoNew.setStaff_modifytime(TimeUtil.getStringSecond());
 			personnelManagementDao.saveOrUpdateObject(staffBasicinfoNew);
-			System.out.println("成功！");
+
 		}
 		return "success";
 	}
@@ -330,34 +348,37 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	/**
 	 * @return Success 添加员工
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public staff_basicinfo addStaff(staff_basicinfo staffBasicinfo) {
 		List<staff_basicinfo> staffBasicInfoNew = new ArrayList<>();
-		staff_basicinfo staff_basicinfo = new staff_basicinfo();
-		String maxStaffNum = personnelManagementDao.getstaffBasicinfoMaxNum();
-		System.out.println("youyouyoyuyoyu" + maxStaffNum);
-		if (staffBasicinfo != null) {
-			if (maxStaffNum == null) {
-				staff_basicinfo.setStaff_num(String.format("%08d", 1));
-			} else {
-				int tmpMaxNum = Integer.parseInt(maxStaffNum);
-				int tmpNewNum = tmpMaxNum + 1;
-				staff_basicinfo.setStaff_num(String.format("%08d", tmpNewNum));
-			}
-			System.out.println("11" + staff_basicinfo.getStaff_num());
+		if (staffBasicinfo.getStaff_name() != null && staffBasicinfo.getStaff_name().trim().length() > 0) {
+			staff_basicinfo staff_basicinfo = new staff_basicinfo();
+			String maxStaffNum = personnelManagementDao.getstaffBasicinfoMaxNum();
+			System.out.println("youyouyoyuyoyu" + maxStaffNum);
+			if (staffBasicinfo != null) {
+				if (maxStaffNum == null) {
+					staff_basicinfo.setStaff_num(String.format("%08d", 1));
+				} else {
+					int tmpMaxNum = Integer.parseInt(maxStaffNum);
+					int tmpNewNum = tmpMaxNum + 1;
+					staff_basicinfo.setStaff_num(String.format("%08d", tmpNewNum));
+				}
+				System.out.println("11" + staff_basicinfo.getStaff_num());
 
-			System.out.println("22" + staff_basicinfo.getStaff_num());
-			staffBasicinfo.setStaff_id(BuildUuid.getUuid());
-			staffBasicinfo.setStaff_num(staff_basicinfo.getStaff_num());
-			staffBasicinfo.setStaff_password(staffBasicinfo.getStaff_num());
-			staffBasicinfo.setStaff_createtime(TimeUtil.getStringSecond());
-			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
-			personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
-			staffBasicInfoNew = (List<staff_basicinfo>) personnelManagementDao
-					.listObject("from staff_basicinfo where staff_num = '" + staffBasicinfo.getStaff_num() + "'");
+				System.out.println("22" + staff_basicinfo.getStaff_num());
+				staffBasicinfo.setStaff_id(BuildUuid.getUuid());
+				staffBasicinfo.setStaff_num(staff_basicinfo.getStaff_num());
+				staffBasicinfo.setStaff_password(staffBasicinfo.getStaff_num());
+				staffBasicinfo.setStaff_createtime(TimeUtil.getStringSecond());
+				staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
+				personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
+				staffBasicInfoNew = (List<staff_basicinfo>) personnelManagementDao
+						.listObject("from staff_basicinfo where staff_num = '" + staffBasicinfo.getStaff_num() + "'");
 
-			if (staffBasicInfoNew.size() > 0) {
-				return staffBasicInfoNew.get(0);
+				if (staffBasicInfoNew.size() > 0) {
+					return staffBasicInfoNew.get(0);
+				}
 			}
 		}
 		return null;

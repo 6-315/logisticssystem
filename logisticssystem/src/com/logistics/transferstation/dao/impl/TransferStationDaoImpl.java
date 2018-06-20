@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.dao.TransferStationDao;
@@ -135,5 +136,4 @@ public staff_basicinfo getBasicinfoById(String trim) {
 	staff_basicinfo = (staff_basicinfo) query.uniqueResult();
 	return staff_basicinfo;
 }
-
 }

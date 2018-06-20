@@ -37,7 +37,7 @@ public class Vehiclemanagement {
 	@Test
 	public void addVehicleTest() {
 		vehicle vehicleInfo = new vehicle();
-		vehicleInfo.setVehicle_platenum("");
+		vehicleInfo.setVehicle_platenum("渝F-A3D68");
 		vehicleInfo.setVehicle_num("139");
 		vehicleInfo.setVehicle_state("保养中");
 		vehicleInfo.setVehicle_team("Note3");
@@ -65,7 +65,7 @@ public class Vehiclemanagement {
 	@Test
 	public void updateVehcileTest() {
 		vehicle vehicleinfo = new vehicle();
-		vehicleinfo.setVehicle_id("857b5726-0fe1-4683-8ede-01b4d41b3fd1");
+		vehicleinfo.setVehicle_id("");
 		vehicleinfo.setVehicle_num("9998");
 		vehicleinfo.setVehicle_mark("引擎故障，无法工作");
 		vehicleManagementService.updateVehicle(vehicleinfo);
@@ -77,10 +77,8 @@ public class Vehiclemanagement {
 	 */
 	@Test
 	public void deleteVehicleTest() {
-		String idList = "ea0d6851-0349-4326-9609-2e3b63eb2bab";
-		VehicleVO vehicleInfoVO = new VehicleVO();
-		vehicleInfoVO.setIdList(idList);
-		vehicleManagementService.deleteVehicle(vehicleInfoVO);
+		String idList = "ea0d6851-0349-4326-9609-2e3b63eb2bab,asdjiow12312sda";
+		vehicleManagementService.deleteVehicle(idList);
 	}
 	
 	/**
@@ -120,9 +118,15 @@ public class Vehiclemanagement {
 	 */
 	@Test
 	public void deleteTeamTest() {
-		String idList = "509435ae-5991-431f-b5e7-b72d41eb3d92,a50c6460-7938-4984-a862-1cb598301615";
-		TeamVO teamInfoVO = new TeamVO();
-		teamInfoVO.setIdList(idList);
-		vehicleManagementService.deleteTeam(teamInfoVO);
+		String idList = "";
+		vehicleManagementService.deleteTeam(idList);
+	}
+	/**
+	 * 车辆流转测试
+	 */
+	@Test
+	public void exchangeVehicleTest() {
+		vehiclecirculation vehicleCirculation = new vehiclecirculation();
+		vehicleCirculation.setVehiclecirculation_initiative("");
 	}
 }

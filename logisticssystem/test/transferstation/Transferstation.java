@@ -56,10 +56,9 @@ public class Transferstation {
 	 */
 	@Test
 	public void deleteTransferStation() {
-		UnitManagerVO unitManagerVO = new UnitManagerVO();
-		unitManagerVO.setIdList("11111");
-		System.out.println("1234567"+unitManagerVO);
-		transferStationService.deleteTransferStation(unitManagerVO);
+		String  idList ="";
+		System.out.println("1234567"+idList);
+		transferStationService.deleteTransferStation(idList);
 		
 	}
 	/**
@@ -84,7 +83,6 @@ public class Transferstation {
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		/*String search = "l";
 		transferStationVO.setSearch(search);*/
-		transferStationVO.setAdmin("12");
 		transferStationVO = transferStationService.queryTransferStation(transferStationVO,staffBasicInfo);
 		System.out.println("chaxun"+transferStationVO);
 		

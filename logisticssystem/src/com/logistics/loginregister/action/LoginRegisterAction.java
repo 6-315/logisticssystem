@@ -15,25 +15,33 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.logistics.domain.userinfo;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.logistics.domain.hat_area;
+import com.logistics.domain.hat_city;
+import com.logistics.domain.hat_province;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
+import com.logistics.loginregister.DTO.DeliveryAdminStaffDTO;
+import com.logistics.loginregister.DTO.DeliveryStaffDTO;
+import com.logistics.loginregister.DTO.DriverStaffDTO;
+import com.logistics.loginregister.DTO.SuperAdminStaffDTO;
+import com.logistics.loginregister.DTO.TeamStaffDTO;
+import com.logistics.loginregister.DTO.TransAdminStaffDTO;
+import com.logistics.loginregister.DTO.UserInfoSessionDTO;
 import com.logistics.loginregister.service.LoginRegisterService;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 注册登陆公用的Action
- * 
- * @author LW
  *
+ * @author LW
  */
 public class LoginRegisterAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
 	private static final long serialVersionUID = 1L;
 	private LoginRegisterService loginRegisterService;
 
-	public void setLginRegisterService(LoginRegisterService lginRegisterService) {
-		this.loginRegisterService = lginRegisterService;
+	public void setLoginRegisterService(LoginRegisterService loginRegisterService) {
+		this.loginRegisterService = loginRegisterService;
 	}
 
 	/**
@@ -80,6 +88,33 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	private String password;
 	private StaffManagerVO staffManagerVO;
 	private String type;
+	private String cityFatherId;
+	// 预约单信息
+	private String reversationNum;
+
+	public userinfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(userinfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public String getReversationNum() {
+		return reversationNum;
+	}
+
+	public void setReversationNum(String reversationNum) {
+		this.reversationNum = reversationNum;
+	}
+
+	public String getCityFatherId() {
+		return cityFatherId;
+	}
+
+	public void setCityFatherId(String cityFatherId) {
+		this.cityFatherId = cityFatherId;
+	}
 
 	public String getType() {
 		return type;
@@ -121,34 +156,93 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		this.password = password;
 	}
 
-	public userinfo getUserinfo() {
-		return userInfo;
-	}
-
-	public void setUserinfo(userinfo userinfo) {
-		this.userInfo = userinfo;
-	}
-
 	/**
 	 * 注册方法
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void register() throws IOException {
+		System.out.println("kkkkkkkkkkkkk");
+		System.out.println("oooooooo" + userInfo.getUserinfo_password());
 		if (userInfo.getUserinfo_phonenumber() != null && userInfo.getUserinfo_password() != null
 				&& userInfo.getUserinfo_phonenumber().trim().length() > 0
 				&& userInfo.getUserinfo_password().trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setPrettyPrinting();// 格式化json数据
 			Gson gson = gsonBuilder.create();
+			System.out.println("ppppppppppppppp");
 			response.setContentType("text/html;charset=utf-8");
+			System.out.println("oooooooooooooooooo" + userInfo);
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
 
 	/**
-	 * 登陆方法
+	 * 获取所有省份
 	 * 
+	 * @author JXX
+	 * @throws IOException
+	 */
+	public void getAllProvince() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllProvince()));
+	}
+
+	/**
+	 * 根据省份provinceID获取相应的市
+	 * 
+	 * @author JXX
+	 * @throws IOException
+	 */
+	public void getAllCityByProvinceID() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllCityByProvinceID(cityFatherId)));
+	}
+
+	/**
+	 * 根据市id获取区id
+	 * 
+	 * @throws IOException
+	 */
+	public void getAllCountryByCityID() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(loginRegisterService.getAllCountryByCityID(cityFatherId)));
+	}
+
+	/**
+	 * 跳转到用户首页
+	 */
+	public String pageUser() {
+		return "SuccessByUser";
+	}
+
+	/**
+	 * 跳转到成功页面
+	 */
+	public String pageReservationSuccess() {
+		System.out.println(reversationNum);
+		return "pageReservationSuccess";
+	}
+
+	/**
+	 * 跳转到员工首页
+	 */
+	public String pageStaff() {
+		return "SuccessByStaff";
+	}
+
+	/**
+	 * 登陆方法
+	 *
 	 * @throws IOException
 	 */
 	public void login() throws IOException {
@@ -165,30 +259,106 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listUserInfo.size() > 0) {
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
-					type = "用户";
-					request.getSession().setAttribute("type", type);
-					request.getSession().setAttribute("userInfoSession", userInfoSession);
-					response.getWriter().write(gson.toJson(userInfoSession));
-					System.out.println("成功！");
+					UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
+					userInfoSessionDTO.setUserInfoSession(userInfoSession);
+					request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
+					response.getWriter().write("用户登录成功");
+				} else {
+					response.getWriter().write("error");
 				}
-			}
-			if (listStaffBasicInfo.size() > 0) {
+			} else if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
-					type = "员工";
-					request.getSession().setAttribute("type", type);
-					request.getSession().setAttribute("staff_session", staffSession);
-					response.getWriter().write(gson.toJson(staffSession));
+					position positionNew = new position();
+					if (staffSession.getStaff_position() != null
+							&& staffSession.getStaff_position().trim().length() > 0) {
+						positionNew = loginRegisterService.getPosition(staffSession.getStaff_position());
+					}
+					if (positionNew != null) {
+						if (positionNew.getPosition_name() != null
+								&& positionNew.getPosition_name().trim().length() > 0) {
+							request.getSession().setAttribute("staff_session", staffSession);
+							switch (positionNew.getPosition_name().trim()) {
+							case "总公司管理员":
+								SuperAdminStaffDTO superAdminStaff = new SuperAdminStaffDTO();
+								superAdminStaff.setSuperAdminStaff(staffSession);
+								request.getSession().setAttribute("superAdminStaff", superAdminStaff);
+								response.getWriter().write("总公司管理员登录成功");
+								break;
+							case "中转站管理员":
+								TransAdminStaffDTO transAdminStaff = new TransAdminStaffDTO();
+								transAdminStaff.setTransAdminStaff(staffSession);
+								request.getSession().setAttribute("transAdminStaff", transAdminStaff);
+								response.getWriter().write("中转站管理员登录成功");
+								break;
+							case "配送点管理员":
+								DeliveryAdminStaffDTO deliveryAdminStaff = new DeliveryAdminStaffDTO();
+								deliveryAdminStaff.setDeliveryAdminStaff(staffSession);
+								request.getSession().setAttribute("deliveryAdminStaff", deliveryAdminStaff);
+								response.getWriter().write("配送点管理员登录成功");
+								break;
+							case "配送员":
+								DeliveryStaffDTO deliveryStaff = new DeliveryStaffDTO();
+								deliveryStaff.setDeliveryStaff(staffSession);
+								request.getSession().setAttribute("deliveryStaff", deliveryStaff);
+								response.getWriter().write("配送员登录成功");
+								break;
+							case "车队队长":
+								TeamStaffDTO teamStaff = new TeamStaffDTO();
+								teamStaff.setTeamStaff(staffSession);
+								request.getSession().setAttribute("teamStaff", teamStaff);
+								response.getWriter().write("车队队长登录成功");
+								break;
+							case "驾驶员":
+								DriverStaffDTO driverStaff = new DriverStaffDTO();
+								driverStaff.setDriverStaff(staffSession);
+								request.getSession().setAttribute("driverStaff", driverStaff);
+								response.getWriter().write("驾驶员登录成功");
+								break;
+							}
+						}
+					}
+				} else {
+					response.getWriter().write("error");
 				}
+			} else {
+				response.getWriter().write("error");
 			}
-			System.out.println("失败");
 		}
+		response.getWriter().flush();
+		response.getWriter().close();
+	}
 
+	/**
+	 * 获取session中的数据
+	 *
+	 * @throws IOException
+	 */
+	public void getSessionData() throws IOException {
+		response.setContentType("text/html;charset=utf-8");
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		if (request.getSession().getAttribute("userInfoSession") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("userInfoSession")));
+		} else if (request.getSession().getAttribute("superAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("superAdminStaff")));
+		} else if (request.getSession().getAttribute("transAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("transAdminStaff")));
+		} else if (request.getSession().getAttribute("deliveryAdminStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryAdminStaff")));
+		} else if (request.getSession().getAttribute("deliveryStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryStaff")));
+		} else if (request.getSession().getAttribute("teamStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("teamStaff")));
+		} else if (request.getSession().getAttribute("driverStaff") != null) {
+			response.getWriter().write(gson.toJson(request.getSession().getAttribute("driverStaff")));
+		}
 	}
 
 	/**
 	 * 注销方法
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	public void logoff() throws IOException {

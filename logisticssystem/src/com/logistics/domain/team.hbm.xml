@@ -17,6 +17,9 @@
         <property name="team_unit" type="java.lang.String">
             <column name="team_unit" />
         </property>
+        <property name="team_route" type="java.lang.String">
+            <column name="team_route" />
+        </property>
         <property name="team_createtime" type="java.lang.String">
             <column name="team_createtime" />
         </property>

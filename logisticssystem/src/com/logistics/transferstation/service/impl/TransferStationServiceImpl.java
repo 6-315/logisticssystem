@@ -2,11 +2,6 @@ package com.logistics.transferstation.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.ServletActionContext;
-
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
@@ -52,20 +47,20 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 
 	@Override
-	public String deleteTransferStation(UnitManagerVO unitManagerVO) {
+	public String deleteTransferStation(String idList) {
 		/*
 		 * 将获得的对象转化为数组
 		 */
-		String[] deleteTransferStationById = unitManagerVO.getIdList().split(",");
+		String[] deleteTransferStationById = idList.split(",");
 		/**
 		 * 遍历需要删除的中转站数组
 		 */
-		for (String idList : deleteTransferStationById) {
+		for (String id : deleteTransferStationById) {
 			/**
 			 * 如果数据库存在需要删除的中转站的id
 			 */
-			if (transferStationDao.getTransferStationInfoById(idList) != null) {
-				transferStationDao.removeObject(transferStationDao.getTransferStationInfoById(idList));
+			if (transferStationDao.getTransferStationInfoById(id) != null) {
+				transferStationDao.removeObject(transferStationDao.getTransferStationInfoById(id));
 				System.out.println("shanchuchenggong111111");
 				return "success";
 			}
@@ -103,11 +98,11 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 总公司能所有查询中转站
 	 */
 	@Override
-	public UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO,staff_basicinfo staffBasicinfo) {
+	public UnitManagerVO queryTransferStation(UnitManagerVO transferStationVO, staff_basicinfo staffBasicinfo) {
 		// 实例化List<UnitManagerDTO>
 		List<UnitManagerDTO> listUnitManagerDTO = new ArrayList<>();
 		// 创建一个UnitManagerDTO对象
-		UnitManagerDTO unitManagerDTO;
+		UnitManagerDTO unitManagerDTO = null;
 		// 实例化List<unit>
 		List<unit> listUnit = new ArrayList<>();
 		// sql语句 查询unit表中有多少条数据
@@ -192,20 +187,51 @@ public class TransferStationServiceImpl implements TransferStationService {
 		System.out.println("qqqqqq" + transferStationCountHql);
 		System.out.println("aaaaa" + listTransferStationHql);
 		UnitManagerVO unitManagerVO = new UnitManagerVO();
-			System.out.println("0.0.0.0.0.0");
-			listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
-					transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-			// 遍历unit表
-			for (unit unit : listUnit) {
-				//根据id获取职位
-				staff_basicinfo staff_basicinfo =new staff_basicinfo();
-				staff_basicinfo = transferStationDao.getBasicinfoById(staffBasicinfo.getStaff_id());
-				//判断职位
-				if(staff_basicinfo.getStaff_position()!= null ) {}
-				// 查询创建者的信息
-				staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
-				// 查询管理员信息
-				staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unit.getUnit_admin());
+		System.out.println("0.0.0.0.0.0");
+		/**
+		 * 分页获取单位列表
+		 */
+		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
+				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
+		/**
+		 * 1.首先，已经获取了unitList
+		 * 2.遍历unitList获取每个单位的管理员下信息以及创建者信息和单位自己的信息
+		 * 3.for(unit unitInfo : unitList){
+		 * 		//创建人信息对象
+		 * 		staff_info createSfaff = new staff_info(); 
+		 * 		//管理员信息对象
+		 * 		staff_info adminStaff = new staff_info();
+		 * 		//关联是unit里面存着创建人staff_info.staff_id
+		 * 		createSfaff = transferStationDao.getStaffById(unitInfo.getUnit_creator())
+		 * 		//关联是unit里面存着管理员的staff_info.staff_id
+		 * 		createSfaff = transferStationDao.getStaffById(unitInfo.getUnit_admin())
+		 * }
+		 * 
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 遍历unit表
+		for (unit unit : listUnit) {
+			staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
+			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unit.getUnit_admin());
+
 				// 模糊查询显示高亮
 				if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 					unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
@@ -214,7 +240,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 				}
 				// 实例化unitManagerDTO
 				unitManagerDTO = new UnitManagerDTO();
-				// 把Admin和Creator set进unitManagerDTO
+				// 把unit_Creator和unit_Admin set进unitManagerDTO
 				unitManagerDTO.setUnit_Admin(unit_Admin);
 				unitManagerDTO.setUnit_Creator(unit_Creator);
 				// 把unit set进unitManagerDTO
@@ -224,25 +250,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 			}
 			// 将listDTO放在VO里面
 			transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
-		    return transferStationVO;
-	}
-
+			return transferStationVO;
+		}
 	/**
 	 * DTO
 	 */
 
-	/*
-	 * public UnitManagerDTO getUnitManagerDTO(String unit_id) { if (unit_id == null
-	 * || unit_id.trim().length() <= 0) { return null; }
-	 *//**
-		 * new一个DTO
-		 *//*
-			 * UnitManagerDTO unitManagerDTO = new UnitManagerDTO(); staff_basicinfo
-			 * unit_creator = new staff_basicinfo (); staff_basicinfo news_NewsInfo = new
-			 * staff_basicinfo();
-			 * 
-			 * 
-			 * return null; }
-			 * 
-			 */
 }

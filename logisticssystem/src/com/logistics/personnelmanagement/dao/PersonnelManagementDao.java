@@ -84,5 +84,5 @@ public interface PersonnelManagementDao {
 	 * @param trim
 	 * @return
 	 */
-    public unit getUnitAdmin(staff_basicinfo staffBasicinfo) ;
+	public unit getUnitAdmin(staff_basicinfo staffBasicinfo);
 }

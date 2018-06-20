@@ -79,24 +79,16 @@ public class Personnelmanagement {
 	 * 测试修改单位
 	 */
 	@Test
-	public void updateStaffUnit() {
+	public void updateStaffInfo() {
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		staffBasicInfo.setStaff_id("6");
+		staffBasicInfo.setStaff_id("123");
 		staffBasicInfo.setStaff_unit("9999电动车999");
-		personnelManagementService.updateStaffUnit(staffBasicInfo);
+		personnelManagementService.updateStaffInfo(staffBasicInfo);
 	}
 	
 /**
  * 测试修改职位
  */
-	@Test
-	public void updateStaffPosition() {
-		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		staffBasicInfo.setStaff_id("6");
-		staffBasicInfo.setStaff_position("9999dd999");
-		personnelManagementService.updateStaffPosition(staffBasicInfo);
-		
-	}
 	/**
 	 * 根据权限查人
 	 */

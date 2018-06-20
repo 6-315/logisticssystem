@@ -27,8 +27,7 @@ public interface TransferStationService {
 	 * @param transferStation
 	 * @return
 	 */
-	public String deleteTransferStation(UnitManagerVO unitManagerVO);
-
+	String deleteTransferStation(String idList);
 	/**
 	 * 分页显示中转站信息
 	 * 
@@ -46,6 +45,7 @@ public interface TransferStationService {
 	 */
 
 	String updateTransferStation(unit transferStation);
+
 
 
 }

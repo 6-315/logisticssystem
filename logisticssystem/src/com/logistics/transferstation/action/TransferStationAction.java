@@ -27,7 +27,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 public class TransferStationAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
-
+     
 	/**
 	 * 使用域模型将unit放到Struts中
 	 */
@@ -82,7 +82,7 @@ public staff_basicinfo getStaff_BasicInfo() {
 		this.staff_BasicInfo = staff_BasicInfo;
 	}
 	/**
-	 * 根据id进行删除或者批量删除的字段
+	 * 根据Id删除中转站信息
 	 */
 	private String idList;
 	/**
@@ -258,7 +258,6 @@ public String getIdList() {
 		unitManagerVO.setSuperiorunit(superiorunit);
 		unitManagerVO.setState(state);
 		unitManagerVO.setPageIndex(page);
-		unitManagerVO.setAdmin(admin);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		unitManagerVO = transferStationService.queryTransferStation(unitManagerVO,staffBasicinfo);
@@ -305,7 +304,7 @@ public String getIdList() {
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.deleteTransferStation(unitManagerVO));
+		response.getWriter().write("" + transferStationService.deleteTransferStation(idList));
 	}
 
 	/**
