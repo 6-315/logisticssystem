@@ -41,6 +41,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 				.listObject("from userinfo where userinfo_phonenumber = '" + userInfo.getUserinfo_phonenumber() + "'");
 		if (listUser.size() == 0) {
 			userInfo.setUserinfo_id(BuildUuid.getUuid());
+			userInfo.setUserinfo_username(userInfo.getUserinfo_phonenumber());
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
 			userInfo.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);

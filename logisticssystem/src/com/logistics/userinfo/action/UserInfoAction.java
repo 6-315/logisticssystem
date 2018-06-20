@@ -229,9 +229,9 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		userInfoSessionDTO = userInfoService.updateUserInfo(userInfo);
 		request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
 		if (userInfoSessionDTO != null) {
-			response.getWriter().write("Success");
+			response.getWriter().write("success");
 		} else {
-			response.getWriter().write("ERROR");
+			response.getWriter().write("error");
 		}
 	}
 
