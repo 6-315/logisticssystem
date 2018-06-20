@@ -128,6 +128,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 状态
 	 */
 	private String state = "";
+	/**
+	 * 配送员
+	 */
+	private distributiontor distributor;
+
+	public distributiontor getDistributor() {
+		return distributor;
+	}
+
+	public void setDistributor(distributiontor distributor) {
+		this.distributor = distributor;
+	}
 
 	public String getState() {
 		return state;
@@ -265,7 +277,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateReservation() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.updateReservation(reservationInfo));
+		response.getWriter().write("" + expressManagementService.updateReservation(idList,state));
 	}
 
 	/**
@@ -276,7 +288,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	public void updateReservationWithDistributor() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter()
-				.write("" + expressManagementService.updateReservationWithDistributor(reservationWithDistributorDTO));
+				.write("" + expressManagementService.updateReservationWithDistributor(idList,distributor));
 	}
 
 	/**

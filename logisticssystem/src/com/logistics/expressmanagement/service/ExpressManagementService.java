@@ -18,9 +18,9 @@ public interface ExpressManagementService {
 
 	public ReservationExpressInfoDTO addReservationAndExpressInfo(ReservationExpressInfoDTO reservationExpressInfoDTO, userinfo userInfo);
 
-	public String updateReservation(reservation reservationInfo);
+	public String updateReservation(String idList, String state);
 
-	public String updateReservationWithDistributor(ReservationWithDistributorDTO reservationWithDistributorDTO);
+	public String updateReservationWithDistributor(String idList, distributiontor distributor);
 
 	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo);
 

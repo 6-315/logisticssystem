@@ -74,16 +74,18 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 * 受理客户预约
 	 */
 	@Override
-	public String updateReservation(reservation reservationInfo) {
-		if (reservationInfo.getReservation_id() != null && reservationInfo.getReservation_id().trim().length() > 0) {
-			reservation updateReservationInfo = expressManagementDao
-					.getReservationInfoById(reservationInfo.getReservation_id());
-			if (updateReservationInfo != null) {
-				updateReservationInfo.setReservation_state(reservationInfo.getReservation_state());
-				updateReservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
-				expressManagementDao.saveOrUpdateObject(updateReservationInfo);
-				return "success";
+	public String updateReservation(String idList, String state) {
+		if (idList != null) {
+			String[] listId = idList.split(",");
+			for (String id : listId) {
+				reservation updateReservationInfo = expressManagementDao.getReservationInfoById(id);
+				if (updateReservationInfo != null) {
+					updateReservationInfo.setReservation_state(state);
+					updateReservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao.saveOrUpdateObject(updateReservationInfo);
+				}
 			}
+			return "success";
 		}
 		return "error";
 	}
@@ -92,26 +94,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 * 管理员分配配送员给预约单
 	 */
 	@Override
-	public String updateReservationWithDistributor(ReservationWithDistributorDTO reservationWithDistributorDTO) {
-		if (reservationWithDistributorDTO != null) {
-			if (reservationWithDistributorDTO.getReservationInfo().getReservation_id() != null
-					&& reservationWithDistributorDTO.getReservationInfo().getReservation_id().trim().length() > 0) {
-				reservation updateReservation = expressManagementDao
-						.getReservationInfoById(reservationWithDistributorDTO.getReservationInfo().getReservation_id());
-				if (updateReservation != null) {
-					if (reservationWithDistributorDTO.getDistributor().getDistributiontor_id() != null
-							&& reservationWithDistributorDTO.getDistributor().getDistributiontor_id().trim()
-									.length() > 0) {
-						distributiontor distributorInfo = expressManagementDao.getDistributorInfoById(
-								reservationWithDistributorDTO.getDistributor().getDistributiontor_id());
-						if (distributorInfo != null) {
+	public String updateReservationWithDistributor(String idList, distributiontor distributor) {
+		if (distributor.getDistributiontor_id() != null && distributor.getDistributiontor_id().trim().length() > 0) {
+			distributiontor distributorInfo = expressManagementDao
+					.getDistributorInfoById(distributor.getDistributiontor_id());
+			if (distributorInfo != null) {
+				if (idList != null) {
+					String[] listId = idList.split(",");
+					for (String id : listId) {
+						reservation updateReservation = expressManagementDao.getReservationInfoById(id);
+						if (updateReservation != null) {
 							updateReservation.setReservation_distributiontor(distributorInfo.getDistributiontor_id());
-							updateReservation.setReservation_state("等待上门取件");
+							updateReservation.setReservation_state("待取件");
 							updateReservation.setReservation_modifytime(TimeUtil.getStringSecond());
 							expressManagementDao.saveOrUpdateObject(updateReservation);
-							return "success";
 						}
 					}
+					return "success";
 				}
 			}
 		}
@@ -245,7 +244,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				}
 			}
 		}
-		System.out.println("ERROR!");
 		return null;
 	}
 
@@ -268,7 +266,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						String hql = "select express_route_superior from express_route where express_route_belongexpress='"
 								+ expressInfo.getExpress_id() + "' order by --express_route_superior desc limit 1 ";
 						String number = expressManagementDao.getMaxNumber(hql);
-						System.out.println("66666" + number);
 						if (number != null && number.trim().length() > 0) {
 							int num = Integer.parseInt(number);
 							num = num + 1;
@@ -364,11 +361,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		String listReservationInfoHql = " from reservation where 1=1 and ( ";
 
 		/**
-		 * 根据单位筛选
+		 * 根据角色单位筛选
 		 */
 		position staffPosition = expressManagementDao.getPositionById(staffInfo.getStaff_position());
 		if (staffPosition != null && staffPosition.getPosition_name() != null
 				&& staffPosition.getPosition_name().trim().length() > 0) {
+			if ("配送员".equals(staffPosition.getPosition_name())) {
+				distributiontor distributor = expressManagementDao
+						.getDistributorInfoByBasicInfo(staffInfo.getStaff_id());
+				if (distributor != null && distributor.getDistributiontor_id() != null
+						&& distributor.getDistributiontor_id().trim().length() > 0) {
+					reservationCountHql = reservationCountHql + " reservation_distributiontor='"
+							+ distributor.getDistributiontor_id() + "' ";
+					listReservationInfoHql = listReservationInfoHql + " reservation_distributiontor='"
+							+ distributor.getDistributiontor_id() + "' ";
+				}
+			}
+
 			if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 				if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 					String unit = "%" + reservationVO.getUnit() + "%";
