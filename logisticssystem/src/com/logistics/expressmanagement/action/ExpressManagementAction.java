@@ -129,6 +129,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	private String state = "";
 	/**
+	 * 单位
+	 */
+	private String unit = "";
+	/**
+	 * 关键词
+	 */
+	private String search = "";
+	/**
+	 * 当前页
+	 */
+	private int page = 1;
+	/**
 	 * 配送员
 	 */
 	private distributiontor distributor;
@@ -138,6 +150,30 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	private String isDistributed = "";
 
 	
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
 
 	public String getIsDistributed() {
 		return isDistributed;
@@ -401,6 +437,11 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ExpressInfoVO expressInfoVO = new ExpressInfoVO();
+		expressInfoVO.setPageIndex(page);
+		expressInfoVO.setSearch(search);
+		expressInfoVO.setState(state);
+		expressInfoVO.setUnit(unit);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressVO, staffInfo)));
@@ -419,6 +460,11 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ReservationVO reservationVO = new ReservationVO();
+		reservationVO.setPageIndex(page);
+		reservationVO.setSearch(search);
+		reservationVO.setState(state);
+		reservationVO.setUnit(unit);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
@@ -439,6 +485,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ReservationOrderHistoryVO reservationOrderHistoryVO = new ReservationOrderHistoryVO();
+		reservationOrderHistoryVO.setPageIndex(page);
+		reservationOrderHistoryVO.setSearch(search);
+		reservationOrderHistoryVO.setState(state);
 		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0) {
 			response.getWriter()
 					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
