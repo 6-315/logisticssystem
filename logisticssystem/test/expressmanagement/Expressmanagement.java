@@ -36,7 +36,7 @@ public class Expressmanagement {
 	/**
 	 * 预约表VO测试
 	 */
-	@Test
+	/*@Test
 	public void queryReservationInfoTest() {
 		ReservationVO reservationVO = new ReservationVO();
 		staff_basicinfo staffInfo = new staff_basicinfo();
@@ -44,7 +44,7 @@ public class Expressmanagement {
 		staffInfo.setStaff_unit("123");
 		reservationVO = expressManagementService.queryReservationInfo(reservationVO, staffInfo);
 		System.out.println("000000000"+reservationVO);
-	}
+	}*/
 
 	/**
 	 * 添加预约单测试

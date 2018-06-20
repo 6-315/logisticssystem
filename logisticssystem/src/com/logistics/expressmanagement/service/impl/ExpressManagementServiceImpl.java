@@ -352,7 +352,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo) {
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo,String isDistributed) {
 		List<ReservationDTO> listReservationDTO = new ArrayList<>();
 		ReservationDTO reservationDTO;
 		List<reservation> listReservation = new ArrayList<>();
@@ -421,6 +421,19 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			String search = "%" + reservationVO.getSearch().trim() + "%";
 			reservationCountHql = reservationCountHql + " and reservation_num like '" + search + "' ";
 			listReservationInfoHql = listReservationInfoHql + " and reservation_num like '" + search + "' ";
+		}
+		/**
+		 * 根据是否分配进行筛选
+		 */
+		if(isDistributed!=null&&isDistributed.trim().length()>0) {
+			if("是".equals(isDistributed)) {
+			reservationCountHql = reservationCountHql + " and ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
+			listReservationInfoHql = listReservationInfoHql + " and  ( reservation_distributiontor !='' or reservation_distributiontor !=null )  ";
+			}
+			if("否".equals(isDistributed)) {
+				reservationCountHql = reservationCountHql + " and ( reservation_distributiontor ='' or reservation_distributiontor =null )  ";
+				listReservationInfoHql = listReservationInfoHql + " and  ( reservation_distributiontor ='' or reservation_distributiontor =null )  ";
+			}
 		}
 		/**
 		 * 根据状态分类查询

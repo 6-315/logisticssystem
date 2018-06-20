@@ -34,7 +34,7 @@ public interface ExpressManagementService {
 
 	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
 
-	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
+	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo, String isDistributed);
 
 	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
 

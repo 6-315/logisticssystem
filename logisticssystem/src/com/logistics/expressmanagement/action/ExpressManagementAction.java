@@ -132,6 +132,20 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 配送员
 	 */
 	private distributiontor distributor;
+	/**
+	 * 根据是否分配进行筛选
+	 */
+	private String isDistributed = "";
+
+	
+
+	public String getIsDistributed() {
+		return isDistributed;
+	}
+
+	public void setIsDistributed(String isDistributed) {
+		this.isDistributed = isDistributed;
+	}
 
 	public distributiontor getDistributor() {
 		return distributor;
@@ -408,7 +422,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
-				.write(gson.toJson(expressManagementService.queryReservationInfo(reservationVO, staffInfo)));
+				.write(gson.toJson(expressManagementService.queryReservationInfo(reservationVO, staffInfo, isDistributed)));
 
 	}
 
