@@ -108,9 +108,14 @@
 								<p>查询快件</p>
 						</a></li>
 						<li class="nav-item"><a
-							href="./pages/express/express_add.html" class="nav-link"> <i
-								class="fa fa-plus-square-o nav-icon"></i>
+							href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+							class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
 								<p>增加快件</p>
+						</a></li>
+						<li class="nav-item"><a
+							href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+							class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+								<p>预约管理</p>
 						</a></li>
 					</ul></li>
 				<li class="nav-item"><a
@@ -208,7 +213,8 @@
 						<!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item"><a href="/tet/test/index.html">首页</a></li>
+								<li class="breadcrumb-item"><a
+									href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
 							</ol>
 						</div>
 						<!-- /.col -->
