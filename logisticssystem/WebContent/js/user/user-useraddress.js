@@ -14,6 +14,19 @@
             address_createtime: '',
             address_modifytime: ''
         },
+        deleteAddress: {
+            address_id: '',
+            address_address: '',
+            address_detailaddress: '',
+            address_postalnumber: '',
+            address_realname: '',
+            address_phonenumber: '',
+            address_isdefault: '',
+            address_userinfo_id: '',
+            address_state: '',
+            address_createtime: '',
+            address_modifytime: ''
+        },
         selectProvince: true,
         selectCity: false,
         selectCounty: false,
@@ -31,7 +44,8 @@
         shi: '',
         qu: '',
         setMoRen: false,
-        disabled: false
+        disabled: false,
+        deleteOn: false
     }
     const view_address = new Vue({
         el: '#useraddress',
@@ -129,18 +143,69 @@
                         'addressNew.address_phonenumber': addressData.address.address_phonenumber,
                         'addressNew.address_isdefault': addressData.address.address_isdefault,
                         'addressNew.address_userinfo_id': addressData.address.address_userinfo_id,
-                        'addressNew.address_state': addressData.address.address_state,
+                        'addressNew.address_state': '1',
                         'addressNew.address_createtime': addressData.address.address_createtime,
                         'addressNew.address_modifytime': addressData.address.address_modifytime
                     },
                     success: function (data) {
+                        addressData.disabled = false
                         if (data === 'success') {
-
                             $('#addAddress').modal('hide')
+                            // addressData.addressList.push(addressData.address)
+                            view_address.getAddress()
+                            toastr.success('添加成功')
                         }
                     }
                 })
+            },
+            openDeleteAddress: function (addre) {
+                addressData.deleteAddress = addre
+                $('#deleteAddress').modal()
+            },
+            deleteAddressMethod: function () {
+                addressData.deleteOn = true
+                $.ajax({
+                    url: '/logisticssystem/userinfo/userinfo_addAddress',
+                    type: 'POST',
+                    data: {
+                        'addressNew.address_id': addressData.deleteAddress.address_id,
+                        'addressNew.address_address': addressData.deleteAddress.address_address,
+                        'addressNew.address_detailaddress': addressData.deleteAddress.address_detailaddress,
+                        'addressNew.address_postalnumber': addressData.deleteAddress.address_postalnumber,
+                        'addressNew.address_realname': addressData.deleteAddress.address_realname,
+                        'addressNew.address_phonenumber': addressData.deleteAddress.address_phonenumber,
+                        'addressNew.address_isdefault': addressData.deleteAddress.address_isdefault,
+                        'addressNew.address_userinfo_id': addressData.deleteAddress.address_userinfo_id,
+                        'addressNew.address_state': '0',
+                        'addressNew.address_createtime': addressData.deleteAddress.address_createtime,
+                        'addressNew.address_modifytime': addressData.deleteAddress.address_modifytime
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            view_address.getAddress()
+                            $('#deleteAddress').modal('hide')
+                            addressData.deleteOn = false
+                            toastr.success('删除成功')
+                        } else {
+                            addressData.deleteOn = false
+                            $('#deleteAddress').modal('hide')
+                            toastr.success('删除失败')
+                        }
+                    }
+                })
+            },
+            getAddress: function () {
+                $.ajax({
+                    url: '/logisticssystem/userinfo/userinfo_allAddressByUserInfo',
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        let addressList = JSON.parse(data)
+                        addressData.addressList = addressList
+                    }
+                })
             }
+
         },
         mounted() {
             $.ajax({
@@ -149,7 +214,7 @@
                 data: {},
                 success: function (data) {
                     let addressList = JSON.parse(data)
-                    console.log('ko-----------:', addressList)
+                    addressData.addressList = addressList
                 }
             })
         }
