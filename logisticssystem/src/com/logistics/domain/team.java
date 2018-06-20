@@ -24,6 +24,10 @@ public class team {
 	 */
 	private String team_unit;
 	/**
+	 * 车队-路线关联
+	 */
+	private String team_route;
+	/**
 	 * 车队创建时间
 	 */
 	private String team_createtime;
@@ -68,6 +72,14 @@ public class team {
 		this.team_unit = team_unit;
 	}
 
+	public String getTeam_route() {
+		return team_route;
+	}
+
+	public void setTeam_route(String team_route) {
+		this.team_route = team_route;
+	}
+
 	public String getTeam_createtime() {
 		return team_createtime;
 	}
@@ -95,8 +107,8 @@ public class team {
 	@Override
 	public String toString() {
 		return "team [team_id=" + team_id + ", team_num=" + team_num + ", team_leader=" + team_leader + ", team_unit="
-				+ team_unit + ", team_createtime=" + team_createtime + ", team_modifytime=" + team_modifytime
-				+ ", team_state=" + team_state + "]";
+				+ team_unit + ", team_route=" + team_route + ", team_createtime=" + team_createtime
+				+ ", team_modifytime=" + team_modifytime + ", team_state=" + team_state + "]";
 	}
 
 }

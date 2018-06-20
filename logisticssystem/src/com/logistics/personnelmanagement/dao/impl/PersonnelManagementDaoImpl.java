@@ -2,12 +2,15 @@ package com.logistics.personnelmanagement.dao.impl;
 
 import java.util.List;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
 /**
@@ -146,7 +149,7 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	}
 
 	/**
-	 * 查找是什么单位
+	 * 查找是什么职位
 	 */
 	@Override
 	public position getPosition(staff_basicinfo staffBasicinfo) {
@@ -160,6 +163,34 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 			return positionNew;
 		}
 		return null;
+	}
+
+	/**
+	 * 获取最大的员工工号
+	 */
+	@Override
+	public String getstaffBasicinfoMaxNum() {
+		System.out.println("111dada");
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "select staff_num from staff_basicinfo order by --staff_num desc limit 1";
+		System.out.println("33");
+		Query query = session.createSQLQuery(hql);
+		String num = (String) query.uniqueResult();
+		return num;
+	}
+	/**
+	 * 根据单位查上级单位
+	 */
+	
+	@Override
+	public unit getUnitAdmin(staff_basicinfo staffBasicinfo) {
+		unit unit=new unit();
+		Session session=getSession();
+		String hql="from unit where unit_id='"+staffBasicinfo.getStaff_unit()+"'";
+		Query query=session.createQuery(hql);
+		unit = (unit) query.uniqueResult();
+		return unit;
 	}
 
 }
