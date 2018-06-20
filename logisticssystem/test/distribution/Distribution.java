@@ -44,6 +44,7 @@ public class Distribution {
 		distribution.setUnit_detailaddress("江西省/萍乡市/安源区/东大街");
 		distribution.setUnit_phonenumber("110");
 		distribution.setUnit_type("配送点");
+		distribution.setUnit_superiorunit("萍乡中转站");
 		distributionService.addDistribution(distribution);
 	}
 	/**

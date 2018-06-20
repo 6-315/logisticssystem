@@ -128,5 +128,19 @@ public class DistributionDaoImpl implements DistributionDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
-
+	/**
+	 * 根据上级单位查单位
+	 * @param trim
+	 * @return
+	 */
+	public unit getDistributionInfoBySuperId(String trim ) {
+		unit unit = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_superiorunit = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		unit = (unit) query.uniqueResult();
+		return unit;
+	}
+	
 }
