@@ -109,10 +109,12 @@
                             <th>快件品名</th>
                             <th>快件备注</th>
                             <th>
-                                <select v-model="selectState" @change="getReservationByState" class="form-control" style="width: auto;">
+                                <select v-model="selectState" @change="getReservationByState" class="form-control"
+                                        style="width: auto;">
                                     <option value="">状态（全部）</option>
                                     <option value="待受理">待受理</option>
                                     <option value="已受理">已受理</option>
+                                    <option value="已取消">已取消</option>
                                     <option value="已拒绝">已拒绝</option>
                                     <option value="取件中">取件中</option>
                                     <option value="已完成">已完成</option>
