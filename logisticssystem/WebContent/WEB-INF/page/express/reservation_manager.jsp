@@ -21,6 +21,7 @@
                 rel="stylesheet">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font/demo.css">--%>
     <style type="text/css">
         .table td, .table th {
             padding: 0.5rem;
@@ -319,7 +320,20 @@
                                         <td>qe</td>
                                         <td>qe</td>
                                         <td>qe</td>
-                                        <td>qe</td>
+                                        <td>
+                                            <a href="#">详情</a>
+                                            <span role="presentation" class="dropdown"> <a
+                                                    class="daropdown-toggle" data-toggle="dropdown"
+                                                    style="cursor: pointer;color: #0056b3;">更多</a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">受理</a></li>
+                                                    <li><a href="#">拒绝</a></li>
+                                                    <li><a href="#">分配配送员</a></li>
+                                                    <li><a href="#">取件</a></li>
+                                                    <li><a href="#">完成</a></li>
+                                                </ul>
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>qe</td>
@@ -363,7 +377,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                
+                                <div>
+                                    <button class="btn btn-default">首页</button>
+                                    <button class="btn btn-default">上一页</button>
+                                    <button class="btn btn-default">下一页</button>
+                                    <button class="btn btn-default">尾页</button>
+                                </div>
                             </div>
                         </div>
                         <!-- /.card-body -->
@@ -453,5 +472,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script src="${pageContext.request.contextPath}/js/express/reservation_manager.js"></script>
 </body>
 </html>

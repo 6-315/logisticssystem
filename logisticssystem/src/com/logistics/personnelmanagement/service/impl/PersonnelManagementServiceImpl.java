@@ -203,7 +203,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				listUnit = new ArrayList<>();
 				listUnit = (List<unit>) personnelManagementDao
-						.listObject("from unit where unit_creator = '" + staffBasicinfo.getStaff_id() + "'");
+						.listObject("from unit where unit_superiorunit = '" + staffBasicinfo.getStaff_unit() + "'");
 				return listUnit;
 			}
 		}
