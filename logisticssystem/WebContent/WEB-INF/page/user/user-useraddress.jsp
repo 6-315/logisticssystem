@@ -31,7 +31,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -39,25 +40,25 @@
 <div class="site-menubar navbar-nav">
     <div class="site-menubar-body">
         <ul class="site-menu">
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
-						class="site-menu-title">首页</span></a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
-						class="site-menu-title">我要寄件</span></span> </a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
-						<span class="site-menu-title">我要查件</span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
-						<span class="site-menu-title">我的订单</span></span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
-						<span class="site-menu-title">用户信息</span></span>
-				</a></li>
-			</ul>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+                    class="site-menu-title">首页</span></a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+                    class="site-menu-title">我要寄件</span></span> </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+                <span class="site-menu-title">我要查件</span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+                <span class="site-menu-title">我的订单</span></span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+                <span class="site-menu-title">用户信息</span></span>
+            </a></li>
+        </ul>
     </div>
 </div>
 <div class="page" style="margin-top:110px">
@@ -77,9 +78,12 @@
                     </div>
                     <h5 class="text-center p_bottom_10">您好！18296929245</h5>
                     <ul class="nav nav-pills nav-stacked">
-                        <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">基本信息</a></li>
-                        <li class="active"><a href="${pageContext.request.contextPath}/user-useraddress.jsp">地址管理</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user-updatepassword.jsp">密码修改</a></li>
+                        <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">基本信息</a></li>
+                        <li class="active"><a
+                                href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserAddress">地址管理</a>
+                        </li>
+                        <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUpdatePassword">密码修改</a>
+                        </li>
                         <%--<li><a href="${pageContext.request.contextPath}/user-mymessage.jsp">我的消息</a></li>--%>
                     </ul>
                 </div>
@@ -88,7 +92,8 @@
                         <li role="presentation" class="active">地址管理</li>
                     </ul>--%>
                     <div class="m_top_30">
-                        <a class="btn btn-primary btn-sm" href="/user/addressSave.htm" data-pagetype="0" data-toggle="modal" data-target="#myModal">+ 新增地址</a>
+                        <a class="btn btn-primary btn-sm" href="#" data-pagetype="0"
+                           data-toggle="modal" data-target="#myModal">+ 新增地址</a>
                     </div>
                     <table class="table table-bordered table-hover m_top_10">
                         <thead>
@@ -103,29 +108,30 @@
                         <tbody>
                         </tbody>
                     </table>
-                    <nav>
-                        <ul class="pagination">
-                        </ul>
-                        <span class="pagination-info">
-	                共 0  条
-	    </span>
-                        <div class="pagination-set">
-                            <select name="limit" class="form-control"<%-- onchange="window.location = '' + this.value;"--%>>
-                                <!--  <option value="50">-每页显示条数-</option> -->
-                                <option value="10" selected="selected">10</option>
+                        <%--<nav>
+                            <ul class="pagination">
+                            </ul>
+                            <span class="pagination-info">
+                        共 0  条
+            </span>
+                            <div class="pagination-set">
+                                <select name="limit"
+                                        class="form-control"&lt;%&ndash; onchange="window.location = '' + this.value;"&ndash;%&gt;>
+                                    <!--  <option value="50">-每页显示条数-</option> -->
+                                    <option value="10" selected="selected">10</option>
 
-                                <option value="50">50</option>
+                                    <option value="50">50</option>
 
-                                <option value="100">100</option>
+                                    <option value="100">100</option>
 
-                                <option value="200">200</option>
+                                    <option value="200">200</option>
 
-                                <option value="500">500</option>
+                                    <option value="500">500</option>
 
-                            </select>
-                            <span>条/页</span>
-                        </div>
-                    </nav>
+                                </select>
+                                <span>条/页</span>
+                            </div>
+                        </nav>--%>
                 </div>
             </div>
         </div>
