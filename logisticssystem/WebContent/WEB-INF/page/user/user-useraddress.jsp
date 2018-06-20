@@ -65,8 +65,8 @@
 <div id="useraddress" class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
-            <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
-            <li><a href="${pageContext.request.contextPath}/user-userinfo.jsp">&nbsp;我的信息</a></li>
+            <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex">首页&nbsp;</a></li>
+            <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">&nbsp;我的信息</a></li>
             <li>&nbsp;地址管理</li>
         </ol>
         <div class="yto-box">
@@ -116,7 +116,9 @@
                             <td>{{addre.address_postalnumber}}</td>
                             <td>{{addre.address_isdefault}}</td>
                             <td>
-                                <a href="#" class="btn btn-primary">修改</a>
+                                <a @click="openMorenAddress(addre)" href="#"
+                                   class="btn btn-primary">默认地址</a>
+                                <%--<a href="#" class="btn btn-primary">修改</a>--%>
                                 <a @click="openDeleteAddress(addre)" href="#" class="btn btn-danger">删除</a>
                             </td>
                         </tr>

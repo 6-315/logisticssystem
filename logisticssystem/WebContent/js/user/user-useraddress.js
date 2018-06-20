@@ -194,6 +194,33 @@
                     }
                 })
             },
+            openMorenAddress: function (morenAddre) {
+                $.ajax({
+                    url: '/logisticssystem/userinfo/userinfo_addAddress',
+                    type: 'POST',
+                    data: {
+                        'addressNew.address_id': morenAddre.address_id,
+                        'addressNew.address_address': morenAddre.address_address,
+                        'addressNew.address_detailaddress': morenAddre.address_detailaddress,
+                        'addressNew.address_postalnumber': morenAddre.address_postalnumber,
+                        'addressNew.address_realname': morenAddre.address_realname,
+                        'addressNew.address_phonenumber': morenAddre.address_phonenumber,
+                        'addressNew.address_isdefault': '是',
+                        'addressNew.address_userinfo_id': morenAddre.address_userinfo_id,
+                        'addressNew.address_state': '1',
+                        'addressNew.address_createtime': morenAddre.address_createtime,
+                        'addressNew.address_modifytime': morenAddre.address_modifytime
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            view_address.getAddress()
+                            toastr.success('设置成功')
+                        } else {
+                            toastr.success('设置失败')
+                        }
+                    }
+                })
+            },
             getAddress: function () {
                 $.ajax({
                     url: '/logisticssystem/userinfo/userinfo_allAddressByUserInfo',
