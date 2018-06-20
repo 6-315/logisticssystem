@@ -42,8 +42,9 @@ public class Userinfo {
 		address addressNew = new address();
 		userinfo userInfo = new userinfo();
 		UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
-		userInfo.setUserinfo_id("1");
+		userInfo.setUserinfo_id("23");
 		addressNew.setAddress_address("海南省儋州市2");
+		addressNew.setAddress_isdefault("是的");
 		userInfoSessionDTO.setUserInfoSession(userInfo);
 		userInfoService.addAddress(addressNew, userInfoSessionDTO);
 

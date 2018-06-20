@@ -45,9 +45,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 			userInfoNew.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			userInfoNew = userInfoDao.getUserInfo(userInfo.getUserinfo_id());
 			if (userInfoNew != null) {
-				
+
 				userInfoSessionDTO.setUserInfoSession(userInfoNew);
-				
+
 			}
 			return userInfoSessionDTO;
 
@@ -64,11 +64,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (userInfoSessionDTO != null) {
 			List<address> listaddress = new ArrayList<>();
 			listaddress = (List<address>) userInfoDao.listObject("from address where address_userinfo_id = '"
-					+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'");
+					+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "' and address_state = 1");
 			if (listaddress.size() > 0) {
 				return listaddress;
 			}
-		} 
+		}
 		return null;
 	}
 
@@ -104,15 +104,43 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	@Override
 	public String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO) {
-		System.out.println("ppppppppppppp");
 		if (addressNew != null && userInfoSessionDTO != null) {
+			if ("是".equals(addressNew.getAddress_isdefault())) {
+				address addressByState = new address();
+				addressByState = userInfoDao.getAddressByState();
+				if (addressByState != null) {
+					addressByState.setAddress_modifytime(TimeUtil.getStringSecond());
+					addressByState.setAddress_isdefault("否");
+					/**
+					 * 新地址
+					 */
+					addressNew.setAddress_id(BuildUuid.getUuid());
+					addressNew.setAddress_state("1");
+					addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
+					addressNew.setAddress_createtime(TimeUtil.getStringSecond());
+					addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
+					userInfoDao.saveOrUpdateObject(addressByState);
+					userInfoDao.saveOrUpdateObject(addressNew);
+					return "success";
+
+				}
+				addressNew.setAddress_id(BuildUuid.getUuid());
+				addressNew.setAddress_state("1");
+				addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
+				addressNew.setAddress_createtime(TimeUtil.getStringSecond());
+				addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
+				userInfoDao.saveOrUpdateObject(addressNew);
+				return "success";
+
+			}
 			addressNew.setAddress_id(BuildUuid.getUuid());
+			addressNew.setAddress_state("1");
 			addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
 			addressNew.setAddress_createtime(TimeUtil.getStringSecond());
 			addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
-			System.out.println("iiiiiiiiiiii" + addressNew);
 			userInfoDao.saveOrUpdateObject(addressNew);
 			return "success";
+
 		}
 		return "error";
 	}

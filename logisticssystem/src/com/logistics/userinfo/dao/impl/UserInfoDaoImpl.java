@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.address;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.position;
 import com.logistics.domain.userinfo;
@@ -145,6 +146,22 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		expressInfo = (expressinfo) query.uniqueResult();
 		if (expressInfo != null) {
 			return expressInfo;
+		}
+		return null;
+	}
+
+	/**
+	 * 查询地址表里有没有默认地址
+	 */
+	@Override
+	public address getAddressByState() {
+		address addressNew = new address();
+		Session session = getSession();
+		String hql = " from address where address_isdefault = '是'";
+		Query query = session.createQuery(hql);
+		addressNew = (address) query.uniqueResult();
+		if (addressNew != null) {
+			return addressNew;
 		}
 		return null;
 	}
