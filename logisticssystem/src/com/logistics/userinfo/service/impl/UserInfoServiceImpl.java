@@ -64,7 +64,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (userInfoSessionDTO != null) {
 			List<address> listaddress = new ArrayList<>();
 			listaddress = (List<address>) userInfoDao.listObject("from address where address_userinfo_id = '"
-					+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'");
+					+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "' and address_state = 1");
 			if (listaddress.size() > 0) {
 				return listaddress;
 			}
@@ -104,14 +104,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 */
 	@Override
 	public String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO) {
-		System.out.println("ppppppppppppp");
 		if (addressNew != null && userInfoSessionDTO != null) {
-			if ("是".equals(addressNew.getAddress_state())) {
+			if ("是".equals(addressNew.getAddress_isdefault())) {
 				address addressByState = new address();
 				addressByState = userInfoDao.getAddressByState();
 				if (addressByState != null) {
 					addressByState.setAddress_modifytime(TimeUtil.getStringSecond());
-					addressByState.setAddress_state("否");
+					addressByState.setAddress_isdefault("否");
 					/**
 					 * 新地址
 					 */
