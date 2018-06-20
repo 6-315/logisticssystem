@@ -361,11 +361,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		String listReservationInfoHql = " from reservation where 1=1 and ( ";
 
 		/**
-		 * 根据单位筛选
+		 * 根据角色单位筛选
 		 */
 		position staffPosition = expressManagementDao.getPositionById(staffInfo.getStaff_position());
 		if (staffPosition != null && staffPosition.getPosition_name() != null
 				&& staffPosition.getPosition_name().trim().length() > 0) {
+			if ("配送员".equals(staffPosition.getPosition_name())) {
+				distributiontor distributor = expressManagementDao
+						.getDistributorInfoByBasicInfo(staffInfo.getStaff_id());
+				if (distributor != null && distributor.getDistributiontor_id() != null
+						&& distributor.getDistributiontor_id().trim().length() > 0) {
+					reservationCountHql = reservationCountHql + " reservation_distributiontor='"
+							+ distributor.getDistributiontor_id() + "' ";
+					listReservationInfoHql = listReservationInfoHql + " reservation_distributiontor='"
+							+ distributor.getDistributiontor_id() + "' ";
+				}
+			}
+
 			if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 				if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 					String unit = "%" + reservationVO.getUnit() + "%";
