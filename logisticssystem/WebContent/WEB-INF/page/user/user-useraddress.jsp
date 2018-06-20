@@ -117,7 +117,7 @@
                             <td>{{addre.address_isdefault}}</td>
                             <td>
                                 <a href="#" class="btn btn-primary">修改</a>
-                                <a href="#" class="btn btn-danger">删除</a>
+                                <a @click="openDeleteAddress(addre)" href="#" class="btn btn-danger">删除</a>
                             </td>
                         </tr>
                         </tbody>
@@ -246,6 +246,33 @@
                     <button @click="addAddress" :disabled="disabled" type="button"
                             class="btn btn-primary">
                         保存
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="deleteAddress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="deleteMyAddress">
+                        删除地址
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    删除地址后不可还原，点击确定后删除
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button :disabled="deleteOn" @click="deleteAddressMethod" type="button" class="btn btn-danger">
+                        删除
                     </button>
                 </div>
             </div><!-- /.modal-content -->
