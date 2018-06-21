@@ -48,11 +48,11 @@ public class ExpressInfoVO {
 	/**
 	 * 是否分配配送点
 	 */
-	private String isDistributedDistribution;
+	private String isDistributedDistribution = "";
 	/**
 	 * 是否分配配送员
 	 */
-	private String isDistributedDistributor;
+	private String isDistributedDistributor = "";
 
 	public List<ExpressInfoDTO> getListExpressInfoDTO() {
 		return listExpressInfoDTO;
