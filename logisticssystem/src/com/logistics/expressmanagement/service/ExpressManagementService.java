@@ -22,7 +22,7 @@ public interface ExpressManagementService {
 
 	public String updateReservationWithDistributor(String idList, distributiontor distributor);
 
-	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo);
+	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo);
 
 	public String updateExpressState(express expressInfo);
 
@@ -47,9 +47,6 @@ public interface ExpressManagementService {
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 
 	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
-
-	public ExpressAndCirculationDTO createExpressAndCirculation(ExpressAndCirculationDTO expressAndCirculationDTO,
-			staff_basicinfo staffInfo);
 
 
 

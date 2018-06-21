@@ -339,7 +339,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	}
 
 	/**
-	 * 上门取件
+	 * 生成快件表和流转表
 	 * 
 	 * @throws IOException
 	 */
@@ -353,27 +353,9 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.completePickExpress(staffInfo)));
+		response.getWriter().write(gson.toJson(expressManagementService.completePickExpress(expressAndCirculationDTO,staffInfo)));
 	}
 
-	/**
-	 * 生成快件单与流转单
-	 * @throws IOException 
-	 */
-	public void createExpressAndCirculation() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
-		response.setContentType("text/html;charset=utf-8");
-		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
-		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.createExpressAndCirculation(expressAndCirculationDTO,staffInfo)));
-	}
-	
-	
 	/**
 	 * 到达中转站（更新快件状态）
 	 * 
@@ -589,4 +571,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
 
+	
+	
+	
 }

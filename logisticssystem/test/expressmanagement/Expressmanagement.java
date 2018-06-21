@@ -93,14 +93,14 @@ public class Expressmanagement {
 	/**
 	 * 上门取件
 	 */
-	@Test
+	/*@Test
 	public void completePickExpressTest() {
 		staff_basicinfo staffInfo = new staff_basicinfo();
 		staffInfo.setStaff_id("1234");
 		staffInfo.setStaff_unit("234");
 		expressManagementService.completePickExpress(staffInfo);
 		
-	}
+	}*/
 	
 	/**
 	 *  到达中转站
