@@ -558,7 +558,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo) {
+	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressInfoVO, staff_basicinfo staffInfo) {
 		List<ExpressInfoDTO> listExpressInfoDTO = new ArrayList<>();
 		List<express> listExpress = new ArrayList<>();
 		ExpressInfoDTO expressInfoDTO;
@@ -627,9 +627,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					expressCountHql = expressCountHql + " 1=1 ";
 					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
 
-					if (expressVO.getUnit() != null && expressVO.getUnit().trim().length() > 0) {
-						expressCountHql = expressCountHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
-						listExpressInfoHql = listExpressInfoHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
+					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
+						expressCountHql = expressCountHql + " express_belongunit ='" + expressInfoVO.getUnit() + "' ";
+						listExpressInfoHql = listExpressInfoHql + " express_belongunit ='" + expressInfoVO.getUnit() + "' ";
 					}
 				} else {
 					if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
@@ -660,44 +660,44 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			/**
 			 * 模糊查询
 			 */
-			if (expressVO.getSearch() != null && expressVO.getSearch().trim().length() > 0) {
-				String search = "%" + expressVO.getSearch().trim() + "%";
+			if (expressInfoVO.getSearch() != null && expressInfoVO.getSearch().trim().length() > 0) {
+				String search = "%" + expressInfoVO.getSearch().trim() + "%";
 				expressCountHql = expressCountHql + " and express_number like '" + search + "' ";
 				listExpressInfoHql = listExpressInfoHql + " and express_number like '" + search + "' ";
 			}
 			/**
 			 * 根据状态分类查询
 			 */
-			if (expressVO.getState() != null && expressVO.getState().trim().length() > 0) {
-				expressCountHql = expressCountHql + " and express_state ='" + expressVO.getState() + "' ";
-				listExpressInfoHql = listExpressInfoHql + " and express_state ='" + expressVO.getState() + "' ";
+			if (expressInfoVO.getState() != null && expressInfoVO.getState().trim().length() > 0) {
+				expressCountHql = expressCountHql + " and express_state ='" + expressInfoVO.getState() + "' ";
+				listExpressInfoHql = listExpressInfoHql + " and express_state ='" + expressInfoVO.getState() + "' ";
 			}
 			/**
 			 * 根据是否分配配送点或分配配送员进行筛选
 			 */
-			if (expressVO.getIsDistributedDistribution() != null
-					&& expressVO.getIsDistributedDistribution().trim().length() > 0) {
+			if (expressInfoVO.getIsDistributedDistribution() != null
+					&& expressInfoVO.getIsDistributedDistribution().trim().length() > 0) {
 				//判断是否已分配配送点
-				if ("是".equals(expressVO.getIsDistributedDistribution())) {
+				if ("是".equals(expressInfoVO.getIsDistributedDistribution())) {
 					expressCountHql = expressCountHql
 							+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
 					listExpressInfoHql = listExpressInfoHql
 							+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
 					//判断是否已分配配送员
-					if ("是".equals(expressVO.getIsDistributedDistributor())) {
+					if ("是".equals(expressInfoVO.getIsDistributedDistributor())) {
 						expressCountHql = expressCountHql
 								+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
 						listExpressInfoHql = listExpressInfoHql
 								+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
 					}
-					if ("否".equals(expressVO.getIsDistributedDistributor())) {
+					if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
 						expressCountHql = expressCountHql
 								+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 						listExpressInfoHql = listExpressInfoHql
 								+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 					}
 				}
-				if ("否".equals(expressVO.getIsDistributedDistribution())) {
+				if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
 					expressCountHql = expressCountHql
 							+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
 					listExpressInfoHql = listExpressInfoHql
@@ -710,33 +710,33 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			/**
 			 * 设置总数量
 			 */
-			expressVO.setTotalRecords(expressCount);
+			expressInfoVO.setTotalRecords(expressCount);
 			/**
 			 * 设置总页数
 			 */
-			expressVO.setTotalPages(((expressCount - 1) / expressVO.getPageSize()) + 1);
+			expressInfoVO.setTotalPages(((expressCount - 1) / expressInfoVO.getPageSize()) + 1);
 			/**
 			 * 判断是否拥有上一页
 			 */
-			if (expressVO.getPageIndex() <= 1) {
-				expressVO.setHavePrePage(false);
+			if (expressInfoVO.getPageIndex() <= 1) {
+				expressInfoVO.setHavePrePage(false);
 			} else {
-				expressVO.setHavePrePage(true);
+				expressInfoVO.setHavePrePage(true);
 			}
 			/**
 			 * 判断是否拥有下一页
 			 */
-			if (expressVO.getPageIndex() >= expressVO.getTotalPages()) {
-				expressVO.setHaveNextPage(false);
+			if (expressInfoVO.getPageIndex() >= expressInfoVO.getTotalPages()) {
+				expressInfoVO.setHaveNextPage(false);
 			} else {
-				expressVO.setHaveNextPage(true);
+				expressInfoVO.setHaveNextPage(true);
 			}
 
 			/**
 			 * 分页查询
 			 */
 			listExpress = (List<express>) expressManagementDao.queryForPage(listExpressInfoHql,
-					expressVO.getPageIndex(), expressVO.getPageSize());
+					expressInfoVO.getPageIndex(), expressInfoVO.getPageSize());
 			for (express expressInfo : listExpress) {
 				expressInfoDTO = new ExpressInfoDTO();
 				if (expressInfo != null && expressInfo.getExpress_expressinfoid() != null
@@ -755,17 +755,17 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					/**
 					 * 将关键字高亮
 					 */
-					if (expressVO.getSearch() != null && expressVO.getSearch().trim().length() > 0) {
-						expressInfo.setExpress_number(expressInfo.getExpress_number().replaceAll(expressVO.getSearch(),
-								"<mark>" + expressVO.getSearch() + "</mark>"));
+					if (expressInfoVO.getSearch() != null && expressInfoVO.getSearch().trim().length() > 0) {
+						expressInfo.setExpress_number(expressInfo.getExpress_number().replaceAll(expressInfoVO.getSearch(),
+								"<mark>" + expressInfoVO.getSearch() + "</mark>"));
 					}
 
 					expressInfoDTO.setExpressInfo(expressInfo);
 					listExpressInfoDTO.add(expressInfoDTO);
 				}
 			}
-			expressVO.setListExpressInfoDTO(listExpressInfoDTO);
-			return expressVO;
+			expressInfoVO.setListExpressInfoDTO(listExpressInfoDTO);
+			return expressInfoVO;
 		}
 		return null;
 	}

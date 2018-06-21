@@ -442,7 +442,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		expressInfoVO.setUnit(unit);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressVO, staffInfo)));
+		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressInfoVO, staffInfo)));
 	}
 
 	/**

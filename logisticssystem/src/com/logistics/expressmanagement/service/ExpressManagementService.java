@@ -36,7 +36,7 @@ public interface ExpressManagementService {
 
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
-	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
+	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressInfoVO, staff_basicinfo staffInfo);
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
