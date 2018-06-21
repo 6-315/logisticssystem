@@ -146,6 +146,20 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				expressInfo.setExpress_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao.saveOrUpdateObject(expressInfo);
 				expressAndCirculationDTO.setExpressInfo(expressInfo);
+				// 生成快件派送表
+				express_send expressSendInfo = new express_send();
+				expressSendInfo.setExpress_send_id(BuildUuid.getUuid());
+				expressSendInfo.setExpress_send_express_id(expressInfo.getExpress_id());
+				if(expressAndCirculationDTO!=null) {
+					if(expressAndCirculationDTO.getDistributor()!=null) {
+						if(expressAndCirculationDTO.getDistributor().getDistributiontor_id()!=null&&expressAndCirculationDTO.getDistributor().getDistributiontor_id().trim().length()>0) {
+				expressSendInfo.setExpress_send_distributiontor(expressAndCirculationDTO.getDistributor().getDistributiontor_id());
+				}}}
+				expressSendInfo.setExpress_send_type("揽件");
+				expressSendInfo.setExpress_send_state("未完成");
+				expressSendInfo.setExpress_send_createtime(TimeUtil.getStringSecond());
+				expressSendInfo.setExpress_send_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao.saveOrUpdateObject(expressSendInfo);
 				// 生成流转单
 				express_circulation expressCirculation = new express_circulation();
 				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());

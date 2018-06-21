@@ -23,6 +23,11 @@ public class ExpressAndCirculationDTO {
 	 * 快件详情表
 	 */
 	private expressinfo expressDetailInfo;
+	/**
+	 * 配送员
+	 */
+	private distributiontor distributor;
+
 
 	public express getExpressInfo() {
 		return expressInfo;
@@ -64,11 +69,19 @@ public class ExpressAndCirculationDTO {
 		this.expressDetailInfo = expressDetailInfo;
 	}
 
+	public distributiontor getDistributor() {
+		return distributor;
+	}
+
+	public void setDistributor(distributiontor distributor) {
+		this.distributor = distributor;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpressAndCirculationDTO [expressInfo=" + expressInfo + ", expressCirculation=" + expressCirculation
 				+ ", vehicleInfo=" + vehicleInfo + ", userInfo=" + userInfo + ", expressDetailInfo=" + expressDetailInfo
-				+ "]";
+				+ ", distributor=" + distributor + "]";
 	}
 
 }
