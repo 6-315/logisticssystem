@@ -21,6 +21,11 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        body {
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -108,7 +113,9 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview" style="display: block;">
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
+                                    class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>

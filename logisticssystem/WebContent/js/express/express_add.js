@@ -228,10 +228,15 @@
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_senderphonenumber': expressData.expressinfo.expressinfo_senderphonenumber,
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_createtime': expressData.expressinfo.expressinfo_createtime,
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_modifytime': expressData.expressinfo.expressinfo_modifytime,
-                        'expressAndCirculationDTO.userInfo.userinfo_id': expressData.reservation.reservation_user
+                        'expressAndCirculationDTO.userInfo.userinfo_id': expressData.reservation.reservation_user,
+                        'expressAndCirculationDTO.distributor.express_send_distributiontor': expressData.reservation.reservation_distributiontor
                     },
                     success: function (data) {
-                        console.log('ddd:', data)
+                        if (data === null) {
+                            toastr.error('提交失败,请重新生成')
+                        } else {
+
+                        }
                     }
                 })
             }
