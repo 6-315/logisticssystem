@@ -2,10 +2,15 @@ package com.logistics.personnelmanagement.dao.impl;
 
 import java.util.List;
 
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.unit;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
 /**
@@ -65,7 +70,7 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
-		query.setFirstResult(offset - 1);
+		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
 		List<?> list = query.list();
 		session.clear();
@@ -108,6 +113,84 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 查找员工表是否有此人
+	 */
+	@Override
+	public staff_basicinfo getstaffById(String id) {
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
+		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
+		System.out.println("OK");
+		return staffBasicInfo;
+	}
+
+	/**
+	 * 查找员工表是否有此人
+	 */
+	@Override
+	public staff_basicinfo getstaffBasicinfo(String staff_id) {
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
+		if (staffBasicInfo != null) {
+			System.out.println("OK");
+			return staffBasicInfo;
+		}
+		return null;
+	}
+
+	/**
+	 * 查找是什么职位
+	 */
+	@Override
+	public position getPosition(staff_basicinfo staffBasicinfo) {
+		position positionNew = new position();
+		Session session = getSession();
+		String hql = " from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staffBasicinfo.getStaff_position());
+		positionNew = (position) query.uniqueResult();
+		if (positionNew != null) {
+			return positionNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 获取最大的员工工号
+	 */
+	@Override
+	public String getstaffBasicinfoMaxNum() {
+		System.out.println("111dada");
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "select staff_num from staff_basicinfo order by --staff_num desc limit 1";
+		System.out.println("33");
+		Query query = session.createSQLQuery(hql);
+		String num = (String) query.uniqueResult();
+		return num;
+	}
+	/**
+	 * 根据单位查上级单位
+	 */
+	
+	@Override
+	public unit getUnitAdmin(staff_basicinfo staffBasicinfo) {
+		unit unit=new unit();
+		Session session=getSession();
+		String hql="from unit where unit_id='"+staffBasicinfo.getStaff_unit()+"'";
+		Query query=session.createQuery(hql);
+		unit = (unit) query.uniqueResult();
+		return unit;
 	}
 
 }

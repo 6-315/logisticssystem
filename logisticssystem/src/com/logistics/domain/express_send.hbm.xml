@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.express_send" table="EXPRESS_SEND">
+        <id name="express_send_id" type="java.lang.String">
+            <column name="express_send_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="express_send_express_id" type="java.lang.String">
+            <column name="express_send_express_id" />
+        </property>
+        <property name="express_send_distributiontor" type="java.lang.String">
+            <column name="express_send_distributiontor" />
+        </property>
+        <property name="express_send_state" type="java.lang.String">
+            <column name="express_send_state" />
+        </property>
+        <property name="express_send_createtime" type="java.lang.String">
+            <column name="express_send_createtime" />
+        </property>
+        <property name="express_send_modifytime" type="java.lang.String">
+            <column name="express_send_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>

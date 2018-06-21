@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.distribution.dao.DistributionDao;
+import com.logistics.domain.team;
+import com.logistics.domain.unit;
 /**
  * 配送点管理的DAO实现层
  * @author LW
@@ -63,7 +65,7 @@ public class DistributionDaoImpl implements DistributionDao {
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
-		query.setFirstResult(offset - 1);
+		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
 		List<?> list = query.list();
 		session.clear();
@@ -105,4 +107,40 @@ public class DistributionDaoImpl implements DistributionDao {
 		return list;
 	}
 
+	@Override
+	public unit getDistributionInfoById(String trim ) {
+		unit unit = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		unit = (unit) query.uniqueResult();
+		return unit;
+	}
+
+	@Override
+	public String getDistributionByNum(String unit_num) {
+		Session session = getSession();
+		String hql = "select substring(unit_num,5) from unit where unit_type=:num  order by --substring(unit_num, 5) desc limit 1";
+		System.out.println(hql);
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("num", "配送点");
+		String maxNum = (String) query.uniqueResult();
+		return maxNum;
+	}
+	/**
+	 * 根据上级单位查单位
+	 * @param trim
+	 * @return
+	 */
+	public unit getDistributionInfoBySuperId(String trim ) {
+		unit unit = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_superiorunit = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		unit = (unit) query.uniqueResult();
+		return unit;
+	}
+	
 }

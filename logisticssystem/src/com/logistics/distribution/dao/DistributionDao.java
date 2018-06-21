@@ -1,8 +1,12 @@
 package com.logistics.distribution.dao;
 
 import java.util.List;
+
+import com.logistics.domain.unit;
+
 /**
  * 配送点管理的DAO层接口
+ * 
  * @author LW
  *
  */
@@ -48,6 +52,20 @@ public interface DistributionDao {
 	 * 获取对象列表
 	 */
 	public List<?> listObject(String hql);
+
+	/**
+	 * 根据id查询配送点
+	 * 
+	 * @param unit_id
+	 * @return
+	 */
+	public unit getDistributionInfoById(String trim);
+/**
+ * 查询最大编号
+ * @param unit_num
+ * @return
+ */
+	public String getDistributionByNum(String unit_num);
 
 	/**
 	 * 

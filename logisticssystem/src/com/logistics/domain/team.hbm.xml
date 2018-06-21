@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.team" table="TEAM">
+        <id name="team_id" type="java.lang.String">
+            <column name="team_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="team_num" type="java.lang.String">
+            <column name="team_num" />
+        </property>
+        <property name="team_leader" type="java.lang.String">
+            <column name="team_leader" />
+        </property>
+        <property name="team_unit" type="java.lang.String">
+            <column name="team_unit" />
+        </property>
+        <property name="team_route" type="java.lang.String">
+            <column name="team_route" />
+        </property>
+        <property name="team_createtime" type="java.lang.String">
+            <column name="team_createtime" />
+        </property>
+        <property name="team_modifytime" type="java.lang.String">
+            <column name="team_modifytime" />
+        </property>
+        <property name="team_state" type="java.lang.String">
+            <column name="team_state" />
+        </property>
+    </class>
+</hibernate-mapping>

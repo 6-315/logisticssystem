@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.distributiontor" table="DISTRIBUTIONTOR">
+        <id name="distributiontor_id" type="java.lang.String">
+            <column name="distributiontor_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="distributiontor_basicinfo" type="java.lang.String">
+            <column name="distributiontor_basicinfo" />
+        </property>
+        <property name="distributiontor_belongdistribution" type="java.lang.String">
+            <column name="distributiontor_belongdistribution" />
+        </property>
+        <property name="distributiontor_createtime" type="java.lang.String">
+            <column name="distributiontor_createtime" />
+        </property>
+        <property name="distributiontor_modifytime" type="java.lang.String">
+            <column name="distributiontor_modifytime" />
+        </property>
+        <property name="distributiontor_state" type="java.lang.String">
+            <column name="distributiontor_state" />
+        </property>
+    </class>
+</hibernate-mapping>

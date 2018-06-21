@@ -6,9 +6,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.driver;
+import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
+import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
 import com.logistics.transferstation.dao.TransferStationDao;
+
 /**
  * 中转站管理的DAO实现层
+ * 
  * @author LW
  *
  */
@@ -63,7 +70,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
-		query.setFirstResult(offset - 1);
+		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
 		List<?> list = query.list();
 		session.clear();
@@ -108,4 +115,85 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		return list;
 	}
 
+	/**
+	 * 根据ID查询中转站
+	 */
+	public unit getTransferStationInfoById(String trim) {
+		unit transferStation = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		transferStation = (unit) query.uniqueResult();
+
+		return transferStation;
+
+	}
+
+	/**
+	 * 根据ID查询staff_basicinfo表中的信息
+	 */
+	@Override
+	public staff_basicinfo getBasicinfoById(String trim) {
+		staff_basicinfo staff_basicinfo = new staff_basicinfo();
+		Session session = getSession();
+		String hql = "from staff_basicinfo where staff_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		staff_basicinfo = (staff_basicinfo) query.uniqueResult();
+		return staff_basicinfo;
+	}
+
+	/**
+	 * 按照倒序查中转站编号最大值
+	 */
+	@Override
+	public String getTransferStationByNum(String unit_num) {
+		Session session = getSession();
+		String hql = "select substring(unit_num,2) from unit where unit_type=:num  order by --substring(unit_num, 2) desc limit 1";
+		System.out.println(hql);
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("num", "中转站");
+		String maxNum = (String) query.uniqueResult();
+		return maxNum;
+	}
+	/**
+	 * 根据ID查询车队表中的信息
+	 */
+	@Override
+	public team getTeamById(String trim) {
+		team team = new team();
+		Session session = getSession();
+		String hql = "from team where team_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		team = (team) query.uniqueResult();
+		return team;
+	}
+	/**
+	 * 根据ID查询车队表中的信息
+	 */
+	@Override
+	public vehicle getVehicleById(String trim) {
+		vehicle vehicle = new vehicle();
+		Session session = getSession();
+		String hql = "from vehicle where vehicle_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		vehicle = (vehicle) query.uniqueResult();
+		return vehicle;
+	}
+	/**
+	 * 根据ID查询员工表中的信息
+	 */
+	@Override
+	public driver getDriverById(String trim) {
+		driver driver = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		driver = (driver) query.uniqueResult();
+		return driver;
+	}
 }

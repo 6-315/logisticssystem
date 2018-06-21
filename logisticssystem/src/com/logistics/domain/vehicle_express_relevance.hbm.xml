@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2018-6-14 8:12:20 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.logistics.domain.vehicle_express_relevance" table="VEHICLE_EXPRESS_RELEVANCE">
+        <id name="vehicle_express_relevance_id" type="java.lang.String">
+            <column name="vehicle_express_relevance_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="vehicle_express_relevance_expressinfo" type="java.lang.String">
+            <column name="vehicle_express_relevance_expressinfo" />
+        </property>
+        <property name="vehicle_express_relevance_expressinfo_begintime" type="java.lang.String">
+            <column name="vehicle_express_relevance_expressinfo_begintime" />
+        </property>
+        <property name="vehicle_express_relevance_expressinfo_endtime" type="java.lang.String">
+            <column name="vehicle_express_relevance_expressinfo_endtime" />
+        </property>
+        <property name="vehicle_express_relevance_vehicleinfo" type="java.lang.String">
+            <column name="vehicle_express_relevance_vehicleinfo" />
+        </property>
+        <property name="vehicle_express_relevance_createtime" type="java.lang.String">
+            <column name="vehicle_express_relevance_createtime" />
+        </property>
+        <property name="vehicle_express_relevance_modifytime" type="java.lang.String">
+            <column name="vehicle_express_relevance_modifytime" />
+        </property>
+    </class>
+</hibernate-mapping>
