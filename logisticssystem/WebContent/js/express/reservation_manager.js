@@ -112,6 +112,49 @@
                 reservationData.state = s
                 view_reservation.getAllData()
                 view_reservation.judge()
+            },
+            replaceState: function (state) {
+                let replaceState = ''
+                console.log(state)
+                switch (state) {
+                    case '待受理':
+                        replaceState = `<span class="label label-info">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                    case '已受理':
+                        replaceState = `<span class="label label-success">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                    case '已拒绝':
+                        replaceState = `<span class="label label-error">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                    case '待取件':
+                        replaceState = `<span class="label label-primary">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                    case '已取件':
+                        replaceState = `<span class="label label-warning">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                    case '已完成':
+                        replaceState = `<span class="label label-default">
+                                    ${state}
+                                 </span>
+                                `
+                        break;
+                }
+                return replaceState
             }
 
         },

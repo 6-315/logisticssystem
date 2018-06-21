@@ -416,8 +416,8 @@
                                             是
                                         </td>
                                         <td v-else>否</td>
-                                        <td>
-                                            <span class="label label-info">{{reservationDTO.reservationInfo.reservation_state}}</span>
+                                        <td v-html="replaceState(reservationDTO.reservationInfo.reservation_state)">
+                                            <%--<span class="label">{{reservationDTO.reservationInfo.reservation_state}}</span>--%>
                                         </td>
                                         <td>
                                             <div class="btn-group">
@@ -426,11 +426,13 @@
 														<i class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">Action</a></li>
-                                                    <li><a href="#">Another action</a></li>
-                                                    <li><a href="#">Something else here</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Separated link</a></li>
+                                                    <li><a href="#">查看详情</a></li>
+                                                    <li><a href="#">受理</a></li>
+                                                    <li><a href="#">拒绝</a></li>
+                                                    <li><a href="#">分配配送员</a></li>
+                                                    <li><a href="#">已取件</a></li>
+                                                    <li><a href="#">已完成</a></li>
+                                                    <li><a href="#">填写快件单</a></li>
                                                 </ul>
                                             </div>
                                         </td>

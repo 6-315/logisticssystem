@@ -20,7 +20,7 @@
 </head>
 <body class="body-order">
 	<nav class="navbar navbar-inverse navbar-fixed-top"
-		style="padding: 0px;">
+		style="padding: 0px;"> 
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#" style="display: inline-block;">

@@ -149,8 +149,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	private String isDistributed = "";
 
-	
-
 	public String getUnit() {
 		return unit;
 	}
@@ -559,7 +557,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	/**
 	 * 查看当前预约单信息
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void queryCurrentReservationInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -571,7 +570,5 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
-	
-	
 
 }
