@@ -18,11 +18,11 @@ public interface ExpressManagementService {
 
 	public ReservationExpressInfoDTO addReservationAndExpressInfo(ReservationExpressInfoDTO reservationExpressInfoDTO, userinfo userInfo);
 
-	public String updateReservation(reservation reservationInfo);
+	public String updateReservation(String idList, String state);
 
-	public String updateReservationWithDistributor(ReservationWithDistributorDTO reservationWithDistributorDTO);
+	public String updateReservationWithDistributor(String idList, distributiontor distributor);
 
-	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo);
+	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo);
 
 	public String updateExpressState(express expressInfo);
 
@@ -32,7 +32,7 @@ public interface ExpressManagementService {
 
 	public List<route> queryAllRouteWithUnit(unit unitInfo);
 
-	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
+	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
 
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
@@ -45,6 +45,9 @@ public interface ExpressManagementService {
 	public String cancelReservation(reservation reservationInfo);
 
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
+
+	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
+
 
 
 }

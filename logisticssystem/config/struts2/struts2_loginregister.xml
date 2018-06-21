@@ -12,6 +12,8 @@
 			<result name="SuccessByStaff">/WEB-INF/page/admin/admin-index.jsp</result>
 			<result name="pageReservationSuccess">/WEB-INF/page/express/reservation_success.jsp
 			</result>
+			<result name="pageReservationManager">/WEB-INF/page/express/reservation_manager.jsp
+			</result>
 		</action>
 	</package>
 </struts>

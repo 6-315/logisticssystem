@@ -36,7 +36,7 @@ public class Expressmanagement {
 	/**
 	 * 预约表VO测试
 	 */
-	@Test
+	/*@Test
 	public void queryReservationInfoTest() {
 		ReservationVO reservationVO = new ReservationVO();
 		staff_basicinfo staffInfo = new staff_basicinfo();
@@ -44,7 +44,7 @@ public class Expressmanagement {
 		staffInfo.setStaff_unit("123");
 		reservationVO = expressManagementService.queryReservationInfo(reservationVO, staffInfo);
 		System.out.println("000000000"+reservationVO);
-	}
+	}*/
 
 	/**
 	 * 添加预约单测试
@@ -66,19 +66,19 @@ public class Expressmanagement {
 	/**
 	 * 受理客户预约
 	 */
-	@Test
+	/*@Test
 	public void updateReservationTest() {
 		reservation reservationInfo = new reservation();
 		reservationInfo.setReservation_id("2176f29b-f0f4-42db-a91f-7e86fa3ed2db");
 		reservationInfo.setReservation_state("已受理");
 		expressManagementService.updateReservation(reservationInfo);
 		
-	}
+	}*/
 	
 	/**
 	 * 分配配送员
 	 */
-	@Test
+	/*@Test
 	public void updateReservationWithDistributorTest() {
 		ReservationWithDistributorDTO reservationWithDistributorDTO = new ReservationWithDistributorDTO();
 		distributiontor distributor = new distributiontor();
@@ -88,19 +88,19 @@ public class Expressmanagement {
 		reservationWithDistributorDTO.setDistributor(distributor);
 		reservationWithDistributorDTO.setReservationInfo(reservationInfo);
 		expressManagementService.updateReservationWithDistributor(reservationWithDistributorDTO);
-	}
+	}*/
 	
 	/**
 	 * 上门取件
 	 */
-	@Test
+	/*@Test
 	public void completePickExpressTest() {
 		staff_basicinfo staffInfo = new staff_basicinfo();
 		staffInfo.setStaff_id("1234");
 		staffInfo.setStaff_unit("234");
 		expressManagementService.completePickExpress(staffInfo);
 		
-	}
+	}*/
 	
 	/**
 	 *  到达中转站
@@ -154,7 +154,7 @@ public class Expressmanagement {
 	/**
 	 * 完成扫描
 	 */
-	@Test
+	/*@Test
 	public void updateVehicleAndExpressCirculationAndExpressInfoTest() {
 		vehicle vehicleInfo = new vehicle();
 		vehicleInfo.setVehicle_id("bad396b4-b23f-4cea-b312-0a5cc5b58895");
@@ -164,6 +164,6 @@ public class Expressmanagement {
 		staffInfo.setStaff_unit("123");
 		expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo);
 		
-	}
+	}*/
 	
 }
