@@ -19,7 +19,9 @@
         state: '',
         unit: '',
         isDistributed: '',
-        ready: false
+        ready: false,
+        preDisabled: false,
+        nextDisabled: false
     }
     const view_reservation = new Vue({
         el: '#reservation_manager',
@@ -51,8 +53,55 @@
                         reservationData.reservationVO.search = reservationListVO.search
                         reservationData.reservationVO.state = reservationListVO.state
                         reservationData.reservationVO.unit = reservationListVO.unit
+                        view_reservation.judge()
                     }
                 })
+            },
+            //分页-上一页
+            prePage: function () {
+                if (reservationData.preDisabled) {
+                    return
+                }
+                reservationData.page = reservationData.reservationVO.pageIndex - 1
+                view_reservation.getAllData()
+                view_reservation.judge()
+            },
+            judge: function () {
+                reservationData.preDisabled = false
+                reservationData.nextDisabled = false
+                if (reservationData.reservationVO.pageIndex == 1) {
+                    reservationData.preDisabled = true
+                }
+                if (reservationData.reservationVO.pageIndex === reservationData.reservationVO.totalPages) {
+                    reservationData.nextDisabled = true
+                }
+            },
+            //下一页
+            nextPage: function () {
+                if (reservationData.nextDisabled) {
+                    return
+                }
+                reservationData.page = reservationData.reservationVO.pageIndex + 1
+                view_reservation.getAllData()
+                view_reservation.judge()
+            },
+            //首页
+            shouye: function () {
+                reservationData.page = 1
+                view_reservation.getAllData()
+                view_reservation.judge()
+            },
+            //尾页
+            weiye: function () {
+                reservationData.page = reservationData.reservationVO.totalPages
+                view_reservation.getAllData()
+                view_reservation.judge()
+            },
+            //单位筛选
+            selectUnit: function (selectUnitId) {
+                reservationData.unit = selectUnitId
+                view_reservation.getAllData()
+                view_reservation.judge()
             }
         },
         mounted() {
@@ -84,6 +133,7 @@
                     reservationData.reservationVO.unit = reservationListVO.unit
                     reservationData.page = reservationListVO.pageIndex
                     reservationData.ready = true
+                    view_reservation.judge()
                 }
             })
         }

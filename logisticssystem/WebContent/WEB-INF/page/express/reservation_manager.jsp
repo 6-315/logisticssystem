@@ -106,6 +106,12 @@
             border-color: #337ab7;
         }
 
+        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+            color: #777;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #ddd;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -334,7 +340,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div style="width: 250px; float: right; margin-bottom: 10px;" class="input-group">
-                                <input placeholder="Search" @input="searchReservationNum"
+                                <input placeholder="据预约单号搜索" @input="searchReservationNum"
                                        v-model="search" type="text" class="form-control input-sm"><span
                                     class="input-group-addon btn btn-default"><i class="fa fa-search"></i></span>
                             </div>
@@ -350,9 +356,9 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="selectUnit()" href="#">所属单位(所有)</a></li>
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                @click="" href="#">{{unit_name}}</a></li>
+                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
@@ -392,7 +398,7 @@
                                     <tr
                                             v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
                                             :key="index">
-                                        <td>{{reservationDTO.reservationInfo.reservation_num}}</td>
+                                        <td v-html="reservationDTO.reservationInfo.reservation_num"></td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
@@ -425,22 +431,20 @@
                                 </table>
                                 <div class="pagePosition">
                                     <ul class="pagination">
-                                        <li>
-                                            <a href="#" aria-label="Previous">
-                                                上一页<%--<span aria-hidden="true">&laquo;</span>--%>
-                                            </a>
-                                        </li>
-                                        <li class="huodong"><a href="#">首页</a></li>
-                                        <li><a href="#">第 1 页</a></li>
-                                        <li><a href="#">尾页</a></li>
-                                        <%--<li><a href="#">4</a></li>--%>
-                                        <%--<li><a href="#">5</a></li>--%>
-                                        <li>
-                                            <a href="#" aria-label="Next">
+                                        <li></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
+                                        <li :class="{disabled:preDisabled}"><a @click="prePage" href="#">上一页</a></li>
+                                        <li><a>第 {{reservationVO.pageIndex}} 页/总 {{reservationVO.totalPages}}
+                                            页/共{{reservationVO.totalRecords}}条</a></li>
+                                        <li :class="{disabled:nextDisabled}">
+                                            <a :disabled="nextDisabled"
+                                               @click="nextPage" href="#">
                                                 下一页
                                                 <%--<span aria-hidden="true">&raquo;</span>--%>
                                             </a>
                                         </li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
+                                        <li></li>
                                     </ul>
                                 </div>
                                 <div>
