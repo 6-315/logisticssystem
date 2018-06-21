@@ -30,6 +30,9 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}		
 		String number = "";
 		String table = "";
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
@@ -188,6 +191,9 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<unit> getLowerUnit(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
 				&& staffBasicinfo.getStaff_position() != null
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
@@ -216,6 +222,9 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<position> getLowerPosition(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
 				&& staffBasicinfo.getStaff_position() != null
 				&& staffBasicinfo.getStaff_position().trim().length() > 0) {
@@ -294,6 +303,9 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	 */
 	@Override
 	public String updateStaffInfo(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo != null
 				&& staffBasicinfo.getStaff_id().trim().length() > 0) {
 
