@@ -6,19 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.logistics.domain.distributiontor;
-import com.logistics.domain.driver;
-import com.logistics.domain.express;
-import com.logistics.domain.express_circulation;
-import com.logistics.domain.express_route;
-import com.logistics.domain.express_send;
-import com.logistics.domain.expressinfo;
-import com.logistics.domain.position;
-import com.logistics.domain.reservation;
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
-import com.logistics.domain.userinfo;
-import com.logistics.domain.vehicle;
+import com.logistics.domain.*;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
 /**
  * DAO 实现
@@ -338,6 +326,34 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", staff_id);
 		driverInfo = (driver) query.uniqueResult();
 		return driverInfo;
+	}
+
+	/**
+	 * 根据车辆ID查询车辆-快件关联表信息
+	 */
+	@Override
+	public vehicle_express_relevance getVehicleExpressRelevanceByVehicleId(String driver_vehicle) {
+		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+		Session session = getSession();
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_vehicleinfo = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", driver_vehicle);
+		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
+		return vehicleExpressRelevance;
+	}
+
+	/**
+	 * 根据快件ID查询流转表信息
+	 */
+	@Override
+	public express_circulation getExpressCirculationInfoByExpressId(String express_id) {
+		express_circulation expressCirculation = new express_circulation();
+		Session session = getSession();
+		String hql = "from express_circulation where express_circulation_express_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressCirculation = (express_circulation) query.uniqueResult();
+		return expressCirculation;
 	}
 
 }
