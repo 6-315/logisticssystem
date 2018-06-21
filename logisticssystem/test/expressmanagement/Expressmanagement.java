@@ -154,7 +154,7 @@ public class Expressmanagement {
 	/**
 	 * 完成扫描
 	 */
-	@Test
+	/*@Test
 	public void updateVehicleAndExpressCirculationAndExpressInfoTest() {
 		vehicle vehicleInfo = new vehicle();
 		vehicleInfo.setVehicle_id("bad396b4-b23f-4cea-b312-0a5cc5b58895");
@@ -164,6 +164,6 @@ public class Expressmanagement {
 		staffInfo.setStaff_unit("123");
 		expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo);
 		
-	}
+	}*/
 	
 }

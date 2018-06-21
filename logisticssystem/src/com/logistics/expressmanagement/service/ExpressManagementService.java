@@ -32,7 +32,7 @@ public interface ExpressManagementService {
 
 	public List<route> queryAllRouteWithUnit(unit unitInfo);
 
-	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
+	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
 
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
@@ -47,6 +47,10 @@ public interface ExpressManagementService {
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 
 	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
+
+	public ExpressAndCirculationDTO createExpressAndCirculation(ExpressAndCirculationDTO expressAndCirculationDTO,
+			staff_basicinfo staffInfo);
+
 
 
 }
