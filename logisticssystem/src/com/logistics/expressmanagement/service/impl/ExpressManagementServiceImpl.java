@@ -453,7 +453,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						+ "' ";
 			}
 
-			System.out.println(reservationCountHql);
 			listReservationInfoHql = listReservationInfoHql + " order by reservation_modifytime desc ";
 			int reservationCount = expressManagementDao.getCount(reservationCountHql);
 			/**
