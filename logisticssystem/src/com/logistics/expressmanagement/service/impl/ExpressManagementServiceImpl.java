@@ -502,6 +502,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						}
 					}
 				}
+				/**
+				 * 将关键字高亮
+				 */
+				if (reservationVO.getSearch() != null && reservationVO.getSearch().trim().length() > 0) {
+					reservationInfo.setReservation_num(reservationInfo.getReservation_num()
+							.replaceAll(reservationVO.getSearch(), "<mark>" + reservationVO.getSearch() + "</mark>"));
+				}
+
 				reservationDTO.setReservationInfo(reservationInfo);
 				listReservationDTO.add(reservationDTO);
 			}
@@ -624,6 +632,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				if (userInfo != null) {
 					expressInfoDTO.setUserInfo(userInfo);
 				}
+				/**
+				 * 将关键字高亮
+				 */
+				if (expressVO.getSearch() != null && expressVO.getSearch().trim().length() > 0) {
+					expressInfo.setExpress_number(expressInfo.getExpress_number().replaceAll(expressVO.getSearch(),
+							"<mark>" + expressVO.getSearch() + "</mark>"));
+				}
+
 				expressInfoDTO.setExpressInfo(expressInfo);
 				listExpressInfoDTO.add(expressInfoDTO);
 			}
