@@ -98,6 +98,10 @@
             background-color: #337ab7;
             border-color: #337ab7;
         }*/
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
 
         .pagination > .huodong {
             color: #fff;
@@ -365,28 +369,32 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="" href="#">所有</a></li>
-														<li><a @click="" href="#">是</a></li>
-														<li><a @click="" href="#">否</a></li>
+														<li><a @click="distributionStaff('')" href="#">所有</a></li>
+														<li><a @click="distributionStaff('是')" href="#">是</a></li>
+														<li><a @click="distributionStaff('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="" href="#">所有</a></li>
-														<li><a @click="" href="#">待处理</a></li>
-														<li><a @click="" href="#">已受理</a></li>
-														<li><a @click="" href="#">已拒绝</a></li>
-														<li><a @click="" href="#">待取件</a></li>
-														<li><a @click="" href="#">已取件</a></li>
-														<li><a @click="" href="#">已完成</a></li>
-														<li><a @click="" href="#">已完成</a></li>
+														<li><a @click="selectState('')" href="#">所有</a></li>
+														<li><a @click="selectState('待受理')" href="#">待受理</a></li>
+														<li><a @click="selectState('已受理')" href="#">已受理</a></li>
+														<li><a @click="selectState('已拒绝')" href="#">已拒绝</a></li>
+														<li><a @click="selectState('待取件')" href="#">待取件</a></li>
+														<li><a @click="selectState('已取件')" href="#">已取件</a></li>
+														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
+                                    <tbody v-if="reservationVO.listReservationInfoDTO.length == 0">
+                                    <td style="text-align: center" colspan="8" height="50">
+                                        暂无数据
+                                    </td>
+                                    </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
                                         <td style="text-align: center" colspan="8">
@@ -394,7 +402,7 @@
                                         </td>
                                     </tr>
                                     </tbody>
-                                    <tbody v-cloak v-if="ready">
+                                    <tbody v-cloak v-if="ready && reservationVO.listReservationInfoDTO.length != 0">
                                     <tr
                                             v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
                                             :key="index">
