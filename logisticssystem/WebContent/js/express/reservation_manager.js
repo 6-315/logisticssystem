@@ -18,7 +18,8 @@
         page: '',
         state: '',
         unit: '',
-        isDistributed: ''
+        isDistributed: '',
+        ready: false
     }
     const view_reservation = new Vue({
         el: '#reservation_manager',
@@ -81,8 +82,11 @@
                     reservationData.reservationVO.search = reservationListVO.search
                     reservationData.reservationVO.state = reservationListVO.state
                     reservationData.reservationVO.unit = reservationListVO.unit
+                    reservationData.page = reservationListVO.pageIndex
+                    reservationData.ready = true
                 }
             })
         }
     })
-})()
+})
+()
