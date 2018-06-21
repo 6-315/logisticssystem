@@ -102,7 +102,18 @@
                 reservationData.unit = selectUnitId
                 view_reservation.getAllData()
                 view_reservation.judge()
+            },
+            distributionStaff: function (con) {
+                reservationData.isDistributed = con
+                view_reservation.getAllData()
+                view_reservation.judge()
+            },
+            selectState: function (s) {
+                reservationData.state = s
+                view_reservation.getAllData()
+                view_reservation.judge()
             }
+
         },
         mounted() {
             //获取单位信息
