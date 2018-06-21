@@ -378,34 +378,35 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				}
 			} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 				if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
-					String unit = "%" + reservationVO.getUnit() + "%";
-					reservationCountHql = reservationCountHql + " reservation_unit ='" + unit + "' ";
-					listReservationInfoHql = listReservationInfoHql + " reservation_unit ='" + unit + "' ";
+					reservationCountHql = reservationCountHql + " reservation_unit ='" + reservationVO.getUnit() + "' ";
+					listReservationInfoHql = listReservationInfoHql + " reservation_unit ='" + reservationVO.getUnit()
+							+ "' ";
 				}
 			} else {
 				if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
-					String unit = "%" + reservationVO.getUnit() + "%";
-					reservationCountHql = reservationCountHql + " reservation_unit ='" + unit + "' ";
-					listReservationInfoHql = listReservationInfoHql + " reservation_unit ='" + unit + "' ";
-				}
-				List<unit> listUnit = (List<unit>) expressManagementDao
-						.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
-								+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
-				if (listUnit != null) {
-					for (int i = 0; i < listUnit.size(); i++) {
-						if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
-								&& listUnit.get(i).getUnit_id().trim().length() > 0) {
-							reservationCountHql = reservationCountHql + " reservation_unit ='"
-									+ listUnit.get(i).getUnit_id().trim() + "'";
-							listReservationInfoHql = listReservationInfoHql + "  reservation_unit ='"
-									+ listUnit.get(i).getUnit_id().trim() + "' ";
+					reservationCountHql = reservationCountHql + " reservation_unit ='" + reservationVO.getUnit() + "' ";
+					listReservationInfoHql = listReservationInfoHql + " reservation_unit ='" + reservationVO.getUnit()
+							+ "' ";
+				} else {
+					List<unit> listUnit = (List<unit>) expressManagementDao
+							.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
+									+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
+					if (listUnit != null) {
+						for (int i = 0; i < listUnit.size(); i++) {
+							if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
+									&& listUnit.get(i).getUnit_id().trim().length() > 0) {
+								reservationCountHql = reservationCountHql + " reservation_unit ='"
+										+ listUnit.get(i).getUnit_id().trim() + "'";
+								listReservationInfoHql = listReservationInfoHql + "  reservation_unit ='"
+										+ listUnit.get(i).getUnit_id().trim() + "' ";
+							}
+							if (i < listUnit.size() - 1) {
+								reservationCountHql = reservationCountHql + " or  ";
+								listReservationInfoHql = listReservationInfoHql + " or  ";
+							}
 						}
-						if (i < listUnit.size() - 1) {
-							reservationCountHql = reservationCountHql + " or  ";
-							listReservationInfoHql = listReservationInfoHql + " or  ";
-						}
-					}
 
+					}
 				}
 			}
 		}
@@ -441,9 +442,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		 * 根据状态分类查询
 		 */
 		if (reservationVO.getState() != null && reservationVO.getState().trim().length() > 0) {
-			String state = "%" + reservationVO.getState() + "%";
-			reservationCountHql = reservationCountHql + " and reservation_state ='" + state + "' ";
-			listReservationInfoHql = listReservationInfoHql + " and reservation_state ='" + state + "' ";
+			reservationCountHql = reservationCountHql + " and reservation_state ='" + reservationVO.getState() + "' ";
+			listReservationInfoHql = listReservationInfoHql + " and reservation_state ='" + reservationVO.getState()
+					+ "' ";
 		}
 
 		listReservationInfoHql = listReservationInfoHql + " order by reservation_modifytime desc ";
@@ -539,9 +540,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				&& staffPosition.getPosition_name().trim().length() > 0) {
 			if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 				if (expressVO.getUnit() != null && expressVO.getUnit().trim().length() > 0) {
-					String unit = "%" + expressVO.getUnit() + "%";
-					expressCountHql = expressCountHql + " express_belongunit ='" + unit + "' ";
-					listExpressInfoHql = listExpressInfoHql + " express_belongunit ='" + unit + "' ";
+					expressCountHql = expressCountHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
+					listExpressInfoHql = listExpressInfoHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
 				}
 			} else {
 				if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
@@ -581,9 +581,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		 * 根据状态分类查询
 		 */
 		if (expressVO.getState() != null && expressVO.getState().trim().length() > 0) {
-			String state = "%" + expressVO.getState() + "%";
-			expressCountHql = expressCountHql + " and express_state ='" + state + "' ";
-			listExpressInfoHql = listExpressInfoHql + " and express_state ='" + state + "' ";
+			expressCountHql = expressCountHql + " and express_state ='" + expressVO.getState() + "' ";
+			listExpressInfoHql = listExpressInfoHql + " and express_state ='" + expressVO.getState() + "' ";
 		}
 
 		listExpressInfoHql = listExpressInfoHql + " order by express_modifytime desc ";
