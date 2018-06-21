@@ -3,9 +3,11 @@ package com.logistics.expressmanagement.dao;
 import java.util.List;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
+import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.position;
 import com.logistics.domain.reservation;
@@ -88,6 +90,10 @@ public interface ExpressManagementDao {
 	public userinfo getUserInfoById(String reservation_user);
 
 	public position getPositionById(String staff_position);
+
+	public express_send getExpressSendInfoByDistributorId(String distributiontor_id);
+
+	public driver getDriverInfoByBasicInfo(String staff_id);
 
 
 	/**

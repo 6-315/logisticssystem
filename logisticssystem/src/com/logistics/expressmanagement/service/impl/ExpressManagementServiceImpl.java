@@ -141,11 +141,25 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				expressInfo.setExpress_expressinfoid(expressDetailInfo.getExpressinfo_id());
 				expressInfo.setExpress_id(BuildUuid.getUuid());
 				expressInfo.setExpress_number("315" + CreateNumberUtil.getExpressNumber());
-				expressInfo.setExpress_state("正在派送至中转站");
+				expressInfo.setExpress_state("已揽件");
 				expressInfo.setExpress_createtime(TimeUtil.getStringSecond());
 				expressInfo.setExpress_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao.saveOrUpdateObject(expressInfo);
 				expressAndCirculationDTO.setExpressInfo(expressInfo);
+				// 生成快件派送表
+				express_send expressSendInfo = new express_send();
+				expressSendInfo.setExpress_send_id(BuildUuid.getUuid());
+				expressSendInfo.setExpress_send_express_id(expressInfo.getExpress_id());
+				if(expressAndCirculationDTO!=null) {
+					if(expressAndCirculationDTO.getDistributor()!=null) {
+						if(expressAndCirculationDTO.getDistributor().getDistributiontor_id()!=null&&expressAndCirculationDTO.getDistributor().getDistributiontor_id().trim().length()>0) {
+				expressSendInfo.setExpress_send_distributiontor(expressAndCirculationDTO.getDistributor().getDistributiontor_id());
+				}}}
+				expressSendInfo.setExpress_send_type("揽件");
+				expressSendInfo.setExpress_send_state("未完成");
+				expressSendInfo.setExpress_send_createtime(TimeUtil.getStringSecond());
+				expressSendInfo.setExpress_send_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao.saveOrUpdateObject(expressSendInfo);
 				// 生成流转单
 				express_circulation expressCirculation = new express_circulation();
 				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
@@ -266,13 +280,39 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<route> queryAllRouteWithUnit(unit unitInfo) {
+	public List<RouteDTO> queryAllRouteWithUnit(unit unitInfo) {
+		List<RouteDTO> listRouteDTO = new ArrayList<>();
+		RouteDTO routeDTO = null;
 		if (unitInfo != null && unitInfo.getUnit_id() != null && unitInfo.getUnit_id().trim().length() > 0) {
 			List<route> listRoute = (List<route>) expressManagementDao
 					.listObject(" from route where route_state = '正常使用' and (route_departurestation = '"
 							+ unitInfo.getUnit_id() + "' or route_terminalstation = '" + unitInfo.getUnit_id() + "')");
 			if (listRoute != null) {
-				return listRoute;
+				routeDTO = new RouteDTO();
+				for (route routeInfo : listRoute) {
+					if(routeInfo.getRoute_departurestation().equals(unitInfo.getUnit_id())) {
+						String direction = "正向";
+						routeDTO.setDirection(direction);
+						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
+						if(beginUnit!=null&&endUnit!=null) {
+							routeDTO.setBeginUnit(beginUnit);
+							routeDTO.setEndUnit(endUnit);
+						}
+					}else {
+						String direction = "反向";
+						routeDTO.setDirection(direction);
+						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
+						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						if(beginUnit!=null&&endUnit!=null) {
+							routeDTO.setBeginUnit(beginUnit);
+							routeDTO.setEndUnit(endUnit);
+						}
+					}
+					routeDTO.setRouteInfo(routeInfo);
+					listRouteDTO.add(routeDTO);
+				}
+				return listRouteDTO;
 			}
 		}
 		return null;
@@ -528,7 +568,31 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			position staffPosition = expressManagementDao.getPositionById(staffInfo.getStaff_position());
 			if (staffPosition != null && staffPosition.getPosition_name() != null
 					&& staffPosition.getPosition_name().trim().length() > 0) {
-				if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+				if("驾驶员".equals(staffPosition.getPosition_name())) {
+					driver driverInfo = expressManagementDao.getDriverInfoByBasicInfo(staffInfo.getStaff_id());
+					
+				}
+				
+				
+				if("配送员".equals(staffPosition.getPosition_name())) {
+					distributiontor distributor = expressManagementDao
+							.getDistributorInfoByBasicInfo(staffInfo.getStaff_id());
+					if (distributor != null && distributor.getDistributiontor_id() != null
+							&& distributor.getDistributiontor_id().trim().length() > 0) {
+						express_send expressSendInfo = expressManagementDao.getExpressSendInfoByDistributorId(distributor.getDistributiontor_id());
+						if(expressSendInfo!=null&&expressSendInfo.getExpress_send_express_id()!=null&&expressSendInfo.getExpress_send_express_id().trim().length()>0) {
+							expressCountHql = expressCountHql + " express_id ='"+expressSendInfo.getExpress_send_express_id()+"' ";
+							listExpressInfoHql = listExpressInfoHql + " express_id ='"+expressSendInfo.getExpress_send_express_id()+"' ";
+							
+						}
+					}
+					
+				}
+				
+				else	if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+					expressCountHql = expressCountHql + " 1=1 ";
+					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
+					
 					if (expressVO.getUnit() != null && expressVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
 						listExpressInfoHql = listExpressInfoHql + " express_belongunit ='" + expressVO.getUnit() + "' ";
@@ -574,6 +638,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				expressCountHql = expressCountHql + " and express_state ='" + expressVO.getState() + "' ";
 				listExpressInfoHql = listExpressInfoHql + " and express_state ='" + expressVO.getState() + "' ";
 			}
+			/**
+			 * 
+			 */
 
 			listExpressInfoHql = listExpressInfoHql + " order by express_modifytime desc ";
 			int expressCount = expressManagementDao.getCount(expressCountHql);
@@ -817,6 +884,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			}
 			if (reservationExpressInfoDTO.getExpressInfo() != null) {
 				expressinfo updateExpressDetailInfo = reservationExpressInfoDTO.getExpressInfo();
+				updateExpressDetailInfo.setExpressinfo_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao.saveOrUpdateObject(updateExpressDetailInfo);
 				if (reservationExpressInfoDTO.getReservationInfo() != null) {
 					reservation updateReservation = reservationExpressInfoDTO.getReservationInfo();

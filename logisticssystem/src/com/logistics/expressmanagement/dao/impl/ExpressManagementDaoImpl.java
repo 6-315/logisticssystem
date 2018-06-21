@@ -7,9 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
+import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
 import com.logistics.domain.position;
 import com.logistics.domain.reservation;
@@ -308,6 +310,34 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", staff_position);
 		staffPosition = (position) query.uniqueResult();
 		return staffPosition;
+	}
+
+	/**
+	 * 根据配送员ID查询派送表信息
+	 */
+	@Override
+	public express_send getExpressSendInfoByDistributorId(String distributiontor_id) {
+		express_send expressSendInfo = new express_send();
+		Session session = getSession();
+		String hql = "from express_send where express_send_distributiontor = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", distributiontor_id);
+		expressSendInfo = (express_send) query.uniqueResult();
+		return expressSendInfo;
+	}
+
+	/**
+	 * 根据员工ID查询驾驶员表信息
+	 */
+	@Override
+	public driver getDriverInfoByBasicInfo(String staff_id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_basicinfoid = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
 	}
 
 }
