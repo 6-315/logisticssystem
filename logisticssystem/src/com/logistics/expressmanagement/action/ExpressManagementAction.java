@@ -148,6 +148,30 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 根据是否分配进行筛选
 	 */
 	private String isDistributed = "";
+	/**
+	 * 是否分配配送点
+	 */
+	private String isDistributedDistribution = "";
+	/**
+	 * 是否分配配送员
+	 */
+	private String isDistributedDistributor = "";
+
+	public String getIsDistributedDistribution() {
+		return isDistributedDistribution;
+	}
+
+	public void setIsDistributedDistribution(String isDistributedDistribution) {
+		this.isDistributedDistribution = isDistributedDistribution;
+	}
+
+	public String getIsDistributedDistributor() {
+		return isDistributedDistributor;
+	}
+
+	public void setIsDistributedDistributor(String isDistributedDistributor) {
+		this.isDistributedDistributor = isDistributedDistributor;
+	}
 
 	public String getUnit() {
 		return unit;
@@ -440,6 +464,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		expressInfoVO.setSearch(search);
 		expressInfoVO.setState(state);
 		expressInfoVO.setUnit(unit);
+		expressInfoVO.setIsDistributedDistribution(isDistributedDistribution);
+		expressInfoVO.setIsDistributedDistributor(isDistributedDistributor);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressInfoVO, staffInfo)));
