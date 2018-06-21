@@ -118,76 +118,52 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	}
 
 	/**
-	 * 上门取件
+	 * 生成快件单和流转单
 	 */
 	@Override
-	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo) {
-		ExpressAndCirculationDTO expressAndCirculationDTO = new ExpressAndCirculationDTO();
+	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO,
+			staff_basicinfo staffInfo) {
 		if (staffInfo != null) {
-			if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
-				distributiontor distributor = expressManagementDao
-						.getDistributorInfoByBasicInfo(staffInfo.getStaff_id());
-				if (distributor != null) {
-					if (distributor.getDistributiontor_id() != null
-							&& distributor.getDistributiontor_id().trim().length() > 0) {
-						reservation reservationInfo = expressManagementDao
-								.getReservationInfoByDistributorId(distributor.getDistributiontor_id());
-						if (reservationInfo != null) {
-							// 更新预约表状态
-							reservationInfo.setReservation_state("已完成");
-							reservationInfo.setReservation_modifytime(TimeUtil.getStringSecond());
-							expressManagementDao.saveOrUpdateObject(reservationInfo);
-							if (reservationInfo.getReservation_expressinfo() != null
-									&& reservationInfo.getReservation_expressinfo().trim().length() > 0
-									&& reservationInfo.getReservation_user() != null
-									&& reservationInfo.getReservation_user().trim().length() > 0) {
-								if (distributor.getDistributiontor_belongdistribution() != null
-										&& distributor.getDistributiontor_belongdistribution().trim().length() > 0) {
-									// 生成快件单
-									express expressInfo = new express();
-									expressInfo
-											.setExpress_belongunit(distributor.getDistributiontor_belongdistribution());
-									expressInfo.setExpress_belong(reservationInfo.getReservation_user());
-									expressInfo.setExpress_expressinfoid(reservationInfo.getReservation_expressinfo());
-									expressInfo.setExpress_id(BuildUuid.getUuid());
-
-									expressInfo.setExpress_number("315" + CreateNumberUtil.getExpressNumber());
-
-									expressInfo.setExpress_state("正在派送至中转站");
-									expressInfo.setExpress_createtime(TimeUtil.getStringSecond());
-									expressInfo.setExpress_modifytime(TimeUtil.getStringSecond());
-									expressManagementDao.saveOrUpdateObject(expressInfo);
-									expressAndCirculationDTO.setExpressInfo(expressInfo);
-									// 生成流转单
-									express_circulation expressCirculation = new express_circulation();
-									expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
-									expressCirculation.setExpress_circulation_express_id(expressInfo.getExpress_id());
-									expressCirculation.setExpress_circulation_state("流转中");
-									if (staffInfo.getStaff_unit() != null
-											&& staffInfo.getStaff_unit().trim().length() > 0) {
-										expressCirculation
-												.setExpress_circulation_launchpeople(staffInfo.getStaff_unit());
-										unit unitInfo = expressManagementDao.getUnitInfoById(staffInfo.getStaff_unit());
-										if (unitInfo != null) {
-											if (unitInfo.getUnit_superiorunit() != null
-													&& unitInfo.getUnit_superiorunit().trim().length() > 0) {
-												unit superiorUnit = expressManagementDao
-														.getUnitInfoById(unitInfo.getUnit_superiorunit());
-												if (superiorUnit != null) {
-													expressCirculation.setExpress_circulation_receiver(
-															unitInfo.getUnit_superiorunit());
-													expressCirculation.setExpress_circulation_createtime(
-															TimeUtil.getStringSecond());
-													expressCirculation.setExpress_circulation_modifytime(
-															TimeUtil.getStringSecond());
-													expressManagementDao.saveOrUpdateObject(expressCirculation);
-													expressAndCirculationDTO.setExpressCirculation(expressCirculation);
-													return expressAndCirculationDTO;
-												}
-											}
-										}
-									}
-								}
+			if (expressAndCirculationDTO.getExpressDetailInfo() != null) {
+				expressinfo expressDetailInfo = expressAndCirculationDTO.getExpressDetailInfo();
+				expressDetailInfo.setExpressinfo_id(BuildUuid.getUuid());
+				expressDetailInfo.setExpressinfo_createtime(TimeUtil.getStringSecond());
+				expressDetailInfo.setExpressinfo_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao.saveOrUpdateObject(expressDetailInfo);
+				expressAndCirculationDTO.setExpressDetailInfo(expressDetailInfo);
+				// 生成快件单
+				express expressInfo = new express();
+				expressInfo.setExpress_belongunit(staffInfo.getStaff_unit());
+				if (expressAndCirculationDTO.getUserInfo().getUserinfo_id() != null
+						&& expressAndCirculationDTO.getUserInfo().getUserinfo_id().trim().length() > 0) {
+					expressInfo.setExpress_belong(expressAndCirculationDTO.getUserInfo().getUserinfo_id());
+				}
+				expressInfo.setExpress_expressinfoid(expressDetailInfo.getExpressinfo_id());
+				expressInfo.setExpress_id(BuildUuid.getUuid());
+				expressInfo.setExpress_number("315" + CreateNumberUtil.getExpressNumber());
+				expressInfo.setExpress_state("正在派送至中转站");
+				expressInfo.setExpress_createtime(TimeUtil.getStringSecond());
+				expressInfo.setExpress_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao.saveOrUpdateObject(expressInfo);
+				expressAndCirculationDTO.setExpressInfo(expressInfo);
+				// 生成流转单
+				express_circulation expressCirculation = new express_circulation();
+				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
+				expressCirculation.setExpress_circulation_express_id(expressInfo.getExpress_id());
+				expressCirculation.setExpress_circulation_state("流转中");
+				if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+					expressCirculation.setExpress_circulation_launchpeople(staffInfo.getStaff_unit());
+					unit unitInfo = expressManagementDao.getUnitInfoById(staffInfo.getStaff_unit());
+					if (unitInfo != null) {
+						if (unitInfo.getUnit_superiorunit() != null
+								&& unitInfo.getUnit_superiorunit().trim().length() > 0) {
+							unit superiorUnit = expressManagementDao.getUnitInfoById(unitInfo.getUnit_superiorunit());
+							if (superiorUnit != null) {
+								expressCirculation.setExpress_circulation_receiver(unitInfo.getUnit_superiorunit());
+								expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond());
+								expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+								expressManagementDao.saveOrUpdateObject(expressCirculation);
+								return expressAndCirculationDTO;
 							}
 						}
 					}
@@ -877,39 +853,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		return null;
 	}
 
-	/**
-	 * 生成快件单和流转单
-	 */
-	@Override
-	public ExpressAndCirculationDTO createExpressAndCirculation(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo) {
-		if(staffInfo!=null) {
-			if(expressAndCirculationDTO!=null) {
-				
-					if(expressAndCirculationDTO.getExpressDetailInfo()!=null) {
-						expressinfo expressDetailInfo = expressAndCirculationDTO.getExpressDetailInfo();
-						
-						
-						if(expressAndCirculationDTO.getUserInfo()!=null) {
-							userinfo userInfo = expressAndCirculationDTO.getUserInfo();
-						
-					}
-					
-					
-					
-				}
-				
-				
-			}
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-		return null;
-	}
 
+	
+	
 }
