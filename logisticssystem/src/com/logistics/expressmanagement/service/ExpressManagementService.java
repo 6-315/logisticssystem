@@ -30,7 +30,7 @@ public interface ExpressManagementService {
 
 	public String saveExpressRoute(String idList, express expressInfo);
 
-	public List<route> queryAllRouteWithUnit(unit unitInfo);
+	public List<RouteDTO> queryAllRouteWithUnit(unit unitInfo);
 
 	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
 

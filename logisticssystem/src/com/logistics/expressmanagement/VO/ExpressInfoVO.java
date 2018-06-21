@@ -45,6 +45,14 @@ public class ExpressInfoVO {
 	 * 根据单位筛选
 	 */
 	private String unit = "";
+	/**
+	 * 是否分配配送点
+	 */
+	private String isDistributedDistribution;
+	/**
+	 * 是否分配配送员
+	 */
+	private String isDistributedDistributor;
 
 	public List<ExpressInfoDTO> getListExpressInfoDTO() {
 		return listExpressInfoDTO;
@@ -126,12 +134,29 @@ public class ExpressInfoVO {
 		this.unit = unit;
 	}
 
+	public String getIsDistributedDistribution() {
+		return isDistributedDistribution;
+	}
+
+	public void setIsDistributedDistribution(String isDistributedDistribution) {
+		this.isDistributedDistribution = isDistributedDistribution;
+	}
+
+	public String getIsDistributedDistributor() {
+		return isDistributedDistributor;
+	}
+
+	public void setIsDistributedDistributor(String isDistributedDistributor) {
+		this.isDistributedDistributor = isDistributedDistributor;
+	}
+
 	@Override
 	public String toString() {
 		return "ExpressInfoVO [listExpressInfoDTO=" + listExpressInfoDTO + ", pageIndex=" + pageIndex
 				+ ", totalRecords=" + totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages
 				+ ", HavePrePage=" + HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state="
-				+ state + ", unit=" + unit + "]";
+				+ state + ", unit=" + unit + ", isDistributedDistribution=" + isDistributedDistribution
+				+ ", isDistributedDistributor=" + isDistributedDistributor + "]";
 	}
 
 }
