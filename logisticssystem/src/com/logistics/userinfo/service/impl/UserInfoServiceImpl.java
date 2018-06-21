@@ -106,9 +106,32 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO) {
 		if (addressNew != null && userInfoSessionDTO != null) {
 			if ("0".equals(addressNew.getAddress_state())) {
+				/**
+				 * 删除
+				 */
+				System.out.println("oooooooooooooo" + addressNew.getAddress_isdefault());
+				addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
 				userInfoDao.saveOrUpdateObject(addressNew);
 				return "success";
 			} else {
+				/**
+				 * 添加或修改
+				 */
+				address addressByIs = new address();
+				addressByIs = userInfoDao.getAddressById(addressNew.getAddress_id());
+				if (addressByIs != null) {
+					System.out.println("???????????");
+					address addressByState = new address();
+					addressByState = userInfoDao.getAddressByState();
+					addressByState.setAddress_isdefault("否");
+					addressByState.setAddress_modifytime(TimeUtil.getStringSecond());
+
+					addressByIs.setAddress_isdefault("是");
+					addressByIs.setAddress_modifytime(TimeUtil.getStringSecond());
+					userInfoDao.saveOrUpdateObject(addressByState);
+					userInfoDao.saveOrUpdateObject(addressByIs);
+					return "success";
+				}
 				if ("是".equals(addressNew.getAddress_isdefault())) {
 					address addressByState = new address();
 					addressByState = userInfoDao.getAddressByState();
@@ -125,23 +148,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 						userInfoDao.saveOrUpdateObject(addressByState);
 						userInfoDao.saveOrUpdateObject(addressNew);
 						return "success";
-
+					} else {
+						addressNew.setAddress_id(BuildUuid.getUuid());
+						addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
+						addressNew.setAddress_createtime(TimeUtil.getStringSecond());
+						addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
+						userInfoDao.saveOrUpdateObject(addressNew);
+						return "success";
 					}
+
+				} else {
 					addressNew.setAddress_id(BuildUuid.getUuid());
 					addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
 					addressNew.setAddress_createtime(TimeUtil.getStringSecond());
 					addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
 					userInfoDao.saveOrUpdateObject(addressNew);
 					return "success";
-
 				}
 			}
-			addressNew.setAddress_id(BuildUuid.getUuid());
-			addressNew.setAddress_userinfo_id(userInfoSessionDTO.getUserInfoSession().getUserinfo_id());
-			addressNew.setAddress_createtime(TimeUtil.getStringSecond());
-			addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
-			userInfoDao.saveOrUpdateObject(addressNew);
-			return "success";
 
 		}
 		return "error";

@@ -318,4 +318,5 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		response.getWriter().write(gson.toJson(expressinfoAndExpressVO));
 
 	}
+	
 }
