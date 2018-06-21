@@ -77,3 +77,81 @@ body {
     color: #FFF;
 }
 
+.table td, .table th {
+    padding: 0.5rem;
+    vertical-align: middle;
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    clear: both;
+    font-size: 14px;
+    padding: 6px 10px;
+}
+
+.dropdown-menu > li > a:hover {
+    color: #f9f9f9;
+    background-color: #3c8dbc;
+}
+
+body {
+    font-size: 14px;
+}
+
+.label {
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    border-radius: .25em;
+}
+
+.input-sm {
+    height: 30px;
+    padding: 5px 10px;
+    line-height: 1.5;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.pagePosition {
+    /*float: right;*/
+    margin: auto;
+}
+
+.pagination > li {
+    display: inline;
+}
+
+.pagination > li > a, .pagination > li > span {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+}
+
+.huodong > a {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    pointer-events: none;
+}
+
+.pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+    color: #23527c;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+/*.pagination > li > a:focus {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}*/
+
+.pagination > .huodong {
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+

@@ -7,31 +7,105 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>查询快件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <%--  <link rel="stylesheet"
-              href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+                  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <%--   <link
-                href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-                rel="stylesheet">--%>
+                    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+                    rel="stylesheet">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
     <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font/demo.css">--%>
     <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
         .table td, .table th {
             padding: 0.5rem;
             vertical-align: middle;
         }
 
-        span ul li a {
-            color: #333 !important;
-            text-align: center;
+        .dropdown-menu > li > a {
+            display: block;
+            clear: both;
+            font-size: 14px;
+            padding: 6px 10px;
         }
+
+        .dropdown-menu > li > a:hover {
+            color: #f9f9f9;
+            background-color: #3c8dbc;
+        }
+
+        body {
+            font-size: 14px;
+        }
+
+        .label {
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            border-radius: .25em;
+        }
+
+        .input-sm {
+            height: 30px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .pagePosition {
+            /*float: right;*/
+            margin: auto;
+        }
+
+        .pagination > li {
+            display: inline;
+        }
+
+        .pagination > li > a, .pagination > li > span {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+        }
+
+        .huodong > a {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            pointer-events: none;
+        }
+
+        .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+        /*.pagination > li > a:focus {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }*/
+
+        .pagination > .huodong {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -113,7 +187,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                                             with font-awesome or any other icon font library -->
+                                                 with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
@@ -259,9 +333,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div style="width: 300px; float: right;" class="input-group">
-                                <input type="text" class="form-control input-lg"><span
-                                    class="input-group-addon btn btn-primary">搜索</span>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;" class="input-group">
+                                <input placeholder="Search" @input="searchReservationNum"
+                                       v-model="search" type="text" class="form-control input-sm"><span
+                                    class="input-group-addon btn btn-default"><i class="fa fa-search"></i></span>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -271,84 +346,109 @@
                                         <th>发件人姓名</th>
                                         <th>发件人联系方式</th>
                                         <th>发件人详细地址</th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
-                                                    class="caret"></span></a>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
-                                                        <li><a href="#">所有</a></li>
-														<li v-for="unit in unitList" :key="unit.unit_id">
-                                                            <a href="#">{{unit_name}}</a>
-                                                        </li>
+														<li><a @click="selectUnit()" href="#">所属单位(所有)</a></li>
+														<li v-for="unit in unitList" :key="unit.unit_id"><a
+                                                                @click="" href="#">{{unit_name}}</a></li>
 													</ul>
-											</span>
-                                        </th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
-                                                    class="caret"></span></a>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li><a @click="" href="#">所有</a></li>
+														<li><a @click="" href="#">是</a></li>
+														<li><a @click="" href="#">否</a></li>
 													</ul>
-											</span>
-                                        </th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
-                                                    class="caret"></span></a>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
-                                                        <li><a href="#">所有</a></li>
-														<li><a href="#">待处理</a></li>
-														<li><a href="#">已受理</a></li>
-														<li><a href="#">已拒绝</a></li>
-														<li><a href="#">待取件</a></li>
-														<li><a href="#">已取件</a></li>
-														<li><a href="#">已完成</a></li>
-														<li><a href="#">已完成</a></li>
+														<li><a @click="" href="#">所有</a></li>
+														<li><a @click="" href="#">待处理</a></li>
+														<li><a @click="" href="#">已受理</a></li>
+														<li><a @click="" href="#">已拒绝</a></li>
+														<li><a @click="" href="#">待取件</a></li>
+														<li><a @click="" href="#">已取件</a></li>
+														<li><a @click="" href="#">已完成</a></li>
+														<li><a @click="" href="#">已完成</a></li>
 													</ul>
-											</span>
-                                        </th>
+											</span></th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
-                                        :key="index">
+                                    <tbody v-if="!ready">
+                                    <tr>
+                                        <td style="text-align: center" colspan="8">
+                                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody v-cloak v-if="ready">
+                                    <tr
+                                            v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
+                                            :key="index">
                                         <td>{{reservationDTO.reservationInfo.reservation_num}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td>{{reservationDTO.reservationInfo.reservation_unit}}</td>
-                                        <td v-if="reservationDTO.reservationInfo.reservation_distributiontor">
+                                        <td>{{reservationDTO.unitInfo.unit_name}}</td>
+                                        <td
+                                                v-if="reservationDTO.reservationInfo.reservation_distributiontor">
                                             是
                                         </td>
-                                        <td v-else>
-                                            否
-                                        </td>
-                                        <td>{{reservationDTO.reservationInfo.reservation_state}}</td>
+                                        <td v-else>否</td>
                                         <td>
-                                            <a href="#">详情</a>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="daropdown-toggle" data-toggle="dropdown"
-                                                    style="cursor: pointer;color: #0056b3;">更多</a>
+                                            <span class="label label-info">{{reservationDTO.reservationInfo.reservation_state}}</span>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+													<span data-toggle="dropdown" aria-haspopup="true"
+                                                          aria-expanded="false">
+														<i class="fa fa-th-list"></i>
+													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">受理</a></li>
-                                                    <li><a href="#">拒绝</a></li>
-                                                    <li><a href="#">分配配送员</a></li>
-                                                    <li><a href="#">取件</a></li>
-                                                    <li><a href="#">完成</a></li>
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
                                                 </ul>
-                                            </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div class="pagePosition">
+                                    <ul class="pagination">
+                                        <li>
+                                            <a href="#" aria-label="Previous">
+                                                上一页<%--<span aria-hidden="true">&laquo;</span>--%>
+                                            </a>
+                                        </li>
+                                        <li class="huodong"><a href="#">首页</a></li>
+                                        <li><a href="#">第 1 页</a></li>
+                                        <li><a href="#">尾页</a></li>
+                                        <%--<li><a href="#">4</a></li>--%>
+                                        <%--<li><a href="#">5</a></li>--%>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                下一页
+                                                <%--<span aria-hidden="true">&raquo;</span>--%>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div>
-                                    <button class="btn btn-default">首页</button>
-                                    <button class="btn btn-default">上一页</button>
-                                    <button class="btn btn-default">下一页</button>
-                                    <button class="btn btn-default">尾页</button>
+
+                                    <%--<button @click="" class="btn btn-default">首页</button>
+                                    <button @click="" class="btn btn-default">上一页</button>
+                                    <button @click="" class="btn btn-default">下一页</button>
+                                    <button @click="" class="btn btn-default">尾页</button>--%>
                                 </div>
                             </div>
                         </div>
@@ -358,9 +458,11 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- /.row --> </section>
+            <!-- /.row -->
+        </section>
+
         <!-- /.content -->
-        <div class="modal fade" id="mymodal">
+        <div class="modal fade" id="reservationDetail">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- 模态弹出窗内容 -->
@@ -436,9 +538,9 @@
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<script src="${pageContext.request.contextPath}/js/express/reservation_manager.js"></script>
+<script
+        src="${pageContext.request.contextPath}/js/express/reservation_manager.js"></script>
 </body>
 </html>
