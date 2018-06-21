@@ -1,6 +1,19 @@
 (function () {
     const expressData = {
-        expressVO: {}
+        expressVO: {
+            ExpressInfoDTO: [],
+            search: '',
+            state: '',
+            unit: '',
+            isDistributedDistribution: '',
+            isDistributedDistributor: '',
+            pageIndex: '',
+            totalRecords: '',
+            pageSize: '',
+            totalPages: '',
+            HavePrePage: '',
+            HaveNextPage: '',
+        }
     }
     const express_view = new Vue({
         el: 'expressList',
