@@ -306,42 +306,47 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 * 完成扫描
 	 */
 	@Override
-	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo,
+	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO,
 			staff_basicinfo staffInfo) {
-		if (expressInfo != null && vehicleInfo != null && staffInfo != null) {
-			if (expressInfo.getExpress_id() != null && vehicleInfo.getVehicle_id() != null
-					&& expressInfo.getExpress_id().trim().length() > 0
-					&& vehicleInfo.getVehicle_id().trim().length() > 0) {
-				vehicle updateVehicle = expressManagementDao.getVehicleInfoById(vehicleInfo.getVehicle_id());
-				if (updateVehicle != null) {
-					if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
-						updateVehicle.setVehicle_drivingdirection(staffInfo.getStaff_unit());
-						updateVehicle.setVehicle_express_state("空闲");
-						updateVehicle.setVehicle_state("空闲");
-						updateVehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
-						expressManagementDao.saveOrUpdateObject(updateVehicle);
-						express_circulation expressCirculationInfo = expressManagementDao
-								.getExpressCirculationInfoByExpressIdAndReceiver(expressInfo.getExpress_id(),
-										staffInfo.getStaff_unit());
-						if (expressCirculationInfo != null) {
-							expressCirculationInfo.setExpress_circulation_state("已完成");
-							expressCirculationInfo.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
-							expressManagementDao.saveOrUpdateObject(expressCirculationInfo);
+		if (expressAndCirculationDTO != null) {
+			express expressInfo = expressAndCirculationDTO.getExpressInfo();
+			vehicle vehicleInfo = expressAndCirculationDTO.getVehicleInfo();
+			if (expressInfo != null && vehicleInfo != null && staffInfo != null) {
+				if (expressInfo.getExpress_id() != null && vehicleInfo.getVehicle_id() != null
+						&& expressInfo.getExpress_id().trim().length() > 0
+						&& vehicleInfo.getVehicle_id().trim().length() > 0) {
+					vehicle updateVehicle = expressManagementDao.getVehicleInfoById(vehicleInfo.getVehicle_id());
+					if (updateVehicle != null) {
+						if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+							updateVehicle.setVehicle_drivingdirection(staffInfo.getStaff_unit());
+							updateVehicle.setVehicle_express_state("空闲");
+							updateVehicle.setVehicle_current_weight("");
+							updateVehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
+							expressManagementDao.saveOrUpdateObject(updateVehicle);
+							express_circulation expressCirculationInfo = expressManagementDao
+									.getExpressCirculationInfoByExpressIdAndReceiver(expressInfo.getExpress_id(),
+											staffInfo.getStaff_unit());
+							if (expressCirculationInfo != null) {
+								expressCirculationInfo.setExpress_circulation_state("已完成");
+								expressCirculationInfo.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+								expressManagementDao.saveOrUpdateObject(expressCirculationInfo);
 
-							express updateExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
-							if (updateExpress != null) {
-								updateExpress.setExpress_belongunit(staffInfo.getStaff_unit());
-								updateExpress.setExpress_state("已扫描");
-								updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
-								expressManagementDao.saveOrUpdateObject(updateExpress);
-								return "success";
+								express updateExpress = expressManagementDao
+										.getExpressById(expressInfo.getExpress_id());
+								if (updateExpress != null) {
+									updateExpress.setExpress_belongunit(staffInfo.getStaff_unit());
+									updateExpress.setExpress_state("已扫描");
+									updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
+									expressManagementDao.saveOrUpdateObject(updateExpress);
+									return "success";
+								}
 							}
+
 						}
 
 					}
 
 				}
-
 			}
 		}
 		return "error";
@@ -635,7 +640,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					expressinfo expressDetail = expressManagementDao
 							.getExpressInfoById(expressInfo.getExpress_expressinfoid());
 					if (expressDetail != null) {
-						expressInfoDTO.setExpressInfos(expressDetail);
+						expressInfoDTO.setExpressDetailInfo(expressDetail);
 					}
 					userinfo userInfo = expressManagementDao.getUserInfoById(expressInfo.getExpress_belong());
 					if (userInfo != null) {
@@ -869,6 +874,41 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				}
 			}
 		}
+		return null;
+	}
+
+	/**
+	 * 生成快件单和流转单
+	 */
+	@Override
+	public ExpressAndCirculationDTO createExpressAndCirculation(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo) {
+		if(staffInfo!=null) {
+			if(expressAndCirculationDTO!=null) {
+				
+					if(expressAndCirculationDTO.getExpressDetailInfo()!=null) {
+						expressinfo expressDetailInfo = expressAndCirculationDTO.getExpressDetailInfo();
+						
+						
+						if(expressAndCirculationDTO.getUserInfo()!=null) {
+							userinfo userInfo = expressAndCirculationDTO.getUserInfo();
+						
+					}
+					
+					
+					
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
+		
 		return null;
 	}
 

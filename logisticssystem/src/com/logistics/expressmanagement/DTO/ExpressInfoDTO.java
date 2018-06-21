@@ -10,7 +10,7 @@ public class ExpressInfoDTO {
 	/**
 	 * 快件信息表
 	 */
-	private expressinfo expressInfos;
+	private expressinfo expressDetailInfo;
 	/**
 	 * 用户表
 	 */
@@ -24,12 +24,12 @@ public class ExpressInfoDTO {
 		this.expressInfo = expressInfo;
 	}
 
-	public expressinfo getExpressInfos() {
-		return expressInfos;
+	public expressinfo getExpressDetailInfo() {
+		return expressDetailInfo;
 	}
 
-	public void setExpressInfos(expressinfo expressInfos) {
-		this.expressInfos = expressInfos;
+	public void setExpressDetailInfo(expressinfo expressDetailInfo) {
+		this.expressDetailInfo = expressDetailInfo;
 	}
 
 	public userinfo getUserInfo() {
@@ -42,7 +42,7 @@ public class ExpressInfoDTO {
 
 	@Override
 	public String toString() {
-		return "ExpressInfoDTO [expressInfo=" + expressInfo + ", expressInfos=" + expressInfos + ", userInfo="
+		return "ExpressInfoDTO [expressInfo=" + expressInfo + ", expressDetailInfo=" + expressDetailInfo + ", userInfo="
 				+ userInfo + "]";
 	}
 
