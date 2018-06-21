@@ -21,7 +21,10 @@
         isDistributed: '',
         ready: false,
         preDisabled: false,
-        nextDisabled: false
+        nextDisabled: false,
+        updateState: '',
+        listDistributiontorAndStaffBasicinfoDTO: [],
+        idReady: ''
     }
     const view_reservation = new Vue({
         el: '#reservation_manager',
@@ -115,7 +118,6 @@
             },
             replaceState: function (state) {
                 let replaceState = ''
-                console.log(state)
                 switch (state) {
                     case '待受理':
                         replaceState = `<span class="label label-info">
@@ -130,7 +132,7 @@
                                 `
                         break;
                     case '已拒绝':
-                        replaceState = `<span class="label label-error">
+                        replaceState = `<span class="label label-danger">
                                     ${state}
                                  </span>
                                 `
@@ -155,8 +157,88 @@
                         break;
                 }
                 return replaceState
-            }
+            },
+            acceptanceReservation: function (upState, oldState, idList) {
+                if (oldState === '待受理') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可受理')
+                }
+            },
+            cancleReservation: function (upState, oldState, idList) {
+                if (oldState === '待受理') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可拒绝')
+                    return
+                }
+            },
+            updateReservation: function (upState, idList) {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_updateReservation',
+                    type: 'POST',
+                    data: {
+                        'state': upState,
+                        'idList': idList
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            view_reservation.getAllData()
+                            view_reservation.judge()
+                            toastr.success('受理成功')
+                        }
+                    }
 
+                })
+            },
+            opendistributionReservationStaff: function (oldState, idList) {
+                if (oldState === '已受理') {
+                    reservationData.idReady = idList
+                    view_reservation.getListDistributiontor()
+                    $('#distributionReservationStaff').modal()
+                } else {
+                    toastr.error('此时不可进行分配')
+                    return
+                }
+
+            },
+            getListDistributiontor: function () {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getDispatcher',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        if (data !== null) {
+                            let listDistri = JSON.parse(data)
+                            reservationData.listDistributiontorAndStaffBasicinfoDTO = listDistri
+                        }
+                    }
+
+                })
+            },
+            //分配配送员
+            distributePerson: function (staffId) {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_updateReservationWithDistributor',
+                    type: 'POST',
+                    data: {
+                        'idList': reservationData.idReady,
+                        'distributor.distributiontor_id': staffId
+                    },
+                    success: function (data) {
+                        console.log('data:', data)
+                        if (data === 'success') {
+                            reservationData.idReady = ''
+                            view_reservation.getAllData()
+                            view_reservation.judge()
+                            $('#distributionReservationStaff').modal('hide')
+                            toastr.success('分配成功')
+                        } else {
+                            toastr.error('分配失败,请重新分配')
+                        }
+                    }
+                })
+            }
         },
         mounted() {
             //获取单位信息
