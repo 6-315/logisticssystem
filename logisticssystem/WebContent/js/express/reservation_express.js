@@ -61,8 +61,8 @@
                     reservationExpressInfoDTO.expressInfo = reservationData.view_express
 
                     /**
-                     * 预约
-                     */
+					 * 预约
+					 */
                     $.ajax({
                         url: '/logisticssystem/expressmanagement/expressmanagement_addReservationAndExpressInfo',
                         type: 'POST',

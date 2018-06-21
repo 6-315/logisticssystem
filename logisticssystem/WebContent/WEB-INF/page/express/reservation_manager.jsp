@@ -212,7 +212,8 @@
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -438,9 +439,15 @@
                                                         <a @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
                                                            href="#">分配配送员</a>
                                                     </li>
-                                                    <li><a href="#">已取件</a></li>
-                                                    <li><a href="#">已完成</a></li>
-                                                    <li><a href="#">填写快件单</a></li>
+                                                    <li>
+                                                        <a @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">已取件</a></li>
+                                                    <li>
+                                                        <a @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">已完成</a></li>
+                                                    <li>
+                                                        <a @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">填写快件单</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -514,7 +521,7 @@
                                 <td>{{dis.staffBasicinfo.staff_sex}}</td>
                                 <td>{{dis.staffBasicinfo.staff_state}}</td>
                                 <td>
-                                    <a @click="distributePerson(dis.staffBasicinfo.staff_id)"
+                                    <a @click="distributePerson(dis.distributiontorNew.distributiontor_id)"
                                        class="btn btn-default">分配</a>
                                 </td>
                             </tr>

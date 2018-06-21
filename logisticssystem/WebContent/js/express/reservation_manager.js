@@ -173,6 +173,22 @@
                     return
                 }
             },
+            takePart: function (upState, oldState, idList) {
+                if (oldState === '待取件') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可拒绝')
+                    return
+                }
+            },
+            completeReserv: function (upState, oldState, idList) {
+                if (oldState === '已取件') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可拒绝')
+                    return
+                }
+            },
             updateReservation: function (upState, idList) {
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_updateReservation',
@@ -238,6 +254,9 @@
                         }
                     }
                 })
+            },
+            skipExpressPage: function (reserId) {
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_skipPage?idList=' + reserId
             }
         },
         mounted() {
