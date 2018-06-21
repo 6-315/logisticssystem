@@ -421,15 +421,23 @@
                                         </td>
                                         <td>
                                             <div class="btn-group">
-													<span data-toggle="dropdown" aria-haspopup="true"
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true"
                                                           aria-expanded="false">
 														<i class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">查看详情</a></li>
-                                                    <li><a href="#">受理</a></li>
-                                                    <li><a href="#">拒绝</a></li>
-                                                    <li><a href="#">分配配送员</a></li>
+                                                    <li>
+                                                        <a @click="acceptanceReservation('已受理',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">受理</a></li>
+                                                    <li>
+                                                        <a @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">拒绝</a></li>
+                                                    <li>
+                                                        <a @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">分配配送员</a>
+                                                    </li>
                                                     <li><a href="#">已取件</a></li>
                                                     <li><a href="#">已完成</a></li>
                                                     <li><a href="#">填写快件单</a></li>
@@ -440,7 +448,7 @@
                                     </tbody>
                                 </table>
                                 <div class="pagePosition">
-                                    <ul class="pagination">
+                                    <ul v-cloak class="pagination">
                                         <li></li>
                                         <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage" href="#">上一页</a></li>
@@ -474,7 +482,48 @@
             </div>
             <!-- /.row -->
         </section>
-
+        <div class="modal fade" id="distributionReservationStaff">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">分配配送员</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                                <th>性别</th>
+                                <th>员工状态</th>
+                                <th>分配</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="dis in listDistributiontorAndStaffBasicinfoDTO"
+                                :key="dis.staffBasicinfo.staff_id">
+                                <td>{{dis.staffBasicinfo.staff_num}}</td>
+                                <td>{{dis.staffBasicinfo.staff_name}}</td>
+                                <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
+                                <td>{{dis.staffBasicinfo.staff_sex}}</td>
+                                <td>{{dis.staffBasicinfo.staff_state}}</td>
+                                <td>
+                                    <a @click="distributePerson(dis.staffBasicinfo.staff_id)"
+                                       class="btn btn-default">分配</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /.content -->
         <div class="modal fade" id="reservationDetail">
             <div class="modal-dialog">
