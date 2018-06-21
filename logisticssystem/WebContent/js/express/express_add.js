@@ -209,7 +209,31 @@
                 view_express.closeAddressBox()
             },
             addExpress: function () {
-                
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_completePickExpress',
+                    type: 'POST',
+                    data: {
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_id': expressData.expressinfo.expressinfo_id,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_protectprice': expressData.expressinfo.expressinfo_protectprice,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_productname': expressData.expressinfo.expressinfo_productname,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_productweight': expressData.expressinfo.expressinfo_productweight,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_addresseerealname': expressData.expressinfo.expressinfo_addresseerealname,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_addresseeaddress': expressData.expressinfo.expressinfo_addresseeaddress,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_adderdetailaddress': expressData.expressinfo.expressinfo_adderdetailaddress,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_addresseephonenumber': expressData.expressinfo.expressinfo_addresseephonenumber,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_addresseeemail': expressData.expressinfo.expressinfo_addresseeemail,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_senderrealname': expressData.expressinfo.expressinfo_senderrealname,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_senderaddress': expressData.expressinfo.expressinfo_senderaddress,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_senderdetailaddress': expressData.expressinfo.expressinfo_senderdetailaddress,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_senderphonenumber': expressData.expressinfo.expressinfo_senderphonenumber,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_createtime': expressData.expressinfo.expressinfo_createtime,
+                        'expressAndCirculationDTO.expressDetailInfo.expressinfo_modifytime': expressData.expressinfo.expressinfo_modifytime,
+                        'expressAndCirculationDTO.userInfo.userinfo_id': expressData.reservation.reservation_user
+                    },
+                    success: function (data) {
+                        console.log('ddd:', data)
+                    }
+                })
             }
         },
         mounted() {
