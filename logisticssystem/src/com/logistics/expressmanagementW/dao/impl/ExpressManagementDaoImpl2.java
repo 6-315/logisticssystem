@@ -329,6 +329,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public unit getUpUnit(String staff_unit) {
+		
 		unit unitNew = new unit();
 		Session session = getSession();
 		String hql = " from unit where unit_id = :ID";

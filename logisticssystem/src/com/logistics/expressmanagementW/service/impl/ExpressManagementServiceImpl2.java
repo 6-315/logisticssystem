@@ -374,19 +374,27 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			position positionNew = new position();
 			unit uniteNew = new unit();
 			uniteNew = expressManagementDao2.getUpUnit(staffBasicinfo.getStaff_unit());
-			positionNew = expressManagementDao2.getPosition(staffBasicinfo.getStaff_id());
+			positionNew = expressManagementDao2.getPosition(staffBasicinfo.getStaff_position());
 			String[] update = listExpressId.split(",");
+			System.out.println("pppp" + positionNew);
+			System.out.println("oooo" + uniteNew);
 			if ("配送员".equals(positionNew.getPosition_name())) {
+				System.out.println("???????");
 				for (String id : update) {
 					express expressNew = new express();
+					System.out.println("uuuuuu" + id);
 					expressNew = expressManagementDao2.getExpress(id);
+					System.out.println("lll" + expressNew);
 					expressNew.setExpress_belongunit(uniteNew.getUnit_superiorunit());
 					expressNew.setExpress_state("待扫描");
+					express_send expressSend = new express_send();
+					expressSend = expressManagementDao2.getExpressSend(id);
+					expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
+					expressSend.setExpress_send_state("已完成");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
 				}
 				return "succcess";
-
 			}
 			if ("驾驶员".equals(positionNew.getPosition_name())) {
 

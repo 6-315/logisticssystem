@@ -221,19 +221,19 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (expressRouteInfo != null) {
 						if ("0001".equals(expressRouteInfo)) {
 							System.out.println("始发站");
-							return "始发站";
+							return "begin";
 						} else if (!"0001".equals(expressRouteInfo)) {
 							System.out.println("中转站");
-							return "中转站";
+							return "trans";
 						}
 					} else {
 						System.out.println("终点站");
-						return "终点站";
+						return "end";
 					}
 				}
 			}
 		}
-		return null;
+		return "error";
 	}
 
 	/**
@@ -397,8 +397,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ distributor.getDistributiontor_id() + "' ";
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+					// 筛选条件不存在
 					reservationCountHql = reservationCountHql + "1=1";
 					listReservationInfoHql = listReservationInfoHql + "1=1";
+					// 筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " and reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
@@ -406,12 +408,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ reservationVO.getUnit() + "' ";
 					}
 				} else {
+					// 筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
 						listReservationInfoHql = listReservationInfoHql + " reservation_unit ='"
 								+ reservationVO.getUnit() + "' ";
 					} else {
+						// 筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
@@ -563,7 +567,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			expressCountHql = expressCountHql + " and ( ";
 			listExpressInfoHql = listExpressInfoHql + " and ( ";
 			/**
-			 * 根据角色筛选
+			 * 根据角色单位筛选
 			 */
 			position staffPosition = expressManagementDao.getPositionById(staffInfo.getStaff_position());
 			if (staffPosition != null && staffPosition.getPosition_name() != null
@@ -609,15 +613,36 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (distributor != null) {
 						if (distributor.getDistributiontor_id() != null
 								&& distributor.getDistributiontor_id().trim().length() > 0) {
-							expressCountHql = expressCountHql + " express_isdistributeddistributor ='"
-									+ distributor.getDistributiontor_id() + "' ";
-							listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor ='"
-									+ distributor.getDistributiontor_id() + "' ";
+							List<express_send> listExpressSend = (List<express_send>) expressManagementDao
+									.listObject(" from express_send where express_send_distributiontor ='"
+											+ distributor.getDistributiontor_id() + "' and express_send_state='未完成' ");
+							if (listExpressSend != null) {
+								for (int i = 0; i < listExpressSend.size(); i++) {
+									if (listExpressSend.get(i) != null) {
+										if (listExpressSend.get(i).getExpress_send_express_id() != null
+												&& listExpressSend.get(i).getExpress_send_express_id().trim()
+														.length() > 0) {
+											expressCountHql = expressCountHql + " express_id ='"
+													+ listExpressSend.get(i).getExpress_send_express_id() + "' ";
+											listExpressInfoHql = listExpressInfoHql + " express_id ='"
+													+ listExpressSend.get(i).getExpress_send_express_id() + "' ";
+										}
+										if (i < listExpressSend.size() - 1) {
+											expressCountHql = expressCountHql + " or  ";
+											listExpressInfoHql = listExpressInfoHql + " or  ";
+										}
+									}
+
+								}
+							}
+
 						}
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+					// 筛选条件不存在
 					expressCountHql = expressCountHql + " 1=1 ";
 					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
+					// 筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
@@ -625,11 +650,16 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ "' ";
 					}
 				} else {
-					if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+					// 筛选条件存在
+					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
+						expressCountHql = expressCountHql + "  express_belongunit ='" + expressInfoVO.getUnit() + "' ";
+						listExpressInfoHql = listExpressInfoHql + "  express_belongunit ='" + expressInfoVO.getUnit()
+								+ "' ";
+					} else {
+						// 筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
-						System.out.println("fdfdfdfdfd:" + listUnit);
 						if (listUnit != null) {
 							for (int i = 0; i < listUnit.size(); i++) {
 								if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
@@ -646,6 +676,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							}
 						}
 					}
+
 				}
 			}
 			expressCountHql = expressCountHql + " )  ";
@@ -678,25 +709,27 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
 				listExpressInfoHql = listExpressInfoHql
 						+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
-				// 判断是否已分配配送员
-				if ("是".equals(expressInfoVO.getIsDistributedDistributor())) {
-					expressCountHql = expressCountHql
-							+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
-					listExpressInfoHql = listExpressInfoHql
-							+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
-				}
-				else if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
-					expressCountHql = expressCountHql
-							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
-					listExpressInfoHql = listExpressInfoHql
-							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
-				}
-			}
-			else if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
+			} else if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
 				expressCountHql = expressCountHql
 						+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
 				listExpressInfoHql = listExpressInfoHql
 						+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
+			}
+
+		}
+		if (expressInfoVO.getIsDistributedDistributor() != null
+				&& expressInfoVO.getIsDistributedDistributor().trim().length() > 0) {
+			// 判断是否已分配配送员
+			if ("是".equals(expressInfoVO.getIsDistributedDistributor())) {
+				expressCountHql = expressCountHql
+						+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
+				listExpressInfoHql = listExpressInfoHql
+						+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
+			} else if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
+				expressCountHql = expressCountHql
+						+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
+				listExpressInfoHql = listExpressInfoHql
+						+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 			}
 		}
 
@@ -726,7 +759,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		} else {
 			expressInfoVO.setHaveNextPage(true);
 		}
-		
+
 		/**
 		 * 分页查询
 		 */
