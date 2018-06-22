@@ -43,7 +43,7 @@
                     },
                     success: function (data) {
                         let expressInfo = JSON.parse(data)
-                        expressData.expressInfoVO.ExpressInfoDTO = expressInfo.ExpressInfoDTO
+                        expressData.expressInfoVO.ExpressInfoDTO = expressInfo.listExpressInfoDTO
                         expressData.expressInfoVO.pageIndex = expressInfo.pageIndex
                         expressData.expressInfoVO.totalRecords = expressInfo.totalRecords
                         expressData.expressInfoVO.pageSize = expressInfo.pageSize
