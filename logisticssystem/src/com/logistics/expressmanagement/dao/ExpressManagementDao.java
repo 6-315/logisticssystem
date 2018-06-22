@@ -65,7 +65,7 @@ public interface ExpressManagementDao {
 
 	public express getExpressById(String express_id);
 
-	public String getExpressRouteInfoByExpressId(String express_id);
+	public express_route getExpressRouteInfoByExpressId(String express_id);
 
 	public String getMaxNumber(String hql);
 
@@ -86,6 +86,8 @@ public interface ExpressManagementDao {
 	public vehicle_express_relevance getVehicleExpressRelevanceByVehicleId(String driver_vehicle);
 
 	public express_circulation getExpressCirculationInfoByExpressId(String express_id);
+
+	public route getRouteInfoById(String express_route_route_id);
 
 
 	/**

@@ -8,8 +8,10 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.*;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
+
 /**
  * DAO 实现
+ * 
  * @author LW
  *
  */
@@ -71,6 +73,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -87,6 +90,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -95,6 +99,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -209,13 +214,14 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	 * 获得路线信息（用于判断）
 	 */
 	@Override
-	public String getExpressRouteInfoByExpressId(String express_id) {
+	public express_route getExpressRouteInfoByExpressId(String express_id) {
+		express_route expressRoute = new express_route();
 		Session session = getSession();
-		String hql = "select express_route_superior from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by --express_route_superior limit 1 ";
+		String hql = "select * from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		String expressRouteInfo = (String) query.uniqueResult();
-		return expressRouteInfo;
+		expressRoute = (express_route) query.uniqueResult();
+		return expressRoute;
 	}
 
 	/**
@@ -354,6 +360,20 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", express_id);
 		expressCirculation = (express_circulation) query.uniqueResult();
 		return expressCirculation;
+	}
+
+	/**
+	 * 根据ID查路线
+	 */
+	@Override
+	public route getRouteInfoById(String express_route_route_id) {
+		route routeInfo = new route();
+		Session session = getSession();
+		String hql = "from route where route_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_route_route_id);
+		routeInfo = (route) query.uniqueResult();
+		return routeInfo;
 	}
 
 }
