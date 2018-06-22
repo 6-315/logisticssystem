@@ -156,6 +156,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 是否分配配送员
 	 */
 	private String isDistributedDistributor = "";
+	
 
 	public ExpressInfoVO getExpressInfoVO() {
 		return expressInfoVO;
@@ -399,7 +400,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unused")
-	private void judgeExpressType() throws IOException {
+	public void judgeExpressType() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
