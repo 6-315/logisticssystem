@@ -16,6 +16,7 @@
 			<result name="pageUpdatePassword">/WEB-INF/page/user/user-updatepassword.jsp
 			</result>
 			<result name="pageUserMessage">/WEB-INF/page/user/user-mymessage.jsp</result>
+			<result name="pageExpressList">/WEB-INF/page/express/express_list.jsp</result>
 		</action>
 	</package>
 </struts>

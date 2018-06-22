@@ -11,18 +11,12 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <%--  <link rel="stylesheet"
-                  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
-    <%--   <link
-                    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-                    rel="stylesheet">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
-    <%--<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font/demo.css">--%>
     <style type="text/css">
         [v-cloak] {
             display: none;
@@ -93,11 +87,15 @@
         }
 
         /*.pagination > li > a:focus {
-            color: #fff;
-            cursor: default;
-            background-color: #337ab7;
-            border-color: #337ab7;
-        }*/
+                    color: #fff;
+                    cursor: default;
+                    background-color: #337ab7;
+                    border-color: #337ab7;
+                }*/
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
 
         .pagination > .huodong {
             color: #fff;
@@ -106,6 +104,14 @@
             border-color: #337ab7;
         }
 
+        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
+        .pagination > .disabled > span, .pagination > .disabled > span:focus,
+        .pagination > .disabled > span:hover {
+            color: #777;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #ddd;
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -187,7 +193,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                                                 with font-awesome or any other icon font library -->
+                                                     with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
@@ -197,13 +203,13 @@
                     </a>
                         <ul class="nav nav-treeview" style="display: block;">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_list.html"
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_add.html" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -333,13 +339,15 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div style="width: 250px; float: right; margin-bottom: 10px;" class="input-group">
-                                <input placeholder="Search" @input="searchReservationNum"
+                            <div style="width: 250px; float: right; margin-bottom: 10px;"
+                                 class="input-group">
+                                <input placeholder="据预约单号搜索" @input="searchReservationNum"
                                        v-model="search" type="text" class="form-control input-sm"><span
-                                    class="input-group-addon btn btn-default"><i class="fa fa-search"></i></span>
+                                    class="input-group-addon btn btn-default"><i
+                                    class="fa fa-search"></i></span>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover" style="overflow-y: hidden">
                                     <thead>
                                     <tr>
                                         <th>预约单号</th>
@@ -350,49 +358,54 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="selectUnit()" href="#">所属单位(所有)</a></li>
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                @click="" href="#">{{unit_name}}</a></li>
+                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="" href="#">所有</a></li>
-														<li><a @click="" href="#">是</a></li>
-														<li><a @click="" href="#">否</a></li>
+														<li><a @click="distributionStaff('')" href="#">所有</a></li>
+														<li><a @click="distributionStaff('是')" href="#">是</a></li>
+														<li><a @click="distributionStaff('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="" href="#">所有</a></li>
-														<li><a @click="" href="#">待处理</a></li>
-														<li><a @click="" href="#">已受理</a></li>
-														<li><a @click="" href="#">已拒绝</a></li>
-														<li><a @click="" href="#">待取件</a></li>
-														<li><a @click="" href="#">已取件</a></li>
-														<li><a @click="" href="#">已完成</a></li>
-														<li><a @click="" href="#">已完成</a></li>
+														<li><a @click="selectState('')" href="#">所有</a></li>
+														<li><a @click="selectState('待受理')" href="#">待受理</a></li>
+														<li><a @click="selectState('已受理')" href="#">已受理</a></li>
+														<li><a @click="selectState('已拒绝')" href="#">已拒绝</a></li>
+														<li><a @click="selectState('待取件')" href="#">待取件</a></li>
+														<li><a @click="selectState('已取件')" href="#">已取件</a></li>
+														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
+                                    <tbody v-if="reservationVO.listReservationInfoDTO.length == 0">
+                                    <td style="text-align: center" colspan="8" height="50">
+                                        暂无数据
+                                    </td>
+                                    </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="8">
-                                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                                        </td>
+                                        <td style="text-align: center" colspan="8"><i
+                                                class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>
-                                    <tbody v-cloak v-if="ready">
+                                    <tbody v-cloak
+                                           v-if="ready && reservationVO.listReservationInfoDTO.length != 0"
+                                           style="min-height: 200px">
                                     <tr
                                             v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
                                             :key="index">
-                                        <td>{{reservationDTO.reservationInfo.reservation_num}}</td>
+                                        <td v-html="reservationDTO.reservationInfo.reservation_num"></td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
@@ -402,21 +415,36 @@
                                             是
                                         </td>
                                         <td v-else>否</td>
-                                        <td>
-                                            <span class="label label-info">{{reservationDTO.reservationInfo.reservation_state}}</span>
+                                        <td
+                                                v-html="replaceState(reservationDTO.reservationInfo.reservation_state)">
+                                            <%--<span class="label">{{reservationDTO.reservationInfo.reservation_state}}</span>--%>
                                         </td>
                                         <td>
                                             <div class="btn-group">
-													<span data-toggle="dropdown" aria-haspopup="true"
-                                                          aria-expanded="false">
-														<i class="fa fa-th-list"></i>
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false"> <i
+                                                            class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">Action</a></li>
-                                                    <li><a href="#">Another action</a></li>
-                                                    <li><a href="#">Something else here</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="#">Separated link</a></li>
+                                                    <li><a href="#">查看详情</a></li>
+                                                    <li><a
+                                                            @click="acceptanceReservation('已受理',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">受理</a></li>
+                                                    <li><a
+                                                            @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">拒绝</a></li>
+                                                    <li><a
+                                                            @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">分配配送员</a></li>
+                                                    <li><a
+                                                            @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">已取件</a></li>
+                                                    <li><a
+                                                            @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">已完成</a></li>
+                                                    <li><a
+                                                            @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">填写快件单</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -424,23 +452,20 @@
                                     </tbody>
                                 </table>
                                 <div class="pagePosition">
-                                    <ul class="pagination">
-                                        <li>
-                                            <a href="#" aria-label="Previous">
-                                                上一页<%--<span aria-hidden="true">&laquo;</span>--%>
-                                            </a>
-                                        </li>
-                                        <li class="huodong"><a href="#">首页</a></li>
-                                        <li><a href="#">第 1 页</a></li>
-                                        <li><a href="#">尾页</a></li>
-                                        <%--<li><a href="#">4</a></li>--%>
-                                        <%--<li><a href="#">5</a></li>--%>
-                                        <li>
-                                            <a href="#" aria-label="Next">
-                                                下一页
-                                                <%--<span aria-hidden="true">&raquo;</span>--%>
-                                            </a>
-                                        </li>
+                                    <ul v-cloak class="pagination">
+                                        <li></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
+                                        <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                               href="#">上一页</a></li>
+                                        <li><a>第 {{reservationVO.pageIndex}} 页/总
+                                            {{reservationVO.totalPages}}
+                                            页/共{{reservationVO.totalRecords}}条</a></li>
+                                        <li :class="{disabled:nextDisabled}"><a
+                                                :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
+                                        </a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
+                                        <li></li>
                                     </ul>
                                 </div>
                                 <div>
@@ -458,9 +483,48 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- /.row -->
-        </section>
-
+            <!-- /.row --> </section>
+        <div class="modal fade" id="distributionReservationStaff">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">分配配送员</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                                <th>性别</th>
+                                <th>员工状态</th>
+                                <th>分配</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="dis in listDistributiontorAndStaffBasicinfoDTO"
+                                :key="dis.staffBasicinfo.staff_id">
+                                <td>{{dis.staffBasicinfo.staff_num}}</td>
+                                <td>{{dis.staffBasicinfo.staff_name}}</td>
+                                <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
+                                <td>{{dis.staffBasicinfo.staff_sex}}</td>
+                                <td>{{dis.staffBasicinfo.staff_state}}</td>
+                                <td><a
+                                        @click="distributePerson(dis.distributiontorNew.distributiontor_id)"
+                                        class="btn btn-default">分配</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /.content -->
         <div class="modal fade" id="reservationDetail">
             <div class="modal-dialog">

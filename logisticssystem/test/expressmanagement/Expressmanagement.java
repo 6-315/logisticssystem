@@ -93,26 +93,26 @@ public class Expressmanagement {
 	/**
 	 * 上门取件
 	 */
-	@Test
+	/*@Test
 	public void completePickExpressTest() {
 		staff_basicinfo staffInfo = new staff_basicinfo();
 		staffInfo.setStaff_id("1234");
 		staffInfo.setStaff_unit("234");
 		expressManagementService.completePickExpress(staffInfo);
 		
-	}
+	}*/
 	
 	/**
 	 *  到达中转站
 	 */
-	@Test
+	/*@Test
 	public void updateExpressStateTest() {
 		express expressInfo = new express();
 		expressInfo.setExpress_id("01f4fc19-537c-4fb0-a3c7-e11659e29ac3");
 		expressInfo.setExpress_state("待扫描");
 		expressManagementService.updateExpressState(expressInfo);
 		
-	}
+	}*/
 	
 	/**
 	 * 查询所有经过该站点的路线
@@ -154,7 +154,7 @@ public class Expressmanagement {
 	/**
 	 * 完成扫描
 	 */
-	@Test
+	/*@Test
 	public void updateVehicleAndExpressCirculationAndExpressInfoTest() {
 		vehicle vehicleInfo = new vehicle();
 		vehicleInfo.setVehicle_id("bad396b4-b23f-4cea-b312-0a5cc5b58895");
@@ -164,6 +164,6 @@ public class Expressmanagement {
 		staffInfo.setStaff_unit("123");
 		expressManagementService.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo);
 		
-	}
+	}*/
 	
 }
