@@ -229,7 +229,7 @@
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_createtime': expressData.expressinfo.expressinfo_createtime,
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_modifytime': expressData.expressinfo.expressinfo_modifytime,
                         'expressAndCirculationDTO.userInfo.userinfo_id': expressData.reservation.reservation_user,
-                        'expressAndCirculationDTO.distributor.express_send_distributiontor': expressData.reservation.reservation_distributiontor
+                        'expressAndCirculationDTO.distributor.distributiontor_id': expressData.reservation.reservation_distributiontor
                     },
                     success: function (data) {
                         if (data === null) {
