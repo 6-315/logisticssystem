@@ -82,6 +82,24 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	private GetWeightDTO getWeightDTO;
 	private GetExpressAndDispatcherDTO getExpressAndDispatcherDTO;
 	private String address;
+	private unit unitNew;
+	private String listExpressId;
+
+	public String getListExpressId() {
+		return listExpressId;
+	}
+
+	public void setListExpressId(String listExpressId) {
+		this.listExpressId = listExpressId;
+	}
+
+	public unit getUnitNew() {
+		return unitNew;
+	}
+
+	public void setUnitNew(unit unitNew) {
+		this.unitNew = unitNew;
+	}
 
 	public GetExpressAndDispatcherDTO getGetExpressAndDispatcherDTO() {
 		return getExpressAndDispatcherDTO;
@@ -235,6 +253,37 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
 				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew));
+
+	}
+
+	/***
+	 * 中转站选择配送点
+	 * 
+	 * @throws IOException
+	 */
+	public void chooseDistribution() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + expressManagementService2.chooseDistribution(expressNew, unitNew));
+
+	}
+
+	/**
+	 * 更改快件未扫描
+	 * 
+	 * @throws IOException
+	 */
+	public void updateNotScan() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+
+		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId,staffBasicinfo));
 
 	}
 }
