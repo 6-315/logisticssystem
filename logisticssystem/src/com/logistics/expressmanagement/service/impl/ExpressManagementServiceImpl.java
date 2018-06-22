@@ -221,19 +221,19 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (expressRouteInfo != null) {
 						if ("0001".equals(expressRouteInfo)) {
 							System.out.println("始发站");
-							return "始发站";
+							return "begin";
 						} else if (!"0001".equals(expressRouteInfo)) {
 							System.out.println("中转站");
-							return "中转站";
+							return "trans";
 						}
 					} else {
 						System.out.println("终点站");
-						return "终点站";
+						return "end";
 					}
 				}
 			}
 		}
-		return null;
+		return "error";
 	}
 
 	/**
@@ -397,10 +397,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ distributor.getDistributiontor_id() + "' ";
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
-					//筛选条件不存在
+					// 筛选条件不存在
 					reservationCountHql = reservationCountHql + "1=1";
 					listReservationInfoHql = listReservationInfoHql + "1=1";
-					//筛选条件存在
+					// 筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " and reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
@@ -408,14 +408,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ reservationVO.getUnit() + "' ";
 					}
 				} else {
-					//筛选条件存在
+					// 筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
 						listReservationInfoHql = listReservationInfoHql + " reservation_unit ='"
 								+ reservationVO.getUnit() + "' ";
 					} else {
-						//筛选条件不存在
+						// 筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
@@ -613,31 +613,39 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (distributor != null) {
 						if (distributor.getDistributiontor_id() != null
 								&& distributor.getDistributiontor_id().trim().length() > 0) {
-							expressCountHql = expressCountHql + " express_isdistributeddistributor ='"
-									+ distributor.getDistributiontor_id() + "' ";
-							listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor ='"
-									+ distributor.getDistributiontor_id() + "' ";
+							express_send expressSend = expressManagementDao
+									.getExpressSendInfoByDistributorId(distributor.getDistributiontor_id());
+							if (expressSend != null) {
+								if (expressSend.getExpress_send_express_id() != null
+										&& expressSend.getExpress_send_express_id().trim().length() > 0) {
+									expressCountHql = expressCountHql + " express_id ='"
+											+ expressSend.getExpress_send_express_id() + "' ";
+									listExpressInfoHql = listExpressInfoHql + " express_id ='"
+											+ expressSend.getExpress_send_express_id() + "' ";
+								}
+							}
+
 						}
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
-					//筛选条件不存在
+					// 筛选条件不存在
 					expressCountHql = expressCountHql + " 1=1 ";
 					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
-					//筛选条件存在
+					// 筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
 						listExpressInfoHql = listExpressInfoHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
 					}
-				} else { 
-					//筛选条件存在
+				} else {
+					// 筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + "  express_belongunit ='" + expressInfoVO.getUnit() + "' ";
 						listExpressInfoHql = listExpressInfoHql + "  express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
-					} else { 		
-						//筛选条件不存在
+					} else {
+						// 筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
