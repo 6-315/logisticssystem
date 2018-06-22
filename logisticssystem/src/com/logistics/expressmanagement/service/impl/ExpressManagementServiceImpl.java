@@ -216,19 +216,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
-					String expressRouteInfo = expressManagementDao
+					express_route expressRouteInfo = expressManagementDao
 							.getExpressRouteInfoByExpressId(expressInfo.getExpress_id());
 					if (expressRouteInfo != null) {
-						if ("0001".equals(expressRouteInfo)) {
-							System.out.println("始发站");
-							return "begin";
-						} else if (!"0001".equals(expressRouteInfo)) {
-							System.out.println("中转站");
-							return "trans";
+						route routeInfo = expressManagementDao
+								.getRouteInfoById(expressRouteInfo.getExpress_route_route_id());
+						if (routeInfo != null) {
+							if (routeInfo.getRoute_terminalstation() != null
+									&& routeInfo.getRoute_terminalstation().trim().length() > 0) {
+								if (judgeExpress.getExpress_belongunit().equals(routeInfo.getRoute_terminalstation())) {
+									return "end";
+								} else {
+									return "trans";
+								}
+							}
 						}
 					} else {
-						System.out.println("终点站");
-						return "end";
+						return "begin";
 					}
 				}
 			}
@@ -290,8 +294,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					.listObject(" from route where route_state = '正常使用' and (route_departurestation = '"
 							+ unitInfo.getUnit_id() + "' or route_terminalstation = '" + unitInfo.getUnit_id() + "')");
 			if (listRoute != null) {
-				routeDTO = new RouteDTO();
 				for (route routeInfo : listRoute) {
+					routeDTO = new RouteDTO();
 					if (routeInfo.getRoute_departurestation().equals(unitInfo.getUnit_id())) {
 						String direction = "正向";
 						routeDTO.setDirection(direction);
