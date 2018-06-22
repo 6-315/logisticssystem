@@ -194,7 +194,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 
 	/**
 	 * 到达中转站（更新快件状态）
-	 */
+	 *//*
 	@Override
 	public String updateExpressState(express expressInfo) {
 		if (expressInfo != null) {
@@ -202,7 +202,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				express updateExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (updateExpress != null) {
 					if (expressInfo.getExpress_state() != null && expressInfo.getExpress_state().trim().length() > 0) {
-						updateExpress.setExpress_state(expressInfo.getExpress_state());
+						updateExpress.setExpress_state("待扫描");
 						updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
 						expressManagementDao.saveOrUpdateObject(updateExpress);
 						return "success";
@@ -211,7 +211,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			}
 		}
 		return "error";
-	}
+	}*/
 
 	/**
 	 * 扫描（判断快件类型）
@@ -355,7 +355,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								express updateExpress = expressManagementDao
 										.getExpressById(expressInfo.getExpress_id());
 								if (updateExpress != null) {
-									updateExpress.setExpress_belongunit(staffInfo.getStaff_unit());
 									updateExpress.setExpress_state("已扫描");
 									updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
 									expressManagementDao.saveOrUpdateObject(updateExpress);
@@ -666,7 +665,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			listExpressInfoHql = listExpressInfoHql + " and express_number like '" + search + "' ";
 		}
 		/**
-		 * 根据状态分类查询
+		 * 根据状态筛选
 		 */
 		if (expressInfoVO.getState() != null && expressInfoVO.getState().trim().length() > 0) {
 			expressCountHql = expressCountHql + " and express_state ='" + expressInfoVO.getState() + "' ";

@@ -385,10 +385,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	public void updateExpressState() throws IOException {
+	/*public void updateExpressState() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.updateExpressState(expressInfo));
-	}
+	}*/
 
 	/**
 	 * 扫描（判断快件类型）
