@@ -397,8 +397,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ distributor.getDistributiontor_id() + "' ";
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+					//筛选条件不存在
 					reservationCountHql = reservationCountHql + "1=1";
 					listReservationInfoHql = listReservationInfoHql + "1=1";
+					//筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " and reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
@@ -406,12 +408,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								+ reservationVO.getUnit() + "' ";
 					}
 				} else {
+					//筛选条件存在
 					if (reservationVO.getUnit() != null && reservationVO.getUnit().trim().length() > 0) {
 						reservationCountHql = reservationCountHql + " reservation_unit ='" + reservationVO.getUnit()
 								+ "' ";
 						listReservationInfoHql = listReservationInfoHql + " reservation_unit ='"
 								+ reservationVO.getUnit() + "' ";
 					} else {
+						//筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
@@ -563,7 +567,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			expressCountHql = expressCountHql + " and ( ";
 			listExpressInfoHql = listExpressInfoHql + " and ( ";
 			/**
-			 * 根据角色筛选
+			 * 根据角色单位筛选
 			 */
 			position staffPosition = expressManagementDao.getPositionById(staffInfo.getStaff_position());
 			if (staffPosition != null && staffPosition.getPosition_name() != null
@@ -616,20 +620,24 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						}
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
+					//筛选条件不存在
 					expressCountHql = expressCountHql + " 1=1 ";
 					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
+					//筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
 						listExpressInfoHql = listExpressInfoHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
 					}
-				} else {
+				} else { 
+					//筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + "  express_belongunit ='" + expressInfoVO.getUnit() + "' ";
 						listExpressInfoHql = listExpressInfoHql + "  express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
-					} else {
+					} else { 		
+						//筛选条件不存在
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
