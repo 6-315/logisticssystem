@@ -505,12 +505,12 @@
                                     <th>中转站</th>
                                 </tr>
                                 </thead>--%>
-                                <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
+                            <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
                             <%--</table>--%>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-danger">确定</button>
+                            <button type="button" @click="saveExpressRoute" class="btn btn-danger">保存</button>
                         </div>
                     </div>
                 </div>
