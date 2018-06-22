@@ -294,8 +294,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					.listObject(" from route where route_state = '正常使用' and (route_departurestation = '"
 							+ unitInfo.getUnit_id() + "' or route_terminalstation = '" + unitInfo.getUnit_id() + "')");
 			if (listRoute != null) {
-				routeDTO = new RouteDTO();
 				for (route routeInfo : listRoute) {
+					routeDTO = new RouteDTO();
 					if (routeInfo.getRoute_departurestation().equals(unitInfo.getUnit_id())) {
 						String direction = "正向";
 						routeDTO.setDirection(direction);
