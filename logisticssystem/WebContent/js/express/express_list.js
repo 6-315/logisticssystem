@@ -52,6 +52,7 @@
                       <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
                       <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
                    </select>
+                   <button v-if="index+1==expresslistr.length" type="button" class="btn btn-info"></button>
                    </td>
                    </tr></tbody></table>`,
         data() {

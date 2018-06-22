@@ -444,7 +444,7 @@
                                                     <li><a href="#">分配取件员</a></li>
                                                     <li><a href="#">已揽件</a></li>
                                                     <li>
-                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
+                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
                                                     <li><a href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
