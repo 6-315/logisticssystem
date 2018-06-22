@@ -279,9 +279,12 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<RouteDTO> queryAllRouteWithUnit(unit unitInfo) {
+	public ExpressRouteDTO queryAllRouteWithUnit(unit unitInfo) {
+		ExpressRouteDTO expressRouteDTO = new ExpressRouteDTO();
 		List<RouteDTO> listRouteDTO = new ArrayList<>();
 		RouteDTO routeDTO = null;
+		unit currentUnit = expressManagementDao.getUnitInfoById(unitInfo.getUnit_id());
+		expressRouteDTO.setCurrentUnit(currentUnit);
 		if (unitInfo != null && unitInfo.getUnit_id() != null && unitInfo.getUnit_id().trim().length() > 0) {
 			List<route> listRoute = (List<route>) expressManagementDao
 					.listObject(" from route where route_state = '正常使用' and (route_departurestation = '"
@@ -311,10 +314,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					routeDTO.setRouteInfo(routeInfo);
 					listRouteDTO.add(routeDTO);
 				}
-				return listRouteDTO;
 			}
 		}
-		return null;
+		expressRouteDTO.setListRouteDTO(listRouteDTO);
+		return expressRouteDTO;
 	}
 
 	/**
