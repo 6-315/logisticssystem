@@ -34,7 +34,7 @@
         },
         lastAddress: '',
         routeDirectionArr: [],
-
+        vehicleList: []
     }
 
 
@@ -303,6 +303,28 @@
                         }
                     }
                 })
+            },
+            scanVehicle(expressId) {
+                expressData.tmpExpressId = expressId
+                //获取车辆信息
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleByID',
+                    type: 'POST',
+                    data: {
+                        'expressNew.express_id': expressData.tmpExpressId
+                    },
+                    success: function (data) {
+                        if (data === null) {
+                            toastr.error('系统错误，获取车辆失败')
+                        } else {
+                            let listVehicle = JSON.parse(data)
+                            console.log('list:', listVehicle)
+                            expressData.vehicleList = listVehicle
+                            $('#expressVehicle').modal()
+                        }
+                    }
+                })
+
             }
         },
         mounted() {
