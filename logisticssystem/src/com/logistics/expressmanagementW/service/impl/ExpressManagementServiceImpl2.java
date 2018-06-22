@@ -48,6 +48,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<vehicle> getVehicleByID(express expressNew) {
+		if(expressNew==null) {
+			return null;
+		}
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
 			List<vehicle> listVehicle = new ArrayList<>();
 			route getRoute = new route();
@@ -90,6 +93,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@Override
 	public String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
+		if(getWeightDTO==null) {
+			return "error";
+		}
 		// express_circulation expressCirculation = new express_circulation();
 		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
 		if (getWeightDTO.getExpressNew().getExpress_id() != null
