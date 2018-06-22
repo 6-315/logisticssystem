@@ -42,8 +42,8 @@
                         'isDistributedDistributor': expressData.isDistributedDistributor
                     },
                     success: function (data) {
-                        const expressInfo = JSON.parse(data)
-                        expressData.expressInfoVO.ExpressInfoDTO = expressInfo.listExpressInfoDTO
+                        let expressInfo = JSON.parse(data)
+                        expressData.expressInfoVO.ExpressInfoDTO = expressInfo.ExpressInfoDTO
                         expressData.expressInfoVO.pageIndex = expressInfo.pageIndex
                         expressData.expressInfoVO.totalRecords = expressInfo.totalRecords
                         expressData.expressInfoVO.pageSize = expressInfo.pageSize
