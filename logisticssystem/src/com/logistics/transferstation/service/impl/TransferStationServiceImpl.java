@@ -258,27 +258,29 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 		// 遍历unit表
 		for (unit unit : listUnit) {
+			// 实例化unitManagerDTO
+			unitManagerDTO = new UnitManagerDTO();
 			/**
 			 * 获取单位创建者的信息
 			 */
 			staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
+			// 把unit_Creator set进unitManagerDTO
+			if (unit_Creator != null) {
+				unitManagerDTO.setUnit_Creator(unit_Creator);
+			}
 			/**
 			 * 获取单位管理员信息
 			 */
 			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unit.getUnit_admin());
-
+			if (unit_Admin != null) {
+				unitManagerDTO.setUnit_Admin(unit_Admin);
+			}
 			// 模糊查询显示高亮
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 				unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
 						"<mark>" + transferStationVO.getSearch() + "</mark>"));
 				System.out.println("987654321");
 			}
-
-			// 实例化unitManagerDTO
-			unitManagerDTO = new UnitManagerDTO();
-			// 把unit_Creator和unit_Admin set进unitManagerDTO
-			unitManagerDTO.setUnit_Admin(unit_Admin);
-			unitManagerDTO.setUnit_Creator(unit_Creator);
 
 			// 把unit set进unitManagerDTO
 			unitManagerDTO.setUnit(unit);
@@ -408,25 +410,26 @@ public class TransferStationServiceImpl implements TransferStationService {
 		if (staffBasicInfo.getStaff_id() != null && staffBasicInfo.getStaff_id().trim().length() > 0
 				&& staffBasicInfo.getStaff_unit() != null) {
 			positionNew = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
-			System.out.println("hyhyhy"+positionNew);
-			if (positionNew != null  && positionNew.getPosition_name().equals("总公司管理员")) {
-				listunit = (List<unit>) transferStationDao
-						.listObject("from unit ");
+			System.out.println("hyhyhy" + positionNew);
+			if (positionNew != null && positionNew.getPosition_name().equals("总公司管理员")) {
+				listunit = (List<unit>) transferStationDao.listObject("from unit ");
 				return listunit;
 			}
-			if (positionNew != null  &&unitNew!=null &&  positionNew.getPosition_name().equals("中转站管理员")) {
-				
+			if (positionNew != null && unitNew != null && positionNew.getPosition_name().equals("中转站管理员")) {
+
 				System.out.println("sdsdsdsd");
-				listunit = (List<unit>) transferStationDao.listObject("from unit where (unit_id ='"
-						+ staffBasicInfo.getStaff_unit() + "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
-				System.out.println("qaqaqa"+"from unit where (unit_id ='"
-						+ unitNew.getUnit_id() + "' or unit_superiorunit='" +  staffBasicInfo.getStaff_unit() + "')");
-				System.out.println("kjkjkjk"+listunit);
+				listunit = (List<unit>) transferStationDao
+						.listObject("from unit where (unit_id ='" + staffBasicInfo.getStaff_unit()
+								+ "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
+				System.out.println("qaqaqa" + "from unit where (unit_id ='" + unitNew.getUnit_id()
+						+ "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
+				System.out.println("kjkjkjk" + listunit);
 				return listunit;
 			}
-			if (positionNew != null   && positionNew.getPosition_name().equals("配送点管理员")) {
-				listunit = (List<unit>) transferStationDao.listObject("from unit where (unit_id ='"
-						+ staffBasicInfo.getStaff_unit() + "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
+			if (positionNew != null && positionNew.getPosition_name().equals("配送点管理员")) {
+				listunit = (List<unit>) transferStationDao
+						.listObject("from unit where (unit_id ='" + staffBasicInfo.getStaff_unit()
+								+ "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
 				return listunit;
 			}
 		}
