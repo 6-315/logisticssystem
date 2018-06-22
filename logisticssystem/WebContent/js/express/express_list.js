@@ -26,7 +26,7 @@
         nextDisabled: false,
     }
     const express_view = new Vue({
-        el: 'expressList',
+        el: '#expressList',
         data: expressData,
         methods: {
             getAllData: function () {
@@ -99,6 +99,16 @@
             },
         },
         mounted() {
+            // 获取单位信息
+            $.ajax({
+                url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                type: 'POST',
+                data: '',
+                success: function (data) {
+                    let uList = JSON.parse(data)
+                    expressData.unitList = uList
+                }
+            })
             $.ajax({
                 url: '/logisticssystem/expressmanagement/expressmanagement_queryExpressInfo',
                 type: 'POST',
@@ -116,8 +126,6 @@
                     expressData.expressInfoVO.state = expressInfo.state
                     expressData.expressInfoVO.unit = expressInfo.unit
                     expressData.ready = true
-
-
                 }
             })
         }

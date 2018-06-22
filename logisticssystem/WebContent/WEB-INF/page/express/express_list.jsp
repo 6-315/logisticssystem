@@ -11,7 +11,7 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <%--<link rel="stylesheet"
-        href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+            href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
@@ -89,11 +89,11 @@
         }
 
         /*.pagination > li > a:focus {
-                    color: #fff;
-                    cursor: default;
-                    background-color: #337ab7;
-                    border-color: #337ab7;
-                }*/
+                            color: #fff;
+                            cursor: default;
+                            background-color: #337ab7;
+                            border-color: #337ab7;
+                        }*/
         .dropdown-menu {
             max-height: 200px;
             overflow-y: scroll;
@@ -172,9 +172,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Note3物流系统</span>
+            src="${pageContext.request.contextPath}/img/houtai.png"
+            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
     </a> <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -193,7 +193,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                                 with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
@@ -334,8 +334,8 @@
                         <div class="card-body">
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
-                                <input placeholder="据快件单号搜索" @input="searchReservationNum"
-                                       v-model="search" type="text" class="form-control input-sm"><span
+                                <input placeholder="据快件单号搜索" @input="" v-model="search"
+                                       type="text" class="form-control input-sm"><span
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
                             </div>
@@ -351,9 +351,9 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li><a href="#">所属单位(所有)</a></li>
+														<li v-for="unit in unitList" :key="unit.unit_id"><a
+                                                                href="#">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
@@ -391,13 +391,66 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="reservationVO.listReservationInfoDTO.length == 0">
+                                    <tbody v-if="expressInfoVO.ExpressInfoDTO.length == 0">
                                     <td style="text-align: center" colspan="8" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
+                                    <tbody v-cloak>
+                                    <tr v-for="expressInfoDTO in expressInfoVO.ExpressInfoDTO"
+                                        :key="expressInfoDTO.expressInfo.express_id">
+                                        <td>{{expressInfoDTO.expressInfo.express_number}}</td>
+                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseerealname}}</td>
+                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseephonenumber}}</td>
+                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_senderdetailaddress}}</td>
+                                        <td>漏了一个所在单位</td>
+                                        <td
+                                                v-if="expressInfoDTO.expressInfo.express_isdistributeddistribution">是
+                                        </td>
+                                        <td v-else>否</td>
+                                        <td
+                                                v-if="expressInfoDTO.expressInfo.express_isdistributeddistributor">是
+                                        </td>
+                                        <td v-else>否</td>
+                                        <td>{{expressInfoDTO.expressInfo.express_state}}</td>
+                                        <td>
+                                            <div class="btn-group">
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false"> <i
+                                                            class="fa fa-th-list"></i>
+													</span>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">查看详情</a></li>
+                                                    <li><a href="#">分配取件员</a></li>
+                                                    <li><a href="#">进仓扫描</a></li>
+                                                    <li><a href="#">扫描装车</a></li>
+                                                    <li><a href="#">分配配送点</a></li>
+                                                    <li><a href="#">分配派送员</a></li>
+                                                    <li><a href="#">已签收</a></li>
+                                                    <li><a href="#">已揽件</a></li>
+                                                    <li><a href="#">已完成</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
                                 </table>
-                                <div>
+                                <div class="pagePosition">
+                                    <ul v-cloak class="pagination">
+                                        <li></li>
+                                        <li><a href="#">首页</a></li>
+                                        <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                               href="#">上一页</a></li>
+                                        <li><a>第 {{expressInfoVO.pageIndex}} 页/总
+                                            {{expressInfoVO.totalPages}}
+                                            页/共{{expressInfoVO.totalRecords}}条</a></li>
+                                        <li :class="{disabled:nextDisabled}"><a
+                                                :disabled="nextDisabled" href="#"> 下一页
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
+                                        </a></li>
+                                        <li><a href="#">尾页</a></li>
+                                        <li></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -470,14 +523,15 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <%--<script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
+    src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
+    src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>--%>
+    src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>--%>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
 </body>
 </html>
