@@ -334,7 +334,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		Session session = getSession();
 		String hql = " from unit where unit_id = :ID";
 		Query query = session.createQuery(hql);
-		query.setParameter("ID", staf	f_unit);
+		query.setParameter("ID", staff_unit);
 		unitNew = (unit) query.uniqueResult();
 		if (unitNew != null) {
 			return unitNew;
