@@ -516,7 +516,8 @@
                                     <td>{{vehicle.vehicle_express_state}}</td>
                                     <td>{{vehicle.vehicle_standard}}</td>
                                     <td>{{vehicle.vehicle_current_weight}}</td>
-                                    <td><a class="btn btn-default" href="#"></a>装车</td>
+                                    <td><a @click="loadCar(vehicle.vehicle_id)" class="btn btn-default" href="#"></a>装车
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
