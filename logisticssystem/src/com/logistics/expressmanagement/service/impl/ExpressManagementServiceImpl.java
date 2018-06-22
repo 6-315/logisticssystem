@@ -244,7 +244,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	 * 保存路线
 	 */
 	@Override
-	public String saveExpressRoute(String idList, express expressInfo) {
+	public String saveExpressRoute(String idList, express expressInfo,String direction) {
 		if (idList != null && idList.trim().length() > 0) {
 			String[] listId = idList.split(",");
 			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
@@ -255,7 +255,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						expressRoute.setExpress_route_route_id(id);
 						expressRoute.setExpress_route_belongexpress(expressInfo.getExpress_id());
 						expressRoute.setExpress_route_state("未完成");
-
+						if(direction!=null) {
+							expressRoute.setExpress_route_route_away(direction);
+						}
 						String hql = "select express_route_superior from express_route where express_route_belongexpress='"
 								+ expressInfo.getExpress_id() + "' order by --express_route_superior desc limit 1 ";
 						String number = expressManagementDao.getMaxNumber(hql);

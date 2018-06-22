@@ -156,7 +156,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 是否分配配送员
 	 */
 	private String isDistributedDistributor = "";
-	
+	/**
+	 * 方向
+	 */
+	private String direction;
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
 
 	public ExpressInfoVO getExpressInfoVO() {
 		return expressInfoVO;
@@ -412,7 +423,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void saveExpressRoute() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo));
+		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo,direction));
 	}
 
 	/**
