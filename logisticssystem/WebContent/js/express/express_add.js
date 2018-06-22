@@ -64,7 +64,8 @@
         selectAddCounty: false,
         addProvince: [],
         addCity: [],
-        addCountry: []
+        addCountry: [],
+        successAdd: false
     }
     const view_express = new Vue({
         el: '#express_add',
@@ -229,13 +230,16 @@
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_createtime': expressData.expressinfo.expressinfo_createtime,
                         'expressAndCirculationDTO.expressDetailInfo.expressinfo_modifytime': expressData.expressinfo.expressinfo_modifytime,
                         'expressAndCirculationDTO.userInfo.userinfo_id': expressData.reservation.reservation_user,
-                        'expressAndCirculationDTO.distributor.express_send_distributiontor': expressData.reservation.reservation_distributiontor
+                        'expressAndCirculationDTO.distributor.distributiontor_id': expressData.reservation.reservation_distributiontor
                     },
                     success: function (data) {
                         if (data === null) {
                             toastr.error('提交失败,请重新生成')
                         } else {
-
+                            const shu = JSON.parse(data)
+                            expressData.successAdd = true
+                            expressData.expressinfo.express_number = shu.expressInfo.express_number
+                            toastr.success('填写快件成功')
                         }
                     }
                 })

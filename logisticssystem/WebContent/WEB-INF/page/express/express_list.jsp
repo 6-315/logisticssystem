@@ -522,16 +522,12 @@
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<%--<script type="text/javascript"
-    src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
-<script type="text/javascript"
-    src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
-<script type="text/javascript"
-    src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>--%>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 </body>
 </html>
