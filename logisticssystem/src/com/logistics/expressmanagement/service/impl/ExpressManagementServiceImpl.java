@@ -613,15 +613,26 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (distributor != null) {
 						if (distributor.getDistributiontor_id() != null
 								&& distributor.getDistributiontor_id().trim().length() > 0) {
-							express_send expressSend = expressManagementDao
-									.getExpressSendInfoByDistributorId(distributor.getDistributiontor_id());
-							if (expressSend != null) {
-								if (expressSend.getExpress_send_express_id() != null
-										&& expressSend.getExpress_send_express_id().trim().length() > 0) {
-									expressCountHql = expressCountHql + " express_id ='"
-											+ expressSend.getExpress_send_express_id() + "' ";
-									listExpressInfoHql = listExpressInfoHql + " express_id ='"
-											+ expressSend.getExpress_send_express_id() + "' ";
+							List<express_send> listExpressSend = (List<express_send>) expressManagementDao
+									.listObject(" from express_send where express_send_distributiontor ='"
+											+ distributor.getDistributiontor_id() + "' and express_send_state='未完成' ");
+							if (listExpressSend != null) {
+								for (int i = 0; i < listExpressSend.size(); i++) {
+									if (listExpressSend.get(i) != null) {
+										if (listExpressSend.get(i).getExpress_send_express_id() != null
+												&& listExpressSend.get(i).getExpress_send_express_id().trim()
+														.length() > 0) {
+											expressCountHql = expressCountHql + " express_id ='"
+													+ listExpressSend.get(i).getExpress_send_express_id() + "' ";
+											listExpressInfoHql = listExpressInfoHql + " express_id ='"
+													+ listExpressSend.get(i).getExpress_send_express_id() + "' ";
+										}
+										if (i < listExpressSend.size() - 1) {
+											expressCountHql = expressCountHql + " or  ";
+											listExpressInfoHql = listExpressInfoHql + " or  ";
+										}
+									}
+
 								}
 							}
 
