@@ -64,7 +64,8 @@
         selectAddCounty: false,
         addProvince: [],
         addCity: [],
-        addCountry: []
+        addCountry: [],
+        successAdd: false
     }
     const view_express = new Vue({
         el: '#express_add',
@@ -235,7 +236,10 @@
                         if (data === null) {
                             toastr.error('提交失败,请重新生成')
                         } else {
-
+                            const shu = JSON.parse(data)
+                            expressData.successAdd = true
+                            expressData.expressinfo.express_number = shu.expressInfo.express_number
+                            toastr.success('填写快件成功')
                         }
                     }
                 })

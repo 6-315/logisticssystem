@@ -237,7 +237,7 @@
 
         <!-- Main content -->
         <section id="express_add" class="content">
-            <div class="container-fluid">
+            <div v-if="!successAdd" class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
                     <div class="card-header">
@@ -495,6 +495,33 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">请输入正确的用户地址</div>
+                </div>
+            </div>
+            <div v-if="successAdd" class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">物品信息</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                            <!-- <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button> -->
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                添加快件成功，单号为 {{expressinfo.express_number}}
+                                点击<a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList">跳转</a>到列表页
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">添加物品信息需要满足法律要求，杜绝违禁物品</div>
                 </div>
             </div>
         </section>
