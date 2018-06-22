@@ -11,6 +11,7 @@ import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.reservation;
 import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
@@ -318,7 +319,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	}
 
 	/**
-	 * 配送员点击揽件
+	 * 配送员点击派送
 	 */
 	@Override
 	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, express expressNew) {
@@ -328,9 +329,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());
 			expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
 			if (getExpress != null && expressSend != null) {
-				getExpress.setExpress_state("已揽件");
+				getExpress.setExpress_state("派送中");
 				getExpress.setExpress_createtime(TimeUtil.getStringSecond());
-				expressSend.setExpress_send_state("已揽件正在派送");
+				expressSend.setExpress_send_state("未完成");
 				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(getExpress);
 				expressManagementDao2.saveOrUpdateObject(expressSend);
@@ -350,7 +351,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		if (expressNew == null && unitNew == null) {
 			return "error";
 		}
-		expressNew.setExpress_state("待揽件");
+		expressNew.setExpress_state("待派送");
 		expressNew.setExpress_isdistributeddistribution(unitNew.getUnit_id());
 		express_circulation expressCirculation = new express_circulation();
 		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
@@ -364,4 +365,57 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		}
 		return "error";
 	}
+
+	@Override
+	public String updateNotScan(String listExpressId, staff_basicinfo staffBasicinfo) {
+		if (listExpressId == null || staffBasicinfo == null) {
+			return "error";
+		} else {
+			position positionNew = new position();
+			unit uniteNew = new unit();
+			uniteNew = expressManagementDao2.getUpUnit(staffBasicinfo.getStaff_unit());
+			positionNew = expressManagementDao2.getPosition(staffBasicinfo.getStaff_id());
+			String[] update = listExpressId.split(",");
+			if ("配送员".equals(positionNew.getPosition_name())) {
+				for (String id : update) {
+					express expressNew = new express();
+					expressNew = expressManagementDao2.getExpress(id);
+					expressNew.setExpress_belongunit(uniteNew.getUnit_superiorunit());
+					expressNew.setExpress_state("待扫描");
+					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao2.saveOrUpdateObject(expressNew);
+				}
+				return "succcess";
+
+			}
+			if ("驾驶员".equals(positionNew.getPosition_name())) {
+
+				for (String id : update) {
+					express_route expressRoute = new express_route();
+					route routeNew = new route();
+					express expressNew = new express();
+					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
+					expressRoute = expressManagementDao2.getexpressRoute(id);
+					expressNew = expressManagementDao2.getExpress(id);
+					if ("1".equals(expressRoute.getExpress_route_state())) {
+						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
+					}
+					if ("2".equals(expressRoute.getExpress_route_state())) {
+						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
+					}
+					expressNew.setExpress_state("待扫描");
+					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao2.saveOrUpdateObject(expressNew);
+
+				}
+				return "succcess";
+			}
+		}
+		return "error";
+	}
+
+	/**
+	 * 更改状态为未扫描
+	 */
+
 }

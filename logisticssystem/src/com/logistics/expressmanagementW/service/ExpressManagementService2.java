@@ -38,4 +38,7 @@ public interface ExpressManagementService2 {
 
 	String chooseDistribution(express expressNew, unit unitNew);
 
+
+	String updateNotScan(String listExpressId, staff_basicinfo staffBasicinfo);
+
 }
