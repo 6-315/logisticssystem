@@ -217,7 +217,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
 					express_route expressRouteInfo = expressManagementDao
-							.getExpressRouteInfoByExpressId(expressInfo.getExpress_id());
+							.getExpressRouteInfoByExpressId(judgeExpress.getExpress_id());
 					if (expressRouteInfo != null) {
 						route routeInfo = expressManagementDao
 								.getRouteInfoById(expressRouteInfo.getExpress_route_route_id());
