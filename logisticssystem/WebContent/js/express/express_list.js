@@ -16,7 +16,7 @@
             HaveNextPage: '',
         },
         search: '',
-        page: '',
+        page: 1,
         state: '',
         unit: '',
         isDistributedDistribution: '',
@@ -69,7 +69,7 @@
             judge: function () {
                 expressData.preDisabled = false
                 expressData.nextDisabled = false
-                if (expressData.expressInfoVO.pageIndex == 1) {
+                if (expressData.expressInfoVO.pageIndex === 1) {
                     expressData.preDisabled = true
                 }
                 if (expressData.expressInfoVO.pageIndex === expressData.expressInfoVO.totalPages) {
@@ -97,6 +97,27 @@
                 express_view.getAllData()
                 express_view.judge()
             },
+            //
+            selectUnit: function (selectUnitId) {
+                expressData.unit = selectUnitId
+                express_view.getAllData()
+                express_view.judge()
+            },
+            isFenPeiSongDian: function (isDistributedDistribution) {
+                expressData.isDistributedDistribution = isDistributedDistribution
+                express_view.getAllData()
+                express_view.judge()
+            },
+            isFenPeiSongYuan: function (isDistributedDistributor) {
+                expressData.isDistributedDistributor = isDistributedDistributor
+                express_view.getAllData()
+                express_view.judge()
+            },
+            selectState: function (selectState) {
+                expressData.state = selectState
+                express_view.getAllData()
+                express_view.judge()
+            }
         },
         mounted() {
             // 获取单位信息
@@ -126,6 +147,7 @@
                     expressData.expressInfoVO.state = expressInfo.state
                     expressData.expressInfoVO.unit = expressInfo.unit
                     expressData.ready = true
+                    express_view.judge()
                 }
             })
         }

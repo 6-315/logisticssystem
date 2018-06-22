@@ -351,43 +351,43 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所属单位(所有)</a></li>
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                href="#">{{unit.unit_name}}</a></li>
+                                                                href="#" @click="selectUnit(unit.unit_id)">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配配送点<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li @click="isFenPeiSongDian('')"><a href="#">所有</a></li>
+														<li><a @click="isFenPeiSongDian('是')" href="#">是</a></li>
+														<li><a @click="isFenPeiSongDian('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配派送员<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li><a @click="isFenPeiSongYuan('')" href="#">所有</a></li>
+														<li><a @click="isFenPeiSongYuan('是')" href="#">是</a></li>
+														<li><a @click="isFenPeiSongYuan('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-                                                        <li><a href="#">待揽件</a></li>
-														<li><a href="#">已揽件</a></li>
-														<li><a href="#">待扫描</a></li>
-														<li><a href="#">已扫描</a></li>
-                                                        <li><a href="#">扫描装车</a></li>
-                                                        <li><a href="#">待派送</a></li>
-                                                        <li><a href="#">派送中</a></li>
-                                                        <li><a href="#">已签收</a></li>
-														<li><a href="#">已完成</a></li>
+														<li><a @click="selectState('')" href="#">所有</a></li>
+                                                        <li><a @click="selectState('待揽件')" href="#">待揽件</a></li>
+														<li><a @click="selectState('已揽件')" href="#">已揽件</a></li>
+														<li><a @click="selectState('待扫描')" href="#">待扫描</a></li>
+														<li><a @click="selectState('已扫描')" href="#">已扫描</a></li>
+                                                        <li><a @click="selectState('扫描装车')" href="#">扫描装车</a></li>
+                                                        <li><a @click="selectState('待派送')" href="#">待派送</a></li>
+                                                        <li><a @click="selectState('派送中')" href="#">派送中</a></li>
+                                                        <li><a @click="selectState('已签收')" href="#">已签收</a></li>
+														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
                                         <th>操作</th>
@@ -405,7 +405,7 @@
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseerealname}}</td>
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseephonenumber}}</td>
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td>漏了一个所在单位</td>
+                                        <td>{{expressInfoDTO.unitInfo.unit_name}}</td>
                                         <td
                                                 v-if="expressInfoDTO.expressInfo.express_isdistributeddistribution">是
                                         </td>
