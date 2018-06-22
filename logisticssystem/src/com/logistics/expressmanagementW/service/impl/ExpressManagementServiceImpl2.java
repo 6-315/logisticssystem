@@ -96,7 +96,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
 		if (getWeightDTO == null) {
 			return "error";
-		}
+		} 
 		// express_circulation expressCirculation = new express_circulation();
 		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
 		if (getWeightDTO.getExpressNew().getExpress_id() != null
@@ -175,7 +175,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<unit> getAddressByUnit(String address) {
+	public List<unit> getAddressByUnit(String address) { 
 		if (address != null && address.trim().length() > 0) {
 			List<unit> listUint = new ArrayList<>();
 			listUint = (List<unit>) expressManagementDao2
