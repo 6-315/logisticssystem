@@ -403,13 +403,13 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
-                                    <td style="text-align: center" colspan="9" height="50">
+                                    <td style="text-align: center" colspan="10" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="8"><i
+                                        <td style="text-align: center" colspan="10"><i
                                                 class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>
@@ -443,11 +443,14 @@
                                                     <li><a href="#">查看详情</a></li>
                                                     <li><a href="#">分配取件员</a></li>
                                                     <li><a href="#">已揽件</a></li>
-                                                    <li><a href="#">进仓扫描</a></li>
+                                                    <li>
+                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
+                                                           href="#">进仓扫描</a></li>
                                                     <li><a href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
+                                                    <li><a href="#">查看快件路线</a></li>
                                                     <li><a href="#">已完成</a></li>
                                                 </ul>
                                             </div>
@@ -481,6 +484,36 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+            </div>
+            <div class="modal fade" id="expressRoute">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">选择快件路线</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <%--<table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>路线</th>
+                                    <th>始发站</th>
+                                    <th>中转站</th>
+                                </tr>
+                                </thead>--%>
+                                <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
+                            <%--</table>--%>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-danger">确定</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal fade" id="expressAdd">
                 <div class="modal-dialog">
@@ -566,13 +599,13 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 </body>
 </html>

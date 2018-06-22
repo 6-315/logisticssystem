@@ -24,8 +24,49 @@
         ready: false,
         preDisabled: false,
         nextDisabled: false,
-        checkData: false
+        checkData: false,
+        expressRoute: '',
+        expressListR: [],
+        tmpExpressId: '',
+        ExpressRouteDTO: {
+            listRouteDTO: [],
+            currentUnit: ''
+        }
     }
+
+    let trCom = Vue.extend({
+        template: `<table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>路线</th>
+                                    <th>始发站</th>
+                                    <th>中转站</th>
+                                </tr>
+                                </thead><tbody><tr v-for="(expressL,index) in expresslistr" :key="index">
+                   <td>{{index+1}}</td> 
+                   <td>{{expressL.currentUnit.unit_name}}</td>
+                   <td>
+                   <select v-model="selectId" @change="nextNode" name="route" class="form-control">
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value="listRoute.endUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
+                   </select>
+                   </td>
+                   </tr></tbody></table>`,
+        data(){
+            return{
+                selectId:0
+            }
+        },
+        props: ['expresslistr'],
+        methods: {
+            nextNode(){
+                console.log(this.selected);
+                this.$emit('getroute',this.selectId);
+            },
+        },
+    })
+
+
     const express_view = new Vue({
         el: '#expressList',
         data: expressData,
@@ -152,7 +193,76 @@
                         'listExpressId': dataDa
                     },
                     success: function (data) {
-                        console.log('df')
+                        if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            toastr.success('到站成功')
+                        }
+                    }
+                })
+            },
+            jinCangSaoMiao: function (expressId, unitId) {
+                expressData.tmpExpressId = expressId
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
+                    type: 'POST',
+                    data: {
+                        'expressInfo.express_id': expressId
+                    },
+                    success: function (data) {
+                        data = 'begin'
+                        if (data === 'error') {
+                            toastr.error('扫描失败')
+                            return
+                        } else if (data === 'begin') {
+                            express_view.getRoute(unitId)
+                            $('#expressRoute').modal()
+                            //弹出模态框选择地址
+                            // toastr.error('begin')
+                        } else if (data === 'trans') {
+                            //中转站
+                            toastr.error('trans')
+                        } else if (data === 'end') {
+                            //终点站
+                            toastr.error('end')
+                        }
+                    }
+                })
+            },
+            /*productExpressRoute: function () {
+                const routeRow = `
+                                 <tr>
+                                    <td>${expressData.expressListR.length + 1}</td> 
+                                    <td>${ expressData.ExpressRouteDTO.currentUnit.unit_name }</td>
+                                    <td>
+                                        <select name="route" class="form-control">
+                                            <option v-if="listRoute.direction == '正向'" value="" v-for="listRoute in expressData.ExpressRouteDTO.listRouteDTO" :key="listRoute.routeInfo.route_id">{{listRoute.endUnit.unit_name}}}</option>    
+                                            <option v-if="listRoute.direction == '反向'" value="" v-for="listRoute in expressData.ExpressRouteDTO.listRouteDTO" :key="listRoute.routeInfo.route_id">{{listRoute.beginUnit.unit_name}}}</option>    
+                                        </select>
+                                    </td>
+                                 </tr>
+                                 `
+                console.log('hjeihei:', routeRow)
+                expressListR.push(routeRow)
+            },*/
+            //单位id
+            getRoute: function (unitId) {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_queryAllRouteWithUnit',
+                    type: 'POST',
+                    data: {
+                        'unitInfo.unit_id': unitId
+                    },
+                    success: function (data) {
+                        if (data === null) {
+                            toastr.error('系统错误，没有路线')
+                        } else {
+                            let expressRouteDTO = JSON.parse(data);
+                            expressData.ExpressRouteDTO.listRouteDTO = expressRouteDTO.listRouteDTO
+                            expressData.ExpressRouteDTO.currentUnit = expressRouteDTO.currentUnit
+                            expressData.expressListR.push(expressData.ExpressRouteDTO);
+                            /*express_view.productExpressRoute()*/
+                        }
                     }
                 })
             }
@@ -188,6 +298,9 @@
                     express_view.judge()
                 }
             })
+        },
+        components: {
+            "tr-com": trCom
         }
     })
 })()
