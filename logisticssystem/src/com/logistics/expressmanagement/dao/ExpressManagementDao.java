@@ -89,6 +89,8 @@ public interface ExpressManagementDao {
 
 	public route getRouteInfoById(String express_route_route_id);
 
+	public vehicle_express_relevance getVehicleExpressRelevanceByExpressId(String express_id);
+
 
 	/**
 	 * 

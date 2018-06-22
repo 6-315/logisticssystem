@@ -159,14 +159,14 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	/**
 	 * 方向
 	 */
-	private String direction;
+	private String id_directionList;
 
-	public String getDirection() {
-		return direction;
+	public String getId_directionList() {
+		return id_directionList;
 	}
 
-	public void setDirection(String direction) {
-		this.direction = direction;
+	public void setId_directionList(String id_directionList) {
+		this.id_directionList = id_directionList;
 	}
 
 	public ExpressInfoVO getExpressInfoVO() {
@@ -423,7 +423,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void saveExpressRoute() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo,direction));
+		response.getWriter().write("" + expressManagementService.saveExpressRoute(id_directionList,expressInfo));
 	}
 
 	/**

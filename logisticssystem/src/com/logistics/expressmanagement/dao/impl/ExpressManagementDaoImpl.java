@@ -376,4 +376,18 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		return routeInfo;
 	}
 
+	/**
+	 * 根据快件ID查询流转信息
+	 */
+	@Override
+	public vehicle_express_relevance getVehicleExpressRelevanceByExpressId(String express_id) {
+		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+		Session session = getSession();
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
+		return vehicleExpressRelevance;
+	}
+
 }
