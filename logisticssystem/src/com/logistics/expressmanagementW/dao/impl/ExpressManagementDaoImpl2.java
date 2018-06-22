@@ -12,6 +12,7 @@ import com.logistics.domain.express;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -302,6 +303,40 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		staffBasicinfoNew = (staff_basicinfo) query.uniqueResult();
 		if (staffBasicinfoNew != null) {
 			return staffBasicinfoNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据ID获取职位
+	 */
+	@Override
+	public position getPosition(String staff_id) {
+		position positionNew = new position();
+		Session session = getSession();
+		String hql = " from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		positionNew = (position) query.uniqueResult();
+		if (positionNew != null) {
+			return positionNew;
+		}
+		return null;
+	}
+
+	/***
+	 * 查找上级单位
+	 */
+	@Override
+	public unit getUpUnit(String staff_unit) {
+		unit unitNew = new unit();
+		Session session = getSession();
+		String hql = " from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_unit);
+		unitNew = (unit) query.uniqueResult();
+		if (unitNew != null) {
+			return unitNew;
 		}
 		return null;
 	}

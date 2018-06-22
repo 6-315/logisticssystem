@@ -393,8 +393,8 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="expressInfoVO.ExpressInfoDTO.length == 0">
-                                    <td style="text-align: center" colspan="8" height="50">
+                                    <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
+                                    <td style="text-align: center" colspan="9" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
