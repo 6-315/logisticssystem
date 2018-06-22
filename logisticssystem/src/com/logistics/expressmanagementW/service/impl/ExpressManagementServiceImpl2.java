@@ -130,11 +130,10 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				 */
 				if ("2".equals(expressRoute.getExpress_route_state())) {
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_departurestation());
-
 				}
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				getExpress.setExpress_state("已装车");
-				//getExpress.setExpress_belongunit(routeNew.getRoute_departurestation());
+				// getExpress.setExpress_belongunit(routeNew.getRoute_departurestation());
 				expressManagementDao2.saveOrUpdateObject(getExpress);
 				if ("空闲".equals(vehicleNew.getVehicle_state())) {
 					vehicleNew.setVehicle_state("可载货");
@@ -148,7 +147,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				vehicleExpressRelevance.setVehicle_express_relevance_createtime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_expressinfo_begintime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
-				return "Success";
+				return "success";
 			} else if (calculation > weighByCarAll) {
 				return "Overweight";
 			} else if (calculation == weighByCarAll) {
@@ -275,10 +274,11 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressSend.setExpress_send_express_id(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
 				expressSend.setExpress_send_distributiontor(distributiontorNew.getDistributiontor_id());
 				expressSend.setExpress_send_state("等待揽件");
+				expressSend.setExpress_send_type("派送");
 				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
 				expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(expressSend);
-				return "Success";
+				return "success";
 			}
 			/*
 			 * if (ListStaff.size() > 0) {
@@ -321,7 +321,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(expressSend);
 				expressManagementDao2.saveOrUpdateObject(expressUpdate);
-				return "Success";
+				return "success";
 			}
 			return "error";
 		}
@@ -347,7 +347,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressManagementDao2.saveOrUpdateObject(getExpress);
 				expressManagementDao2.saveOrUpdateObject(expressSend);
 				System.out.println("成功！");
-				return "Success";
+				return "success";
 			}
 
 		}
