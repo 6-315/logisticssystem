@@ -36,4 +36,6 @@ public interface ExpressManagementService2 {
 
 	String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, express expressNew);
 
+	String chooseDistribution(express expressNew, unit unitNew);
+
 }

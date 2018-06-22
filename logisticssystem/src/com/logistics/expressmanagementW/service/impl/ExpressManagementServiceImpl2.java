@@ -265,6 +265,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			ListStaff = (List<staff_basicinfo>) expressManagementDao2
 					.listObject("from staff_basicinfo where staff_id ='"
 							+ getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() + "'");
+			express expressNew = new express();
+			expressNew = expressManagementDao2.getExpress(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
+
 			express_send expressSend = new express_send();
 			distributiontor distributiontorNew = new distributiontor();// 配送员信息
 			distributiontorNew = expressManagementDao2
@@ -277,28 +280,13 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressSend.setExpress_send_type("派送");
 				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
 				expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
-				expressManagementDao2.saveOrUpdateObject(expressSend);
-				return "success";
+				expressNew.setExpress_isdistributeddistributor(distributiontorNew.getDistributiontor_id());
+				if (expressSend != null && expressNew != null) {
+					expressManagementDao2.saveOrUpdateObject(expressNew);
+					expressManagementDao2.saveOrUpdateObject(expressSend);
+					return "success";
+				}
 			}
-			/*
-			 * if (ListStaff.size() > 0) {
-			 * expressManagementDao2.saveOrUpdateObject(expressSend); express expressNew =
-			 * new express(); expressNew = expressManagementDao2
-			 * .getExpress(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
-			 * expressNew.setExpress_state("派送中"); express_circulation expressCirculation =
-			 * new express_circulation();
-			 * expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
-			 * expressCirculation.setExpress_circulation_express_id(expressNew.getExpress_id
-			 * ()); expressCirculation.setExpress_circulation_launchpeople(expressNew.
-			 * getExpress_end());
-			 * expressCirculation.setExpress_circulation_receiver(ListStaff.get(0).
-			 * getStaff_unit());
-			 * expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond
-			 * ());
-			 * expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond
-			 * ()); expressManagementDao2.saveOrUpdateObject(expressCirculation); return
-			 * "Success"; }
-			 */
 		}
 		return "error";
 	}
@@ -352,5 +340,28 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 
 		}
 		return null;
+	}
+
+	/**
+	 * 中转站选择配送点分配快件
+	 */
+	@Override
+	public String chooseDistribution(express expressNew, unit unitNew) {
+		if (expressNew == null && unitNew == null) {
+			return "error";
+		}
+		expressNew.setExpress_state("待揽件");
+		expressNew.setExpress_isdistributeddistribution(unitNew.getUnit_id());
+		express_circulation expressCirculation = new express_circulation();
+		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
+		expressCirculation.setExpress_circulation_express_id(expressNew.getExpress_id());
+		expressCirculation.setExpress_circulation_launchpeople(expressNew.getExpress_belongunit());
+		expressCirculation.setExpress_circulation_receiver(unitNew.getUnit_id());
+		if (expressNew != null && expressCirculation != null) {
+			expressManagementDao2.saveOrUpdateObject(expressCirculation);
+			expressManagementDao2.saveOrUpdateObject(expressNew);
+			return "success";
+		}
+		return "error";
 	}
 }
