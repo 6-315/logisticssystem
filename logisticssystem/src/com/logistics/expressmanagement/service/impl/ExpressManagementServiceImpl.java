@@ -629,7 +629,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
-						System.out.println("fdfdfdfdfd:" + listUnit);
 						if (listUnit != null) {
 							for (int i = 0; i < listUnit.size(); i++) {
 								if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
@@ -645,6 +644,12 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								}
 							}
 						}
+					}
+					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
+						expressCountHql = expressCountHql + " and express_belongunit ='" + expressInfoVO.getUnit()
+								+ "' ";
+						listExpressInfoHql = listExpressInfoHql + " and express_belongunit ='" + expressInfoVO.getUnit()
+								+ "' ";
 					}
 				}
 			}
@@ -678,25 +683,25 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
 				listExpressInfoHql = listExpressInfoHql
 						+ " and ( express_isdistributeddistribution !='' or express_isdistributeddistribution !=null ) ";
-				// 判断是否已分配配送员
-				if ("是".equals(expressInfoVO.getIsDistributedDistributor())) {
-					expressCountHql = expressCountHql
-							+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
-					listExpressInfoHql = listExpressInfoHql
-							+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
-				}
-				else if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
-					expressCountHql = expressCountHql
-							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
-					listExpressInfoHql = listExpressInfoHql
-							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
-				}
 			}
 			else if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
 				expressCountHql = expressCountHql
 						+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
 				listExpressInfoHql = listExpressInfoHql
 						+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
+			}
+			// 判断是否已分配配送员
+			if ("是".equals(expressInfoVO.getIsDistributedDistributor())) {
+				expressCountHql = expressCountHql
+						+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
+				listExpressInfoHql = listExpressInfoHql
+						+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
+			}
+			else if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
+				expressCountHql = expressCountHql
+						+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
+				listExpressInfoHql = listExpressInfoHql
+						+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 			}
 		}
 
