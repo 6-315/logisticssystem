@@ -377,6 +377,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			positionNew = expressManagementDao2.getPosition(staffBasicinfo.getStaff_id());
 			String[] update = listExpressId.split(",");
 			if ("配送员".equals(positionNew.getPosition_name())) {
+				System.out.println("???????");
 				for (String id : update) {
 					express expressNew = new express();
 					expressNew = expressManagementDao2.getExpress(id);
