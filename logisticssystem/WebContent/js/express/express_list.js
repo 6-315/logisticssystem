@@ -16,7 +16,7 @@
             HaveNextPage: '',
         },
         search: '',
-        page: '',
+        page: 1,
         state: '',
         unit: '',
         isDistributedDistribution: '',
@@ -24,6 +24,7 @@
         ready: false,
         preDisabled: false,
         nextDisabled: false,
+        checkData: false
     }
     const express_view = new Vue({
         el: '#expressList',
@@ -42,7 +43,7 @@
                         'isDistributedDistributor': expressData.isDistributedDistributor
                     },
                     success: function (data) {
-                        const expressInfo = JSON.parse(data)
+                        let expressInfo = JSON.parse(data)
                         expressData.expressInfoVO.ExpressInfoDTO = expressInfo.listExpressInfoDTO
                         expressData.expressInfoVO.pageIndex = expressInfo.pageIndex
                         expressData.expressInfoVO.totalRecords = expressInfo.totalRecords
@@ -69,7 +70,7 @@
             judge: function () {
                 expressData.preDisabled = false
                 expressData.nextDisabled = false
-                if (expressData.expressInfoVO.pageIndex == 1) {
+                if (expressData.expressInfoVO.pageIndex === 1) {
                     expressData.preDisabled = true
                 }
                 if (expressData.expressInfoVO.pageIndex === expressData.expressInfoVO.totalPages) {
@@ -97,6 +98,64 @@
                 express_view.getAllData()
                 express_view.judge()
             },
+            //
+            selectUnit: function (selectUnitId) {
+                expressData.unit = selectUnitId
+                express_view.getAllData()
+                express_view.judge()
+            },
+            isFenPeiSongDian: function (isDistributedDistribution) {
+                expressData.isDistributedDistribution = isDistributedDistribution
+                express_view.getAllData()
+                express_view.judge()
+            },
+            isFenPeiSongYuan: function (isDistributedDistributor) {
+                expressData.isDistributedDistributor = isDistributedDistributor
+                express_view.getAllData()
+                express_view.judge()
+            },
+            selectState: function (selectState) {
+                expressData.state = selectState
+                express_view.getAllData()
+                express_view.judge()
+            },
+            selectSearch: function () {
+                express_view.getAllData()
+                express_view.judge()
+            },
+            checkAll: function () {
+                if (expressData.checkData) {
+                    $("input[name='flag']:checkbox").each(function () {
+                        $(this).attr("checked", false)
+                    })
+                } else {
+                    $("input[name='flag']:checkbox").each(function () {
+                        $(this).attr("checked", true)
+                    })
+                }
+            },
+            expressAddJ: function () {
+                $('#expressAdd').modal()
+            },
+            daozhan: function () {
+                let dataDa = ''
+                $("input[name='flag']:checkbox").each(function () {
+                    if ($(this).is(':checked')) {
+                        dataDa = dataDa + $(this).attr('id') + ','
+                    }
+                })
+                console.log('dataDa:', dataDa)
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateNotScan',
+                    type: 'POST',
+                    data: {
+                        'listExpressId': dataDa
+                    },
+                    success: function (data) {
+                        console.log('df')
+                    }
+                })
+            }
         },
         mounted() {
             // 获取单位信息
@@ -126,6 +185,7 @@
                     expressData.expressInfoVO.state = expressInfo.state
                     expressData.expressInfoVO.unit = expressInfo.unit
                     expressData.ready = true
+                    express_view.judge()
                 }
             })
         }

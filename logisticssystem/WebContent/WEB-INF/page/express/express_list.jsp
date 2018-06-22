@@ -18,6 +18,8 @@
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <style>
         [v-cloak] {
@@ -116,7 +118,7 @@
         }
     </style>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
     <!-- Navbar -->
     <nav
@@ -208,9 +210,15 @@
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -334,7 +342,7 @@
                         <div class="card-body">
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
-                                <input placeholder="据快件单号搜索" @input="" v-model="search"
+                                <input placeholder="据快件单号搜索" @input="selectSearch" v-model="search"
                                        type="text" class="form-control input-sm"><span
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
@@ -343,6 +351,7 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
+                                        <th><input type="checkbox" @click="checkAll" v-model="checkData"></th>
                                         <th>快件单号</th>
                                         <th>收件人姓名</th>
                                         <th>收件人联系方式</th>
@@ -351,59 +360,70 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所属单位(所有)</a></li>
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                href="#">{{unit.unit_name}}</a></li>
+                                                                href="#" @click="selectUnit(unit.unit_id)">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配配送点<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li @click="isFenPeiSongDian('')"><a href="#">所有</a></li>
+														<li><a @click="isFenPeiSongDian('是')" href="#">是</a></li>
+														<li><a @click="isFenPeiSongDian('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配派送员<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">是</a></li>
-														<li><a href="#">否</a></li>
+														<li><a @click="isFenPeiSongYuan('')" href="#">所有</a></li>
+														<li><a @click="isFenPeiSongYuan('是')" href="#">是</a></li>
+														<li><a @click="isFenPeiSongYuan('否')" href="#">否</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a href="#">所有</a></li>
-														<li><a href="#">已揽件</a></li>
-														<li><a href="#">待扫描</a></li>
-														<li><a href="#">已扫描</a></li>
-														<li><a href="#">待分配</a></li>
-														<li><a href="#">待揽件</a></li>
-														<li><a href="#">扫描装车</a></li>
-														<li><a href="#">已完成</a></li>
+														<li><a @click="selectState('')" href="#">所有</a></li>
+                                                        <li><a @click="selectState('待揽件')" href="#">待揽件</a></li>
+														<li><a @click="selectState('已揽件')" href="#">已揽件</a></li>
+														<li><a @click="selectState('待扫描')" href="#">待扫描</a></li>
+														<li><a @click="selectState('已扫描')" href="#">已扫描</a></li>
+                                                        <li><a @click="selectState('扫描装车')" href="#">扫描装车</a></li>
+                                                        <li><a @click="selectState('待派送')" href="#">待派送</a></li>
+                                                        <li><a @click="selectState('派送中')" href="#">派送中</a></li>
+                                                        <li><a @click="selectState('已签收')" href="#">已签收</a></li>
+														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="expressInfoVO.ExpressInfoDTO.length == 0">
-                                    <td style="text-align: center" colspan="8" height="50">
+                                    <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
+                                    <td style="text-align: center" colspan="9" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
-                                    <tbody v-cloak>
-                                    <tr v-for="expressInfoDTO in expressInfoVO.ExpressInfoDTO"
+                                    <tbody v-if="!ready">
+                                    <tr>
+                                        <td style="text-align: center" colspan="8"><i
+                                                class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody v-cloak v-if="ready && expressInfoVO.ExpressInfoDTO != undefined"
+                                           style="min-height: 200px">
+                                    <tr v-for="(expressInfoDTO,index) in expressInfoVO.ExpressInfoDTO"
                                         :key="expressInfoDTO.expressInfo.express_id">
-                                        <td>{{expressInfoDTO.expressInfo.express_number}}</td>
+                                        <td><input :id="expressInfoDTO.expressInfo.express_id" type="checkbox"
+                                                   name="flag"></td>
+                                        <td v-html="expressInfoDTO.expressInfo.express_number"></td>
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseerealname}}</td>
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseephonenumber}}</td>
                                         <td>{{expressInfoDTO.expressDetailInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td>漏了一个所在单位</td>
+                                        <td>{{expressInfoDTO.unitInfo.unit_name}}</td>
                                         <td
                                                 v-if="expressInfoDTO.expressInfo.express_isdistributeddistribution">是
                                         </td>
@@ -422,12 +442,12 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">查看详情</a></li>
                                                     <li><a href="#">分配取件员</a></li>
+                                                    <li><a href="#">已揽件</a></li>
                                                     <li><a href="#">进仓扫描</a></li>
                                                     <li><a href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
-                                                    <li><a href="#">已揽件</a></li>
                                                     <li><a href="#">已完成</a></li>
                                                 </ul>
                                             </div>
@@ -435,6 +455,9 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div style="float: right;">
+                                    <a href="#" @click="expressAddJ" class="btn btn-danger">快件到站</a>
+                                </div>
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
@@ -449,7 +472,6 @@
                                             <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
                                         <li><a href="#">尾页</a></li>
-                                        <li></li>
                                     </ul>
                                 </div>
                             </div>
@@ -459,6 +481,68 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+            </div>
+            <div class="modal fade" id="expressAdd">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">快件到站</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <h4>是否确定快件到站</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button @click="daozhan" type="button" class="btn btn-danger">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="mymodal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h4 class="modal-title">快件详情</h4>
+                        </div>
+                        <div class="mdoal-body">
+                            <p>我的详情</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">快件详情</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <h4>是否确定删除数据</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-danger">删除</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.row --> </section>
         <!-- /.content -->
@@ -477,47 +561,6 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-<div class="modal fade" id="mymodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- 模态弹出窗内容 -->
-            <div class="modal_header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                </button>
-                <h4 class="modal-title">快件详情</h4>
-            </div>
-            <div class="mdoal-body">
-                <p>我的详情</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="deleteModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- 模态弹出窗内容 -->
-            <div class="modal_header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                </button>
-                <h5 class="modal-title">快件详情</h5>
-            </div>
-            <hr>
-            <div class="mdoal-body">
-                <h4>是否确定删除数据</h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-danger">删除</button>
-            </div>
-        </div>
-    </div>
-</div>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript"
@@ -527,6 +570,8 @@
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 </body>

@@ -24,7 +24,7 @@ public interface ExpressManagementService {
 
 	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo);
 
-	public String updateExpressState(express expressInfo);
+	/*public String updateExpressState(express expressInfo);*/
 
 	public String judgeExpressType(express expressInfo);
 

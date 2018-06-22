@@ -105,14 +105,14 @@ public class Expressmanagement {
 	/**
 	 *  到达中转站
 	 */
-	@Test
+	/*@Test
 	public void updateExpressStateTest() {
 		express expressInfo = new express();
 		expressInfo.setExpress_id("01f4fc19-537c-4fb0-a3c7-e11659e29ac3");
 		expressInfo.setExpress_state("待扫描");
 		expressManagementService.updateExpressState(expressInfo);
 		
-	}
+	}*/
 	
 	/**
 	 * 查询所有经过该站点的路线
