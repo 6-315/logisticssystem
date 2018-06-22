@@ -28,6 +28,7 @@
         expressRoute: '',
         expressListR: [],
         tmpExpressId: '',
+        tmpVehicleExpressId: '',
         ExpressRouteDTO: {
             listRouteDTO: [],
             currentUnit: ''
@@ -305,13 +306,13 @@
                 })
             },
             scanVehicle(expressId) {
-                expressData.tmpExpressId = expressId
+                expressData.tmpVehicleExpressId = expressId
                 //获取车辆信息
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleByID',
                     type: 'POST',
                     data: {
-                        'expressNew.express_id': expressData.tmpExpressId
+                        'expressNew.express_id': expressData.tmpVehicleExpressId
                     },
                     success: function (data) {
                         if (data === null) {
@@ -325,6 +326,26 @@
                     }
                 })
 
+            },
+            loadCar(vehicleId) {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleIsOverWeight',
+                    type: 'POST',
+                    data: {
+                        'expressNew.express_id': expressData.tmpVehicleExpressId,
+                        'vehicleNew.vehicle_id': vehicleId
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('分配失败')
+                        } else if (data === 'success') {
+                            $('#expressVehicle').modal('hide')
+                            toastr.success('分配成功')
+                        } else if (data === 'overweight') {
+                            toastr.error('车辆超重')
+                        }
+                    }
+                })
             }
         },
         mounted() {
