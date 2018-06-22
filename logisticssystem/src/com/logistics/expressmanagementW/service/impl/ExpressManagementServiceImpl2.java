@@ -96,7 +96,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
 		if (getWeightDTO == null) {
 			return "error";
-		} 
+		}
 		// express_circulation expressCirculation = new express_circulation();
 		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
 		if (getWeightDTO.getExpressNew().getExpress_id() != null
@@ -117,36 +117,41 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			route routeNew = new route();// 车辆要发往哪一条路线
 			express_route expressRoute = new express_route();// 获取车辆要发往哪一条路线的ID
 			expressRoute = expressManagementDao2.getexpressRoute(getExpress.getExpress_id());
-			routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
+			System.out.println("iiiiiiiiiii" + expressRoute);
+			routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());
 			int weightByNow = Integer.parseInt(vehicleNew.getVehicle_current_weight());// 车的当前重量
 			int weighByExpressInfo = Integer.parseInt(expressInfo.getExpressinfo_productweight());// 快件重量
 			int weighByCarAll = Integer.parseInt(vehicleNew.getVehicle_standard());// 车的总重量
 			int calculation = weightByNow + weighByExpressInfo;
-			if (("空闲".equals(vehicleNew.getVehicle_state()) || "可载货".equals(vehicleNew.getVehicle_state()))
-					&& calculation <= weighByCarAll) {
-				System.out.println("?????");
+			System.out.println("LLLLL:" + vehicleNew.getVehicle_id());
+			if (("空闲".equals(vehicleNew.getVehicle_express_state())
+					|| "可载货".equals(vehicleNew.getVehicle_express_state())) && calculation <= weighByCarAll) {
+				System.out.println("?????" + expressRoute.getExpress_route_route_away());
 				express_circulation expressCirculation = new express_circulation();
 				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
 				expressCirculation.setExpress_circulation_express_id(getExpress.getExpress_id());
 				expressCirculation.setExpress_circulation_launchpeople(getExpress.getExpress_belongunit());
+				expressCirculation.setExpress_circulation_state("流转中");
 				/**
 				 * 如果快件路线是正向，快件流转的接收方就是路线的终点单位
 				 */
+				System.out.println("ooooo:" + routeNew);
 				if ("1".equals(expressRoute.getExpress_route_route_away())) {
+					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
 				}
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
-				if ("2".equals(expressRoute.getExpress_route_route_away())) {
+				else if ("2".equals(expressRoute.getExpress_route_route_away())) {
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_departurestation());
 				}
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				getExpress.setExpress_state("已装车");
 				// getExpress.setExpress_belongunit(routeNew.getRoute_departurestation());
 				expressManagementDao2.saveOrUpdateObject(getExpress);
-				if ("空闲".equals(vehicleNew.getVehicle_state())) {
-					vehicleNew.setVehicle_state("可载货");
+				if ("空闲".equals(vehicleNew.getVehicle_express_state())) {
+					vehicleNew.setVehicle_express_state("可载货");
 				}
 				vehicleNew.setVehicle_current_weight("" + calculation);
 				expressManagementDao2.saveOrUpdateObject(vehicleNew);
@@ -156,6 +161,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				vehicleExpressRelevance.setVehicle_express_relevance_modifytime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_createtime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_expressinfo_begintime(TimeUtil.getStringSecond());
+				vehicleExpressRelevance.setVehicle_express_relevance_vehicleinfo(vehicleNew.getVehicle_id());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
 				return "success";
 			} else if (calculation > weighByCarAll) {
@@ -175,7 +181,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<unit> getAddressByUnit(String address) { 
+	public List<unit> getAddressByUnit(String address) {
 		if (address != null && address.trim().length() > 0) {
 			List<unit> listUint = new ArrayList<>();
 			listUint = (List<unit>) expressManagementDao2
