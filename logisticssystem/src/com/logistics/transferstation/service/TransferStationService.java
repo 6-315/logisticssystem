@@ -1,5 +1,7 @@
 package com.logistics.transferstation.service;
 
+import java.util.List;
+
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.transferstation.VO.UnitManagerVO;
@@ -15,11 +17,11 @@ public interface TransferStationService {
 	 * 添加中转站
 	 * 
 	 * @param transferStation
-	 * @param staffBasicinfo
+	 * @param staffBasicInfo
 	 * @return
 	 */
 
-	String addTransferStation(unit transferStation);
+	String addTransferStation(unit transferStation, staff_basicinfo staffBasicInfo);
 
 	/**
 	 * 删除中转站
@@ -75,5 +77,10 @@ public interface TransferStationService {
 	 */
 	
 	String driverDistribution(String driverList, String teamNum);
+
+	List<unit> getUnitInfo(staff_basicinfo staffBasicInfo);
+
+
+	
 
 }

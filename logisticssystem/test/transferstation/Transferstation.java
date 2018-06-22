@@ -37,16 +37,33 @@ public class Transferstation {
 	@Test
 	public void addTransferStation() {
 		unit transferStation = new unit();
-		transferStation.setUnit_name("lailiang");
+		staff_basicinfo staffBasicinfo = new staff_basicinfo();
+		/*transferStation.setUnit_name("lailiang");
+		transferStation.setUnit_address("hubei");
+		transferStation.setUnit_detailaddress("hubeiwuhan");
+		transferStation.setUnit_type("配送点");
+		transferStation.setUnit_creator("zonggongsi");
+		transferStation.setUnit_state("zhengchang");
+		transferStation.setUnit_phonenumber("123");*/
+		
+		
+		/*staffBasicinfo.setStaff_id("78e07c34-735f-45d4-a870-3e5bebe5ddc1");
+		staffBasicinfo.setStaff_position("71e07c34-735f-45d4-a870-3e5bebe5ddc1");
+		staffBasicinfo.setStaff_unit("77e07c34-735f-45d4-a870-3e5bebe5ddc1");
 		transferStation.setUnit_address("hubei");
 		transferStation.setUnit_detailaddress("hubeiwuhan");
 		transferStation.setUnit_type("中转站");
+		transferStation.setUnit_creator("zonggongsi");*/
+		staffBasicinfo.setStaff_id("78e07c34-735f-45d4-a870-3e5bebe5ddc3");
+		staffBasicinfo.setStaff_position("71e07c34-735f-45d4-a870-3e5bebe5ddc2");
+		staffBasicinfo.setStaff_unit("77e07c34-735f-45d4-a870-3e5bebe5ddc2");
+		transferStation.setUnit_address("hubei");
+		transferStation.setUnit_detailaddress("hubeiwuhan");
+		transferStation.setUnit_type("配送点");
 		transferStation.setUnit_creator("zonggongsi");
-		transferStation.setUnit_state("zhengchang");
-		transferStation.setUnit_phonenumber("123");
 		// staff_basicinfo staffBasicinfo = new staff_basicinfo();
 		// staffBasicinfo.setStaff_id("dsdsd");
-		transferStationService.addTransferStation(transferStation);
+		transferStationService.addTransferStation(transferStation,staffBasicinfo);
 		System.out.println("2222222"+transferStation);
 		
 	}
@@ -119,5 +136,16 @@ public class Transferstation {
 		String teamNum="1";
 		transferStationService.driverDistribution(driverList, teamNum);
 		System.out.println("aaaaaaddd"+driverList+teamNum);
+	}
+	/**
+	 * 查询自身单位以及自身以下单位
+	 */
+	@Test
+	public void getUnitInfo() {
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("78e07c34-735f-45d4-a870-3e5bebe5ddc3");
+		staffBasicInfo.setStaff_position("71e07c34-735f-45d4-a870-3e5bebe5ddc2");
+		staffBasicInfo.setStaff_unit("77e07c34-735f-45d4-a870-3e5bebe5ddc2");
+		transferStationService.getUnitInfo(staffBasicInfo);
 	}
 }
