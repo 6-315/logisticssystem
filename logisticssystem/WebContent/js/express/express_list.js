@@ -24,6 +24,7 @@
         ready: false,
         preDisabled: false,
         nextDisabled: false,
+        checkData: false
     }
     const express_view = new Vue({
         el: '#expressList',
@@ -117,6 +118,43 @@
                 expressData.state = selectState
                 express_view.getAllData()
                 express_view.judge()
+            },
+            selectSearch: function () {
+                express_view.getAllData()
+                express_view.judge()
+            },
+            checkAll: function () {
+                if (expressData.checkData) {
+                    $("input[name='flag']:checkbox").each(function () {
+                        $(this).attr("checked", false)
+                    })
+                } else {
+                    $("input[name='flag']:checkbox").each(function () {
+                        $(this).attr("checked", true)
+                    })
+                }
+            },
+            expressAddJ: function () {
+                $('#expressAdd').modal()
+            },
+            daozhan: function () {
+                let dataDa = ''
+                $("input[name='flag']:checkbox").each(function () {
+                    if ($(this).is(':checked')) {
+                        dataDa = dataDa + $(this).attr('id') + ','
+                    }
+                })
+                console.log('dataDa:', dataDa)
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateNotScan',
+                    type: 'POST',
+                    data: {
+                        'listExpressId': dataDa
+                    },
+                    success: function (data) {
+                        console.log('df')
+                    }
+                })
             }
         },
         mounted() {

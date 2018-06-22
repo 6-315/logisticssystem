@@ -203,7 +203,7 @@
                     </a>
                         <ul class="nav nav-treeview" style="display: block;">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_list.html"
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>

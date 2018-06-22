@@ -32,6 +32,7 @@
         methods: {
             searchReservationNum: function () {
                 view_reservation.getAllData()
+                view_reservation.judge()
             },
             getAllData: function () {
                 $.ajax({
