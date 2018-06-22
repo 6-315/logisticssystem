@@ -60,7 +60,7 @@
                     }
                 })
             },
-            //分页-上一页
+            // 分页-上一页
             prePage: function () {
                 if (reservationData.preDisabled) {
                     return
@@ -79,7 +79,7 @@
                     reservationData.nextDisabled = true
                 }
             },
-            //下一页
+            // 下一页
             nextPage: function () {
                 if (reservationData.nextDisabled) {
                     return
@@ -88,19 +88,19 @@
                 view_reservation.getAllData()
                 view_reservation.judge()
             },
-            //首页
+            // 首页
             shouye: function () {
                 reservationData.page = 1
                 view_reservation.getAllData()
                 view_reservation.judge()
             },
-            //尾页
+            // 尾页
             weiye: function () {
                 reservationData.page = reservationData.reservationVO.totalPages
                 view_reservation.getAllData()
                 view_reservation.judge()
             },
-            //单位筛选
+            // 单位筛选
             selectUnit: function (selectUnitId) {
                 reservationData.unit = selectUnitId
                 view_reservation.getAllData()
@@ -173,6 +173,22 @@
                     return
                 }
             },
+            takePart: function (upState, oldState, idList) {
+                if (oldState === '待取件') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可拒绝')
+                    return
+                }
+            },
+            completeReserv: function (upState, oldState, idList) {
+                if (oldState === '已取件') {
+                    view_reservation.updateReservation(upState, idList)
+                } else {
+                    toastr.error('改状态不可拒绝')
+                    return
+                }
+            },
             updateReservation: function (upState, idList) {
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_updateReservation',
@@ -216,7 +232,7 @@
 
                 })
             },
-            //分配配送员
+            // 分配配送员
             distributePerson: function (staffId) {
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_updateReservationWithDistributor',
@@ -238,10 +254,13 @@
                         }
                     }
                 })
+            },
+            skipExpressPage: function (reserId) {
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_skipPage?idList=' + reserId
             }
         },
         mounted() {
-            //获取单位信息
+            // 获取单位信息
             $.ajax({
                 url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
                 type: 'POST',
