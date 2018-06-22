@@ -379,7 +379,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		request.getSession().setAttribute("type", "");
 		request.getSession().setAttribute("staff_session", "");
 		request.getSession().setAttribute("userInfoSession", "");
+		request.getSession().setAttribute("superAdminStaff", "");
+		request.getSession().setAttribute("transAdminStaff", "");
+		request.getSession().setAttribute("deliveryAdminStaff", "");
+		request.getSession().setAttribute("teamStaff", "");
+		request.getSession().setAttribute("driverStaff", "");
 		response.getWriter().write("" + "注销成功");
+		 
 
 	}
 }

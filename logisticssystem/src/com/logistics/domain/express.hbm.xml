@@ -23,6 +23,12 @@
         <property name="express_state" type="java.lang.String">
             <column name="express_state" />
         </property>
+         <property name="express_isdistributeddistribution" type="java.lang.String">
+            <column name="express_isdistributeddistribution" />
+        </property>
+         <property name="express_isdistributeddistributor" type="java.lang.String">
+            <column name="express_isdistributeddistributor" />
+        </property>
         <property name="express_originating" type="java.lang.String">
             <column name="express_originating" />
         </property>

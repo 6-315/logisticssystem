@@ -2,17 +2,7 @@ package com.logistics.expressmanagement.dao;
 
 import java.util.List;
 
-import com.logistics.domain.distributiontor;
-import com.logistics.domain.express;
-import com.logistics.domain.express_circulation;
-import com.logistics.domain.express_route;
-import com.logistics.domain.expressinfo;
-import com.logistics.domain.position;
-import com.logistics.domain.reservation;
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
-import com.logistics.domain.userinfo;
-import com.logistics.domain.vehicle;
+import com.logistics.domain.*;
 /**
  * DAO接口
  * @author LW 
@@ -75,7 +65,7 @@ public interface ExpressManagementDao {
 
 	public express getExpressById(String express_id);
 
-	public String getExpressRouteInfoByExpressId(String express_id);
+	public express_route getExpressRouteInfoByExpressId(String express_id);
 
 	public String getMaxNumber(String hql);
 
@@ -88,6 +78,16 @@ public interface ExpressManagementDao {
 	public userinfo getUserInfoById(String reservation_user);
 
 	public position getPositionById(String staff_position);
+
+	public express_send getExpressSendInfoByDistributorId(String distributiontor_id);
+
+	public driver getDriverInfoByBasicInfo(String staff_id);
+
+	public vehicle_express_relevance getVehicleExpressRelevanceByVehicleId(String driver_vehicle);
+
+	public express_circulation getExpressCirculationInfoByExpressId(String express_id);
+
+	public route getRouteInfoById(String express_route_route_id);
 
 
 	/**
