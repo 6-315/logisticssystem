@@ -505,7 +505,7 @@
                                     <th>中转站</th>
                                 </tr>
                                 </thead>--%>
-                            <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
+                            <tr-com @getroute="getRoute" @pushroute="pushRoute" :lastaddress="lastAddress" :expresslistr="expressListR"></tr-com>
                             <%--</table>--%>
                         </div>
                         <div class="modal-footer">

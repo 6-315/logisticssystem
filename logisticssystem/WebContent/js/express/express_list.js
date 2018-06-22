@@ -31,8 +31,12 @@
         ExpressRouteDTO: {
             listRouteDTO: [],
             currentUnit: ''
-        }
+        },
+        lastAddress: '',
+        routeDirectionArr: [],
+
     }
+
 
     let trCom = Vue.extend({
         template: `<table class="table table-hover">
@@ -49,19 +53,28 @@
                    <td>
                    <select :disabled="index+1!=expresslistr.length" @change="nextNode" class="form-control">
                       <option value="-1">请选择</option>
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :address="listRoute.endUnit.unit_address" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :address="listRoute.beginUnit.unit_address" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
                    </select>
-                   <button v-if="index+1==expresslistr.length" type="button" class="btn btn-info"></button>
                    </td>
                    </tr></tbody></table>`,
         data() {
             return {}
         },
-        props: ['expresslistr'],
+        props: ['expresslistr', 'lastaddress'],
         methods: {
             nextNode($event) {
-                this.$emit('getroute', $event.target.value, $event.target.value1, $event.target.value2);
+                var op = $($event.target.selectedOptions[0]);
+                let a_a = {
+                    route_id: op.attr("value2"),
+                    direction: op.attr("value1")
+                }
+                this.$emit('pushroute', a_a);
+                if (this.lastaddress == $($event.target.selectedOptions[0]).attr("address")) {
+                    $($event.target).attr("disabled", true);
+                } else {
+                    this.$emit('getroute', $event.target.value);
+                }
             },
         },
     })
@@ -201,7 +214,8 @@
                     }
                 })
             },
-            jinCangSaoMiao: function (expressId, unitId) {
+            jinCangSaoMiao: function (address, expressId, unitId) {
+                expressData.lastAddress = address;
                 expressData.tmpExpressId = expressId
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
@@ -210,7 +224,6 @@
                         'expressInfo.express_id': expressId
                     },
                     success: function (data) {
-                        data = 'begin'
                         if (data === 'error') {
                             toastr.error('扫描失败')
                             return
@@ -220,34 +233,14 @@
                             //弹出模态框选择地址
                             // toastr.error('begin')
                         } else if (data === 'trans') {
-                            //中转站
-                            toastr.error('trans')
+                            express_view.compliteSaoMiao()
                         } else if (data === 'end') {
-                            //终点站
-                            toastr.error('end')
+                            express_view.compliteSaoMiao()
                         }
                     }
                 })
             },
-            /*productExpressRoute: function () {
-                const routeRow = `
-                                 <tr>
-                                    <td>${expressData.expressListR.length + 1}</td> 
-                                    <td>${ expressData.ExpressRouteDTO.currentUnit.unit_name }</td>
-                                    <td>
-                                        <select name="route" class="form-control">
-                                            <option v-if="listRoute.direction == '正向'" value="" v-for="listRoute in expressData.ExpressRouteDTO.listRouteDTO" :key="listRoute.routeInfo.route_id">{{listRoute.endUnit.unit_name}}}</option>    
-                                            <option v-if="listRoute.direction == '反向'" value="" v-for="listRoute in expressData.ExpressRouteDTO.listRouteDTO" :key="listRoute.routeInfo.route_id">{{listRoute.beginUnit.unit_name}}}</option>    
-                                        </select>
-                                    </td>
-                                 </tr>
-                                 `
-                console.log('hjeihei:', routeRow)
-                expressListR.push(routeRow)
-            },*/
-            //单位id
-            getRoute: function (unitId, unu, kaishi) {
-                console.log('fdf:', unu, '---fdfdf---', kaishi)
+            getRoute: function (unitId) {
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_queryAllRouteWithUnit',
                     type: 'POST',
@@ -259,17 +252,57 @@
                             toastr.error('系统错误，没有路线')
                         } else {
                             let expressRouteDTO = JSON.parse(data);
-                            /*expressData.ExpressRouteDTO.listRouteDTO = expressRouteDTO.listRouteDTO
-                            expressData.ExpressRouteDTO.currentUnit = expressRouteDTO.currentUnit
-                            expressData.expressListR.push(expressData.ExpressRouteDTO);*/
                             expressData.expressListR.push(expressRouteDTO);
-                            /*express_view.productExpressRoute()*/
                         }
                     }
                 })
             },
+            pushRoute(routeDirection) {
+                expressData.routeDirectionArr.push(routeDirection);
+            },
             saveExpressRoute: function () {
-                console.log()
+                //分割
+                let id_directionList = ''
+                for (let i = 0; i < expressData.routeDirectionArr.length; i++) {
+                    id_directionList = id_directionList + (expressData.routeDirectionArr[i].route_id + '_' + expressData.routeDirectionArr[i].direction) + ','
+                }
+                console.log('ko:', id_directionList)
+                console.log('ex:', expressData.tmpExpressId)
+                //保存
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_saveExpressRoute',
+                    type: 'POST',
+                    data: {
+                        'id_directionList': id_directionList,
+                        'expressInfo.express_id': expressData.tmpExpressId
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            $('expressRoute').modal('hide')
+                            express_view.compliteSaoMiao()
+                            // expressData.tmpExpressId = ''
+                        } else {
+                            $('expressRoute').modal('hide')
+                            toastr.error('扫描失败')
+                        }
+                    }
+                })
+            },
+            compliteSaoMiao() {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_updateVehicleAndExpressCirculationAndExpressInfo',
+                    type: 'POST',
+                    data: {
+                        'expressAndCirculationDTO.expressInfo.express_id': expressData.tmpExpressId
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('扫描成功')
+                        } else {
+                            toastr.error('扫描失败')
+                        }
+                    }
+                })
             }
         },
         mounted() {
@@ -304,7 +337,8 @@
                 }
             })
             $('#expressRoute').on('hidden.bs.modal', function (e) {
-                expressData.expressListR = []
+                expressData.expressListR = [];
+                expressData.routeDirectionArr = [];
             })
         },
         components: {
