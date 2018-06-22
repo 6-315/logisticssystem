@@ -379,12 +379,14 @@
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a href="#">所有</a></li>
+                                                        <li><a href="#">待揽件</a></li>
 														<li><a href="#">已揽件</a></li>
 														<li><a href="#">待扫描</a></li>
 														<li><a href="#">已扫描</a></li>
-														<li><a href="#">待分配</a></li>
-														<li><a href="#">待揽件</a></li>
-														<li><a href="#">扫描装车</a></li>
+                                                        <li><a href="#">扫描装车</a></li>
+                                                        <li><a href="#">待派送</a></li>
+                                                        <li><a href="#">派送中</a></li>
+                                                        <li><a href="#">已签收</a></li>
 														<li><a href="#">已完成</a></li>
 													</ul>
 											</span></th>
@@ -422,12 +424,12 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">查看详情</a></li>
                                                     <li><a href="#">分配取件员</a></li>
+                                                    <li><a href="#">已揽件</a></li>
                                                     <li><a href="#">进仓扫描</a></li>
                                                     <li><a href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
-                                                    <li><a href="#">已揽件</a></li>
                                                     <li><a href="#">已完成</a></li>
                                                 </ul>
                                             </div>
