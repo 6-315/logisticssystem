@@ -170,7 +170,7 @@
                     url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
                     type: 'POST',
                     data: {
-                        'expressInfo': expressId
+                        'expressInfo.express_id': expressId
                     },
                     success: function (data) {
                         if (data === 'error') {
@@ -178,13 +178,13 @@
                             return
                         } else if (data === 'begin') {
                             //弹出模态框选择地址
-
+                            toastr.error('begin')
                         } else if (data === 'trans') {
                             //中转站
-
+                            toastr.error('trans')
                         } else if (data === 'end') {
                             //终点站
-
+                            toastr.error('end')
                         }
                     }
                 })

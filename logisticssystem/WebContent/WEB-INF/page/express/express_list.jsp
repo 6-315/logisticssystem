@@ -403,13 +403,13 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
-                                    <td style="text-align: center" colspan="9" height="50">
+                                    <td style="text-align: center" colspan="10" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="8"><i
+                                        <td style="text-align: center" colspan="10"><i
                                                 class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>
