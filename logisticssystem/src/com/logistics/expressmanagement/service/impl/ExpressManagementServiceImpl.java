@@ -217,7 +217,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
 					express_route expressRouteInfo = expressManagementDao
-							.getExpressRouteInfoByExpressId(expressInfo.getExpress_id());
+							.getExpressRouteInfoByExpressId(judgeExpress.getExpress_id());
 					if (expressRouteInfo != null) {
 						route routeInfo = expressManagementDao
 								.getRouteInfoById(expressRouteInfo.getExpress_route_route_id());
@@ -308,8 +308,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					} else {
 						String direction = "反向";
 						routeDTO.setDirection(direction);
-						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
-						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
 						if (beginUnit != null && endUnit != null) {
 							routeDTO.setBeginUnit(beginUnit);
 							routeDTO.setEndUnit(endUnit);

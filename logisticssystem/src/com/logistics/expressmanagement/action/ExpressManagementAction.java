@@ -401,12 +401,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	@SuppressWarnings("unused")
 	public void judgeExpressType() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.judgeExpressType(expressInfo));
 	}

@@ -3,31 +3,38 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.logistics.domain.express_route" table="EXPRESS_ROUTE">
-        <id name="express_route_id" type="java.lang.String">
-            <column name="express_route_id" />
-            <generator class="assigned" />
-        </id>
-        <property name="express_route_belongexpress" type="java.lang.String">
-            <column name="express_route_belongexpress" />
-        </property>
-        <property name="express_route_route_id" type="java.lang.String">
-            <column name="express_route_route_id" />
-        </property>
-        <property name="express_route_route_away" type="java.lang.String">
-            <column name="express_route_route_away" />
-        </property>
-        <property name="express_route_state" type="java.lang.String">
-            <column name="express_route_state" />
-        </property>
-        <property name="express_route_superior" type="java.lang.String">
-            <column name="express_route_superior" />
-        </property>
-        <property name="express_route_createtime" type="java.lang.String">
-            <column name="express_route_createtime" />
-        </property>
-        <property name="express_route_modifytime" type="java.lang.String">
-            <column name="express_route_modifytime" />
-        </property>
-    </class>
+	<class name="com.logistics.domain.express_route"
+		table="express_route">
+		<id name="express_route_id" type="java.lang.String">
+			<column name="express_route_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="express_route_belongexpress"
+			type="java.lang.String">
+			<column name="express_route_belongexpress" />
+		</property>
+		<property name="express_route_route_id"
+			type="java.lang.String">
+			<column name="express_route_route_id" />
+		</property>
+		<property name="express_route_route_away"
+			type="java.lang.String">
+			<column name="express_route_route_away" />
+		</property>
+		<property name="express_route_state" type="java.lang.String">
+			<column name="express_route_state" />
+		</property>
+		<property name="express_route_superior"
+			type="java.lang.String">
+			<column name="express_route_superior" />
+		</property>
+		<property name="express_route_createtime"
+			type="java.lang.String">
+			<column name="express_route_createtime" />
+		</property>
+		<property name="express_route_modifytime"
+			type="java.lang.String">
+			<column name="express_route_modifytime" />
+		</property>
+	</class>
 </hibernate-mapping>
