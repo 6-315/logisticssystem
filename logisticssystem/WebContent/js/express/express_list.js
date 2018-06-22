@@ -24,7 +24,11 @@
         ready: false,
         preDisabled: false,
         nextDisabled: false,
-        checkData: false
+        checkData: false,
+        expressYiRoute: '',
+        expressListR: [],
+        startRoute: '',
+        tmpExpressId: ''
     }
     const express_view = new Vue({
         el: '#expressList',
@@ -152,9 +156,55 @@
                         'listExpressId': dataDa
                     },
                     success: function (data) {
-                        console.log('df')
+                        if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            toastr.success('到站成功')
+                        }
                     }
                 })
+            },
+            jinCangSaoMiao: function (expressId) {
+                expressData.tmpExpressId = expressId
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
+                    type: 'POST',
+                    data: {
+                        'expressInfo': expressId
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('扫描失败')
+                            return
+                        } else if (data === 'begin') {
+                            //弹出模态框选择地址
+
+                        } else if (data === 'trans') {
+                            //中转站
+
+                        } else if (data === 'end') {
+                            //终点站
+
+                        }
+                    }
+                })
+            },
+            productExpressRoute: function () {
+                expressData.expressYiRoute = `
+                                                 <tr>
+                                                    <td>${expressData.expressListR.length + 1}</td>
+                                                    <td></td>
+                                                    <td><select name="" id=""></select></td>      
+                                                 </tr>                           
+            `
+            },
+            getStartRoute: function () {
+                if (expressData.expressListR.length <= 1) {
+                    console.log('快件id', expressData.tmpExpressId)
+                    //返回快件路线对象
+                } else {
+
+                }
             }
         },
         mounted() {
