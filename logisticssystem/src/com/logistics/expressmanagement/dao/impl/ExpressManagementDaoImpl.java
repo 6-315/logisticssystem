@@ -214,13 +214,12 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	 * 获得路线信息（用于判断）
 	 */
 	@Override
-	public express_route getExpressRouteInfoByExpressId(String express_id) {
-		express_route expressRoute = new express_route();
+	public String getExpressRouteInfoByExpressId(String express_id) {
 		Session session = getSession();
-		String hql = "select * from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
+		String hql = "select express_route_route_id from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		expressRoute = (express_route) query.uniqueResult();
+		String expressRoute = (String) query.uniqueResult();
 		return expressRoute;
 	}
 

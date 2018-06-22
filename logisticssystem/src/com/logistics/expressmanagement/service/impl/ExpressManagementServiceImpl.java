@@ -216,11 +216,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
-					express_route expressRouteInfo = expressManagementDao
+					String expressRouteInfo = expressManagementDao
 							.getExpressRouteInfoByExpressId(judgeExpress.getExpress_id());
-					if (expressRouteInfo != null) {
-						route routeInfo = expressManagementDao
-								.getRouteInfoById(expressRouteInfo.getExpress_route_route_id());
+					if (expressRouteInfo != null && expressRouteInfo.trim().length() > 0) {
+						route routeInfo = expressManagementDao.getRouteInfoById(expressRouteInfo);
 						if (routeInfo != null) {
 							if (routeInfo.getRoute_terminalstation() != null
 									&& routeInfo.getRoute_terminalstation().trim().length() > 0) {
@@ -266,7 +265,6 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 								if (expressInfo.getExpress_id() != null
 										&& expressInfo.getExpress_id().trim().length() > 0) {
 									expressRoute.setExpress_route_belongexpress(expressInfo.getExpress_id());
-
 									String hql = "select express_route_superior from express_route where express_route_belongexpress='"
 											+ expressInfo.getExpress_id()
 											+ "' order by --express_route_superior desc limit 1 ";
@@ -348,7 +346,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		if (staffInfo != null) {
 			if (expressAndCirculationDTO != null) {
 				express expressInfo = expressAndCirculationDTO.getExpressInfo();
-				if (expressInfo != null && staffInfo != null) {
+				if (expressInfo != null) {
 					if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
 						vehicle_express_relevance vehicleExpressRelevanceInfo = expressManagementDao
 								.getVehicleExpressRelevanceByExpressId(expressInfo.getExpress_id());
@@ -383,6 +381,26 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 												return "success";
 											}
 										}
+									}
+								}
+							}
+						} else {
+							if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+								express_circulation expressCirculationInfo = expressManagementDao
+										.getExpressCirculationInfoByExpressIdAndReceiver(expressInfo.getExpress_id(),
+												staffInfo.getStaff_unit());
+								if (expressCirculationInfo != null) {
+									expressCirculationInfo.setExpress_circulation_state("已完成");
+									expressCirculationInfo
+											.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+									expressManagementDao.saveOrUpdateObject(expressCirculationInfo);
+									express updateExpress = expressManagementDao
+											.getExpressById(expressInfo.getExpress_id());
+									if (updateExpress != null) {
+										updateExpress.setExpress_state("已扫描");
+										updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
+										expressManagementDao.saveOrUpdateObject(updateExpress);
+										return "success";
 									}
 								}
 							}
