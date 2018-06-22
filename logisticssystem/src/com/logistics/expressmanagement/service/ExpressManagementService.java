@@ -30,13 +30,13 @@ public interface ExpressManagementService {
 
 	public String saveExpressRoute(String idList, express expressInfo);
 
-	public List<route> queryAllRouteWithUnit(unit unitInfo);
+	public List<RouteDTO> queryAllRouteWithUnit(unit unitInfo);
 
 	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
 
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
-	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
+	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressInfoVO, staff_basicinfo staffInfo);
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
