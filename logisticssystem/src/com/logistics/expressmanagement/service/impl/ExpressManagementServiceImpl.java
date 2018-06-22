@@ -308,8 +308,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					} else {
 						String direction = "反向";
 						routeDTO.setDirection(direction);
-						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
-						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+						unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
 						if (beginUnit != null && endUnit != null) {
 							routeDTO.setBeginUnit(beginUnit);
 							routeDTO.setEndUnit(endUnit);
