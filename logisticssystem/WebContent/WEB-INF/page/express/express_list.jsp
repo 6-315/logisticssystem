@@ -448,7 +448,7 @@
                                                            href="#">进仓扫描</a></li>
                                                     <li><a @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">扫描装车</a></li>
-                                                    <li><a href="#">分配配送点</a></li>
+                                                    <li><a @click="" href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
                                                     <li><a href="#">查看快件路线</a></li>

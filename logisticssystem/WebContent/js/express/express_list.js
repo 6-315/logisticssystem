@@ -332,8 +332,8 @@
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleIsOverWeight',
                     type: 'POST',
                     data: {
-                        'expressNew.express_id': expressData.tmpVehicleExpressId,
-                        'vehicleNew.vehicle_id': vehicleId
+                        'getWeightDTO.expressNew.express_id': expressData.tmpVehicleExpressId,
+                        'getWeightDTO.vehicleNew.vehicle_id': vehicleId
                     },
                     success: function (data) {
                         if (data === 'error') {
