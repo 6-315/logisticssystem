@@ -49,8 +49,8 @@
                    <td>
                    <select :disabled="index+1!=expresslistr.length" @change="nextNode" class="form-control">
                       <option value="-1">请选择</option>
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
                    </select>
                    </td>
                    </tr></tbody></table>`,
