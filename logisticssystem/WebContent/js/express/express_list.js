@@ -36,32 +36,31 @@
 
     let trCom = Vue.extend({
         template: `<table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>路线</th>
-                                    <th>始发站</th>
-                                    <th>中转站</th>
-                                </tr>
-                                </thead><tbody><tr v-for="(expressL,index) in expresslistr" :key="index">
+                   <thead>
+                   <tr>
+                   <th>路线</th>
+                   <th>始发站</th>
+                   <th>中转站</th>
+                   </tr>
+                   </thead><tbody>
+                   <tr v-for="(expressL,index) in expresslistr" :key="index">
                    <td>{{index+1}}</td> 
                    <td>{{expressL.currentUnit.unit_name}}</td>
                    <td>
-                   <select v-model="selectId" @change="nextNode" name="route" class="form-control">
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
-                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value="listRoute.endUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
+                   <select :disabled="index+1!=expresslistr.length" @change="nextNode" class="form-control">
+                      <option value="-1">请选择</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
+                      <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value1="listRoute.direction" :value2="listRoute.routeInfo.route_id"  :value="listRoute.beginUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
                    </select>
                    </td>
                    </tr></tbody></table>`,
-        data(){
-            return{
-                selectId:0
-            }
+        data() {
+            return {}
         },
         props: ['expresslistr'],
         methods: {
-            nextNode(){
-                console.log(this.selected);
-                this.$emit('getroute',this.selectId);
+            nextNode($event) {
+                this.$emit('getroute', $event.target.value, $event.target.value1, $event.target.value2);
             },
         },
     })
@@ -246,7 +245,8 @@
                 expressListR.push(routeRow)
             },*/
             //单位id
-            getRoute: function (unitId) {
+            getRoute: function (unitId, unu, kaishi) {
+                console.log('fdf:', unu, '---fdfdf---', kaishi)
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_queryAllRouteWithUnit',
                     type: 'POST',
@@ -258,13 +258,17 @@
                             toastr.error('系统错误，没有路线')
                         } else {
                             let expressRouteDTO = JSON.parse(data);
-                            expressData.ExpressRouteDTO.listRouteDTO = expressRouteDTO.listRouteDTO
+                            /*expressData.ExpressRouteDTO.listRouteDTO = expressRouteDTO.listRouteDTO
                             expressData.ExpressRouteDTO.currentUnit = expressRouteDTO.currentUnit
-                            expressData.expressListR.push(expressData.ExpressRouteDTO);
+                            expressData.expressListR.push(expressData.ExpressRouteDTO);*/
+                            expressData.expressListR.push(expressRouteDTO);
                             /*express_view.productExpressRoute()*/
                         }
                     }
                 })
+            },
+            saveExpressRoute: function () {
+                console.log()
             }
         },
         mounted() {
@@ -297,6 +301,9 @@
                     expressData.ready = true
                     express_view.judge()
                 }
+            })
+            $('#expressRoute').on('hidden.bs.modal', function (e) {
+                expressData.expressListR = []
             })
         },
         components: {
