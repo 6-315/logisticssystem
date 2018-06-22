@@ -195,23 +195,17 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	/**
 	 * 到达中转站（更新快件状态）
 	 *//*
-	@Override
-	public String updateExpressState(express expressInfo) {
-		if (expressInfo != null) {
-			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
-				express updateExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
-				if (updateExpress != null) {
-					if (expressInfo.getExpress_state() != null && expressInfo.getExpress_state().trim().length() > 0) {
-						updateExpress.setExpress_state("待扫描");
-						updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
-						expressManagementDao.saveOrUpdateObject(updateExpress);
-						return "success";
-					}
-				}
-			}
-		}
-		return "error";
-	}*/
+		 * @Override public String updateExpressState(express expressInfo) { if
+		 * (expressInfo != null) { if (expressInfo.getExpress_id() != null &&
+		 * expressInfo.getExpress_id().trim().length() > 0) { express updateExpress =
+		 * expressManagementDao.getExpressById(expressInfo.getExpress_id()); if
+		 * (updateExpress != null) { if (expressInfo.getExpress_state() != null &&
+		 * expressInfo.getExpress_state().trim().length() > 0) {
+		 * updateExpress.setExpress_state("待扫描");
+		 * updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
+		 * expressManagementDao.saveOrUpdateObject(updateExpress); return "success"; } }
+		 * } } return "error"; }
+		 */
 
 	/**
 	 * 扫描（判断快件类型）
@@ -615,14 +609,15 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					if (distributor != null) {
 						if (distributor.getDistributiontor_id() != null
 								&& distributor.getDistributiontor_id().trim().length() > 0) {
-							expressCountHql = expressCountHql + " express_isdistributeddistributor ='"+distributor.getDistributiontor_id()+"' ";
-							listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor ='"+distributor.getDistributiontor_id()+"' ";
+							expressCountHql = expressCountHql + " express_isdistributeddistributor ='"
+									+ distributor.getDistributiontor_id() + "' ";
+							listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor ='"
+									+ distributor.getDistributiontor_id() + "' ";
 						}
 					}
 				} else if ("总公司管理员".equals(staffPosition.getPosition_name())) {
 					expressCountHql = expressCountHql + " 1=1 ";
 					listExpressInfoHql = listExpressInfoHql + " 1=1 ";
-
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
@@ -634,6 +629,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						List<unit> listUnit = (List<unit>) expressManagementDao
 								.listObject(" from unit where 1=1 and ( unit_id ='" + staffInfo.getStaff_unit()
 										+ " ' or unit_superiorunit ='" + staffInfo.getStaff_unit() + "' ) ");
+						System.out.println("fdfdfdfdfd:" + listUnit);
 						if (listUnit != null) {
 							for (int i = 0; i < listUnit.size(); i++) {
 								if (listUnit.get(i) != null && listUnit.get(i).getUnit_id() != null
@@ -689,14 +685,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					listExpressInfoHql = listExpressInfoHql
 							+ " and ( express_isdistributeddistributor !='' or express_isdistributeddistributor !=null ) ";
 				}
-				if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
+				else if ("否".equals(expressInfoVO.getIsDistributedDistributor())) {
 					expressCountHql = expressCountHql
 							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 					listExpressInfoHql = listExpressInfoHql
 							+ " and ( express_isdistributeddistributor ='' or express_isdistributeddistributor =null ) ";
 				}
 			}
-			if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
+			else if ("否".equals(expressInfoVO.getIsDistributedDistribution())) {
 				expressCountHql = expressCountHql
 						+ " and ( express_isdistributeddistribution ='' or express_isdistributeddistribution =null ) ";
 				listExpressInfoHql = listExpressInfoHql
@@ -730,7 +726,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		} else {
 			expressInfoVO.setHaveNextPage(true);
 		}
-
+		
 		/**
 		 * 分页查询
 		 */

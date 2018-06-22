@@ -111,7 +111,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	/**
 	 * 快件列表
 	 */
-	private ExpressInfoVO expressVO;
+	private ExpressInfoVO expressInfoVO;
 	/**
 	 * 预约列表
 	 */
@@ -156,6 +156,14 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 是否分配配送员
 	 */
 	private String isDistributedDistributor = "";
+
+	public ExpressInfoVO getExpressInfoVO() {
+		return expressInfoVO;
+	}
+
+	public void setExpressInfoVO(ExpressInfoVO expressInfoVO) {
+		this.expressInfoVO = expressInfoVO;
+	}
 
 	public String getIsDistributedDistribution() {
 		return isDistributedDistribution;
@@ -243,14 +251,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	public void setReservationVO(ReservationVO reservationVO) {
 		this.reservationVO = reservationVO;
-	}
-
-	public ExpressInfoVO getExpressVO() {
-		return expressVO;
-	}
-
-	public void setExpressVO(ExpressInfoVO expressVO) {
-		this.expressVO = expressVO;
 	}
 
 	public vehicle getVehicleInfo() {
@@ -377,7 +377,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.completePickExpress(expressAndCirculationDTO,staffInfo)));
+		response.getWriter()
+				.write(gson.toJson(expressManagementService.completePickExpress(expressAndCirculationDTO, staffInfo)));
 	}
 
 	/**
@@ -385,10 +386,12 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	/*public void updateExpressState() throws IOException {
-		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.updateExpressState(expressInfo));
-	}*/
+	/*
+	 * public void updateExpressState() throws IOException {
+	 * response.setContentType("text/html;charset=utf-8");
+	 * response.getWriter().write("" +
+	 * expressManagementService.updateExpressState(expressInfo)); }
+	 */
 
 	/**
 	 * 扫描（判断快件类型）
@@ -597,7 +600,4 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
 
-	
-	
-	
 }
