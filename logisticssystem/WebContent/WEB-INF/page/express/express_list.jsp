@@ -444,7 +444,7 @@
                                                     <li><a href="#">分配取件员</a></li>
                                                     <li><a href="#">已揽件</a></li>
                                                     <li>
-                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_id)"
+                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
                                                     <li><a href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
@@ -497,20 +497,16 @@
                         </div>
                         <hr>
                         <div class="mdoal-body">
-                            <table class="table table-hover">
+                            <%--<table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>路线</th>
                                     <th>始发站</th>
                                     <th>中转站</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-
-                                </tr>
-                                </tbody>
-                            </table>
+                                </thead>--%>
+                                <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
+                            <%--</table>--%>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -603,13 +599,13 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 </body>
 </html>
