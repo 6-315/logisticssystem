@@ -36,17 +36,18 @@
 
     let trCom = Vue.extend({
         template: `<table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>路线</th>
-                                    <th>始发站</th>
-                                    <th>中转站</th>
-                                </tr>
-                                </thead><tbody><tr v-for="(expressL,index) in expresslistr" :key="index">
+                   <thead>
+                   <tr>
+                   <th>路线</th>
+                   <th>始发站</th>
+                   <th>中转站</th>
+                   </tr>
+                   </thead><tbody>
+                   <tr v-for="(expressL,index) in expresslistr" :key="index">
                    <td>{{index+1}}</td> 
                    <td>{{expressL.currentUnit.unit_name}}</td>
                    <td>
-                   <select v-model="selectId" @change="nextNode" name="route" class="form-control">
+                   <select @change="nextNode" class="form-control">
                       <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '正向'" :value="listRoute.endUnit.unit_id">{{listRoute.endUnit.unit_name}}</option>
                       <option v-for="listRoute in expressL.listRouteDTO" v-if="listRoute.direction == '反向'" :value="listRoute.endUnit.unit_id">{{listRoute.beginUnit.unit_name}}</option>
                    </select>
@@ -54,14 +55,13 @@
                    </tr></tbody></table>`,
         data(){
             return{
-                selectId:0
+
             }
         },
         props: ['expresslistr'],
         methods: {
-            nextNode(){
-                console.log(this.selected);
-                this.$emit('getroute',this.selectId);
+            nextNode($event){
+                this.$emit('getroute',$event.target.value);
             },
         },
     })
