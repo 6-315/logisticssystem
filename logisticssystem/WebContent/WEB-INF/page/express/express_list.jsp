@@ -444,9 +444,10 @@
                                                     <li><a href="#">分配取件员</a></li>
                                                     <li><a href="#">已揽件</a></li>
                                                     <li>
-                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
+                                                        <a @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
-                                                    <li><a href="#">扫描装车</a></li>
+                                                    <li><a @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
+                                                           href="#">扫描装车</a></li>
                                                     <li><a href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
@@ -485,6 +486,48 @@
                 </div>
                 <!-- /.col -->
             </div>
+            <div class="modal fade" id="expressVehicle">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">快件装车</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>车辆编号</th>
+                                    <th>车牌号</th>
+                                    <th>车辆载货状态</th>
+                                    <th>车辆规格</th>
+                                    <th>车辆载货重量</th>
+                                    <th>选择</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="vehicle in vehicleList" :key="vehicle.vehicle_id">
+                                    <td>{{vehicle.vehicle_num}}</td>
+                                    <td>{{vehicle.vehicle_platenum}}</td>
+                                    <td>{{vehicle.vehicle_express_state}}</td>
+                                    <td>{{vehicle.vehicle_standard}}</td>
+                                    <td>{{vehicle.vehicle_current_weight}}</td>
+                                    <td><a class="btn btn-default" href="#"></a>装车</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button @click="daozhan" type="button" class="btn btn-danger">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal fade" id="expressRoute">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -497,16 +540,8 @@
                         </div>
                         <hr>
                         <div class="mdoal-body">
-                            <%--<table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>路线</th>
-                                    <th>始发站</th>
-                                    <th>中转站</th>
-                                </tr>
-                                </thead>--%>
-                            <tr-com @getroute="getRoute" :expresslistr="expressListR"></tr-com>
-                            <%--</table>--%>
+                            <tr-com @getroute="getRoute" @pushroute="pushRoute" :lastaddress="lastAddress"
+                                    :expresslistr="expressListR"></tr-com>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
