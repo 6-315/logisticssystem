@@ -6,23 +6,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>人事管理-员工查询</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet"
-          href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
-    <!-- Theme style -->
+    <%--<link rel="stylesheet"--%>
+    <%--href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link
-            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-            rel="stylesheet">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/tool/site.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -81,7 +77,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="../../img/AdminLTELogo.png" alt="AdminLTE Logo"
+            src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Note3物流系统</span>
     </a> <!-- Sidebar -->
@@ -89,7 +85,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../../img/user2-160x160.jpg"
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
@@ -146,7 +142,8 @@
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -236,7 +233,7 @@
             <!-- /.container-fluid --> </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" id="staffList">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -244,42 +241,154 @@
                             <h3 class="card-title">员工列表</h3>
                         </div>
                         <!-- /.card-header -->
+
+
+
+
                         <div class="card-body">
-                            <table id="example2"
-                                   class="no-footer table table-bordered table-hover dataTable">
-                                <thead>
-                                <tr>
-                                    <th>工号</th>
-                                    <th>姓名</th>
-                                    <th>手机号码</th>
-                                    <th>性别</th>
-                                    <th>职位</th>
-                                    <th>入职时间</th>
-                                    <th>单位</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>31500000001</td>
-                                    <td>大老板</td>
-                                    <td>18279976773</td>
-                                    <td>男</td>
-                                    <td>总经理</td>
-                                    <td>2012-12-12</td>
-                                    <td>总公司</td>
-                                    <td>在职</td>
-                                    <td><a data-toggle="modal" data-target="#staffDetailInfo"
-                                           href="">详细</a>| <a data-toggle="modal"
-                                                              data-target="#deleteStaffInfo" href="">删除</a></td>
-                                    <!-- <td>
-                                  <button type="button" class="btn btn-block btn-primary btn-sm">Primary</button>
-                                </td> -->
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;"
+                                 class="input-group">
+                                <input placeholder="据工号或姓名搜索" @input="searchReservationNum"
+                                       v-model="search" type="text" class="form-control input-sm"><span
+                                    class="input-group-addon btn btn-default"><i
+                                    class="fa fa-search"></i></span>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover" style="overflow-y: hidden">
+                                    <thead>
+                                    <tr>
+                                        <th>预约单号</th>
+                                        <th>发件人姓名</th>
+                                        <th>发件人联系方式</th>
+                                        <th>发件人详细地址</th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
+                                                class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
+														<li v-for="unit in unitList" :key="unit.unit_id"><a
+                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
+													</ul>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
+                                                class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="distributionStaff('')" href="#">所有</a></li>
+														<li><a @click="distributionStaff('是')" href="#">是</a></li>
+														<li><a @click="distributionStaff('否')" href="#">否</a></li>
+													</ul>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
+                                                class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="selectState('')" href="#">所有</a></li>
+														<li><a @click="selectState('待受理')" href="#">待受理</a></li>
+														<li><a @click="selectState('已受理')" href="#">已受理</a></li>
+														<li><a @click="selectState('已拒绝')" href="#">已拒绝</a></li>
+														<li><a @click="selectState('待取件')" href="#">待取件</a></li>
+														<li><a @click="selectState('已取件')" href="#">已取件</a></li>
+														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
+													</ul>
+											</span></th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody v-if="reservationVO.listReservationInfoDTO.length == 0">
+                                    <td style="text-align: center" colspan="8" height="50">
+                                        暂无数据</td>
+                                    </tbody>
+                                    <tbody v-if="!ready">
+                                    <tr>
+                                        <td style="text-align: center" colspan="8"><i
+                                                class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody v-cloak
+                                           v-if="ready && reservationVO.listReservationInfoDTO.length != 0"
+                                           style="min-height: 200px">
+                                    <tr
+                                            v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
+                                            :key="index">
+                                        <td v-html="reservationDTO.reservationInfo.reservation_num"></td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
+                                        <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
+                                        <td>{{reservationDTO.unitInfo.unit_name}}</td>
+                                        <td
+                                                v-if="reservationDTO.reservationInfo.reservation_distributiontor">
+                                            是</td>
+                                        <td v-else>否</td>
+                                        <td
+                                                v-html="replaceState(reservationDTO.reservationInfo.reservation_state)">
+                                            <%--<span class="label">{{reservationDTO.reservationInfo.reservation_state}}</span>--%>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false"> <i
+                                                            class="fa fa-th-list"></i>
+													</span>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">查看详情</a></li>
+                                                    <li><a
+                                                            @click="acceptanceReservation('已受理',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">受理</a></li>
+                                                    <li><a
+                                                            @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">拒绝</a></li>
+                                                    <li><a
+                                                            @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">分配配送员</a></li>
+                                                    <li><a
+                                                            @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">已取件</a></li>
+                                                    <li><a
+                                                            @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">已完成</a></li>
+                                                    <li><a
+                                                            @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
+                                                            href="#">填写快件单</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagePosition">
+                                    <ul v-cloak class="pagination">
+                                        <li></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
+                                        <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                               href="#">上一页</a></li>
+                                        <li><a>第 {{reservationVO.pageIndex}} 页/总
+                                            {{reservationVO.totalPages}}
+                                            页/共{{reservationVO.totalRecords}}条</a></li>
+                                        <li :class="{disabled:nextDisabled}"><a
+                                                :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
+                                        </a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
+                                <div>
+
+                                    <%--<button @click="" class="btn btn-default">首页</button>
+                                    <button @click="" class="btn btn-default">上一页</button>
+                                    <button @click="" class="btn btn-default">下一页</button>
+                                    <button @click="" class="btn btn-default">尾页</button>--%>
+                                </div>
+                            </div>
                         </div>
+
+
+
+
+
+
+
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
@@ -344,45 +453,27 @@
         </div>
     </div>
 </div>
-<!-- jQuery -->
-<script
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script
-        src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
-<script
-        src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
-<!-- SlimScroll -->
-<script
-        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script>
     $(function () {
-        $("#example2").DataTable({
-            "oLanguage": {
-                "sLengthMenu": "每页显示 _MENU_ 条记录",
-                "sZeroRecords": "对不起，查询不到任何相关数据",
-                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_条记录",
-                "sInfoEmtpy": "找不到相关数据",
-                "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
-                "sProcessing": "正在加载中...",
-                "sSearch": "搜索",
-                "oPaginate": {
-                    "sFirst": "第一页",
-                    "sPrevious": " 上一页 ",
-                    "sNext": " 下一页 ",
-                    "sLast": " 最后一页 "
-                },
-            }
-        });
-    });
+        $('.select2').select2()
+    })
 </script>
 </body>
 </html>

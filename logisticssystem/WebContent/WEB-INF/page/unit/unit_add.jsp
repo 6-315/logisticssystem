@@ -386,7 +386,7 @@
     <!-- /.control-sidebar -->
 </div>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+                 src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"
