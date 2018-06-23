@@ -8,15 +8,22 @@
     <title>单位管理-单位列表</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <!-- Theme style -->
+    <%--<link rel="stylesheet"
+            href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <style type="text/css">
         [v-cloak] {
             display: none;
@@ -335,7 +342,7 @@
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据搜索" type="text"
+                                    <input placeholder="据搜索" @input="selectUnitSearch" v-model="search" type="text"
                                            class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>
@@ -351,50 +358,74 @@
 														<a class="dropdown-toggle" data-toggle="dropdown">单位类型<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
-															<li><a href="#">所属单位(所有)</a></li>
-															<li><a href="#">总公司</a></li>
-															<li><a href="#">中转站</a></li>
-															<li><a href="#">配送点</a></li>
+															<li><a @click="selectUnitType('')"
+                                                                   href="#">单位类型(所有)</a></li>
+															<li><a @click="selectUnitType('总公司')" href="#">总公司</a></li>
+															<li><a @click="selectUnitType('中转站')" href="#">中转站</a></li>
+															<li><a @click="selectUnitType('配送点')" href="#">配送点</a></li>
 														</ul>
 												</span></th>
                                             <th>联系方式</th>
                                             <th>管理员工号</th>
+                                            <th>姓名</th>
                                             <th><span role="presentation" class="dropdown">
 														<a class="dropdown-toggle" data-toggle="dropdown">状态<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
-															<li><a href="#">状态(所有)</a></li>
-															<li><a href="#">正常使用</a></li>
-															<li><a href="#">未启用</a></li>
-															<li><a href="#">已废弃</a></li>
+															<li><a @click="selectUnitState('')" href="#">状态(所有)</a></li>
+															<li><a @click="selectUnitState('正常使用')"
+                                                                   href="#">正常使用</a></li>
+															<li><a @click="selectUnitState('未启用')" href="#">未启用</a></li>
+															<li><a @click="selectUnitState('已废弃')" href="#">已废弃</a></li>
 														</ul>
 												</span></th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
                                         <tbody style="min-height: 200px">
-                                        <tr>
-
+                                        <tr v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
+                                            :key="index">
+                                            <td v-html="unitManagerDTO.unit.unit_num"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_name"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_address"></td>
+                                            <td>{{unitManagerDTO.unit.unit_type}}</td>
+                                            <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin !=
+                                                undefined?unitManagerDTO.unit_Admin.staff_num:''}}
+                                            </td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
+                                            </td>
+                                            <td>{{unitManagerDTO.unit.unit_state}}</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-pencil-square-o"
+                                                               aria-hidden="true"></i></a>
+                                                <a href="#"><i class="fa fa-plus-circle"
+                                                               aria-hidden="true"></i></a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                     <div class="pagePosition">
                                         <ul v-cloak class="pagination">
                                             <li></li>
-                                            <li><a href="#">首页</a></li>
-                                            <li><a href="#">上一页</a></li>
-                                            <li><a>第 1 页/总 2 页/共3条</a></li>
-                                            <li><a> 下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
+                                            <li><a @click="shouye" href="#">首页</a></li>
+                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                                   href="#">上一页</a>
+                                            </li>
+                                            <li><a>第 {{unitManagerVO.pageIndex}} 页/总
+                                                {{unitManagerVO.totalPages}}
+                                                页/共{{unitManagerVO.totalRecords}}条</a></li>
+                                            <li :class="{disabled:nextDisabled}"><a
+                                                    :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
                                             </a></li>
-                                            <li><a href="#">尾页</a></li>
+                                            <li><a @click="weiye" href="#">尾页</a></li>
                                             <li></li>
                                         </ul>
                                     </div>
-                                    <div></div>
                                 </div>
                             </div>
-
-
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -461,47 +492,23 @@
     </div>
 </div>
 <!-- jQuery -->
-<script
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<!-- Bootstrap 4 -->
-<%--<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
-
-<!-- SlimScroll -->
-<script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>--%>
-<!-- AdminLTE App -->
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="../js/demo.js"></script> -->
-<!-- page script -->
-<%--<script>
-$(function () {
-    $("#example2").DataTable({
-        "oLanguage": {
-            "sLengthMenu": "每页显示 _MENU_ 条记录",
-            "sZeroRecords": "对不起，查询不到任何相关数据",
-            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_条记录",
-            "sInfoEmtpy": "找不到相关数据",
-            "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
-            "sProcessing": "正在加载中...",
-            "sSearch": "搜索",
-            "oPaginate": {
-                "sFirst": "第一页",
-                "sPrevious": " 上一页 ",
-                "sNext": " 下一页 ",
-                "sLast": " 最后一页 "
-            },
-        }
-    });
-});
-</script>--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
 </body>
 </html>
