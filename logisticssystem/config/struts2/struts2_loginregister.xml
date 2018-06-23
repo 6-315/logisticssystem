@@ -18,6 +18,8 @@
 			</result>
 			<result name="pageRouteList">/WEB-INF/page/route/route_list.jsp
 			</result>
+			<result name="pageUnitAdd">/WEB-INF/page/unit/unit_add.jsp
+			</result>
 		</action>
 	</package>
 </struts>

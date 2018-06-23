@@ -186,8 +186,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 		if (transferStationVO.getType() != null && transferStationVO.getType().trim().length() > 0) {
 			transferStationCountHql = transferStationCountHql + " and  unit_type = '"
 					+ transferStationVO.getType().trim() + "' ";
-			listTransferStationHql = listTransferStationHql + " and unit_type = '"
-					+ transferStationVO.getType().trim() + "'  ";
+			listTransferStationHql = listTransferStationHql + " and unit_type = '" + transferStationVO.getType().trim()
+					+ "'  ";
 		}
 		/**
 		 * 根据State查询
@@ -234,27 +234,28 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		// 判断是否拥有下一页
 		if (transferStationVO.getPageIndex() >= transferStationVO.getTotalPages()) {
-			
+
 			transferStationVO.setHaveNextPage(false);
 		} else {
 			transferStationVO.setHaveNextPage(true);
 		}
 		UnitManagerVO unitManagerVO = new UnitManagerVO();
-		System.out.println("0.0.0.0.0.0"+transferStationVO.getPageIndex());
+		System.out.println("0.0.0.0.0.0" + transferStationVO.getPageIndex());
 		/**
 		 * 分页获取单位列表
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
-				
+
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-            
+
 		// 遍历unit表
 		for (unit unit : listUnit) {
 			// 实例化unitManagerDTO
 			unitManagerDTO = new UnitManagerDTO();
-			
-			//unit unitAll = transferStationDao.getTransferStationInfoById(unit.getUnit_id());
-            
+
+			// unit unitAll =
+			// transferStationDao.getTransferStationInfoById(unit.getUnit_id());
+
 			/**
 			 * 获取单位创建者的信息
 			 */
@@ -274,10 +275,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 				unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
 						"<mark>" + transferStationVO.getSearch() + "</mark>"));
-			
+
 				unit.setUnit_address(unit.getUnit_address().replaceAll(transferStationVO.getSearch(),
 						"<mark>" + transferStationVO.getSearch() + "</mark>"));
-			
+
 				unit.setUnit_num(unit.getUnit_num().replaceAll(transferStationVO.getSearch(),
 						"<mark>" + transferStationVO.getSearch() + "</mark>"));
 				System.out.println("987654321");
