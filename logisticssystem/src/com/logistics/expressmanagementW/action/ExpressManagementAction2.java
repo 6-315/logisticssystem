@@ -286,4 +286,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId,staffBasicinfo));
 
 	}
+	/**
+	 * 根据快件ID查询所有配送点
+	 */
 }

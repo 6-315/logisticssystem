@@ -215,6 +215,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_route_id);
 		routeNew = (route) query.uniqueResult();
+		System.out.println("----------" + routeNew);
 		if (routeNew != null) {
 			return routeNew;
 		}
@@ -329,7 +330,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public unit getUpUnit(String staff_unit) {
-		
+
 		unit unitNew = new unit();
 		Session session = getSession();
 		String hql = " from unit where unit_id = :ID";
