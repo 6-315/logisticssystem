@@ -3,6 +3,8 @@ package com.logistics.expressmanagementW.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.midi.Synthesizer;
+
 import org.apache.tomcat.jni.Time;
 
 import com.logistics.domain.distributiontor;
@@ -38,6 +40,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public void setExpressManagementDao2(ExpressManagementDao2 expressManagementDao2) {
 		this.expressManagementDao2 = expressManagementDao2;
 	}
+
 	/**
 	 * 结束
 	 */
@@ -245,33 +248,33 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DistributiontorAndStaffBasicinfoDTO> getDispatcher(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
+		System.out.println("llll:" + staffBasicinfo);
 		List<DistributiontorAndStaffBasicinfoDTO> listDistributiontorAndStaffBasicinfoDTO = new ArrayList<>();
 		DistributiontorAndStaffBasicinfoDTO distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
-		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
-				&& staffBasicinfo.getStaff_unit() != null && staffBasicinfo.getStaff_unit().trim().length() > 0) {
-			List<distributiontor> listDistributiontor = new ArrayList<>();
-			listDistributiontor = (List<distributiontor>) expressManagementDao2
-					.listObject("from distributiontor where distributiontor_belongdistribution ='"
-							+ staffBasicinfo.getStaff_unit() + "' ");
-			if (listDistributiontor.size() > 0) {
-				for (distributiontor distributiontor : listDistributiontor) {
-					System.out.println("ooooooooooooooooo");
-					distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
-					staff_basicinfo staff_Basicinfo = new staff_basicinfo();
-					staff_Basicinfo = expressManagementDao2
-							.getStaffBasicinfo(distributiontor.getDistributiontor_basicinfo());
-					if (staff_Basicinfo != null) {
-						distributiontorAndStaffBasicinfoDTO.setDistributiontorNew(distributiontor);
-						distributiontorAndStaffBasicinfoDTO.setStaffBasicinfo(staff_Basicinfo);
-						listDistributiontorAndStaffBasicinfoDTO.add(distributiontorAndStaffBasicinfoDTO);
 
-					}
-
+		List<distributiontor> listDistributiontor = new ArrayList<>();
+		listDistributiontor = (List<distributiontor>) expressManagementDao2
+				.listObject("from distributiontor where distributiontor_belongdistribution ='"
+						+ staffBasicinfo.getStaff_unit() + "' ");
+		if (listDistributiontor.size() > 0) {
+			for (distributiontor distributiontor : listDistributiontor) {
+				System.out.println("ooooooooooooooooo");
+				distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
+				staff_basicinfo staff_Basicinfo = new staff_basicinfo();
+				staff_Basicinfo = expressManagementDao2
+						.getStaffBasicinfo(distributiontor.getDistributiontor_basicinfo());
+				if (staff_Basicinfo != null) {
+					distributiontorAndStaffBasicinfoDTO.setDistributiontorNew(distributiontor);
+					distributiontorAndStaffBasicinfoDTO.setStaffBasicinfo(staff_Basicinfo);
+					listDistributiontorAndStaffBasicinfoDTO.add(distributiontorAndStaffBasicinfoDTO);
 				}
-				return listDistributiontorAndStaffBasicinfoDTO;
 			}
-
+			return listDistributiontorAndStaffBasicinfoDTO;
 		}
+
 		return null;
 	}
 
@@ -283,6 +286,8 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public String updateExpressState(GetExpressAndDispatcherDTO getExpressAndDispatcherDTO) {
+		System.out.println("iiii:" + getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
+		System.out.println("kkk:" + getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id());
 		if (getExpressAndDispatcherDTO.getExpressNew().getExpress_id() != null
 				&& getExpressAndDispatcherDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() != null
@@ -293,7 +298,6 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 							+ getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() + "'");
 			express expressNew = new express();
 			expressNew = expressManagementDao2.getExpress(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
-
 			express_send expressSend = new express_send();
 			distributiontor distributiontorNew = new distributiontor();// 配送员信息
 			distributiontorNew = expressManagementDao2
@@ -376,16 +380,22 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		if (expressNew == null && unitNew == null) {
 			return "error";
 		}
-		expressNew.setExpress_state("待派送");
-		expressNew.setExpress_isdistributeddistribution(unitNew.getUnit_id());
+		express expressNew1 = new express();
+		expressNew1 = expressManagementDao2.getExpress(expressNew.getExpress_id());
+
+		expressNew1.setExpress_state("待派送");
+		expressNew1.setExpress_isdistributeddistribution(unitNew.getUnit_id());
 		express_circulation expressCirculation = new express_circulation();
 		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
-		expressCirculation.setExpress_circulation_express_id(expressNew.getExpress_id());
-		expressCirculation.setExpress_circulation_launchpeople(expressNew.getExpress_belongunit());
+		expressCirculation.setExpress_circulation_express_id(expressNew1.getExpress_id());
+		expressCirculation.setExpress_circulation_launchpeople(expressNew1.getExpress_belongunit());
+		expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+		expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond());
+		expressCirculation.setExpress_circulation_state("未完成");
 		expressCirculation.setExpress_circulation_receiver(unitNew.getUnit_id());
 		if (expressNew != null && expressCirculation != null) {
 			expressManagementDao2.saveOrUpdateObject(expressCirculation);
-			expressManagementDao2.saveOrUpdateObject(expressNew);
+			expressManagementDao2.saveOrUpdateObject(expressNew1);
 			return "success";
 		}
 		return "error";
@@ -461,7 +471,6 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo) {
 		if (staffBasicinfo == null) {
 			return null;
-
 		}
 		List<unit> listUnit = new ArrayList<>();
 		listUnit = (List<unit>) expressManagementDao2
