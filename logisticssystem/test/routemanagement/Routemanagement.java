@@ -74,8 +74,8 @@ public class Routemanagement {
 	@Test
 	public void updateRouteInfo() {
 		route updateRoute = new route();
-		updateRoute.setRoute_id("43460250-6ae2-4e56-9384-b465d25db35d");
-		updateRoute.setRoute_num("A001");
+		updateRoute.setRoute_id("a8af69ca-5ccc-4925-9d19-7ee783c27c11");
+		updateRoute.setRoute_num("A006");
 		System.out.println("ddddddddddd");
 		System.out.println("测试。。" + updateRoute.getRoute_num());
 		routeManagementService.updateRoutInfo(updateRoute);
@@ -87,9 +87,9 @@ public class Routemanagement {
 	 */
 	@Test
 	public void deleteListRoute() {
-		String ids="acccd55b-f62c-4760-9735-cfa5b124caf5,684ebf12-f4d8-4af1-9e32-801774b3356b,34e474ac-9575-4900-9a37-f417fe0b7cef";
+		String ids="79c11d1f-7b77-4fed-b6e9-77a6299167c8,a8af69ca-5ccc-4925-9d19-7ee783c27c11";
 		System.out.println("删除成功");
-		routeManagementService.deleteListRoute(ids);
+		routeManagementService.removeListRoute(ids);
 				
 	}
 	
@@ -99,7 +99,6 @@ public class Routemanagement {
 	@Test
 	public void getRouteManager() {
 		RouteManagerVO routManagerVO = new RouteManagerVO();
-		//routManagerVO.setStartUnit("111");
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		System.out.println("给爸爸来/1"+routManagerVO);
 	}

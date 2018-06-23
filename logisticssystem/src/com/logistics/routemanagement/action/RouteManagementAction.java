@@ -19,7 +19,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 路线管理action
  * 
- * @author LW
+ * @autho r LW
  *
  */
 public class RouteManagementAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {
@@ -174,12 +174,12 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 * 批量删除路线
 	 * @throws IOException 
 	 */
-	public void deleteListRoute() throws IOException {
+	public void removeListRoute() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(routeManagementService.deleteListRoute(routeId));
+		response.getWriter().write(routeManagementService.removeListRoute(routeId));
 
 
 	}

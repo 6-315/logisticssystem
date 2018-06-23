@@ -3,37 +3,40 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2018-6-11 17:33:22 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="com.logistics.domain.userinfo" table="USERINFO">
-        <id name="userinfo_id" type="java.lang.String">
-            <column name="userinfo_id" />
-            <generator class="assigned" />
-        </id>
-        <property name="userinfo_nickname" type="java.lang.String">
-            <column name="userinfo_nickname" />
-        </property>
-        <property name="userinfo_password" type="java.lang.String">
-            <column name="userinfo_password" />
-        </property>
-        <property name="userinfo_phonenumber" type="java.lang.String">
-            <column name="userinfo_phonenumber" />
-        </property>
-        <property name="userinfo_email" type="java.lang.String">
-            <column name="userinfo_email" />
-        </property>
-        <property name="userinfo_createtime" type="java.lang.String">
-            <column name="userinfo_createtime" />
-        </property>
-        <property name="userinfo_modify" type="java.lang.String">
-            <column name="userinfo_modify" />
-        </property>
-        <property name="userinfo_mark" type="java.lang.String">
-            <column name="userinfo_mark" />
-        </property>
-        <property name="userinfo_lastlyip" type="java.lang.String">
-            <column name="userinfo_lastlyip" />
-        </property>
-        <property name="userinfo_lastlytime" type="java.lang.String">
-            <column name="userinfo_lastlytime" />
-        </property>
-    </class>
+	<class name="com.logistics.domain.userinfo" table="USERINFO">
+		<id name="userinfo_id" type="java.lang.String">
+			<column name="userinfo_id" />
+			<generator class="assigned" />
+		</id>
+		<property name="userinfo_nickname" type="java.lang.String">
+			<column name="userinfo_nickname" />
+		</property>
+		<property name="userinfo_password" type="java.lang.String">
+			<column name="userinfo_password" />
+		</property>
+		<property name="userinfo_phonenumber" type="java.lang.String">
+			<column name="userinfo_phonenumber" />
+		</property>
+		<property name="userinfo_email" type="java.lang.String">
+			<column name="userinfo_email" />
+		</property>
+		<property name="userinfo_createtime" type="java.lang.String">
+			<column name="userinfo_createtime" />
+		</property>
+		<property name="userinfo_modifytime" type="java.lang.String">
+			<column name="userinfo_modifytime" />
+		</property>
+		<property name="userinfo_mark" type="java.lang.String">
+			<column name="userinfo_mark" />
+		</property>
+		<property name="userinfo_username" type="java.lang.String">
+			<column name="userinfo_username" />
+		</property>
+		<property name="userinfo_lastlytime" type="java.lang.String">
+			<column name="userinfo_lastlytime" />
+		</property>
+		<property name="userinfo_sex" type="java.lang.String">
+			<column name="userinfo_sex" />
+		</property>
+	</class>
 </hibernate-mapping>

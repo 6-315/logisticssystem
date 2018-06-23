@@ -3,13 +3,20 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
 	"http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-	<package name="userinfo" namespace="/userinfo" extends="struts-default"
-		strict-method-invocation="false">
+	<package name="userinfo" namespace="/userinfo"
+		extends="struts-default" strict-method-invocation="false">
 		<action name="userinfo_*"
 			class="com.logistics.userinfo.action.UserInfoAction" method="{1}">
-			
-
-		
+			<result name="pageSendExpress">/WEB-INF/page/user/user-order.jsp</result>
+			<result name="pageSearchExpress">/user-search.jsp</result>
+			<result name="pageMyExpress">/WEB-INF/page/user/user-myorder.jsp</result>
+			<result name="pageUserInfo">/WEB-INF/page/user/user-userinfo.jsp</result>
+			<result name="userIndex">/WEB-INF/page/user/user-index.jsp</result>
+			<result name="pageUserAddress">/WEB-INF/page/user/user-useraddress.jsp</result>
+			<result name="pageUpdatePassword">/WEB-INF/page/user/user-updatepassword.jsp
+			</result>
+			<result name="pageUserMessage">/WEB-INF/page/user/user-mymessage.jsp</result>
+			<result name="pageExpressList">/WEB-INF/page/express/express_list.jsp</result>
 		</action>
 	</package>
 </struts>

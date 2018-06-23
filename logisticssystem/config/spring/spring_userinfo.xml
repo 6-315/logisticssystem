@@ -8,9 +8,9 @@
 	</bean>
 	<bean id="userInfoService"
 		class="com.logistics.userinfo.service.impl.UserInfoServiceImpl">
-		<property name="userinfoDao" ref="userinfoDao"></property>
+		<property name="userInfoDao" ref="userInfoDao"></property>
 	</bean>
-	<bean id="userinfoDao" class="com.logistics.userinfo.dao.impl.UserInfoDaoImpl">
+	<bean id="userInfoDao" class="com.logistics.userinfo.dao.impl.UserInfoDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 </beans>

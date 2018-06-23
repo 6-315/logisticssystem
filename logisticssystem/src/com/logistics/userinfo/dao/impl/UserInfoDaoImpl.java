@@ -6,9 +6,15 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.address;
+import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
+import com.logistics.domain.userinfo;
 import com.logistics.userinfo.dao.UserinfoDao;
+
 /**
  * 用户信息DAO 实现层
+ * 
  * @author LW
  *
  */
@@ -62,6 +68,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 	@Override
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
+		System.out.println("oooooo" + hql);
 		Query query = session.createQuery(hql);
 		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);
@@ -69,6 +76,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -85,6 +93,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -93,6 +102,7 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -103,6 +113,76 @@ public class UserInfoDaoImpl implements UserinfoDao {
 		List<?> list = query.list();
 		session.clear();
 		return list;
+	}
+
+	/**
+	 * 根据user infoID获取用户信息
+	 */
+	@Override
+	public userinfo getUserInfo(String userinfo_id) {
+		userinfo userinfoNew = new userinfo();
+		Session session = getSession();
+		String hql = " from userinfo where userinfo_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", userinfo_id);
+		userinfoNew = (userinfo) query.uniqueResult();
+		if (userinfoNew != null) {
+
+			return userinfoNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据快件 的ID获取快件的信息
+	 */
+	@Override
+	public expressinfo getExpressInfoById(String express_id) {
+		expressinfo expressInfo = new expressinfo();
+		Session session = getSession();
+		String hql = " from expressinfo where expressinfo_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressInfo = (expressinfo) query.uniqueResult();
+		if (expressInfo != null) {
+			return expressInfo;
+		}
+		return null;
+	}
+
+	/**
+	 * 查询地址表里有没有默认地址
+	 */
+	@Override
+	public address getAddressByState() {
+		address addressNew = new address();
+		Session session = getSession();
+		String hql = " from address where address_isdefault = '是'";
+		Query query = session.createQuery(hql);
+
+		addressNew = (address) query.uniqueResult();
+		if (addressNew != null) {
+			return addressNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据ID查询地址表
+	 */
+	@Override
+	public address getAddressById(String address_id) {
+		address addressNew = new address();
+		Session session = getSession();
+		String hql = " from address where address_id =:ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", address_id);
+		addressNew = (address) query.uniqueResult();
+		if (addressNew != null) {
+			return addressNew;
+		}
+		return null;
+
 	}
 
 }

@@ -3,6 +3,9 @@ package com.logistics.loginregister.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.logistics.domain.hat_area;
+import com.logistics.domain.hat_city;
+import com.logistics.domain.hat_province;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
@@ -36,19 +39,15 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		List<userinfo> listUser = new ArrayList<>();
 		listUser = (List<com.logistics.domain.userinfo>) loginRegisterDao
 				.listObject("from userinfo where userinfo_phonenumber = '" + userInfo.getUserinfo_phonenumber() + "'");
-		System.out.println("在哪：" + userInfo.getUserinfo_phonenumber());
-		System.out.println("什么" + listUser);
-		System.out.println("size:" + listUser.size());
 		if (listUser.size() == 0) {
 			userInfo.setUserinfo_id(BuildUuid.getUuid());
+			userInfo.setUserinfo_username(userInfo.getUserinfo_phonenumber());
 			userInfo.setUserinfo_createtime(TimeUtil.getStringSecond());
-			userInfo.setUserinfo_modify(TimeUtil.getStringSecond());
+			userInfo.setUserinfo_modifytime(TimeUtil.getStringSecond());
 			loginRegisterDao.saveOrUpdateObject(userInfo);
-			System.out.println("成功");
-			return "成功";
+			return "success";
 		} else {
-			System.out.println("重复");
-			return "重复";
+			return "error";
 		}
 	}
 
@@ -57,14 +56,16 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 	 */
 	@Override
 	public userinfo loginByUser(String username, String password) {
-		
+
 		return loginRegisterDao.loginByUser(username, password);
 	}
+
 	@Override
 	public staff_basicinfo loginByStaff(String username, String password) {
- 
+
 		return loginRegisterDao.loginByStaff(username, password);
 	}
+
 	/**
 	 * 判断username是否在用户表
 	 * 
@@ -76,6 +77,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 				.listObject("from userinfo where userinfo_phonenumber = '" + username + "'");
 		return listUser;
 	}
+
 	/**
 	 * 判断username是否在员工表
 	 */
@@ -87,7 +89,38 @@ public class LoginRegisterServiceImpl implements LoginRegisterService {
 		return listSta;
 	}
 
+	@Override
+	public position getPosition(String staff_position) {
+		List<position> listPosition = new ArrayList<>();
+		listPosition = (List<position>) loginRegisterDao
+				.listObject("from position where position_id = '" + staff_position + "'");
+		return listPosition.get(0);
+	}
 
-	
+	@Override
+	public List<hat_province> getAllProvince() {
+		List<hat_province> listProvince = (List<hat_province>) loginRegisterDao.listObject("from hat_province");
+		return listProvince;
+	}
+
+	@Override
+	public List<hat_city> getAllCityByProvinceID(String cityFatherId) {
+		if (cityFatherId != null && cityFatherId.trim().length() > 0) {
+			List<hat_city> listCity = (List<hat_city>) loginRegisterDao
+					.listObject("from hat_city where father = '" + cityFatherId + "'");
+			return listCity;
+		}
+		return null;
+	}
+
+	@Override
+	public List<hat_area> getAllCountryByCityID(String cityFatherId) {
+		if (cityFatherId != null && cityFatherId.trim().length() > 0) {
+			List<hat_area> listCity = (List<hat_area>) loginRegisterDao
+					.listObject("from hat_area where father = '" + cityFatherId + "'");
+			return listCity;
+		}
+		return null;
+	}
 
 }

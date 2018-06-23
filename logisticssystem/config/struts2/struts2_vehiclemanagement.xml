@@ -6,9 +6,9 @@
 	<package name="vehiclemanagement" namespace="/vehiclemanagement" extends="struts-default"
 		strict-method-invocation="false">
 		<action name="vehiclemanagement_*"
-			class="com.logistics.vehiclemanagement.action.VehiclemanagementAction" method="{1}">
+			class="com.logistics.vehiclemanagement.action.VehicleManagementAction" method="{1}">
 			
-
+ 
 		
 		</action>
 	</package>
