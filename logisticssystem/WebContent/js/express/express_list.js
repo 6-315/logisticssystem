@@ -415,6 +415,67 @@
                         }
                     }
                 })
+            },
+            paiSongStaff(staffPeiSongId) {
+                //分配快件给配送员
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressState',
+                    type: 'POST',
+                    data: {
+                        'getExpressAndDispatcherDTO.expressNew.express_id': expressData.tmpReserExpressId,
+                        'getExpressAndDispatcherDTO.staffBasicInfo.staff_id': staffPeiSongId
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('分配失败')
+                        } else if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            $('#peiSongYuan').modal('hide')
+                            toastr.success('分配成功')
+                        }
+                    }
+                })
+            },
+            qianShouExpress(expressId) {
+                //签收
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
+                    type: 'POST',
+                    data: {
+                        'expressNew.express_id': expressId,
+                        'expressState': '已签收'
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('系统错误，签收失败')
+                        } else if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            toastr.success('签收成功')
+                        }
+                    }
+                })
+            },
+            completeExpress(expressId) {
+                //完成
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
+                    type: 'POST',
+                    data: {
+                        'expressNew.express_id': expressId,
+                        'expressState': '已完成'
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('系统错误，完成失败')
+                        } else if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            toastr.success('完成成功')
+                        }
+                    }
+                })
             }
         },
         mounted() {
