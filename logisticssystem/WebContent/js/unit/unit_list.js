@@ -27,7 +27,7 @@
             getAllData() {
                 // 获取单位列表
                 $.ajax({
-                    url: '/logisticssystem/transferstation / transferstation_queryTransferStation',
+                    url: '/logisticssystem/transferstation/transferstation_queryTransferStation',
                     type: 'POST',
                     data: {
                         'page': unitListData.page,
@@ -38,16 +38,16 @@
                     success: function (data) {
                         console.log('data:', data)
                         const getUnitList = JSON.parse(data)
-                        unitListData.unitManagerVO.listUnitManagerDTO = data.listUnitManagerDTO
-                        unitListData.unitManagerVO.totalRecords = data.totalRecords
-                        unitListData.unitManagerVO.type = data.type
-                        unitListData.unitManagerVO.state = data.state
-                        unitListData.unitManagerVO.search = data.search
-                        unitListData.unitManagerVO.pageIndex = data.pageIndex
-                        unitListData.unitManagerVO.pageSize = data.pageSize
-                        unitListData.unitManagerVO.totalPages = data.totalPages
-                        unitListData.unitManagerVO.havePrePage = data.havePrePage
-                        unitListData.unitManagerVO.haveNextPage = data.haveNextPage
+                        unitListData.unitManagerVO.listUnitManagerDTO = getUnitList.listUnitManagerDTO
+                        unitListData.unitManagerVO.totalRecords = getUnitList.totalRecords
+                        unitListData.unitManagerVO.type = getUnitList.type
+                        unitListData.unitManagerVO.state = getUnitList.state
+                        unitListData.unitManagerVO.search = getUnitList.search
+                        unitListData.unitManagerVO.pageIndex = getUnitList.pageIndex
+                        unitListData.unitManagerVO.pageSize = getUnitList.pageSize
+                        unitListData.unitManagerVO.totalPages = getUnitList.totalPages
+                        unitListData.unitManagerVO.havePrePage = getUnitList.havePrePage
+                        unitListData.unitManagerVO.haveNextPage = getUnitList.haveNextPage
                         unitListData.ready = true
                     }
                 })
@@ -58,13 +58,13 @@
                     return
                 }
                 unitListData.page = unitListData.unitManagerVO.pageIndex - 1
-                view_reservation.getAllData()
-                view_reservation.judge()
+                view_unitList.getAllData()
+                view_unitList.judge()
             },
             judge: function () {
                 unitListData.preDisabled = false
                 unitListData.nextDisabled = false
-                if (unitListData.unitManagerVO.pageIndex == 1) {
+                if (unitListData.unitManagerVO.pageIndex <= 1) {
                     unitListData.preDisabled = true
                 }
                 if (unitListData.unitManagerVO.pageIndex === unitListData.unitManagerVO.totalPages) {
@@ -77,41 +77,41 @@
                     return
                 }
                 unitListData.page = unitListData.unitManagerVO.pageIndex + 1
-                view_reservation.getAllData()
-                view_reservation.judge()
+                view_unitList.getAllData()
+                view_unitList.judge()
             },
             // 首页
             shouye: function () {
                 unitListData.page = 1
-                view_reservation.getAllData()
-                view_reservation.judge()
+                view_unitList.getAllData()
+                view_unitList.judge()
             },
             // 尾页
             weiye: function () {
                 unitListData.page = unitListData.unitManagerVO.totalPages
-                view_reservation.getAllData()
-                view_reservation.judge()
+                view_unitList.getAllData()
+                view_unitList.judge()
             }
         },
         mounted() {
             // 获取单位列表
             $.ajax({
-                url: '/logisticssystem/transferstation / transferstation_queryTransferStation',
+                url: '/logisticssystem/transferstation/transferstation_queryTransferStation',
                 type: 'POST',
                 data: '',
                 success: function (data) {
                     console.log('data:', data)
                     const getUnitList = JSON.parse(data)
-                    unitListData.unitManagerVO.listUnitManagerDTO = data.listUnitManagerDTO
-                    unitListData.unitManagerVO.totalRecords = data.totalRecords
-                    unitListData.unitManagerVO.type = data.type
-                    unitListData.unitManagerVO.state = data.state
-                    unitListData.unitManagerVO.search = data.search
-                    unitListData.unitManagerVO.pageIndex = data.pageIndex
-                    unitListData.unitManagerVO.pageSize = data.pageSize
-                    unitListData.unitManagerVO.totalPages = data.totalPages
-                    unitListData.unitManagerVO.havePrePage = data.havePrePage
-                    unitListData.unitManagerVO.haveNextPage = data.haveNextPage
+                    unitListData.unitManagerVO.listUnitManagerDTO = getUnitList.listUnitManagerDTO
+                    unitListData.unitManagerVO.totalRecords = getUnitList.totalRecords
+                    unitListData.unitManagerVO.type = getUnitList.type
+                    unitListData.unitManagerVO.state = getUnitList.state
+                    unitListData.unitManagerVO.search = getUnitList.search
+                    unitListData.unitManagerVO.pageIndex = getUnitList.pageIndex
+                    unitListData.unitManagerVO.pageSize = getUnitList.pageSize
+                    unitListData.unitManagerVO.totalPages = getUnitList.totalPages
+                    unitListData.unitManagerVO.havePrePage = getUnitList.havePrePage
+                    unitListData.unitManagerVO.haveNextPage = getUnitList.haveNextPage
                     unitListData.ready = true
                 }
             })
