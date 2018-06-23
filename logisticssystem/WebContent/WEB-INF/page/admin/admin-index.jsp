@@ -185,8 +185,8 @@
 				</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a
-							href="/test/test/pages/route/route_list.html" class="nav-link">
-								<i class="fa fa-book nav-icon"></i>
+							href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+							class="nav-link"> <i class="fa fa-book nav-icon"></i>
 								<p>路线列表</p>
 						</a></li>
 						<li class="nav-item"><a
