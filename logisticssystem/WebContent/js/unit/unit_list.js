@@ -92,6 +92,23 @@
                 unitListData.page = unitListData.unitManagerVO.totalPages
                 view_unitList.getAllData()
                 view_unitList.judge()
+            },
+            selectUnitType: function (type) {
+                //单位筛选
+                unitListData.type = type
+                view_unitList.getAllData()
+                view_unitList.judge()
+            },
+            selectUnitState: function (state) {
+                //状态筛选
+                unitListData.state = state
+                view_unitList.getAllData()
+                view_unitList.judge()
+            },
+            selectUnitSearch: function () {
+                //搜索筛选
+                view_unitList.getAllData()
+                view_unitList.judge()
             }
         },
         mounted() {
