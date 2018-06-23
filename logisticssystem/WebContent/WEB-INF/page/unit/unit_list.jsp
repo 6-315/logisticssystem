@@ -12,7 +12,8 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <!-- Theme style -->
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
@@ -381,16 +382,20 @@
                                     <div class="pagePosition">
                                         <ul v-cloak class="pagination">
                                             <li></li>
-                                            <li><a href="#">首页</a></li>
-                                            <li><a href="#">上一页</a></li>
-                                            <li><a>第 1 页/总 2 页/共3条</a></li>
-                                            <li><a> 下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
+                                            <li><a @click="shouye" href="#">首页</a></li>
+                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                                   href="#">上一页</a></li>
+                                            <li><a>第 {{unitManagerVO.pageIndex}} 页/总
+                                                {{unitManagerVO.totalPages}}
+                                                页/共{{unitManagerVO.totalRecords}}条</a></li>
+                                            <li :class="{disabled:nextDisabled}"><a
+                                                    :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
+                                                <%--<span aria-hidden="true">&raquo;</span>--%>
                                             </a></li>
-                                            <li><a href="#">尾页</a></li>
+                                            <li><a @click="weiye" href="#">尾页</a></li>
                                             <li></li>
                                         </ul>
                                     </div>
-                                    <div></div>
                                 </div>
                             </div>
 
@@ -461,47 +466,23 @@
     </div>
 </div>
 <!-- jQuery -->
-<script
+<script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<!-- Bootstrap 4 -->
-<%--<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- DataTables -->
-<script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
-
-<!-- SlimScroll -->
-<script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>--%>
-<!-- AdminLTE App -->
-<!-- AdminLTE for demo purposes -->
-<!-- <script src="../js/demo.js"></script> -->
-<!-- page script -->
-<%--<script>
-$(function () {
-    $("#example2").DataTable({
-        "oLanguage": {
-            "sLengthMenu": "每页显示 _MENU_ 条记录",
-            "sZeroRecords": "对不起，查询不到任何相关数据",
-            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_条记录",
-            "sInfoEmtpy": "找不到相关数据",
-            "sInfoFiltered": "数据表中共为 _MAX_ 条记录)",
-            "sProcessing": "正在加载中...",
-            "sSearch": "搜索",
-            "oPaginate": {
-                "sFirst": "第一页",
-                "sPrevious": " 上一页 ",
-                "sNext": " 下一页 ",
-                "sLast": " 最后一页 "
-            },
-        }
-    });
-});
-</script>--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
 </body>
 </html>
