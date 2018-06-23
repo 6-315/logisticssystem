@@ -4,7 +4,9 @@ import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 
 public class DriverManagerDTO {
-
+/**
+ * 员工表 和 司机表
+ */
 	private staff_basicinfo staff_basicinfo;
 	
 	private driver driver;

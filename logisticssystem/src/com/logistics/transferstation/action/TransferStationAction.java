@@ -72,6 +72,16 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * @return
 	 */
 	private String driverList;
+	
+	private String vehicle;
+
+	public String getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(String vehicle) {
+		this.vehicle = vehicle;
+	}
 
 	public String getDriverList() {
 		return driverList;
@@ -324,7 +334,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
@@ -415,5 +424,13 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter().write("" + transferStationService.getUnitInfo(staffBasicInfo));
 
+	}
+	public void getDiverUnDistributed() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.getDiverUnDistributed(vehicle,driver));
+		
 	}
 }
