@@ -43,4 +43,6 @@ public interface ExpressManagementService2 {
 
 	List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo);
 
+	String updateExpressStateByExpressId(String expressState, express expressNew);
+
 }
