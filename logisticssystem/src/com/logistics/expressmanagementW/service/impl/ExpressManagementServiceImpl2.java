@@ -139,7 +139,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				if ("1".equals(expressRoute.getExpress_route_route_away())) {
 					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
-				}
+				}  
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
