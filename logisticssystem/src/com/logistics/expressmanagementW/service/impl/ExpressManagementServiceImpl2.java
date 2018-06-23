@@ -425,22 +425,29 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			if ("驾驶员".equals(positionNew.getPosition_name())) {
 
 				for (String id : update) {
+
 					express_route expressRoute = new express_route();
 					route routeNew = new route();
 					express expressNew = new express();
-					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
 					expressRoute = expressManagementDao2.getexpressRoute(id);
+					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());
+					System.out.println("iiiii" + expressRoute);
+					System.out.println("LLLL" + routeNew);
 					expressNew = expressManagementDao2.getExpress(id);
 					if ("正向".equals(expressRoute.getExpress_route_route_away())) {
-						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
+						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
 					}
 					if ("反向".equals(expressRoute.getExpress_route_route_away())) {
-						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
+						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
 					}
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-
+					//express_route expressRoute1 = new express_route();
+					//expressRoute1 = expressManagementDao2.getexpressRoute(id);
+					expressRoute.setExpress_route_state("已完成");
+					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao2.saveOrUpdateObject(expressRoute);
 				}
 				return "succcess";
 			}
