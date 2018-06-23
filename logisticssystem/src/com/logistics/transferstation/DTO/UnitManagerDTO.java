@@ -23,6 +23,15 @@ public class UnitManagerDTO {
 	private unit unit;
 	private staff_basicinfo unit_Creator;
 	private staff_basicinfo unit_Admin;
+	private unit staff_unit;
+public unit getStaff_unit() {
+		return staff_unit;
+	}
+
+	public void setStaff_unit(unit staff_unit) {
+		this.staff_unit = staff_unit;
+	}
+
 /**
  * staff_basicinfo中的unit_Creator和unit_Admin
  */

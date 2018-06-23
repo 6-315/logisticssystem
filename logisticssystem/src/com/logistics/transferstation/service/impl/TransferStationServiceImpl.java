@@ -168,7 +168,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 		// sql语句 查询unit表中每一条数据
 		String listTransferStationHql = "from unit where 1=1 ";
 		// 查询管理员信息
-
 		/**
 		 * 根据单位名字和单位类型模糊查询
 		 */
@@ -215,22 +214,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 			listTransferStationHql = listTransferStationHql + " and unit_superiorunit = '"
 					+ transferStationVO.getSuperiorunit().trim() + "'";
 		}
-		/**
-		 * 分页获取自身单位，以及自身以下单位信息
-		 */
 
-		if (staffBasicInfo.getStaff_id() != null && staffBasicInfo.getStaff_id().trim().length() > 0) {
-			System.out.println("qawewrfds" + staffBasicInfo);
-			unit staff_unit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
-			System.out.println("adawdas" + staff_unit);
-			if (staff_unit != null) {
-				transferStationCountHql = transferStationCountHql + " and (unit_id ='" + staff_unit.getUnit_id()
-						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
-				listTransferStationHql = listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id()
-						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
-				System.out.println("12312321441:-----------" + transferStationCountHql);
-			}
-		}
 		/**
 		 * 分页
 		 */
@@ -270,6 +254,24 @@ public class TransferStationServiceImpl implements TransferStationService {
 		for (unit unit : listUnit) {
 			// 实例化unitManagerDTO
 			unitManagerDTO = new UnitManagerDTO();
+
+			/**
+			 * 分页获取自身单位，以及自身以下单位信息
+			 */
+			if (staffBasicInfo != null) {
+				System.out.println("qawewrfds" + staffBasicInfo);
+				unit staff_unit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
+				System.out.println("adawdas" + staff_unit);
+				if (staff_unit != null) {
+					transferStationCountHql = transferStationCountHql + " and (unit_id ='" + staff_unit.getUnit_id()
+							+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
+					listTransferStationHql = listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id()
+							+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
+					unitManagerDTO.setStaff_unit(staff_unit);
+					System.out.println("12312321441:-----------" + transferStationCountHql);
+				}
+			}
+
 			/**
 			 * 获取单位创建者的信息
 			 */
@@ -292,8 +294,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 				System.out.println("987654321");
 			}
 
-			// 把unit set进unitManagerDTO
-			unitManagerDTO.setUnit(unit);
 			// 将DTO放在listDTO
 			listUnitManagerDTO.add(unitManagerDTO);
 		}
