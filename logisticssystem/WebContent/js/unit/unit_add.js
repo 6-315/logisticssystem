@@ -130,6 +130,46 @@
                 },
                 addUnit() {
                     // 添加单位
+                    $.ajax({
+                        url: '',
+                        type: 'POST',
+                        data: {
+                            'transferStation.unit_id': unitAddData.transferStation.unit_id,
+                            'transferStation.unit_num': unitAddData.transferStation.unit_num,
+                            'transferStation.unit_name': unitAddData.transferStation.unit_name,
+                            'transferStation.unit_address': unitAddData.transferStation.unit_address,
+                            'transferStation.unit_detailaddress': unitAddData.transferStation.unit_detailaddress,
+                            'transferStation.unit_type': unitAddData.transferStation.unit_type,
+                            'transferStation.unit_superiorunit': unitAddData.transferStation.unit_superiorunit,
+                            'transferStation.unit_creator': unitAddData.transferStation.unit_creator,
+                            'transferStation.unit_state': unitAddData.transferStation.unit_state,
+                            'transferStation.unit_admin': unitAddData.transferStation.unit_admin,
+                            'transferStation.unit_phonenumber': unitAddData.transferStation.unit_phonenumber,
+                            'transferStation.unit_createtime': unitAddData.transferStation.unit_createtime,
+                            'transferStation.unit_modifytime': unitAddData.transferStation.unit_modifytime
+                        },
+                        success: function (data) {
+                            if (data === null) {
+                                toastr.error('添加失败')
+                            } else {
+                                let transferStation = JSON.parse(data)
+                                unitAddData.transferStation.unit_id = transferStation.unit_id
+                                unitAddData.transferStation.unit_num = transferStation.unit_num
+                                unitAddData.transferStation.unit_name = transferStation.unit_name
+                                unitAddData.transferStation.unit_address = transferStation.unit_address
+                                unitAddData.transferStation.unit_detailaddress = transferStation.unit_detailaddress
+                                unitAddData.transferStation.unit_type = transferStation.unit_type
+                                unitAddData.transferStation.unit_superiorunit = transferStation.unit_superiorunit
+                                unitAddData.transferStation.unit_creator = transferStation.unit_creator
+                                unitAddData.transferStation.unit_state = transferStation.unit_state
+                                unitAddData.transferStation.unit_admin = transferStation.unit_admin
+                                unitAddData.transferStation.unit_phonenumber = transferStation.unit_phonenumber
+                                unitAddData.transferStation.unit_createtime = transferStation.unit_createtime
+                                unitAddData.transferStation.unit_modifytime = transferStation.unit_modifytime
+                                toastr.success('添加成功')
+                            }
+                        }
+                    })
                 }
             }
         })
