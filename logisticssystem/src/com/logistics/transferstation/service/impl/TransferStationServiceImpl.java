@@ -268,6 +268,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					listTransferStationHql = listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id()
 							+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
 					unitManagerDTO.setStaff_unit(staff_unit);
+					System.out.println("wsawedasegfg"+ staff_unit);
 					System.out.println("12312321441:-----------" + transferStationCountHql);
 				}
 			}
@@ -296,6 +297,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 			// 将DTO放在listDTO
 			listUnitManagerDTO.add(unitManagerDTO);
+			System.out.println("23321"+listUnitManagerDTO);
 		}
 		// 将listDTO放在VO里面
 		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
