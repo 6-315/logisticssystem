@@ -171,6 +171,38 @@
                         }
                     })
                 }
+            },
+            mounted() {
+                //获取后台数据
+                let obj = $('#shuju').val()
+                if (obj.length === 0) {
+                    return
+                }
+                $.ajax({
+                    url: '/logisticssystem/transferstation/transferstation_getUnitAdmin',
+                    type: 'POST',
+                    data: {
+                        'transferStation.unit_id': obj
+                    },
+                    success: function (data) {
+                        if (data != null) {
+                            let transferStation = JSON.parse(data)
+                            unitAddData.transferStation.unit_id = transferStation.unitNew.unit_id
+                            unitAddData.transferStation.unit_num = transferStation.unitNew.unit_num
+                            unitAddData.transferStation.unit_name = transferStation.unitNew.unit_name
+                            unitAddData.transferStation.unit_address = transferStation.unitNew.unit_address
+                            unitAddData.transferStation.unit_detailaddress = transferStation.unitNew.unit_detailaddress
+                            unitAddData.transferStation.unit_type = transferStation.unitNew.unit_type
+                            unitAddData.transferStation.unit_superiorunit = transferStation.unitNew.unit_superiorunit
+                            unitAddData.transferStation.unit_creator = transferStation.unitNew.unit_creator
+                            unitAddData.transferStation.unit_state = transferStation.unitNew.unit_state
+                            unitAddData.transferStation.unit_admin = transferStation.unitNew.unit_admin
+                            unitAddData.transferStation.unit_phonenumber = transferStation.unitNew.unit_phonenumber
+                            unitAddData.transferStation.unit_createtime = transferStation.unitNew.unit_createtime
+                            unitAddData.transferStation.unit_modifytime = transferStation.unitNew.unit_modifytime
+                        }
+                    }
+                })
             }
         })
 })()

@@ -136,12 +136,14 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                    class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -245,6 +247,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>单位名称</label>
+                                    <input id="shuju" type="hidden" value="${idList}">
                                     <input type="text" class="form-control"
                                            v-model="transferStation.unit_name"
                                            placeholder="请输入名称..">
