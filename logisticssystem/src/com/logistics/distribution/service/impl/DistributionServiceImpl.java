@@ -1,15 +1,7 @@
 package com.logistics.distribution.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.mapping.Array;
-
-import com.logistics.distribution.DTO.UnitManagerDTO;
-import com.logistics.distribution.VO.UnitManagerVO;
 import com.logistics.distribution.dao.DistributionDao;
 import com.logistics.distribution.service.DistributionService;
-import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 
 import util.BuildUuid;
@@ -29,81 +21,89 @@ public class DistributionServiceImpl implements DistributionService {
 	}
 
 	/**
-	 * 添加配送点业务逻辑实现层
+	 * 添加配送点
 	 */
 	@Override
-	public int addDistributionAction(unit distribution) {
+	public String addDistribution(unit distribution) {
+		unit unit = new unit();
+		String maxNum = distributionDao.getDistributionByNum(unit.getUnit_num());
+		System.out.println("qaqaqaq"+maxNum);
+		unit superiorunit = distributionDao.getDistributionInfoById(distribution.getUnit_superiorunit());
+		System.out.println("asasasas"+superiorunit);
+		String beforNum = superiorunit.getUnit_num();
+		System.out.println("wewewe"+beforNum);
+		if(beforNum!=null&&superiorunit!=null) {
+		if (maxNum != null) {
+			maxNum = maxNum.substring(5);
+			int nextNum = Integer.parseInt(maxNum);
+			nextNum = nextNum + 1;
+			String num = String.format("%02d", nextNum);
+			distribution.setUnit_num(beforNum+'B'+num);
+			System.out.println("sandanand" + num);
+		} else {
+			int nextNum = 1;
+			String num = String.format("%02d", nextNum);
+			distribution.setUnit_num(beforNum+'B'+num);
+			System.out.println("lalalalala" + num);
+		}
+		}
 		distribution.setUnit_id(BuildUuid.getUuid());
 		distribution.setUnit_createtime(TimeUtil.getStringSecond());
 		distribution.setUnit_modifytime(TimeUtil.getStringSecond());
-		distribution.setUnit_state("1");
-		System.out.println("start:" + distribution);
 		distributionDao.saveOrUpdateObject(distribution);
-		return 1;
-	}
-	/**
-	 * 获取单位列表信息和分页显示的业务逻辑
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public UnitManagerVO getUnitManagerVO(UnitManagerVO unitManagerVO) {
-		
-	
-		// TODO Auto-generated method stub
-		List<UnitManagerDTO> unitManagerDTO=new ArrayList();
-		List<unit> distribution=new ArrayList<>();
-		
-		String selectPaging = "select count(*) from unit where unit_state = '1'";
-		String selectTable = "from unit where unit_state = '1'";
-		//查询：
-		if(unitManagerVO.getSearch()!=null&&unitManagerVO.getSearch().trim().length()>0 ) {
-			String search = "%"+unitManagerVO.getSearch()+"%";
-			selectPaging = selectPaging + " and unit like '" + search + "' ";
-			selectTable = selectTable + " and unit like '" + search + "'";
-		}
-		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
-		
-		selectTable = selectTable + "order by unit_state desc";
-		int userInfoCount = distributionDao.getCount(selectPaging);
-		// 设置总数量
-		unitManagerVO.setTotalRecords(userInfoCount);
-		// 设置总页数
-		unitManagerVO.setTotalPages(((userInfoCount - 1) / unitManagerVO.getPageSize()) + 1);
-		// 判断是否拥有上一页
-		if (unitManagerVO.getPageIndex() <= 1) {
-			unitManagerVO.setHavePrePage(false);
-		} else {
-			unitManagerVO.setHavePrePage(true);
-		}
-		// 判断是否拥有下一页
-		if (unitManagerVO.getPageIndex() >= unitManagerVO.getTotalPages()) {
-			unitManagerVO.setHaveNextPage(false);
-		} else {
-			unitManagerVO.setHaveNextPage(true);
-		}
-		distribution = (List<unit>) (distributionDao.queryForPage(selectTable, unitManagerVO.getPageIndex(),
-				unitManagerVO.getPageSize()));
-		
-		distribution=(List<unit>) distributionDao.listObject("from unit where unit_state= 1");
-		for (unit unit : distribution) {
-			System.out.println("这是什么"+unit.getUnit_admin());
-			UnitManagerDTO unitDTO=new UnitManagerDTO();
-			unit unit1=new unit();
-			staff_basicinfo unitAdmin=new staff_basicinfo();
-			List<staff_basicinfo> listStaff = new ArrayList<>();
-			List<staff_basicinfo> listStaff1 = new ArrayList<>();
-			listStaff =  (List<staff_basicinfo>) distributionDao.listObject(" from staff_basicinfo  where staff_id='"+unit.getUnit_admin()+"'");
-			listStaff1 =  (List<staff_basicinfo>) distributionDao.listObject(" from staff_basicinfo  where staff_id='"+unit.getUnit_creator()+"'");
-			System.out.println("_____:"+listStaff.get(0).getStaff_num());
-			System.out.println("555:"+unitAdmin);
-			unitDTO.setUnitAdmin(listStaff.get(0));
-			unitDTO.setUnitCreator(listStaff1.get(0));
-			unitDTO.setUnitInfo(unit);
-			System.out.println("wwwwwwwwwwwwww"+unitDTO);
-			unitManagerDTO.add(unitDTO);
-		}
-		unitManagerVO.setUnitManagerDTO(unitManagerDTO);
-		return unitManagerVO;
+		return "success";
 	}
 
+	/**
+	 * 修改配送点
+	 */
+	@Override
+	public String updateDistribution(unit distribution) {
+		unit update = new unit();
+		update = distributionDao.getDistributionInfoById(distribution.getUnit_id());
+		update.setUnit_address(distribution.getUnit_address());
+		update.setUnit_state(distribution.getUnit_state());
+		update.setUnit_admin(distribution.getUnit_admin());
+		distributionDao.saveOrUpdateObject(update);
+		return "success";
+	}
+
+	/**
+	 * 批量删除配送点
+	 */
+	@Override
+	public String deleteDistribution(String idList) {
+		if (idList != null && idList.trim().length() > 0) {
+			/*
+			 * 将获得的对象转化为数组
+			 */
+			String[] deleteDistributionById = idList.split(",");
+			/**
+			 * 遍历需要删除的配送点数组
+			 */
+			for (String id : deleteDistributionById) {
+				/**
+				 * 如果数据库存在需要删除的配送点的id
+				 */
+				if (distributionDao.getDistributionInfoById(id) != null) {
+					distributionDao.removeObject(distributionDao.getDistributionInfoById(id));
+					System.out.println("shanchuchenggong111111");
+					return "deleteSuccess";
+				}
+				/**
+				 * 如果数据库不存在需要删除的配送点的id
+				 */
+				else {
+					System.out.println("删除失败");
+					return "deleteFailed";
+				}
+			}
+		}
+		return "deleteFailed";
+
+	}
 }
+
+/**
+ * 中转站管理员可以查看所有配送点信息
+ */

@@ -32,7 +32,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	public StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo) {
 		if (staffBasicinfo == null) {
 			return null;
-		}		
+		}
 		String number = "";
 		String table = "";
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
@@ -200,7 +200,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			List<unit> listUnit = new ArrayList<>();
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
-			if ("总公司".equals(positionNew.getPosition_name())) {
+			if ("总公司管理员".equals(positionNew.getPosition_name())) {
+				System.out.println("????????");
 				listUnit = new ArrayList<>();
 				listUnit = (List<unit>) personnelManagementDao
 						.listObject("from unit where unit_type ='中转站' or unit_type='配送点'");
@@ -209,7 +210,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				listUnit = new ArrayList<>();
 				listUnit = (List<unit>) personnelManagementDao
-						.listObject("from unit where unit_creator = '" + staffBasicinfo.getStaff_id() + "'");
+						.listObject("from unit where unit_superiorunit = '" + staffBasicinfo.getStaff_unit() + "'");
 				return listUnit;
 			}
 		}

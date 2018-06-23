@@ -111,7 +111,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	/**
 	 * 快件列表
 	 */
-	private ExpressInfoVO expressVO;
+	private ExpressInfoVO expressInfoVO;
 	/**
 	 * 预约列表
 	 */
@@ -129,9 +129,101 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	private String state = "";
 	/**
+	 * 单位
+	 */
+	private String unit = "";
+	/**
+	 * 关键词
+	 */
+	private String search = "";
+	/**
+	 * 当前页
+	 */
+	private int page = 1;
+	/**
 	 * 配送员
 	 */
 	private distributiontor distributor;
+	/**
+	 * 根据是否分配进行筛选
+	 */
+	private String isDistributed = "";
+	/**
+	 * 是否分配配送点
+	 */
+	private String isDistributedDistribution = "";
+	/**
+	 * 是否分配配送员
+	 */
+	private String isDistributedDistributor = "";
+	/**
+	 * 方向
+	 */
+	private String id_directionList;
+
+	public String getId_directionList() {
+		return id_directionList;
+	}
+
+	public void setId_directionList(String id_directionList) {
+		this.id_directionList = id_directionList;
+	}
+
+	public ExpressInfoVO getExpressInfoVO() {
+		return expressInfoVO;
+	}
+
+	public void setExpressInfoVO(ExpressInfoVO expressInfoVO) {
+		this.expressInfoVO = expressInfoVO;
+	}
+
+	public String getIsDistributedDistribution() {
+		return isDistributedDistribution;
+	}
+
+	public void setIsDistributedDistribution(String isDistributedDistribution) {
+		this.isDistributedDistribution = isDistributedDistribution;
+	}
+
+	public String getIsDistributedDistributor() {
+		return isDistributedDistributor;
+	}
+
+	public void setIsDistributedDistributor(String isDistributedDistributor) {
+		this.isDistributedDistributor = isDistributedDistributor;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public String getIsDistributed() {
+		return isDistributed;
+	}
+
+	public void setIsDistributed(String isDistributed) {
+		this.isDistributed = isDistributed;
+	}
 
 	public distributiontor getDistributor() {
 		return distributor;
@@ -171,14 +263,6 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	public void setReservationVO(ReservationVO reservationVO) {
 		this.reservationVO = reservationVO;
-	}
-
-	public ExpressInfoVO getExpressVO() {
-		return expressVO;
-	}
-
-	public void setExpressVO(ExpressInfoVO expressVO) {
-		this.expressVO = expressVO;
 	}
 
 	public vehicle getVehicleInfo() {
@@ -277,7 +361,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateReservation() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.updateReservation(idList,state));
+		response.getWriter().write("" + expressManagementService.updateReservation(idList, state));
 	}
 
 	/**
@@ -287,12 +371,11 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void updateReservationWithDistributor() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter()
-				.write("" + expressManagementService.updateReservationWithDistributor(idList,distributor));
+		response.getWriter().write("" + expressManagementService.updateReservationWithDistributor(idList, distributor));
 	}
 
 	/**
-	 * 上门取件
+	 * 生成快件表和流转表
 	 * 
 	 * @throws IOException
 	 */
@@ -306,7 +389,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.completePickExpress(staffInfo)));
+		response.getWriter()
+				.write(gson.toJson(expressManagementService.completePickExpress(expressAndCirculationDTO, staffInfo)));
 	}
 
 	/**
@@ -314,10 +398,12 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	public void updateExpressState() throws IOException {
-		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.updateExpressState(expressInfo));
-	}
+	/*
+	 * public void updateExpressState() throws IOException {
+	 * response.setContentType("text/html;charset=utf-8");
+	 * response.getWriter().write("" +
+	 * expressManagementService.updateExpressState(expressInfo)); }
+	 */
 
 	/**
 	 * 扫描（判断快件类型）
@@ -325,13 +411,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unused")
-	private void judgeExpressType() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+	public void judgeExpressType() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.judgeExpressType(expressInfo));
 	}
@@ -343,7 +423,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void saveExpressRoute() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.saveExpressRoute(idList, expressInfo));
+		response.getWriter().write("" + expressManagementService.saveExpressRoute(id_directionList,expressInfo));
 	}
 
 	/**
@@ -372,7 +452,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter().write("" + expressManagementService
-				.updateVehicleAndExpressCirculationAndExpressInfo(expressInfo, vehicleInfo, staffInfo));
+				.updateVehicleAndExpressCirculationAndExpressInfo(expressAndCirculationDTO, staffInfo));
 	}
 
 	/**
@@ -388,9 +468,16 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ExpressInfoVO expressInfoVO = new ExpressInfoVO();
+		expressInfoVO.setPageIndex(page);
+		expressInfoVO.setSearch(search);
+		expressInfoVO.setState(state);
+		expressInfoVO.setUnit(unit);
+		expressInfoVO.setIsDistributedDistribution(isDistributedDistribution);
+		expressInfoVO.setIsDistributedDistributor(isDistributedDistributor);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressVO, staffInfo)));
+		response.getWriter().write(gson.toJson(expressManagementService.queryExpressInfo(expressInfoVO, staffInfo)));
 	}
 
 	/**
@@ -406,6 +493,12 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ReservationVO reservationVO = new ReservationVO();
+		reservationVO.setPageIndex(page);
+		reservationVO.setSearch(search);
+		reservationVO.setState(state);
+		reservationVO.setUnit(unit);
+		reservationVO.setIsDistributed(isDistributed);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
@@ -426,6 +519,10 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
+		ReservationOrderHistoryVO reservationOrderHistoryVO = new ReservationOrderHistoryVO();
+		reservationOrderHistoryVO.setPageIndex(page);
+		reservationOrderHistoryVO.setSearch(search);
+		reservationOrderHistoryVO.setState(state);
 		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0) {
 			response.getWriter()
 					.write("" + expressManagementService.queryOrderHistory(reservationOrderHistoryVO, userInfo));
@@ -477,6 +574,36 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + expressManagementService.updateReservationInfo(reservationExpressInfoDTO));
 
+	}
+
+	/**
+	 * 重定向到action
+	 */
+	public String skipPage() {
+		return "add";
+	}
+
+	/*
+	 * 跳转到添加快件的页面
+	 */
+	public String pageAddExpress() {
+		return "pageAddExpress";
+	}
+
+	/**
+	 * 查看当前预约单信息
+	 * 
+	 * @throws IOException
+	 */
+	public void queryCurrentReservationInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
 
 }

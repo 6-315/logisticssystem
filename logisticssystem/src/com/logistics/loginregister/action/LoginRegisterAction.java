@@ -241,6 +241,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到预约管理页面
+	 */
+	public String pageReservationManager() {
+		return "pageReservationManager";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
@@ -372,7 +379,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		request.getSession().setAttribute("type", "");
 		request.getSession().setAttribute("staff_session", "");
 		request.getSession().setAttribute("userInfoSession", "");
+		request.getSession().setAttribute("superAdminStaff", "");
+		request.getSession().setAttribute("transAdminStaff", "");
+		request.getSession().setAttribute("deliveryAdminStaff", "");
+		request.getSession().setAttribute("teamStaff", "");
+		request.getSession().setAttribute("driverStaff", "");
 		response.getWriter().write("" + "注销成功");
+		 
 
 	}
 }

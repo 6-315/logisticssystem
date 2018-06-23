@@ -6,20 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.logistics.domain.distributiontor;
-import com.logistics.domain.express;
-import com.logistics.domain.express_circulation;
-import com.logistics.domain.express_route;
-import com.logistics.domain.expressinfo;
-import com.logistics.domain.position;
-import com.logistics.domain.reservation;
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.unit;
-import com.logistics.domain.userinfo;
-import com.logistics.domain.vehicle;
+import com.logistics.domain.*;
 import com.logistics.expressmanagement.dao.ExpressManagementDao;
+
 /**
  * DAO 实现
+ * 
  * @author LW
  *
  */
@@ -81,6 +73,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		session.clear();
 		return list;
 	}
+
 	/**
 	 * 获取对象总数量
 	 * 
@@ -97,6 +90,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 			return 0;
 		}
 	}
+
 	/**
 	 * 移除对象
 	 */
@@ -105,6 +99,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		getSession().delete(obj);
 		return 1;
 	}
+
 	/**
 	 * 获取对象列表
 	 */
@@ -221,11 +216,11 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	@Override
 	public String getExpressRouteInfoByExpressId(String express_id) {
 		Session session = getSession();
-		String hql = "select express_route_superior from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by --express_route_superior limit 1 ";
+		String hql = "select express_route_route_id from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		String expressRouteInfo = (String) query.uniqueResult();
-		return expressRouteInfo;
+		String expressRoute = (String) query.uniqueResult();
+		return expressRoute;
 	}
 
 	/**
@@ -308,6 +303,90 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", staff_position);
 		staffPosition = (position) query.uniqueResult();
 		return staffPosition;
+	}
+
+	/**
+	 * 根据配送员ID查询派送表信息
+	 */
+	@Override
+	public express_send getExpressSendInfoByDistributorId(String distributiontor_id) {
+		express_send expressSendInfo = new express_send();
+		Session session = getSession();
+		String hql = "from express_send where express_send_distributiontor = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", distributiontor_id);
+		expressSendInfo = (express_send) query.uniqueResult();
+		return expressSendInfo;
+	}
+
+	/**
+	 * 根据员工ID查询驾驶员表信息
+	 */
+	@Override
+	public driver getDriverInfoByBasicInfo(String staff_id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_basicinfoid = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
+	}
+
+	/**
+	 * 根据车辆ID查询车辆-快件关联表信息
+	 */
+	@Override
+	public vehicle_express_relevance getVehicleExpressRelevanceByVehicleId(String driver_vehicle) {
+		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+		Session session = getSession();
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_vehicleinfo = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", driver_vehicle);
+		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
+		return vehicleExpressRelevance;
+	}
+
+	/**
+	 * 根据快件ID查询流转表信息
+	 */
+	@Override
+	public express_circulation getExpressCirculationInfoByExpressId(String express_id) {
+		express_circulation expressCirculation = new express_circulation();
+		Session session = getSession();
+		String hql = "from express_circulation where express_circulation_express_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		expressCirculation = (express_circulation) query.uniqueResult();
+		return expressCirculation;
+	}
+
+	/**
+	 * 根据ID查路线
+	 */
+	@Override
+	public route getRouteInfoById(String express_route_route_id) {
+		route routeInfo = new route();
+		Session session = getSession();
+		String hql = "from route where route_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_route_route_id);
+		routeInfo = (route) query.uniqueResult();
+		return routeInfo;
+	}
+
+	/**
+	 * 根据快件ID查询流转信息
+	 */
+	@Override
+	public vehicle_express_relevance getVehicleExpressRelevanceByExpressId(String express_id) {
+		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+		Session session = getSession();
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
+		return vehicleExpressRelevance;
 	}
 
 }

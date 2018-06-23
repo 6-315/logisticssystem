@@ -9,7 +9,7 @@ import com.logistics.domain.*;
  * @author LMJ
  *
  */
-public class VehicleDTO {
+public class VehicleDTOManager {
 	/**
 	 * 车辆信息表
 	 */
@@ -25,7 +25,7 @@ public class VehicleDTO {
 	/**
 	 * 车队信息
 	 */
-	private Vehicle_TeamDTO vehicle_TeamDTO;
+	private VehicleTeamManagerDTO vehicle_TeamDTO;
 
 	public vehicle getVehicleInfo() {
 		return vehicleInfo;
@@ -51,11 +51,11 @@ public class VehicleDTO {
 		this.unit = unit;
 	}
 
-	public Vehicle_TeamDTO getVehicle_TeamDTO() {
+	public VehicleTeamManagerDTO getVehicle_TeamDTO() {
 		return vehicle_TeamDTO;
 	}
 
-	public void setVehicle_TeamDTO(Vehicle_TeamDTO vehicle_TeamDTO) {
+	public void setVehicle_TeamDTO(VehicleTeamManagerDTO vehicle_TeamDTO) {
 		this.vehicle_TeamDTO = vehicle_TeamDTO;
 	}
 

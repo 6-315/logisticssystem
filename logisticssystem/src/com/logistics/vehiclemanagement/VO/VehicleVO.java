@@ -2,7 +2,7 @@ package com.logistics.vehiclemanagement.VO;
 
 import java.util.List;
 
-import com.logistics.vehiclemanagement.DTO.VehicleDTO;
+import com.logistics.vehiclemanagement.DTO.VehicleDTOManager;
 
 /**
  * 车辆查询分页功能
@@ -14,7 +14,7 @@ public class VehicleVO {
 	/**
 	 * 车辆信息list列表
 	 */
-	private List<VehicleDTO> listVehicleDTO;
+	private List<VehicleDTOManager> listVehicleDTO;
 	/**
 	 * 需要显示的页码
 	 */
@@ -61,11 +61,11 @@ public class VehicleVO {
 	 */
 	private String idList;
 
-	public List<VehicleDTO> getListVehicleDTO() {
+	public List<VehicleDTOManager> getListVehicleDTO() {
 		return listVehicleDTO;
 	}
 
-	public void setListVehicleDTO(List<VehicleDTO> listVehicleDTO) {
+	public void setListVehicleDTO(List<VehicleDTOManager> listVehicleDTO) {
 		this.listVehicleDTO = listVehicleDTO;
 	}
 

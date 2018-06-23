@@ -32,6 +32,14 @@ public class express {
 	 */
 	private String express_state;
 	/**
+	 * 是否分配到配送点
+	 */
+	private String express_isdistributeddistribution;
+	/**
+	 * 是否分配到配送员
+	 */
+	private String express_isdistributeddistributor;
+	/**
 	 * 快件始发站
 	 */
 	private String express_originating;
@@ -96,6 +104,22 @@ public class express {
 		this.express_state = express_state;
 	}
 
+	public String getExpress_isdistributeddistribution() {
+		return express_isdistributeddistribution;
+	}
+
+	public void setExpress_isdistributeddistribution(String express_isdistributeddistribution) {
+		this.express_isdistributeddistribution = express_isdistributeddistribution;
+	}
+
+	public String getExpress_isdistributeddistributor() {
+		return express_isdistributeddistributor;
+	}
+
+	public void setExpress_isdistributeddistributor(String express_isdistributeddistributor) {
+		this.express_isdistributeddistributor = express_isdistributeddistributor;
+	}
+
 	public String getExpress_originating() {
 		return express_originating;
 	}
@@ -132,9 +156,11 @@ public class express {
 	public String toString() {
 		return "express [express_id=" + express_id + ", express_expressinfoid=" + express_expressinfoid
 				+ ", express_number=" + express_number + ", express_belong=" + express_belong + ", express_belongunit="
-				+ express_belongunit + ", express_state=" + express_state + ", express_originating="
-				+ express_originating + ", express_end=" + express_end + ", express_createtime=" + express_createtime
-				+ ", express_modifytime=" + express_modifytime + "]";
+				+ express_belongunit + ", express_state=" + express_state + ", express_isdistributeddistribution="
+				+ express_isdistributeddistribution + ", express_isdistributeddistributor="
+				+ express_isdistributeddistributor + ", express_originating=" + express_originating + ", express_end="
+				+ express_end + ", express_createtime=" + express_createtime + ", express_modifytime="
+				+ express_modifytime + "]";
 	}
 
 }
