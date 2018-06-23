@@ -60,6 +60,14 @@ public class VehicleVO {
 	 * 根据id批量删除
 	 */
 	private String idList;
+	/**
+	 * 根据分配状态筛选
+	 */
+	private String distributionState;
+	/**
+	 * 根据载货状态筛选
+	 */
+	private String expressState;
 
 	public List<VehicleDTOManager> getListVehicleDTO() {
 		return listVehicleDTO;
@@ -157,12 +165,29 @@ public class VehicleVO {
 		this.idList = idList;
 	}
 
+	public String getDistributionState() {
+		return distributionState;
+	}
+
+	public void setDistributionState(String distributionState) {
+		this.distributionState = distributionState;
+	}
+
+	public String getExpressState() {
+		return expressState;
+	}
+
+	public void setExpressState(String expressState) {
+		this.expressState = expressState;
+	}
+
 	@Override
 	public String toString() {
-		return "vehicleVO [listVehicleDTO=" + listVehicleDTO + ", pageIndex=" + pageIndex + ", totalRecords="
+		return "VehicleVO [listVehicleDTO=" + listVehicleDTO + ", pageIndex=" + pageIndex + ", totalRecords="
 				+ totalRecords + ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", HavePrePage="
 				+ HavePrePage + ", HaveNextPage=" + HaveNextPage + ", search=" + search + ", state=" + state + ", unit="
-				+ unit + ", team=" + team + ", idList=" + idList + "]";
+				+ unit + ", team=" + team + ", idList=" + idList + ", distributionState=" + distributionState
+				+ ", expressState=" + expressState + "]";
 	}
 
 }

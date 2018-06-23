@@ -67,9 +67,10 @@ public interface VehicleManagementService {
 	/**
 	 * 查询车队信息
 	 * @param teamInfoVO
+	 * @param staffInfo 
 	 * @return
 	 */
-	public TeamVO queryTeam(TeamVO teamInfoVO);
+	public TeamVO queryTeam(TeamVO teamInfoVO, staff_basicinfo staffInfo);
 
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
 

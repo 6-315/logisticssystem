@@ -2,6 +2,7 @@ package com.logistics.vehiclemanagement.dao;
 
 import java.util.List;
 
+import com.logistics.domain.driver;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -95,6 +96,10 @@ public interface VehicleManagementDao {
 	public position getPostionByName(String position);
 
 	public List<staff_basicinfo> getListManager(String hql);
+
+	public position getPostionById(String staff_position);
+
+	public driver getDriverInfoByStaffId(String staff_id);
 
 	/**
 	 * 
