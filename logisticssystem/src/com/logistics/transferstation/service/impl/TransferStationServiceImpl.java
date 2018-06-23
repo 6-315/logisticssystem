@@ -240,14 +240,14 @@ public class TransferStationServiceImpl implements TransferStationService {
 			transferStationVO.setHaveNextPage(true);
 		}
 		UnitManagerVO unitManagerVO = new UnitManagerVO();
-		System.out.println("0.0.0.0.0.0");
+		System.out.println("0.0.0.0.0.0"+transferStationVO.getPageIndex());
 		/**
 		 * 分页获取单位列表
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 				
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-             
+            
 		// 遍历unit表
 		for (unit unit : listUnit) {
 			// 实例化unitManagerDTO
