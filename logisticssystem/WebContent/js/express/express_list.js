@@ -29,13 +29,15 @@
         expressListR: [],
         tmpExpressId: '',
         tmpVehicleExpressId: '',
+        tmpReserExpressId: '',
         ExpressRouteDTO: {
             listRouteDTO: [],
             currentUnit: ''
         },
         lastAddress: '',
         routeDirectionArr: [],
-        vehicleList: []
+        vehicleList: [],
+        reserList: []
     }
 
 
@@ -346,6 +348,25 @@
                         }
                     }
                 })
+            },
+            distributionExpressToReser(expressId) {
+                expressData.tmpReserExpressId = expressId
+                //获取配送点信息
+                $.ajax({
+                    url: '/logisticssystem',
+                    type: 'POST',
+                    data: {},
+                    success: function (data) {
+                        if (data === null) {
+                            toastr.error('系统错误，获取配送点失败')
+                        } else {
+                            let listReser = JSON.parse(data)
+                            console.log('list:', listReser)
+                            expressData.reserList = listReser
+                            $('#expressReser').modal()
+                        }
+                    }
+                })
             }
         },
         mounted() {
@@ -356,7 +377,7 @@
                 data: '',
                 success: function (data) {
                     let uList = JSON.parse(data)
-                    expressData.unitList = uList
+                    expressData.expressData.unitList = uList
                 }
             })
             $.ajax({
