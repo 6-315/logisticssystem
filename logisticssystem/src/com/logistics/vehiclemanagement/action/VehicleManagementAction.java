@@ -14,6 +14,7 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.*;
+import com.logistics.vehiclemanagement.DTO.ManagerDTO;
 import com.logistics.vehiclemanagement.VO.*;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -138,6 +139,18 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 根据载货状态筛选
 	 */
 	private String expressState = "";
+	/**
+	 * 管理员信息
+	 */
+	private List<ManagerDTO> listManagerDTO;
+
+	public List<ManagerDTO> getListManagerDTO() {
+		return listManagerDTO;
+	}
+
+	public void setListManagerDTO(List<ManagerDTO> listManagerDTO) {
+		this.listManagerDTO = listManagerDTO;
+	}
 
 	public String getDistributionState() {
 		return distributionState;
@@ -307,7 +320,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		vehicleInfoVO.setExpressState(expressState);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO,staffInfo);
+		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO, staffInfo);
 		response.getWriter().write(gson.toJson(vehicleInfoVO));
 	}
 
@@ -415,7 +428,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setTeamLeader(teamLeader);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO,staffInfo);
+		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO, staffInfo);
 		response.getWriter().write(gson.toJson(teamInfoVO));
 	}
 
@@ -435,10 +448,10 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
 	}
 
-	
 	/**
 	 * 获取所有管理员
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void getAllManager() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
