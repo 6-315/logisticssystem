@@ -470,7 +470,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.getUnitAdmin(transferStation));
+		response.getWriter().write(gson.toJson(transferStationService.getUnitAdmin(transferStation)));
 	}
 	
 }

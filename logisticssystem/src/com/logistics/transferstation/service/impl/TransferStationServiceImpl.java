@@ -41,7 +41,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 	@Override
 	public unit addTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
 		System.out.println("fdfdfd" + staffBasicInfo);
-		if (transferStation.getUnit_id() != null && transferStation.getUnit_id().trim().length() > 0) {
+		if (transferStation.getUnit_id() == null || transferStation.getUnit_id()=="") {
 			unit unit = new unit();
 			position position = new position();
 			if (staffBasicInfo != null) {
