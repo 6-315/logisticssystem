@@ -41,4 +41,8 @@ public interface ExpressManagementService2 {
 
 	String updateNotScan(String listExpressId, staff_basicinfo staffBasicinfo);
 
+	List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo);
+
+	String updateExpressStateByExpressId(String expressState, express expressNew);
+
 }

@@ -422,7 +422,7 @@
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressState',
                     type: 'POST',
                     data: {
-                        'getExpressAndDispatcherDTO.expressNew.express_id': expressData.tmpReserExpressId,
+                        'getExpressAndDispatcherDTO.expressNew.express_id': expressData.psiSongExpressId,
                         'getExpressAndDispatcherDTO.staffBasicInfo.staff_id': staffPeiSongId
                     },
                     success: function (data) {

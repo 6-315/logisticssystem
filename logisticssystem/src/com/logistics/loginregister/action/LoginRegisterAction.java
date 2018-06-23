@@ -248,6 +248,24 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到单位列表
+	 * 
+	 * @return
+	 */
+	public String pageUnitList() {
+		return "pageUnitList";
+	}
+
+	/**
+	 * 跳转到单位列表
+	 * 
+	 * @return
+	 */
+	public String pageRouteList() {
+		return "pageUnitList";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
@@ -385,7 +403,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		request.getSession().setAttribute("teamStaff", "");
 		request.getSession().setAttribute("driverStaff", "");
 		response.getWriter().write("" + "注销成功");
-		 
 
 	}
 }
