@@ -217,7 +217,7 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 	@Override
 	public List<staff_basicinfo> getListManager(String hql) {
 		Session session = getSession();
-		Query query = session.createSQLQuery(hql);
+		Query query = session.createSQLQuery(hql).addEntity(staff_basicinfo.class);
 		List<staff_basicinfo> list = query.list();
 		session.clear();
 		return list;
