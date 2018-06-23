@@ -342,7 +342,7 @@
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据搜索" type="text"
+                                    <input placeholder="据搜索" @input="selectUnitSearch" v-model="search" type="text"
                                            class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>
@@ -358,10 +358,11 @@
 														<a class="dropdown-toggle" data-toggle="dropdown">单位类型<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
-															<li><a href="#">单位类型(所有)</a></li>
-															<li><a href="#">总公司</a></li>
-															<li><a href="#">中转站</a></li>
-															<li><a href="#">配送点</a></li>
+															<li><a @click="selectUnitType('')"
+                                                                   href="#">单位类型(所有)</a></li>
+															<li><a @click="selectUnitType('总公司')" href="#">总公司</a></li>
+															<li><a @click="selectUnitType('中转站')" href="#">中转站</a></li>
+															<li><a @click="selectUnitType('配送点')" href="#">配送点</a></li>
 														</ul>
 												</span></th>
                                             <th>联系方式</th>
@@ -371,10 +372,11 @@
 														<a class="dropdown-toggle" data-toggle="dropdown">状态<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
-															<li><a href="#">状态(所有)</a></li>
-															<li><a href="#">正常使用</a></li>
-															<li><a href="#">未启用</a></li>
-															<li><a href="#">已废弃</a></li>
+															<li><a @click="selectUnitState('')" href="#">状态(所有)</a></li>
+															<li><a @click="selectUnitState('正常使用')"
+                                                                   href="#">正常使用</a></li>
+															<li><a @click="selectUnitState('未启用')" href="#">未启用</a></li>
+															<li><a @click="selectUnitState('已废弃')" href="#">已废弃</a></li>
 														</ul>
 												</span></th>
                                             <th>操作</th>
@@ -388,8 +390,13 @@
                                             <td v-html="unitManagerDTO.unit.unit_address"></td>
                                             <td>{{unitManagerDTO.unit.unit_type}}</td>
                                             <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
-                                            <td>{{unitManagerDTO.unit_Admin.staff_num}}</td>
-                                            <td>{{unitManagerDTO.unit_Admin.staff_name}}</td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin !=
+                                                undefined?unitManagerDTO.unit_Admin.staff_num:''}}
+                                            </td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
+                                            </td>
                                             <td>{{unitManagerDTO.unit.unit_state}}</td>
                                             <td>
                                                 <a href="#"><i class="fa fa-pencil-square-o"
@@ -404,13 +411,13 @@
                                         <ul v-cloak class="pagination">
                                             <li></li>
                                             <li><a @click="shouye" href="#">首页</a></li>
-                                            <li :class="{disabled:!unitManagerVO.havePrePage}"><a @click="prePage"
-                                                                                                  href="#">上一页</a>
+                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                                   href="#">上一页</a>
                                             </li>
                                             <li><a>第 {{unitManagerVO.pageIndex}} 页/总
                                                 {{unitManagerVO.totalPages}}
                                                 页/共{{unitManagerVO.totalRecords}}条</a></li>
-                                            <li :class="{disabled:!unitManagerVO.haveNextPage}"><a
+                                            <li :class="{disabled:nextDisabled}"><a
                                                     :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
                                             </a></li>
                                             <li><a @click="weiye" href="#">尾页</a></li>
