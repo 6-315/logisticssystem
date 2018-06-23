@@ -8,15 +8,109 @@
     <title>单位管理-单位列表</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .table td, .table th {
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            clear: both;
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+
+        .dropdown-menu > li > a:hover {
+            color: #f9f9f9;
+            background-color: #3c8dbc;
+        }
+
+        body {
+            font-size: 14px;
+        }
+
+        .label {
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            border-radius: .25em;
+        }
+
+        .input-sm {
+            height: 30px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .pagePosition {
+            /*float: right;*/
+            margin: auto;
+        }
+
+        .pagination > li {
+            display: inline;
+        }
+
+        .pagination > li > a, .pagination > li > span {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+        }
+
+        .huodong > a {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            pointer-events: none;
+        }
+
+        .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+        /*.pagination > li > a:focus {
+                    color: #fff;
+                    cursor: default;
+                    background-color: #337ab7;
+                    border-color: #337ab7;
+                }*/
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+
+        .pagination > .huodong {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
+        .pagination > .disabled > span, .pagination > .disabled > span:focus,
+        .pagination > .disabled > span:hover {
+            color: #777;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #ddd;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- neirong -->
@@ -79,7 +173,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img src="../../img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
@@ -89,7 +184,8 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../../img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg" class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
@@ -98,7 +194,8 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview">
@@ -163,7 +260,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/unit/unit_list.html" class="nav-link active">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
+                                   class="nav-link active">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>单位列表</p>
                                 </a>
@@ -240,7 +338,9 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
                             <li class="breadcrumb-item active">单位列表</li>
                         </ol>
                     </div>
@@ -249,7 +349,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content" id="unit_list">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -258,40 +358,76 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example2" class="no-footer table table-bordered table-hover dataTable">
-                                <thead>
-                                <tr>
-                                    <th>编号</th>
-                                    <th>名称</th>
-                                    <th>地址</th>
-                                    <th>单位类型</th>
-                                    <th>上级单位</th>
-                                    <th>创建人</th>
-                                    <th>管理员</th>
-                                    <th>状态</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>31500000301</td>
-                                    <td>萍乡中转站</td>
-                                    <td>江西省</td>
-                                    <td>中转站</td>
-                                    <td>总公司</td>
-                                    <td>大老板</td>
-                                    <td>张三</td>
-                                    <td>正在使用</td>
-                                    <td>
-                                        <a data-toggle="modal" data-target="#unitDetailInfo"  href="">详细</a>|
-                                        <a data-toggle="modal" data-target="#deleteUnitInfo"  href="">删除</a>
-                                    </td>
-                                    <!-- <td>
-                                      <button type="button" class="btn btn-block btn-primary btn-sm">Primary</button>
-                                    </td> -->
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="card-body">
+                                <div style="width: 250px; float: right; margin-bottom: 10px;"
+                                     class="input-group">
+                                    <input placeholder="据搜索" type="text" class="form-control input-sm"><span
+                                        class="input-group-addon btn btn-default"><i
+                                        class="fa fa-search"></i></span>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="overflow-y: hidden">
+                                        <thead>
+                                        <tr>
+                                            <th>单位编号</th>
+                                            <th>单位名称</th>
+                                            <th>单位地址</th>
+                                            <th>
+                                                <span role="presentation" class="dropdown"> <a
+                                                        class="dropdown-toggle" data-toggle="dropdown">单位类型<span
+                                                        class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a href="#">所属单位(所有)</a></li>
+														<li><a href="#">总公司</a></li>
+														<li><a href="#">中转站</a></li>
+														<li><a href="#">配送点</a></li>
+													</ul>
+											    </span>
+                                            </th>
+                                            <th>联系方式</th>
+                                            <th>管理员工号</th>
+                                            <th>
+                                                <span role="presentation" class="dropdown"> <a
+                                                        class="dropdown-toggle" data-toggle="dropdown">状态<span
+                                                        class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a href="#">状态(所有)</a></li>
+														<li><a href="#">正常使用</a></li>
+														<li><a href="#">未启用</a></li>
+														<li><a href="#">已废弃</a></li>
+													</ul>
+											    </span>
+                                            </th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="min-height: 200px">
+                                        <tr>
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="pagePosition">
+                                        <ul v-cloak class="pagination">
+                                            <li></li>
+                                            <li><a href="#">首页</a></li>
+                                            <li><a href="#">上一页</a></li>
+                                            <li><a>第 1 页/总
+                                                2
+                                                页/共3条</a></li>
+                                            <li><a> 下一页
+                                                <%--<span aria-hidden="true">&raquo;</span>--%>
+                                            </a></li>
+                                            <li><a href="#">尾页</a></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -365,21 +501,25 @@
 </div>
 <!-- jQuery -->
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <!-- Bootstrap 4 -->
-<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<%--<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- DataTables -->
 <script src="${pageContext.request.contextPath}/plugins/datatables/jquery.dataTables.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.js"></script>
 <!-- SlimScroll -->
 <script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>--%>
 <!-- AdminLTE App -->
-<script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="../js/demo.js"></script> -->
 <!-- page script -->
-<script>
+<%--<script>
     $(function () {
         $("#example2").DataTable({
             "oLanguage": {
@@ -392,13 +532,13 @@
                 "sSearch": "搜索",
                 "oPaginate": {
                     "sFirst": "第一页",
-                    "sPrevious":" 上一页 ",
+                    "sPrevious": " 上一页 ",
                     "sNext": " 下一页 ",
                     "sLast": " 最后一页 "
                 },
             }
         });
     });
-</script>
+</script>--%>
 </body>
 </html>
