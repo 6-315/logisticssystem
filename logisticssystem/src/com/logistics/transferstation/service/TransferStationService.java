@@ -45,10 +45,11 @@ public interface TransferStationService {
 	 * 修改中转站信息
 	 * 
 	 * @param transferStation
+	 * @param staffBasicInfo 
 	 * @return
 	 */
 
-	String updateTransferStation(unit transferStation);
+	String updateTransferStation(unit transferStation, staff_basicinfo staffBasicInfo);
 
 	/**
 	 * 车辆分配

@@ -85,7 +85,7 @@ public class Transferstation {
 		unit transferStation = new unit();
 		transferStation.setUnit_id("e88d299d-c00b-4050-81c6-5037e81ed2f7");
 		transferStation.setUnit_address("lalala");
-		transferStationService.updateTransferStation(transferStation);
+		transferStationService.updateTransferStation(transferStation, null);
 		
 		System.out.println("xiugai");
 		

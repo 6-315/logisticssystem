@@ -130,16 +130,26 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 修改单位信息
 	 */
 	@Override
-	public String updateTransferStation(unit transferStation) {
+	public String updateTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
 		// 实例化一个更改信息的对象
-		unit update = new unit();
-		// 调用DAO层里根据得到
-		update = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
-		update.setUnit_address(transferStation.getUnit_address());
-		update.setUnit_state(transferStation.getUnit_state());
-		update.setUnit_admin(transferStation.getUnit_admin());
-		transferStationDao.saveOrUpdateObject(update);
-		return "success";
+		unit updateUnit = new unit();
+		if (staffBasicInfo != null && transferStation != null) {
+			// 调用DAO层里根据得到
+			updateUnit = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+			if (transferStation.getUnit_address() != null && transferStation.getUnit_address().trim().length() > 0) {
+				updateUnit.setUnit_address(transferStation.getUnit_address());
+			} else if (transferStation.getUnit_state() != null && transferStation.getUnit_state().trim().length() > 0) {
+				updateUnit.setUnit_state(transferStation.getUnit_state());
+			} else if (transferStation.getUnit_phonenumber() != null
+					&& transferStation.getUnit_phonenumber().trim().length() > 0) {
+				updateUnit.setUnit_phonenumber(transferStation.getUnit_phonenumber());
+			}
+			updateUnit.setUnit_modifytime(TimeUtil.getStringSecond());
+			transferStationDao.saveOrUpdateObject(updateUnit);
+
+			return "success";
+		}
+		return null;
 	}
 
 	/**
@@ -407,8 +417,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		unit unitNew = new unit();
 		position positionNew = new position();
 		List<unit> listunit = new ArrayList<>();
-		if (staffBasicInfo.getStaff_id() != null && staffBasicInfo.getStaff_id().trim().length() > 0
-				&& staffBasicInfo.getStaff_unit() != null) {
+		if (staffBasicInfo != null && staffBasicInfo.getStaff_unit() != null) {
 			positionNew = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
 			System.out.println("hyhyhy" + positionNew);
 			if (positionNew != null && positionNew.getPosition_name().equals("总公司管理员")) {
@@ -435,4 +444,5 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		return null;
 	}
+
 }

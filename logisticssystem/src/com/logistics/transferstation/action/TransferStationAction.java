@@ -358,8 +358,10 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation));
+		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation,staffBasicInfo));
 	}
 
 	/**
@@ -396,7 +398,10 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + transferStationService.driverDistribution(driverList, teamNum));
 	}
-	
+	/**
+	 * 得到自身单位以及以下单位信息
+	 * @throws IOException
+	 */
 	public void getUnitInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
