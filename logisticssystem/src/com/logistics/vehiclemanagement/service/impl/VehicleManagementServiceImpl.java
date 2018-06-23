@@ -797,7 +797,6 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 					String hql = "select * from staff_basicinfo AS sta where sta.staff_position ='"
 							+ positionInfo.getPosition_id()
 							+ "' and sta.staff_id not in ( select u.unit_admin from unit AS u )  ";
-					System.out.println("+++++++++++++" + hql);
 					List<staff_basicinfo> listManager = vehicleManagementDao.getListManager(hql);
 					if (listManager.size() > 0) {
 						for (staff_basicinfo manager : listManager) {
