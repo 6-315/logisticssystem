@@ -1,5 +1,6 @@
 package com.logistics.expressmanagement.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -219,7 +220,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		String hql = "select express_route_route_id from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		String expressRoute = (String) query.uniqueResult();
+		String expressRoute =   (String) query.uniqueResult();
 		return expressRoute;
 	}
 
@@ -376,17 +377,31 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	}
 
 	/**
-	 * 根据快件ID查询流转信息
+	 * 根据快件ID查询车辆-快件关联表
 	 */
 	@Override
-	public vehicle_express_relevance getVehicleExpressRelevanceByExpressId(String express_id) {
-		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+	public List<vehicle_express_relevance> getVehicleExpressRelevanceByExpressId(String express_id) {
+		List<vehicle_express_relevance> listVehicleExpressRelevance = new ArrayList<>();
 		Session session = getSession();
-		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID ";
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID and ( vehicle_express_relevance_expressinfo_endtime='' or vehicle_express_relevance_expressinfo_endtime=null ) ";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
-		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
-		return vehicleExpressRelevance;
+		listVehicleExpressRelevance =  query.list();
+		return listVehicleExpressRelevance;
+	}
+
+	/**
+	 * 获得快件-路线信息
+	 */
+	@Override
+	public express_route getExpressRouteInfoByExpressRouteId(String expressRouteInfoRouteId) {
+		express_route expressRoute = new express_route();
+		Session session = getSession();
+		String hql = "from express_route where express_route_route_id = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", expressRouteInfoRouteId);
+		expressRoute = (express_route) query.uniqueResult();
+		return expressRoute;
 	}
 
 }
