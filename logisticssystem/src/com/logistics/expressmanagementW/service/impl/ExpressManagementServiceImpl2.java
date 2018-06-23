@@ -3,6 +3,8 @@ package com.logistics.expressmanagementW.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.midi.Synthesizer;
+
 import org.apache.tomcat.jni.Time;
 
 import com.logistics.domain.distributiontor;
@@ -284,6 +286,8 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public String updateExpressState(GetExpressAndDispatcherDTO getExpressAndDispatcherDTO) {
+		System.out.println("iiii:" + getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
+		System.out.println("kkk:" + getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id());
 		if (getExpressAndDispatcherDTO.getExpressNew().getExpress_id() != null
 				&& getExpressAndDispatcherDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() != null
