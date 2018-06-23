@@ -335,7 +335,9 @@
                                     <select class="form-control"
                                             v-model="transferStation.unit_admin"
                                             placeholder="请选择管理员" style="width: 100%;">
-                                        <option>1</option>
+                                        <option v-for="admin in adminList">
+                                            {{admin.staff_num}}
+                                        </option>
                                     </select>
                                 </div>
                             </div>

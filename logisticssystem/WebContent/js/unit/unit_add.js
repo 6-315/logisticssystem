@@ -30,7 +30,8 @@
             unit_phonenumber: '',
             unit_createtime: '',
             unit_modifytime: ''
-        }
+        },
+        adminList: []
     }
     const view_unitAdd = new Vue(
         {
@@ -113,7 +114,19 @@
                 },
                 getAdmin(event) {
                     //获取对应的所有管理员
-                    
+                    $.ajax({
+                        url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getAllManager',
+                        type: 'POST',
+                        data: {
+                            'position': event.target.value
+                        },
+                        success: function (data) {
+                            if (data != null) {
+                                const da = JSON.parse(data)
+                                unitAddData.adminList = da
+                            }
+                        }
+                    })
                 },
                 addUnit() {
                     // 添加单位
