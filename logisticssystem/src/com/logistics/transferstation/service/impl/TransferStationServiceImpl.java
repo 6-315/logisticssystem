@@ -490,6 +490,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 * 根据司机Id在员工信息表里面查询司机详细信息
 		 */
 		List<driver> listDriver = new ArrayList<>();
+		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle = ''");
 		for (driver driver : listDriver) {
 
 			staff_basicinfo driverUnDistributed = transferStationDao.getBasicinfoById(driver.getDriver_basicinfoid());
@@ -524,6 +525,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 	@Override
 	public UnitManagerDTO getUnitAdmin(unit transferStation) {
 		UnitManagerDTO unitManagerDTO = new UnitManagerDTO();
+		if(transferStation.getUnit_id()!=null&&transferStation.getUnit_id().trim().length()>0) {
 		unit unitNew = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
 		if(unitNew!=null) {
 			unitManagerDTO.setUnit(unitNew);
@@ -537,6 +539,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 			unitManagerDTO.setUnit_superiorunit(unit_superiorunit);
 		}
 		return unitManagerDTO;
+	}
+		return null;
+		
 	}
 
 }
