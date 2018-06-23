@@ -261,7 +261,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
-				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew));
+				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, listExpressId));
 
 	}
 
@@ -328,6 +328,22 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 		response.getWriter()
 				.write("" + expressManagementService2.updateExpressStateByExpressId(expressState, expressNew));
+
+	}
+
+	/**
+	 * 司机更改车辆状态
+	 * 
+	 * @throws IOException
+	 */
+	public void updateStateByDriver() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + expressManagementService2.updateStateByDriver(staffBasicinfo));
 
 	}
 }

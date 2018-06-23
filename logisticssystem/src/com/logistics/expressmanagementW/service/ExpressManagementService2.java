@@ -34,7 +34,7 @@ public interface ExpressManagementService2 {
 
 	String updateExpressSendState(express expressNew);
 
-	String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, express expressNew);
+	String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, String listExpressId);
 
 	String chooseDistribution(express expressNew, unit unitNew);
 
@@ -44,5 +44,7 @@ public interface ExpressManagementService2 {
 	List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo);
 
 	String updateExpressStateByExpressId(String expressState, express expressNew);
+
+	String updateStateByDriver(staff_basicinfo staffBasicinfo);
 
 }

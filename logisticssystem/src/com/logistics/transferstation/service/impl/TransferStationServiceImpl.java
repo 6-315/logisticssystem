@@ -56,6 +56,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					nextNum = nextNum + 1;
 					String num = String.format("%02d", nextNum);
 					transferStation.setUnit_num(beforeNum + "B" + num);
+
 					System.out.println("sandanand" + num);
 				} else {
 					int nextNum = 1;
@@ -63,8 +64,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					transferStation.setUnit_num(beforeNum + "B" + num);
 					System.out.println("lalalalala" + num);
 				}
-			}
-			if (position != null && position.getPosition_name().equals("总公司管理员")) {
+			} else if (position != null && position.getPosition_name().equals("总公司管理员")) {
 				System.out.println("?????jinlai");
 				String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
 				System.out.println("asdsdf" + maxNum);
@@ -84,6 +84,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 			}
 		}
 		transferStation.setUnit_id(BuildUuid.getUuid());
+		transferStation.setUnit_state("未启用");
+		transferStation.setUnit_creator(staffBasicInfo.getStaff_id());
+		transferStation.setUnit_superiorunit(staffBasicInfo.getStaff_unit());
 		transferStation.setUnit_createtime(TimeUtil.getStringSecond());
 		transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
 		transferStationDao.saveOrUpdateObject(transferStation);
@@ -130,27 +133,31 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 修改单位信息
 	 */
 	@Override
-	public String updateTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
+	public String updateTransferStation(unit transferStation) {
 		// 实例化一个更改信息的对象
-		unit updateUnit = new unit();
-		if (staffBasicInfo != null && transferStation != null) {
-			// 调用DAO层里根据得到
-			updateUnit = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
-			if (transferStation.getUnit_address() != null && transferStation.getUnit_address().trim().length() > 0) {
-				updateUnit.setUnit_address(transferStation.getUnit_address());
-			} else if (transferStation.getUnit_state() != null && transferStation.getUnit_state().trim().length() > 0) {
-				updateUnit.setUnit_state(transferStation.getUnit_state());
-			} else if (transferStation.getUnit_phonenumber() != null
-					&& transferStation.getUnit_phonenumber().trim().length() > 0) {
-				updateUnit.setUnit_phonenumber(transferStation.getUnit_phonenumber());
-			}
-			updateUnit.setUnit_modifytime(TimeUtil.getStringSecond());
-			transferStationDao.saveOrUpdateObject(updateUnit);
+		unit updateUnit = transferStation;
+		/*
+		 * if (staffBasicInfo != null && transferStation != null) { // 调用DAO层里根据得到
+		 * updateUnit =
+		 * transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+		 * if (transferStation.getUnit_address() != null &&
+		 * transferStation.getUnit_address().trim().length() > 0) {
+		 * updateUnit.setUnit_address(transferStation.getUnit_address()); } else if
+		 * (transferStation.getUnit_state() != null &&
+		 * transferStation.getUnit_state().trim().length() > 0) {
+		 * updateUnit.setUnit_state(transferStation.getUnit_state()); } else if
+		 * (transferStation.getUnit_phonenumber() != null &&
+		 * transferStation.getUnit_phonenumber().trim().length() > 0) {
+		 * updateUnit.setUnit_phonenumber(transferStation.getUnit_phonenumber()); }
+		 */
+		updateUnit.setUnit_modifytime(TimeUtil.getStringSecond());
+		transferStationDao.saveOrUpdateObject(updateUnit);
 
-			return "success";
-		}
-		return null;
+		return "success";
 	}
+	/*
+	 * return null; }
+	 */
 
 	/**
 	 * 总公司能所有查询单位
@@ -163,55 +170,117 @@ public class TransferStationServiceImpl implements TransferStationService {
 		UnitManagerDTO unitManagerDTO = null;
 		// 实例化List<unit>
 		List<unit> listUnit = new ArrayList<>();
-		// sql语句 查询unit表中有多少条数据
-		String transferStationCountHql = "select count(*) from unit where 1=1 ";
-		// sql语句 查询unit表中每一条数据
-		String listTransferStationHql = "from unit where 1=1 ";
-		// 查询管理员信息
-		/**
-		 * 根据单位名字和单位编号单位地址模糊查询
-		 */
-		if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
-			String search = "%" + transferStationVO.getSearch().trim() + "%";
-			transferStationCountHql = transferStationCountHql + " and (unit_name like '" + search + "'";
-			listTransferStationHql = listTransferStationHql + " and (unit_name like '" + search + "'";
-			transferStationCountHql = transferStationCountHql + "or unit_num like ' " + search + "'";
-			listTransferStationHql = listTransferStationHql + "or unit_num like '" + search + "'";
-			transferStationCountHql = transferStationCountHql + "or unit_address like'" + search + "')";
-			listTransferStationHql = listTransferStationHql + "or unit_address like'" + search + "')";
-		}
-		/**
-		 * 根据unit_type查询
-		 */
-		if (transferStationVO.getType() != null && transferStationVO.getType().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + " and  unit_type = '"
-					+ transferStationVO.getType().trim() + "' ";
-			listTransferStationHql = listTransferStationHql + " and unit_type = '" + transferStationVO.getType().trim()
-					+ "'  ";
-		}
-		/**
-		 * 根据State查询
-		 */
-		if (transferStationVO.getState() != null && transferStationVO.getState().trim().length() > 0) {
-			transferStationCountHql = transferStationCountHql + " and unit_state = '"
-					+ transferStationVO.getState().trim() + "'";
-			listTransferStationHql = listTransferStationHql + " and unit_state = '"
-					+ transferStationVO.getState().trim() + "'";
-		}
+		/*
+		 * // sql语句 查询unit表中有多少条数据 String transferStationCountHql =
+		 * "select count(*) from unit where 1=1 "; // sql语句 查询unit表中每一条数据 String
+		 * listTransferStationHql = "from unit where 1=1 "; // 查询管理员信息
+		 *//**
+			 * 根据单位名字和单位编号单位地址模糊查询
+			 */
+		/*
+		 * if (transferStationVO.getSearch() != null &&
+		 * transferStationVO.getSearch().trim().length() > 0) { String search = "%" +
+		 * transferStationVO.getSearch().trim() + "%"; transferStationCountHql =
+		 * transferStationCountHql + " and (unit_name like '" + search + "'";
+		 * listTransferStationHql = listTransferStationHql + " and (unit_name like '" +
+		 * search + "'"; transferStationCountHql = transferStationCountHql +
+		 * "or unit_num like ' " + search + "'"; listTransferStationHql =
+		 * listTransferStationHql + "or unit_num like '" + search + "'";
+		 * transferStationCountHql = transferStationCountHql + "or unit_address like'" +
+		 * search + "')"; listTransferStationHql = listTransferStationHql +
+		 * "or unit_address like'" + search + "')"; }
+		 *//**
+			 * 根据unit_type查询
+			 */
+		/*
+		 * if (transferStationVO.getType() != null &&
+		 * transferStationVO.getType().trim().length() > 0) { transferStationCountHql =
+		 * transferStationCountHql + " and  unit_type = '" +
+		 * transferStationVO.getType().trim() + "' "; listTransferStationHql =
+		 * listTransferStationHql + " and unit_type = '" +
+		 * transferStationVO.getType().trim() + "'  "; }
+		 *//**
+			 * 根据State查询
+			 *//*
+				 * if (transferStationVO.getState() != null &&
+				 * transferStationVO.getState().trim().length() > 0) { transferStationCountHql =
+				 * transferStationCountHql + " and unit_state = '" +
+				 * transferStationVO.getState().trim() + "'"; listTransferStationHql =
+				 * listTransferStationHql + " and unit_state = '" +
+				 * transferStationVO.getState().trim() + "'"; }
+				 */
 		/**
 		 * 分页获取自身单位，以及自身以下单位信息
 		 */
+		String listTransferStationHql = "";
+		String transferStationCountHql = "";
 		if (staffBasicInfo != null) {
 			System.out.println("qawewrfds" + staffBasicInfo);
 			unit staff_unit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
 			System.out.println("adawdas" + staff_unit);
-			if (staff_unit != null) {
-				transferStationCountHql = transferStationCountHql + " and (unit_id ='" + staff_unit.getUnit_id()
-						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
-				listTransferStationHql = listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id()
-						+ "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
-				System.out.println("wsawedasegfg" + staff_unit);
+			position positionNew = new position();
+			positionNew = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
+			System.out.println("pppp:" + positionNew.getPosition_name());
+			if ("总公司管理员".equals(positionNew.getPosition_name())) {
+				transferStationCountHql = "select count(*) from unit where 1=1 ";
+
+				listTransferStationHql = "from unit where 1=1 ";
+			} else if ("中转站管理员".equals(positionNew.getPosition_name())) {
+				System.out.println("????");
+				transferStationCountHql = "select count(*) from unit where 1=1 and (unit_superiorunit = '"
+						+ staffBasicInfo.getStaff_unit() + "' or unit_id='" + staffBasicInfo.getStaff_unit() + "') ";
+
+				listTransferStationHql = "from unit where 1=1 and (unit_superiorunit = '"
+						+ staffBasicInfo.getStaff_unit() + "' or  unit_id='" + staffBasicInfo.getStaff_unit() + "')";
+			} else if ("配送点管理员".equals(positionNew.getPosition_name())) {
+				transferStationCountHql = "select count(*) from unit where unit_id='" + staffBasicInfo.getStaff_unit()
+						+ "'";
+				listTransferStationHql = "from unit where unit_id='" + staffBasicInfo.getStaff_unit() + "'";
 			}
+
+			/**
+			 * 根据单位名字和单位编号单位地址模糊查询
+			 */
+			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
+				String search = "%" + transferStationVO.getSearch().trim() + "%";
+				transferStationCountHql = transferStationCountHql + " and (unit_name like '" + search + "'";
+				listTransferStationHql = listTransferStationHql + " and (unit_name like '" + search + "'";
+				transferStationCountHql = transferStationCountHql + "or unit_num like ' " + search + "'";
+				listTransferStationHql = listTransferStationHql + "or unit_num like '" + search + "'";
+				transferStationCountHql = transferStationCountHql + "or unit_address like'" + search + "')";
+				listTransferStationHql = listTransferStationHql + "or unit_address like'" + search + "')";
+			}
+			/**
+			 * 根据unit_type查询
+			 */
+			if (transferStationVO.getType() != null && transferStationVO.getType().trim().length() > 0) {
+				transferStationCountHql = transferStationCountHql + " and  unit_type ='"
+						+ transferStationVO.getType().trim() + "' ";
+				listTransferStationHql = listTransferStationHql + " and unit_type ='"
+						+ transferStationVO.getType().trim() + "'  ";
+			}
+			/**
+			 * 根据State查询
+			 */
+			if (transferStationVO.getState() != null && transferStationVO.getState().trim().length() > 0) {
+				transferStationCountHql = transferStationCountHql + " and unit_state = '"
+						+ transferStationVO.getState().trim() + "'";
+				listTransferStationHql = listTransferStationHql + " and unit_state = '"
+						+ transferStationVO.getState().trim() + "'";
+			}
+			/**
+			 * 分页获取自身单位，以及自身以下单位信息
+			 */
+
+			/*
+			 * transferStationCountHql = transferStationCountHql + " and (unit_id ='" +
+			 * staff_unit.getUnit_id() + "' or unit_superiorunit='" +
+			 * staff_unit.getUnit_id() + "' )"; listTransferStationHql =
+			 * listTransferStationHql + " and (unit_id ='" + staff_unit.getUnit_id() +
+			 * "' or unit_superiorunit='" + staff_unit.getUnit_id() + "' )";
+			 * System.out.println("wsawedasegfg" + staff_unit);
+			 */
+
 		}
 		/**
 		 * 分页
@@ -221,6 +290,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 		transferStationCountHql = transferStationCountHql + " order by unit_createtime desc";
 		int basicinfoCount = transferStationDao.getCount(transferStationCountHql);
+		System.out.println("lllll:" + transferStationCountHql);
 		System.out.println(basicinfoCount);
 		// 设置总数量
 		transferStationVO.setTotalRecords(basicinfoCount);
@@ -244,6 +314,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 		/**
 		 * 分页获取单位列表
 		 */
+
+		System.out.println("002152" + listTransferStationHql);
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
@@ -287,7 +359,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 将DTO放在listDTO
 			unitManagerDTO.setUnit(unit);
 			listUnitManagerDTO.add(unitManagerDTO);
-			System.out.println("23321" + listUnitManagerDTO);
+
 		}
 		// 将listDTO放在VO里面
 		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
@@ -436,5 +508,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		return null;
 	}
+	/**
+	 * 获取所有未分配车辆的司机
+	 */
+
+	// public List<driver> getDiver
 
 }

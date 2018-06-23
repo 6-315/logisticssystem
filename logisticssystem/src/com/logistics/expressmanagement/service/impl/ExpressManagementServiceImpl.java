@@ -389,7 +389,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 											&& staffInfo.getStaff_unit().trim().length() > 0) {
 										updateVehicle.setVehicle_drivingdirection(staffInfo.getStaff_unit());
 										updateVehicle.setVehicle_express_state("空闲");
-										updateVehicle.setVehicle_current_weight("");
+										updateVehicle.setVehicle_current_weight("0");
 										updateVehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
 										expressManagementDao.saveOrUpdateObject(updateVehicle);
 										express_circulation expressCirculationInfo = expressManagementDao

@@ -8,6 +8,7 @@ import javax.sound.midi.Synthesizer;
 import org.apache.tomcat.jni.Time;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
@@ -350,24 +351,30 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 * 配送员点击派送
 	 */
 	@Override
-	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, express expressNew) {
-		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, String listExpressId) {
+
+		String[] update = listExpressId.split(",");
+		for (String id : update) {
+			express_circulation expressCirculation = new express_circulation();
 			express_send expressSend = new express_send();
-			express getExpress = new express();
-			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());
-			expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
-			if (getExpress != null && expressSend != null) {
-				getExpress.setExpress_state("派送中");
-				getExpress.setExpress_createtime(TimeUtil.getStringSecond());
-				expressSend.setExpress_send_state("未完成");
-				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
-				expressManagementDao2.saveOrUpdateObject(getExpress);
+			express expressNew = new express();
+			expressCirculation = expressManagementDao2.getExpressCirculation(id);
+			expressSend = expressManagementDao2.getExpressSend(id);
+			expressNew = expressManagementDao2.getExpress(id);
+			expressCirculation.setExpress_circulation_state("已完成");
+			expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+			expressSend.setExpress_send_state("派送中");
+			expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
+			expressNew.setExpress_state("派送中");
+			expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
+			if (expressNew != null && expressSend != null && expressCirculation != null) {
+				expressManagementDao2.saveOrUpdateObject(expressNew);
 				expressManagementDao2.saveOrUpdateObject(expressSend);
-				System.out.println("成功！");
+				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				return "success";
 			}
-
 		}
+
 		return null;
 	}
 
@@ -385,8 +392,12 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		expressNew1.setExpress_state("待派送");
 		expressNew1.setExpress_isdistributeddistribution(unitNew.getUnit_id());
 		List<express_circulation> listCirculation = new ArrayList<>();
-		/*listCirculation = (List<express_circulation>) expressManagementDao2.listObject(
-				"from express_circulation where express_circulation_express_id ='" + expressNew.getExpress_id() + "' and express_circulation_receiver ='"++"'");*/
+		/*
+		 * listCirculation = (List<express_circulation>)
+		 * expressManagementDao2.listObject(
+		 * "from express_circulation where express_circulation_express_id ='" +
+		 * expressNew.getExpress_id() + "' and express_circulation_receiver ='"++"'");
+		 */
 
 		express_circulation expressCirculation = new express_circulation();
 		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
@@ -497,5 +508,28 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		express.setExpress_state(expressState);
 		express.setExpress_modifytime(TimeUtil.getStringSecond());
 		return "success";
+	}
+
+	/**
+	 * 司机更改车辆状态
+	 */
+	@Override
+	public String updateStateByDriver(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return "error";
+		}
+		driver driverNew = new driver();
+		driverNew = expressManagementDao2.getDriverById(staffBasicinfo.getStaff_id());
+		if (driverNew != null) {
+			vehicle vehicleNew = new vehicle();
+			vehicleNew = expressManagementDao2.getVehicle(driverNew.getDriver_id());
+			if (vehicleNew != null) {
+				vehicleNew.setVehicle_state("已发车");
+				vehicleNew.setVehicle_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao2.saveOrUpdateObject(vehicleNew);
+				return "success";
+			}
+		}
+		return null;
 	}
 }

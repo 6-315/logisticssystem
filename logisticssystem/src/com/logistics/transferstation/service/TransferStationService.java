@@ -49,7 +49,7 @@ public interface TransferStationService {
 	 * @return
 	 */
 
-	String updateTransferStation(unit transferStation, staff_basicinfo staffBasicInfo);
+	String updateTransferStation(unit transferStation);
 
 	/**
 	 * 车辆分配

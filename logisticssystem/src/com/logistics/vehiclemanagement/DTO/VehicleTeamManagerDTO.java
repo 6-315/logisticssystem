@@ -22,48 +22,41 @@ public class VehicleTeamManagerDTO {
 	/**
 	 * 员工表-队员信息
 	 */
-	private List<staff_basicinfo> staff_TeamMember;
+	private List<DriverDTO> listDriverInfoDTO;
 	/**
 	 * 单位表
 	 */
 	private unit teamBelongUnit;
-
 	public team getTeam() {
 		return team;
 	}
-
 	public void setTeam(team team) {
 		this.team = team;
 	}
-
 	public staff_basicinfo getStaff_BasicInfoLeader() {
 		return staff_BasicInfoLeader;
 	}
-
 	public void setStaff_BasicInfoLeader(staff_basicinfo staff_BasicInfoLeader) {
 		this.staff_BasicInfoLeader = staff_BasicInfoLeader;
 	}
-
-	public List<staff_basicinfo> getStaff_TeamMember() {
-		return staff_TeamMember;
+	public List<DriverDTO> getListDriverInfoDTO() {
+		return listDriverInfoDTO;
 	}
-
-	public void setStaff_TeamMember(List<staff_basicinfo> staff_TeamMember) {
-		this.staff_TeamMember = staff_TeamMember;
+	public void setListDriverInfoDTO(List<DriverDTO> listDriverInfoDTO) {
+		this.listDriverInfoDTO = listDriverInfoDTO;
 	}
-
 	public unit getTeamBelongUnit() {
 		return teamBelongUnit;
 	}
-
 	public void setTeamBelongUnit(unit teamBelongUnit) {
 		this.teamBelongUnit = teamBelongUnit;
 	}
-
 	@Override
 	public String toString() {
-		return "Vehicle_TeamDTO [team=" + team + ", staff_BasicInfoLeader=" + staff_BasicInfoLeader
-				+ ", staff_TeamMember=" + staff_TeamMember + ", teamBelongUnit=" + teamBelongUnit + "]";
+		return "VehicleTeamManagerDTO [team=" + team + ", staff_BasicInfoLeader=" + staff_BasicInfoLeader
+				+ ", listDriverInfoDTO=" + listDriverInfoDTO + ", teamBelongUnit=" + teamBelongUnit + "]";
 	}
+
+	
 
 }

@@ -8,7 +8,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
+import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
@@ -339,6 +341,41 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		unitNew = (unit) query.uniqueResult();
 		if (unitNew != null) {
 			return unitNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 查找司机
+	 */
+	@Override
+	public driver getDriverById(String staff_id) {
+		driver driverNew = new driver();
+		Session session = getSession();
+		String hql = " from driver where driver_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		driverNew = (driver) query.uniqueResult();
+		if (driverNew != null) {
+			return driverNew;
+		}
+
+		return null;
+	}
+
+	/**
+	 * 查找未完成的流转表
+	 */
+	@Override
+	public express_circulation getExpressCirculation(String id) {
+		express_circulation driverNew = new express_circulation();
+		Session session = getSession();
+		String hql = " from  express_circulation where express_circulation_express_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
+		driverNew = (express_circulation) query.uniqueResult();
+		if (driverNew != null) {
+			return driverNew;
 		}
 		return null;
 	}

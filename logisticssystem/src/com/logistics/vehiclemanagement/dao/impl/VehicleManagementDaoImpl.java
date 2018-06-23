@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -193,6 +194,32 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		Query query = session.createQuery(hql);
 		String number = (String) query.uniqueResult();
 		return number;
+	}
+
+	/**
+	 * 获得职位表信息
+	 */
+@Override
+public position getPostionByName(String position) {
+	position positionInfo = new position();
+	Session session = getSession();
+	String hql = "from position where position_name = :ID";
+	Query query = session.createQuery(hql);
+	query.setParameter("ID", position);
+	positionInfo = (position) query.uniqueResult();
+	return positionInfo;
+}
+
+/**
+ * 获得未分配单位的管理员列表
+ */
+	@Override
+	public List<staff_basicinfo> getListManager(String hql) {
+		Session session = getSession();
+		Query query = session.createSQLQuery(hql);
+		List<staff_basicinfo> list = query.list();
+		session.clear();
+		return list;
 	}
 
 }

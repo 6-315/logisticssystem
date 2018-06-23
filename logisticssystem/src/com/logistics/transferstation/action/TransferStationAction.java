@@ -107,6 +107,14 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	private String search;
 	private int page = 1;
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public UnitManagerVO getUnitManagerVO() {
 		return unitManagerVO;
 	}
@@ -350,10 +358,8 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation, staffBasicInfo));
+		response.getWriter().write("" + transferStationService.updateTransferStation(transferStation));
 	}
 
 	/**

@@ -50,14 +50,14 @@ public class Vehiclemanagement {
 	/**
 	 * 车辆查询功能-测试
 	 */
-	@Test
+/*	@Test
 	public void queryVehicleTest() {
 		VehicleVO vehicleInfoVO = new VehicleVO();
 		String search = "7";
 		vehicleInfoVO.setSearch(search);
 		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
 		System.out.println(vehicleInfoVO);
-	}
+	}*/
 
 	/**
 	 * 车辆更新功能-测试

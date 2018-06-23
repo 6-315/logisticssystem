@@ -158,7 +158,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
-	
+
 	@Override
 	public String getDistributionByNum(String unit_num) {
 		Session session = getSession();
@@ -169,6 +169,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
+
 	/**
 	 * 根据ID查询车队表中的信息
 	 */
@@ -182,6 +183,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		team = (team) query.uniqueResult();
 		return team;
 	}
+
 	/**
 	 * 根据ID查询车队表中的信息
 	 */
@@ -195,6 +197,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		vehicle = (vehicle) query.uniqueResult();
 		return vehicle;
 	}
+
 	/**
 	 * 根据ID查询员工表中的信息
 	 */
@@ -208,6 +211,7 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		driver = (driver) query.uniqueResult();
 		return driver;
 	}
+
 	/**
 	 * 根据id获取职位
 	 */
@@ -219,7 +223,10 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", trim);
 		position = (position) query.uniqueResult();
-		return position;
+		if (position != null) {
+			return position;
+		}
+		return null;
 	}
 
 }
