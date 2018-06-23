@@ -554,28 +554,32 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				teamCountHql = teamCountHql + " team_unit='"+staffInfo.getStaff_unit()+"' ";
 				listTeamDTOCountHql = listTeamDTOCountHql + " team_unit='"+staffInfo.getStaff_unit()+"' ";
 				}else {
-					teamCountHql = teamCountHql + " team_unit='' ";
-					listTeamDTOCountHql = listTeamDTOCountHql + " team_unit='' ";
+					teamCountHql = teamCountHql + " team_id='' ";
+					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
 				}
 			}else if("车队队长".equals(positionInfo.getPosition_name())) {
 				if(staffInfo.getStaff_id()!=null&&staffInfo.getStaff_id().trim().length()>0) {
 				teamCountHql = teamCountHql + " team_leader='"+staffInfo.getStaff_id()+"' ";
 				listTeamDTOCountHql = listTeamDTOCountHql + " team_leader='"+staffInfo.getStaff_id()+"' ";
 				}else {
-					teamCountHql = teamCountHql + " team_unit='' ";
-					listTeamDTOCountHql = listTeamDTOCountHql + " team_unit='' ";
+					teamCountHql = teamCountHql + " team_id='' ";
+					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
 				}
 			}else if("驾驶员".equals(positionInfo.getPosition_name())) {
 				driver driverInfo = vehicleManagementDao.getDriverInfoByStaffId(staffInfo.getStaff_id());
-				
+				if(driverInfo!=null) {
+					if(driverInfo.getDriver_belong_team()!=null&&driverInfo.getDriver_belong_team().trim().length()>0) {
+						teamCountHql = teamCountHql + " team_id='"+driverInfo.getDriver_belong_team()+"' ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " team_id='"+driverInfo.getDriver_belong_team()+"' ";
+					}
+				}else {
+					teamCountHql = teamCountHql + " team_id='' ";
+					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
+				}
 			}
-			
-			
-			
 		}
-		
-		
-		
+		teamCountHql = teamCountHql + " ) ";
+		listTeamDTOCountHql = listTeamDTOCountHql + " ) ";
 		
 		/**
 		 * 根据关键词进行模糊查询
@@ -783,7 +787,9 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * 获得所有管理员
 	 */
 	@Override
-	public List<staff_basicinfo> getAllManager(String position) {
+	public List<ManagerDTO> getAllManager(String position) {
+		List<ManagerDTO> listManagerDTO = new ArrayList<>();
+		ManagerDTO managerDTO;
 		if (position != null && position.trim().length() > 0) {
 			position positionInfo = vehicleManagementDao.getPostionByName(position);
 			if (positionInfo != null) {
@@ -794,7 +800,14 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 					System.out.println("+++++++++++++" + hql);
 					List<staff_basicinfo> listManager = vehicleManagementDao.getListManager(hql);
 					if (listManager.size() > 0) {
-						return listManager;
+						for (staff_basicinfo manager : listManager) {
+							managerDTO = new ManagerDTO();
+							if(manager!=null) {
+								managerDTO.setManagerInfo(manager);
+								listManagerDTO.add(managerDTO);
+							}
+						}
+						return listManagerDTO;
 					}
 				}
 			}

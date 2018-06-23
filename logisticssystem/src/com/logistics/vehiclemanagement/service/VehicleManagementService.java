@@ -7,6 +7,7 @@ import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
 import com.logistics.domain.vehiclecirculation;
+import com.logistics.vehiclemanagement.DTO.ManagerDTO;
 import com.logistics.vehiclemanagement.VO.TeamVO;
 import com.logistics.vehiclemanagement.VO.VehicleVO;
 
@@ -74,6 +75,6 @@ public interface VehicleManagementService {
 
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
 
-	public List<staff_basicinfo> getAllManager(String position);
+	public List<ManagerDTO> getAllManager(String position);
 
 }
