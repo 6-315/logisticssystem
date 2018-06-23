@@ -53,36 +53,47 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		}
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
 			List<vehicle> listVehicle = new ArrayList<>();
+			List<vehicle> listVehicle1 = new ArrayList<>();
+
 			route getRoute = new route();
 			express_route expressRoute = new express_route();
 			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
 			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id()); // 得到路线
-			team teamNew = new team();
-			teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
-			if (teamNew != null) {
-				/**
-				 * 正向所在的车辆
-				 */
-				if ("1".equals(expressRoute.getExpress_route_route_away())) {
-					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-							+ teamNew.getTeam_id()
-							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection = '"
-							+ getRoute.getRoute_departurestation() + "'");
-					System.out.println("???:" + listVehicle);
-					return listVehicle;
+			// team teamNew = new team();
+			// teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
+			System.out.println("------------:" + expressRoute.getExpress_route_route_id());
+			List<team> listTeam = new ArrayList<>();
+			listTeam = (List<team>) expressManagementDao2
+					.listObject("from team where team_route ='" + getRoute.getRoute_id() + "'");
 
+			if (listTeam.size() > 0) {
+				System.out.println("?????");
+				for (team team : listTeam) {
+					listVehicle1 = new ArrayList<>();
+					System.out.println("kkkkkkkkkk:" + team.getTeam_id());
+					/**
+					 * 正向所在的车辆
+					 */
+					System.out.println("ooooooooooooo:" + expressRoute.getExpress_route_route_away());
+					if ("正向".equals(expressRoute.getExpress_route_route_away())) {
+						listVehicle1 = (List<vehicle>) expressManagementDao2
+								.listObject("from vehicle where vehicle_team = '" + team.getTeam_id()
+										+ "' and (vehicle_express_state = '空闲' or vehicle_express_state = '可载货') and vehicle_drivingdirection = '"
+										+ getRoute.getRoute_departurestation() + "'");
+						System.out.println("listVehicle1:" + listVehicle1);
+					}
+					/**
+					 * 反向所在的车辆
+					 */
+					if ("反向".equals(expressRoute.getExpress_route_route_away())) {
+						listVehicle1 = (List<vehicle>) expressManagementDao2
+								.listObject("from vehicle where vehicle_team = '" + team.getTeam_id()
+										+ "' and (vehicle_express_state = '空闲' or vehicle_express_state = '可载货') and vehicle_drivingdirection ='"
+										+ getRoute.getRoute_terminalstation() + "'");
+					}
+					listVehicle.addAll(listVehicle1);
 				}
-				/**
-				 * 反向所在的车辆
-				 */
-				if ("2".equals(expressRoute.getExpress_route_route_away())) {
-					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-							+ teamNew.getTeam_id()
-							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection ='"
-							+ getRoute.getRoute_terminalstation() + "'");
-					return listVehicle;
-				}
-
+				return listVehicle;
 			}
 		}
 		return null;
@@ -139,7 +150,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				if ("1".equals(expressRoute.getExpress_route_route_away())) {
 					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
-				}  
+				}
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
@@ -420,10 +431,10 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
 					expressRoute = expressManagementDao2.getexpressRoute(id);
 					expressNew = expressManagementDao2.getExpress(id);
-					if ("1".equals(expressRoute.getExpress_route_route_away())) {
+					if ("正向".equals(expressRoute.getExpress_route_route_away())) {
 						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
 					}
-					if ("2".equals(expressRoute.getExpress_route_route_away())) {
+					if ("反向".equals(expressRoute.getExpress_route_route_away())) {
 						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
 					}
 					expressNew.setExpress_state("待扫描");
