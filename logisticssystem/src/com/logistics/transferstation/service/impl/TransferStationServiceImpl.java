@@ -183,11 +183,11 @@ public class TransferStationServiceImpl implements TransferStationService {
 		/**
 		 * 根据unit_type查询
 		 */
-		if (transferStationVO.getAddress() != null && transferStationVO.getAddress().trim().length() > 0) {
+		if (transferStationVO.getType() != null && transferStationVO.getType().trim().length() > 0) {
 			transferStationCountHql = transferStationCountHql + " and  unit_type = '"
-					+ transferStationVO.getAddress().trim() + "' ";
+					+ transferStationVO.getType().trim() + "' ";
 			listTransferStationHql = listTransferStationHql + " and unit_type = '"
-					+ transferStationVO.getAddress().trim() + "'  ";
+					+ transferStationVO.getType().trim() + "'  ";
 		}
 		/**
 		 * 根据State查询
@@ -247,14 +247,14 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
-
+             
 		// 遍历unit表
 		for (unit unit : listUnit) {
 			// 实例化unitManagerDTO
 			unitManagerDTO = new UnitManagerDTO();
 			
-			
-
+			//unit unitAll = transferStationDao.getTransferStationInfoById(unit.getUnit_id());
+            
 			/**
 			 * 获取单位创建者的信息
 			 */

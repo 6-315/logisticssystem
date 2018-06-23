@@ -103,7 +103,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	private String state;
 	private String address;
 	private String num;
-	private String superiorunit;
+	private String type;
 	private String search;
 	private int page;
 
@@ -187,13 +187,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		this.num = num;
 	}
 
-	public String getSuperiorunit() {
-		return superiorunit;
-	}
-
-	public void setSuperiorunit(String superiorunit) {
-		this.superiorunit = superiorunit;
-	}
 
 	public String getSearch() {
 		return search;
@@ -300,9 +293,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		unitManagerVO = new UnitManagerVO();
 		unitManagerVO.setSearch(search);
-		unitManagerVO.setNum(num);
-		unitManagerVO.setAddress(address);
-		unitManagerVO.setSuperiorunit(superiorunit);
+		unitManagerVO.setType(type);
 		unitManagerVO.setState(state);
 		unitManagerVO.setPageIndex(page);
 		HttpSession session = ServletActionContext.getRequest().getSession();

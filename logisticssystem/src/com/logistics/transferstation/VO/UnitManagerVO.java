@@ -21,79 +21,12 @@ public class UnitManagerVO {
 	 */
 	private List<UnitManagerDTO> listUnitManagerDTO;
 
-	private String position;
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
 	private int totalRecords = 0;
 
-	private String unit_id;
-
-	private String unit_type;
+	private String type;
 
 	private String state;
-
-	private String address;
-
-	private String num;
-
-	private String superiorunit;
 	
-
-	public String getUnit_type() {
-		return unit_type;
-	}
-
-	public void setUnit_type(String unit_type) {
-		this.unit_type = unit_type;
-	}
-
-	public String getUnit_id() {
-		return unit_id;
-	}
-
-	public void setUnit_id(String unit_id) {
-		this.unit_id = unit_id;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getNum() {
-		return num;
-	}
-
-	public void setNum(String num) {
-		this.num = num;
-	}
-
-	public String getSuperiorunit() {
-		return superiorunit;
-	}
-
-	public void setSuperiorunit(String superiorunit) {
-		this.superiorunit = superiorunit;
-	}
-
 	private int pageIndex = 1;
 
 	private int pageSize = 2;
@@ -104,6 +37,25 @@ public class UnitManagerVO {
 	 */
 	private String search;
 
+	private boolean havePrePage = false;
+	private boolean haveNextPage = false;
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 
 	public String getSearch() {
 		return search;
@@ -113,8 +65,6 @@ public class UnitManagerVO {
 		this.search = search;
 	}
 
-	private boolean havePrePage = false;
-	private boolean haveNextPage = false;
 
 	public List<UnitManagerDTO> getListUnitManagerDTO() {
 		return listUnitManagerDTO;
@@ -174,12 +124,12 @@ public class UnitManagerVO {
 
 	@Override
 	public String toString() {
-		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", position=" + position + ", totalRecords="
-				+ totalRecords + ", unit_id=" + unit_id + ", unit_type=" + unit_type + ", state=" + state + ", address="
-				+ address + ", num=" + num + ", superiorunit=" + superiorunit + ", pageIndex=" + pageIndex
-				+ ", pageSize=" + pageSize + ", totalPages=" + totalPages + ", search=" + search + ", havePrePage="
-				+ havePrePage + ", haveNextPage=" + haveNextPage + "]";
+		return "UnitManagerVO [listUnitManagerDTO=" + listUnitManagerDTO + ", totalRecords=" + totalRecords + ", type="
+				+ type + ", state=" + state + ", pageIndex=" + pageIndex + ", pageSize=" + pageSize + ", totalPages="
+				+ totalPages + ", search=" + search + ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage
+				+ "]";
 	}
 
+	
 
 }
