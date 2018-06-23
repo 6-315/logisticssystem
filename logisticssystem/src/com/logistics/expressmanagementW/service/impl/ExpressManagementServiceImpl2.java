@@ -38,7 +38,6 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	public void setExpressManagementDao2(ExpressManagementDao2 expressManagementDao2) {
 		this.expressManagementDao2 = expressManagementDao2;
 	}
-
 	/**
 	 * 结束
 	 */
@@ -443,8 +442,8 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-					//express_route expressRoute1 = new express_route();
-					//expressRoute1 = expressManagementDao2.getexpressRoute(id);
+					// express_route expressRoute1 = new express_route();
+					// expressRoute1 = expressManagementDao2.getexpressRoute(id);
 					expressRoute.setExpress_route_state("已完成");
 					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressRoute);
@@ -473,5 +472,18 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	/**
 	 * 更改状态为未扫描
 	 */
-
+	/**
+	 * 更改快件状态
+	 */
+	@Override
+	public String updateExpressStateByExpressId(String expressState, express expressNew) {
+		if (expressState == null && expressNew == null) {
+			return "error";
+		}
+		express express = new express();
+		express = expressManagementDao2.getExpress(expressNew.getExpress_id());
+		express.setExpress_state(expressState);
+		express.setExpress_modifytime(TimeUtil.getStringSecond());
+		return "success";
+	}
 }

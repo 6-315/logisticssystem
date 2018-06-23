@@ -84,6 +84,15 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	private String address;
 	private unit unitNew;
 	private String listExpressId;
+	private String expressState;
+
+	public String getExpressState() {
+		return expressState;
+	}
+
+	public void setExpressState(String expressState) {
+		this.expressState = expressState;
+	}
 
 	public String getListExpressId() {
 		return listExpressId;
@@ -289,7 +298,8 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 	/**
 	 * 根据session查询所有配送点
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void getDistributionBySession() throws IOException {
 
@@ -301,8 +311,23 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		List<unit> listDistribution = new ArrayList<>();
 		listDistribution = expressManagementService2.getDistributionBySession(staffBasicinfo);
-
 		response.getWriter().write(gson.toJson(listDistribution));
+
+	}
+
+	/***
+	 * 更改快件状态
+	 * 
+	 * @throws IOException
+	 */
+	public void updateExpressStateByExpressId() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+
+		response.getWriter()
+				.write("" + expressManagementService2.updateExpressStateByExpressId(expressState, expressNew));
 
 	}
 }
