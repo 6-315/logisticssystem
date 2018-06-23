@@ -234,18 +234,18 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		// 判断是否拥有下一页
 		if (transferStationVO.getPageIndex() >= transferStationVO.getTotalPages()) {
+			
 			transferStationVO.setHaveNextPage(false);
 		} else {
 			transferStationVO.setHaveNextPage(true);
 		}
-		System.out.println("qqqqqq" + transferStationCountHql);
-		System.out.println("aaaaa" + listTransferStationHql);
 		UnitManagerVO unitManagerVO = new UnitManagerVO();
 		System.out.println("0.0.0.0.0.0");
 		/**
 		 * 分页获取单位列表
 		 */
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
+				
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
              
 		// 遍历unit表
