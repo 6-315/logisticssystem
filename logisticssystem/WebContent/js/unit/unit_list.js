@@ -109,6 +109,10 @@
                 //搜索筛选
                 view_unitList.getAllData()
                 view_unitList.judge()
+            },
+            skipPageAddUnit: function (unitId) {
+                //跳转后台
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_addUnitPage?idList=' + unitId
             }
         },
         mounted() {

@@ -6,6 +6,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.logistics.domain.driver;
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -14,7 +16,7 @@ import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 
 /**
  * 车辆管理DAO实现层
- *  
+ * 
  * @author LW
  *
  */
@@ -156,7 +158,6 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		return unitInfo;
 	}
 
-
 	/**
 	 * 根据ID查询车队信息
 	 */
@@ -184,15 +185,70 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		vehicleInfo = (vehicle) query.uniqueResult();
 		return vehicleInfo;
 	}
-/**
- * 得到最大编号
- */
+
+	/**
+	 * 得到最大编号
+	 */
 	@Override
 	public String getMaxNumber(String hql) {
 		Session session = getSession();
 		Query query = session.createQuery(hql);
 		String number = (String) query.uniqueResult();
 		return number;
+	}
+
+	/**
+	 * 根据职位名称获得职位表信息
+	 */
+	@Override
+	public position getPostionByName(String position) {
+		position positionInfo = new position();
+		Session session = getSession();
+		String hql = "from position where position_name = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", position);
+		positionInfo = (position) query.uniqueResult();
+		return positionInfo;
+	}
+
+	/**
+	 * 获得未分配单位的管理员列表
+	 */
+	@Override
+	public List<staff_basicinfo> getListManager(String hql) {
+		Session session = getSession();
+		Query query = session.createSQLQuery(hql).addEntity(staff_basicinfo.class);
+		List<staff_basicinfo> list = query.list();
+		session.clear();
+		return list;
+	}
+
+	/**
+	 * 根据ID获得职位信息
+	 */
+	@Override
+	public position getPostionById(String staff_position) {
+		position positionInfo = new position();
+		Session session = getSession();
+		String hql = "from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_position);
+		positionInfo = (position) query.uniqueResult();
+		return positionInfo;
+	}
+
+	/**
+	 * 根据员工ID获得驾驶员表信息
+	 */
+	@Override
+	public driver getDriverInfoByStaffId(String staff_id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_basicinfoid = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
 	}
 
 }

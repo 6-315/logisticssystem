@@ -176,6 +176,48 @@ public class TransferStationServiceImpl implements TransferStationService {
 		UnitManagerDTO unitManagerDTO = null;
 		// 实例化List<unit>
 		List<unit> listUnit = new ArrayList<>();
+		/*
+		 * // sql语句 查询unit表中有多少条数据 String transferStationCountHql =
+		 * "select count(*) from unit where 1=1 "; // sql语句 查询unit表中每一条数据 String
+		 * listTransferStationHql = "from unit where 1=1 "; // 查询管理员信息
+		 *//**
+			 * 根据单位名字和单位编号单位地址模糊查询
+			 */
+		/*
+		 * if (transferStationVO.getSearch() != null &&
+		 * transferStationVO.getSearch().trim().length() > 0) { String search = "%" +
+		 * transferStationVO.getSearch().trim() + "%"; transferStationCountHql =
+		 * transferStationCountHql + " and (unit_name like '" + search + "'";
+		 * listTransferStationHql = listTransferStationHql + " and (unit_name like '" +
+		 * search + "'"; transferStationCountHql = transferStationCountHql +
+		 * "or unit_num like ' " + search + "'"; listTransferStationHql =
+		 * listTransferStationHql + "or unit_num like '" + search + "'";
+		 * transferStationCountHql = transferStationCountHql + "or unit_address like'" +
+		 * search + "')"; listTransferStationHql = listTransferStationHql +
+		 * "or unit_address like'" + search + "')"; }
+		 *//**
+			 * 根据unit_type查询
+			 */
+		/*
+		 * if (transferStationVO.getType() != null &&
+		 * transferStationVO.getType().trim().length() > 0) { transferStationCountHql =
+		 * transferStationCountHql + " and  unit_type = '" +
+		 * transferStationVO.getType().trim() + "' "; listTransferStationHql =
+		 * listTransferStationHql + " and unit_type = '" +
+		 * transferStationVO.getType().trim() + "'  "; }
+		 *//**
+			 * 根据State查询
+			 *//*
+				 * if (transferStationVO.getState() != null &&
+				 * transferStationVO.getState().trim().length() > 0) { transferStationCountHql =
+				 * transferStationCountHql + " and unit_state = '" +
+				 * transferStationVO.getState().trim() + "'"; listTransferStationHql =
+				 * listTransferStationHql + " and unit_state = '" +
+				 * transferStationVO.getState().trim() + "'"; }
+				 */
+		/**
+		 * 分页获取自身单位，以及自身以下单位信息
+		 */
 		String listTransferStationHql = "";
 		String transferStationCountHql = "";
 		if (staffBasicInfo != null) {
@@ -494,13 +536,14 @@ public class TransferStationServiceImpl implements TransferStationService {
 		for (driver driver : listDriver) {
 
 			staff_basicinfo driverUnDistributed = transferStationDao.getBasicinfoById(driver.getDriver_basicinfoid());
-			
+
 			driverManagerDTO = new DriverManagerDTO();
-			
-			driverManagerDTO.setDriverUnDistributed(driverUnDistributed);;
+
+			driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
+			;
 		}
 		listDriverManagerDTO.add(driverManagerDTO);
-		
+
 		return listDriverManagerDTO;
 	}
 
@@ -525,23 +568,22 @@ public class TransferStationServiceImpl implements TransferStationService {
 	@Override
 	public UnitManagerDTO getUnitAdmin(unit transferStation) {
 		UnitManagerDTO unitManagerDTO = new UnitManagerDTO();
-		if(transferStation.getUnit_id()!=null&&transferStation.getUnit_id().trim().length()>0) {
-		unit unitNew = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
-		if(unitNew!=null) {
-			unitManagerDTO.setUnit(unitNew);
+		if (transferStation.getUnit_id() != null && transferStation.getUnit_id().trim().length() > 0) {
+			unit unitNew = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+			if (unitNew != null) {
+				unitManagerDTO.setUnit(unitNew);
+			}
+			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unitNew.getUnit_admin());
+			if (unit_Admin != null) {
+				unitManagerDTO.setUnit_Admin(unit_Admin);
+			}
+			unit unit_superiorunit = transferStationDao.getTransferStationInfoById(unitNew.getUnit_superiorunit());
+			if (unit_superiorunit != null) {
+				unitManagerDTO.setUnit_superiorunit(unit_superiorunit);
+			}
+			return unitManagerDTO;
 		}
-		staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unitNew.getUnit_admin());
-		if(unit_Admin!=null) {
-			unitManagerDTO.setUnit_Admin(unit_Admin);
-		}
-		unit unit_superiorunit = transferStationDao.getTransferStationInfoById(unitNew.getUnit_superiorunit());
-		if(unit_superiorunit!=null) {
-			unitManagerDTO.setUnit_superiorunit(unit_superiorunit);
-		}
-		return unitManagerDTO;
-	}
 		return null;
-		
-	}
 
+	}
 }

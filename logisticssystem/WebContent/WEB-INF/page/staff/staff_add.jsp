@@ -123,6 +123,11 @@
                                     <p>增加快件</p>
                                 </a>
                             </li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
+                            </a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -141,13 +146,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList" class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>员工查询</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_add.html" class="nav-link active">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd" class="nav-link active">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>招聘员工</p>
                                 </a>
@@ -164,7 +169,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/unit/unit_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>单位列表</p>
                                 </a>
@@ -210,7 +216,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>路线列表</p>
                                 </a>
@@ -411,46 +418,49 @@
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <!-- 地址插件的使用 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
 <!-- datepicker -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
 <script>
     $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()
         //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
         //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
         //Money Euro
         $('[data-mask]').inputmask()
         $('#entrytime').datetimepicker({
             minView: "month",//设置只显示到月份
-            format : "yyyy-mm-dd",//日期格式
-            autoclose:true,//选中关闭
+            format: "yyyy-mm-dd",//日期格式
+            autoclose: true,//选中关闭
             todayBtn: true//今日按钮
         })
         $('#birthday').datetimepicker({
             minView: "month",//设置只显示到月份
-            format : "yyyy-mm-dd",//日期格式
-            autoclose:true,//选中关闭
+            format: "yyyy-mm-dd",//日期格式
+            autoclose: true,//选中关闭
             todayBtn: true//今日按钮
         })
         //iCheck for checkbox and radio inputs
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
-            radioClass   : 'iradio_minimal-blue'
+            radioClass: 'iradio_minimal-blue'
         })
         //Red color scheme for iCheck
         $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
             checkboxClass: 'icheckbox_minimal-red',
-            radioClass   : 'iradio_minimal-red'
+            radioClass: 'iradio_minimal-red'
         })
         //Flat red color scheme for iCheck
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
             checkboxClass: 'icheckbox_flat-green',
-            radioClass   : 'iradio_flat-green'
+            radioClass: 'iradio_flat-green'
         })
     })
 </script>

@@ -5,13 +5,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.*;
+import com.logistics.vehiclemanagement.DTO.ManagerDTO;
 import com.logistics.vehiclemanagement.VO.*;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -124,6 +127,54 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 车辆流转表
 	 */
 	private vehiclecirculation vehicleCirculation;
+	/**
+	 * 职位名称
+	 */
+	private String position = "";
+	/**
+	 * 根据分配状态筛选
+	 */
+	private String distributionState = "";
+	/**
+	 * 根据载货状态筛选
+	 */
+	private String expressState = "";
+	/**
+	 * 管理员信息
+	 */
+	private List<ManagerDTO> listManagerDTO;
+
+	public List<ManagerDTO> getListManagerDTO() {
+		return listManagerDTO;
+	}
+
+	public void setListManagerDTO(List<ManagerDTO> listManagerDTO) {
+		this.listManagerDTO = listManagerDTO;
+	}
+
+	public String getDistributionState() {
+		return distributionState;
+	}
+
+	public void setDistributionState(String distributionState) {
+		this.distributionState = distributionState;
+	}
+
+	public String getExpressState() {
+		return expressState;
+	}
+
+	public void setExpressState(String expressState) {
+		this.expressState = expressState;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
 
 	public team getTeamInfo() {
 		return teamInfo;
@@ -265,7 +316,11 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		vehicleInfoVO.setState(state);
 		vehicleInfoVO.setUnit(unit);
 		vehicleInfoVO.setTeam(team);
-		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
+		vehicleInfoVO.setDistributionState(distributionState);
+		vehicleInfoVO.setExpressState(expressState);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO, staffInfo);
 		response.getWriter().write(gson.toJson(vehicleInfoVO));
 	}
 
@@ -322,7 +377,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void updateTeam() throws IOException {
+	public void updateTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -338,7 +393,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void deleteTeam() throws IOException {
+	public void deleteTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -354,7 +409,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void queryTeam() throws IOException {
+	public void queryTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -371,7 +426,9 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setState(state);
 		teamInfoVO.setUnit(unit);
 		teamInfoVO.setTeamLeader(teamLeader);
-		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO, staffInfo);
 		response.getWriter().write(gson.toJson(teamInfoVO));
 	}
 
@@ -380,7 +437,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void exchangeVehicle() throws IOException {
+	public void exchangeVehicle() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -391,4 +448,19 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
 	}
 
+	/**
+	 * 获取所有管理员
+	 * 
+	 * @throws IOException
+	 */
+	public void getAllManager() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(vehicleManagementService.getAllManager(position)));
+	}
 }
