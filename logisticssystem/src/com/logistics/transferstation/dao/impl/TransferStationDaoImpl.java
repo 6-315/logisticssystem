@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.domain.driver;
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -157,6 +158,17 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
+	
+	@Override
+	public String getDistributionByNum(String unit_num) {
+		Session session = getSession();
+		String hql = "select substring(unit_num,5) from unit where unit_type=:num  order by --substring(unit_num, 5) desc limit 1";
+		System.out.println(hql);
+		Query query = session.createSQLQuery(hql);
+		query.setParameter("num", "配送点");
+		String maxNum = (String) query.uniqueResult();
+		return maxNum;
+	}
 	/**
 	 * 根据ID查询车队表中的信息
 	 */
@@ -196,4 +208,18 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		driver = (driver) query.uniqueResult();
 		return driver;
 	}
+	/**
+	 * 根据id获取职位
+	 */
+	@Override
+	public position getPositionById(String trim) {
+		position position = new position();
+		Session session = getSession();
+		String hql = "from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		position = (position) query.uniqueResult();
+		return position;
+	}
+
 }

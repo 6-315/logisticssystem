@@ -184,7 +184,9 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		vehicleInfo = (vehicle) query.uniqueResult();
 		return vehicleInfo;
 	}
-
+/**
+ * 得到最大编号
+ */
 	@Override
 	public String getMaxNumber(String hql) {
 		Session session = getSession();

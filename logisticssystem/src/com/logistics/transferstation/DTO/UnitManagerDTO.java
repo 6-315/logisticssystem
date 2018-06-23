@@ -23,6 +23,7 @@ public class UnitManagerDTO {
 	private unit unit;
 	private staff_basicinfo unit_Creator;
 	private staff_basicinfo unit_Admin;
+	
 /**
  * staff_basicinfo中的unit_Creator和unit_Admin
  */
