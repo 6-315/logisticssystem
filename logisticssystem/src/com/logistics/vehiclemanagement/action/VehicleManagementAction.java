@@ -130,6 +130,30 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 职位名称
 	 */
 	private String position = "";
+	/**
+	 * 根据分配状态筛选
+	 */
+	private String distributionState = "";
+	/**
+	 * 根据载货状态筛选
+	 */
+	private String expressState = "";
+
+	public String getDistributionState() {
+		return distributionState;
+	}
+
+	public void setDistributionState(String distributionState) {
+		this.distributionState = distributionState;
+	}
+
+	public String getExpressState() {
+		return expressState;
+	}
+
+	public void setExpressState(String expressState) {
+		this.expressState = expressState;
+	}
 
 	public String getPosition() {
 		return position;
@@ -279,6 +303,8 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		vehicleInfoVO.setState(state);
 		vehicleInfoVO.setUnit(unit);
 		vehicleInfoVO.setTeam(team);
+		vehicleInfoVO.setDistributionState(distributionState);
+		vehicleInfoVO.setExpressState(expressState);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO,staffInfo);
@@ -338,7 +364,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void updateTeam() throws IOException {
+	public void updateTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -354,7 +380,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void deleteTeam() throws IOException {
+	public void deleteTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -370,7 +396,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void queryTeam() throws IOException {
+	public void queryTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -387,7 +413,9 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setState(state);
 		teamInfoVO.setUnit(unit);
 		teamInfoVO.setTeamLeader(teamLeader);
-		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO,staffInfo);
 		response.getWriter().write(gson.toJson(teamInfoVO));
 	}
 
@@ -396,7 +424,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 
 	 * @throws IOException
 	 */
-	private void exchangeVehicle() throws IOException {
+	public void exchangeVehicle() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据
@@ -412,7 +440,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 获取所有管理员
 	 * @throws IOException 
 	 */
-	private void getAllManager() throws IOException {
+	public void getAllManager() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		/**
 		 * 格式化json数据

@@ -95,14 +95,14 @@ public class Vehiclemanagement {
 	/**
 	 * 车队查询功能-测试
 	 */
-	@Test
+	/*@Test
 	public void queryTeamTest() {
 		TeamVO teamInfoVO = new TeamVO();
 		String search = "9";
 		teamInfoVO.setSearch(search);
 		vehicleManagementService.queryTeam(teamInfoVO);
 		System.out.println(teamInfoVO);
-	}
+	}*/
 	/**
 	 * 车队更新功能-测试
 	 */
