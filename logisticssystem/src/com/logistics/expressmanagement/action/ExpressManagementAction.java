@@ -591,6 +591,19 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	}
 
 	/**
+	 * 重定向到action
+	 */
+	public String addUnitPage() {
+		return "addUnit";
+	}
+	/**
+	 * 跳转到添加单位页面
+	 */
+	public String pageAddUnit(){
+		return "pageAddUnit";
+	}
+	
+	/**
 	 * 查看当前预约单信息
 	 * 
 	 * @throws IOException
