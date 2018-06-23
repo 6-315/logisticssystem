@@ -388,8 +388,13 @@
                                             <td v-html="unitManagerDTO.unit.unit_address"></td>
                                             <td>{{unitManagerDTO.unit.unit_type}}</td>
                                             <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
-                                            <td>{{unitManagerDTO.unit_Admin.staff_num}}</td>
-                                            <td>{{unitManagerDTO.unit_Admin.staff_name}}</td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin.staff_num
+                                                ?unitManagerDTO.unit_Admin.staff_num:''}}
+                                            </td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin.staff_name?unitManagerDTO.unit_Admin.staff_name:''}}
+                                            </td>
                                             <td>{{unitManagerDTO.unit.unit_state}}</td>
                                             <td>
                                                 <a href="#"><i class="fa fa-pencil-square-o"
@@ -404,13 +409,13 @@
                                         <ul v-cloak class="pagination">
                                             <li></li>
                                             <li><a @click="shouye" href="#">首页</a></li>
-                                            <li :class="{disabled:!unitManagerVO.havePrePage}"><a @click="prePage"
-                                                                                                  href="#">上一页</a>
+                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                                   href="#">上一页</a>
                                             </li>
                                             <li><a>第 {{unitManagerVO.pageIndex}} 页/总
                                                 {{unitManagerVO.totalPages}}
                                                 页/共{{unitManagerVO.totalRecords}}条</a></li>
-                                            <li :class="{disabled:!unitManagerVO.haveNextPage}"><a
+                                            <li :class="{disabled:nextDisabled}"><a
                                                     :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
                                             </a></li>
                                             <li><a @click="weiye" href="#">尾页</a></li>

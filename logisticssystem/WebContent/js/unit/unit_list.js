@@ -48,6 +48,7 @@
                         unitListData.unitManagerVO.totalPages = getUnitList.totalPages
                         unitListData.unitManagerVO.havePrePage = getUnitList.havePrePage
                         unitListData.unitManagerVO.haveNextPage = getUnitList.haveNextPage
+                        view_unitList.judge()
                         unitListData.ready = true
                     }
                 })
@@ -112,6 +113,7 @@
                     unitListData.unitManagerVO.totalPages = getUnitList.totalPages
                     unitListData.unitManagerVO.havePrePage = getUnitList.havePrePage
                     unitListData.unitManagerVO.haveNextPage = getUnitList.haveNextPage
+                    view_unitList.judge()
                     unitListData.ready = true
                 }
             })
