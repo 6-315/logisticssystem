@@ -131,7 +131,7 @@
                 addUnit() {
                     // 添加单位
                     $.ajax({
-                        url: '',
+                        url: '/logisticssystem/transferstation/transferstation_addTransferStation',
                         type: 'POST',
                         data: {
                             'transferStation.unit_id': unitAddData.transferStation.unit_id,
