@@ -143,18 +143,20 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressCirculation.setExpress_circulation_express_id(getExpress.getExpress_id());
 				expressCirculation.setExpress_circulation_launchpeople(getExpress.getExpress_belongunit());
 				expressCirculation.setExpress_circulation_state("流转中");
+				expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond());
+				expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
 				/**
 				 * 如果快件路线是正向，快件流转的接收方就是路线的终点单位
 				 */
 				System.out.println("ooooo:" + routeNew);
-				if ("1".equals(expressRoute.getExpress_route_route_away())) {
+				if ("正向".equals(expressRoute.getExpress_route_route_away())) {
 					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
 				}
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
-				else if ("2".equals(expressRoute.getExpress_route_route_away())) {
+				else if ("反向".equals(expressRoute.getExpress_route_route_away())) {
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_departurestation());
 				}
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
@@ -175,14 +177,12 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				vehicleExpressRelevance.setVehicle_express_relevance_vehicleinfo(vehicleNew.getVehicle_id());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
 				return "success";
-			} else if (calculation > weighByCarAll) {
-				return "Overweight";
-			} else if (calculation == weighByCarAll) {
-				return "Pack full";
-			}
+			} else if (calculation >= weighByCarAll) {
+				return "overweight";
 
+			}
 		}
-		return null;
+		return "error";
 	}
 
 	/**
