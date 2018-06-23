@@ -56,6 +56,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					nextNum = nextNum + 1;
 					String num = String.format("%02d", nextNum);
 					transferStation.setUnit_num(beforeNum + "B" + num);
+
 					System.out.println("sandanand" + num);
 				} else {
 					int nextNum = 1;
@@ -63,8 +64,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					transferStation.setUnit_num(beforeNum + "B" + num);
 					System.out.println("lalalalala" + num);
 				}
-			}
-			if (position != null && position.getPosition_name().equals("总公司管理员")) {
+			} else if (position != null && position.getPosition_name().equals("总公司管理员")) {
 				System.out.println("?????jinlai");
 				String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
 				System.out.println("asdsdf" + maxNum);
@@ -84,6 +84,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 			}
 		}
 		transferStation.setUnit_id(BuildUuid.getUuid());
+		transferStation.setUnit_state("未启用");
+		transferStation.setUnit_creator(staffBasicInfo.getStaff_id());
+		transferStation.setUnit_superiorunit(staffBasicInfo.getStaff_unit());
 		transferStation.setUnit_createtime(TimeUtil.getStringSecond());
 		transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
 		transferStationDao.saveOrUpdateObject(transferStation);
@@ -130,27 +133,31 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 修改单位信息
 	 */
 	@Override
-	public String updateTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
+	public String updateTransferStation(unit transferStation) {
 		// 实例化一个更改信息的对象
-		unit updateUnit = new unit();
-		if (staffBasicInfo != null && transferStation != null) {
-			// 调用DAO层里根据得到
-			updateUnit = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
-			if (transferStation.getUnit_address() != null && transferStation.getUnit_address().trim().length() > 0) {
-				updateUnit.setUnit_address(transferStation.getUnit_address());
-			} else if (transferStation.getUnit_state() != null && transferStation.getUnit_state().trim().length() > 0) {
-				updateUnit.setUnit_state(transferStation.getUnit_state());
-			} else if (transferStation.getUnit_phonenumber() != null
-					&& transferStation.getUnit_phonenumber().trim().length() > 0) {
-				updateUnit.setUnit_phonenumber(transferStation.getUnit_phonenumber());
-			}
-			updateUnit.setUnit_modifytime(TimeUtil.getStringSecond());
-			transferStationDao.saveOrUpdateObject(updateUnit);
+		unit updateUnit = transferStation;
+		/*
+		 * if (staffBasicInfo != null && transferStation != null) { // 调用DAO层里根据得到
+		 * updateUnit =
+		 * transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+		 * if (transferStation.getUnit_address() != null &&
+		 * transferStation.getUnit_address().trim().length() > 0) {
+		 * updateUnit.setUnit_address(transferStation.getUnit_address()); } else if
+		 * (transferStation.getUnit_state() != null &&
+		 * transferStation.getUnit_state().trim().length() > 0) {
+		 * updateUnit.setUnit_state(transferStation.getUnit_state()); } else if
+		 * (transferStation.getUnit_phonenumber() != null &&
+		 * transferStation.getUnit_phonenumber().trim().length() > 0) {
+		 * updateUnit.setUnit_phonenumber(transferStation.getUnit_phonenumber()); }
+		 */
+		updateUnit.setUnit_modifytime(TimeUtil.getStringSecond());
+		transferStationDao.saveOrUpdateObject(updateUnit);
 
-			return "success";
-		}
-		return null;
+		return "success";
 	}
+	/*
+	 * return null; }
+	 */
 
 	/**
 	 * 总公司能所有查询单位
@@ -205,9 +212,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 			 * 根据unit_type查询
 			 */
 			if (transferStationVO.getType() != null && transferStationVO.getType().trim().length() > 0) {
-				transferStationCountHql = transferStationCountHql + " and  unit_type = '"
+				transferStationCountHql = transferStationCountHql + " and  unit_type ='"
 						+ transferStationVO.getType().trim() + "' ";
-				listTransferStationHql = listTransferStationHql + " and unit_type = '"
+				listTransferStationHql = listTransferStationHql + " and unit_type ='"
 						+ transferStationVO.getType().trim() + "'  ";
 			}
 			/**
@@ -265,6 +272,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 		/**
 		 * 分页获取单位列表
 		 */
+
+		System.out.println("002152" + listTransferStationHql);
 		listUnit = (List<unit>) transferStationDao.queryForPage(listTransferStationHql,
 
 				transferStationVO.getPageIndex(), transferStationVO.getPageSize());
