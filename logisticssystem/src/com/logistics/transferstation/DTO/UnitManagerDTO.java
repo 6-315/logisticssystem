@@ -21,6 +21,7 @@ public class UnitManagerDTO {
 	 */
 	
 	private unit unit;
+	private unit unit_superiorunit;
 	private staff_basicinfo unit_Creator;
 	private staff_basicinfo unit_Admin;
 	
@@ -28,9 +29,18 @@ public class UnitManagerDTO {
  * staff_basicinfo中的unit_Creator和unit_Admin
  */
 
+	
 	public unit getUnit() {
 		return unit;
 	}
+
+	public unit getUnit_superiorunit() {
+	return unit_superiorunit;
+}
+
+public void setUnit_superiorunit(unit unit_superiorunit) {
+	this.unit_superiorunit = unit_superiorunit;
+}
 
 	public void setUnit(unit unit) {
 		this.unit = unit;
@@ -54,7 +64,9 @@ public class UnitManagerDTO {
 
 	@Override
 	public String toString() {
-		return "UnitManagerDTO [unit=" + unit + ", unit_Creator=" + unit_Creator + ", unit_Admin=" + unit_Creator + "]";
+		return "UnitManagerDTO [unit=" + unit + ", unit_superiorunit=" + unit_superiorunit + ", unit_Creator="
+				+ unit_Creator + ", unit_Admin=" + unit_Admin + "]";
 	}
+
 
 }

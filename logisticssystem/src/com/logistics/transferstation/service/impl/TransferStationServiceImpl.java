@@ -455,9 +455,12 @@ public class TransferStationServiceImpl implements TransferStationService {
 				if (eachDriverId != null && eachDriverId.trim().length() > 0) {
 					driver driver = transferStationDao.getDriverById(eachDriverId);
 					System.out.println("ghghghg" + driver);
-					if (driver != null) {
+					staff_basicinfo driverNew = transferStationDao.getBasicinfoById(eachDriverId);
+					if (driver != null && driverNew != null) {
 
+						driverNew.setStaff_superiorleader(team.getTeam_leader());
 						System.out.println("qwqwqw");
+
 						driver.setDriver_belong_team(teamNum);
 						driver.setDriver_createtime(TimeUtil.getStringSecond());
 						driver.setDriver_modifytime(TimeUtil.getStringSecond());
@@ -528,12 +531,19 @@ public class TransferStationServiceImpl implements TransferStationService {
 		/**
 		 * 根据司机Id在员工信息表里面查询司机详细信息
 		 */
-
 		List<driver> listDriver = new ArrayList<>();
+		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle = ''");
+		for (driver driver : listDriver) {
 
-		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle=''");
+			staff_basicinfo driverUnDistributed = transferStationDao.getBasicinfoById(driver.getDriver_basicinfoid());
 
+			driverManagerDTO = new DriverManagerDTO();
+
+			driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
+			;
+		}
 		listDriverManagerDTO.add(driverManagerDTO);
+
 		return listDriverManagerDTO;
 	}
 
@@ -550,5 +560,30 @@ public class TransferStationServiceImpl implements TransferStationService {
 			return "success";
 		}
 		return "error";
+	}
+
+	/**
+	 * 查询单位，管理员，上级单位信息
+	 */
+	@Override
+	public UnitManagerDTO getUnitAdmin(unit transferStation) {
+		UnitManagerDTO unitManagerDTO = new UnitManagerDTO();
+		if (transferStation.getUnit_id() != null && transferStation.getUnit_id().trim().length() > 0) {
+			unit unitNew = transferStationDao.getTransferStationInfoById(transferStation.getUnit_id());
+			if (unitNew != null) {
+				unitManagerDTO.setUnit(unitNew);
+			}
+			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unitNew.getUnit_admin());
+			if (unit_Admin != null) {
+				unitManagerDTO.setUnit_Admin(unit_Admin);
+			}
+			unit unit_superiorunit = transferStationDao.getTransferStationInfoById(unitNew.getUnit_superiorunit());
+			if (unit_superiorunit != null) {
+				unitManagerDTO.setUnit_superiorunit(unit_superiorunit);
+			}
+			return unitManagerDTO;
+		}
+		return null;
+
 	}
 }
