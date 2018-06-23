@@ -212,6 +212,7 @@
                         if (data === 'success') {
                             express_view.getAllData()
                             express_view.judge()
+                            $('#expressAdd').modal('hide')
                             toastr.success('到站成功')
                         }
                     }
@@ -269,8 +270,6 @@
                 for (let i = 0; i < expressData.routeDirectionArr.length; i++) {
                     id_directionList = id_directionList + (expressData.routeDirectionArr[i].route_id + '_' + expressData.routeDirectionArr[i].direction) + ','
                 }
-                console.log('ko:', id_directionList)
-                console.log('ex:', expressData.tmpExpressId)
                 //保存
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_saveExpressRoute',
@@ -281,11 +280,11 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
-                            $('expressRoute').modal('hide')
+                            $('#expressRoute').modal('hide')
                             express_view.compliteSaoMiao()
                             // expressData.tmpExpressId = ''
                         } else {
-                            $('expressRoute').modal('hide')
+                            $('#expressRoute').modal('hide')
                             toastr.error('扫描失败')
                         }
                     }
@@ -300,6 +299,8 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
                             toastr.success('扫描成功')
                         } else {
                             toastr.error('扫描失败')
@@ -342,6 +343,8 @@
                             toastr.error('分配失败')
                         } else if (data === 'success') {
                             $('#expressVehicle').modal('hide')
+                            express_view.getAllData()
+                            express_view.judge()
                             toastr.success('分配成功')
                         } else if (data === 'overweight') {
                             toastr.error('车辆超重')
@@ -377,7 +380,7 @@
                 data: '',
                 success: function (data) {
                     let uList = JSON.parse(data)
-                    expressData.expressData.unitList = uList
+                    expressData.unitList = uList
                 }
             })
             $.ajax({
