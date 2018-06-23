@@ -289,7 +289,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	public void queryTransferStation() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		UnitManagerVO unitManagerVO = new UnitManagerVO();
 		unitManagerVO.setSearch(search);
