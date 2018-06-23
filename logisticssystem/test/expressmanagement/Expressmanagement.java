@@ -130,7 +130,7 @@ public class Expressmanagement {
 	/**
 	 * 保存路线
 	 */
-	@Test
+	/*@Test
 	public void saveExpressRouteTest() {
 		String idList="1,2,3,4,5";
 		express expressInfo = new express();
@@ -138,7 +138,7 @@ public class Expressmanagement {
 		expressManagementService.saveExpressRoute(idList, expressInfo);
 		
 		
-	}
+	}*/
 	
 	/**
 	 * 判断快件类型
