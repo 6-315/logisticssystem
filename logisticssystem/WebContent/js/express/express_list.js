@@ -117,7 +117,7 @@
                     }
                 })
             },
-            //分页-上一页
+            // 分页-上一页
             prePage: function () {
                 if (expressData.preDisabled) {
                     return
@@ -136,7 +136,7 @@
                     expressData.nextDisabled = true
                 }
             },
-            //下一页
+            // 下一页
             nextPage: function () {
                 if (expressData.nextDisabled) {
                     return
@@ -145,13 +145,13 @@
                 express_view.getAllData()
                 express_view.judge()
             },
-            //首页
+            // 首页
             shouye: function () {
                 expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
-            //尾页
+            // 尾页
             weiye: function () {
                 expressData.page = reservationData.expressInfoVO.totalPages
                 express_view.getAllData()
@@ -211,11 +211,14 @@
                         'listExpressId': dataDa
                     },
                     success: function (data) {
-                        if (data === 'success') {
+                        console.log('data:', data)
+                        if (data === 'succcess') {
                             $('#expressAdd').modal('hide')
                             express_view.getAllData()
                             express_view.judge()
                             toastr.success('到站成功')
+                        } else {
+                            toastr.error('系统错误，到站失败')
                         }
                     }
                 })
@@ -236,7 +239,7 @@
                         } else if (data === 'begin') {
                             express_view.getRoute(unitId)
                             $('#expressRoute').modal()
-                            //弹出模态框选择地址
+                            // 弹出模态框选择地址
                             // toastr.error('begin')
                         } else if (data === 'trans') {
                             express_view.compliteSaoMiao()
@@ -267,12 +270,12 @@
                 expressData.routeDirectionArr.push(routeDirection);
             },
             saveExpressRoute: function () {
-                //分割
+                // 分割
                 let id_directionList = ''
                 for (let i = 0; i < expressData.routeDirectionArr.length; i++) {
                     id_directionList = id_directionList + (expressData.routeDirectionArr[i].route_id + '_' + expressData.routeDirectionArr[i].direction) + ','
                 }
-                //保存
+                // 保存
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_saveExpressRoute',
                     type: 'POST',
@@ -312,7 +315,7 @@
             },
             scanVehicle(expressId) {
                 expressData.tmpVehicleExpressId = expressId
-                //获取车辆信息
+                // 获取车辆信息
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleByID',
                     type: 'POST',
@@ -356,7 +359,7 @@
             },
             distributionExpressToReser(expressId) {
                 expressData.tmpReserExpressId = expressId
-                //获取配送点信息
+                // 获取配送点信息
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_getDistributionBySession',
                     type: 'POST',
@@ -374,7 +377,7 @@
                 })
             },
             selectDistribution(unitId) {
-                //分配给配送点
+                // 分配给配送点
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_chooseDistribution',
                     type: 'POST',
@@ -395,7 +398,7 @@
                 })
             },
             distribuStaff(staffExpressId) {
-                //获取配送员列表
+                // 获取配送员列表
                 expressData.psiSongExpressId = staffExpressId
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_getDispatcher',
