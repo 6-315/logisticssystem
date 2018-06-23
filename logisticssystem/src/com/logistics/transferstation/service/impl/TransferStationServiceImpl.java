@@ -9,6 +9,7 @@ import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
+import com.logistics.transferstation.DTO.DriverManagerDTO;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.dao.TransferStationDao;
@@ -476,20 +477,37 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 获取所有未分配车辆的司机
 	 */
 
-	public List<driver> getDiverUnDistributed() {
-		return null;
+	@Override
+	public List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO) {
+		/**
+		 * list一个DTO
+		 */
+		List<DriverManagerDTO> listDriverManagerDTO = new ArrayList<>();
+		/**
+		 * 根据司机Id在员工信息表里面查询司机详细信息
+		 */
 
+		List<driver> listDriver = new ArrayList<>();
+
+		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle=''");
+
+		listDriverManagerDTO.add(driverManagerDTO);
+		return listDriverManagerDTO;
 	}
 
+	/**
+	 * 根据未分配的司机分配车辆
+	 */
+
 	@Override
-	public List<driver> getDiverUnDistributed(String vehicle, driver driver) {
-		 List<driver> ListDriver = new ArrayList<>();
-		 
-		driver driverUnDistributed = new driver();
-		 
-		
-		
-		return null;
+	public String distributeDiver(vehicle vehicle, driver driver) {
+		if (driver.getDriver_vehicle() != null && driver.getDriver_vehicle().trim().length() > 0
+				&& vehicle.getVehicle_id() != null && vehicle.getVehicle_id().trim().length() > 0) {
+			driver.setDriver_vehicle(vehicle.getVehicle_id());
+
+			return "success";
+		}
+		return "error";
 	}
 
 }
