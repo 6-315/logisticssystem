@@ -9,6 +9,7 @@ import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.domain.vehicle;
+import com.logistics.transferstation.DTO.DriverManagerDTO;
 import com.logistics.transferstation.DTO.UnitManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.dao.TransferStationDao;
@@ -38,59 +39,64 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 
 	@Override
-	public String addTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
+	public unit addTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
 		System.out.println("fdfdfd" + staffBasicInfo);
-		unit unit = new unit();
-		position position = new position();
-		if (staffBasicInfo != null) {
-			position = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
-			System.out.println("qwqwqwqwqw" + position);
-			if (position != null && position.getPosition_name().equals("中转站管理员")) {
-				System.out.println("hhhhaaaaa");
-				String maxNum = transferStationDao.getDistributionByNum(unit.getUnit_num());
-				unit belongUnit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
-				String beforeNum = belongUnit.getUnit_num();
-				System.out.println("iiiii" + maxNum);
-				if (maxNum != null) {
-					int nextNum = Integer.parseInt(maxNum);
-					nextNum = nextNum + 1;
-					String num = String.format("%02d", nextNum);
-					transferStation.setUnit_num(beforeNum + "B" + num);
+		if (transferStation.getUnit_id() != null && transferStation.getUnit_id().trim().length() > 0) {
+			unit unit = new unit();
+			position position = new position();
+			if (staffBasicInfo != null) {
+				position = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
+				System.out.println("qwqwqwqwqw" + position);
+				if (position != null && position.getPosition_name().equals("中转站管理员")) {
+					System.out.println("hhhhaaaaa");
+					String maxNum = transferStationDao.getDistributionByNum(unit.getUnit_num());
+					unit belongUnit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
+					String beforeNum = belongUnit.getUnit_num();
+					System.out.println("iiiii" + maxNum);
+					if (maxNum != null) {
+						int nextNum = Integer.parseInt(maxNum);
+						nextNum = nextNum + 1;
+						String num = String.format("%02d", nextNum);
+						transferStation.setUnit_num(beforeNum + "B" + num);
 
-					System.out.println("sandanand" + num);
-				} else {
-					int nextNum = 1;
-					String num = String.format("%02d", nextNum);
-					transferStation.setUnit_num(beforeNum + "B" + num);
-					System.out.println("lalalalala" + num);
-				}
-			} else if (position != null && position.getPosition_name().equals("总公司管理员")) {
-				System.out.println("?????jinlai");
-				String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
-				System.out.println("asdsdf" + maxNum);
-				if (maxNum != null) {
-					maxNum = maxNum.replaceAll("[A]", "");
-					int nextNum = Integer.parseInt(maxNum);
-					nextNum = nextNum + 1;
-					String num = String.format("%02d", nextNum);
-					transferStation.setUnit_num("A" + num);
-					System.out.println("ghghg" + num);
-				} else {
-					int nextNum = 1;
-					String num = String.format("%02d", nextNum);
-					transferStation.setUnit_num("A" + num);
-					System.out.println("uiui" + num);
+						System.out.println("sandanand" + num);
+					} else {
+						int nextNum = 1;
+						String num = String.format("%02d", nextNum);
+						transferStation.setUnit_num(beforeNum + "B" + num);
+						System.out.println("lalalalala" + num);
+					}
+				} else if (position != null && position.getPosition_name().equals("总公司管理员")) {
+					System.out.println("?????jinlai");
+					String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
+					System.out.println("asdsdf" + maxNum);
+					if (maxNum != null) {
+						maxNum = maxNum.replaceAll("[A]", "");
+						int nextNum = Integer.parseInt(maxNum);
+						nextNum = nextNum + 1;
+						String num = String.format("%02d", nextNum);
+						transferStation.setUnit_num("A" + num);
+						System.out.println("ghghg" + num);
+					} else {
+						int nextNum = 1;
+						String num = String.format("%02d", nextNum);
+						transferStation.setUnit_num("A" + num);
+						System.out.println("uiui" + num);
+					}
 				}
 			}
+			transferStation.setUnit_id(BuildUuid.getUuid());
+			transferStation.setUnit_state("未启用");
+			transferStation.setUnit_creator(staffBasicInfo.getStaff_id());
+			transferStation.setUnit_superiorunit(staffBasicInfo.getStaff_unit());
+			transferStation.setUnit_createtime(TimeUtil.getStringSecond());
+			transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
+			transferStationDao.saveOrUpdateObject(transferStation);
+		} else {
+
+			transferStationDao.saveOrUpdateObject(transferStation);
 		}
-		transferStation.setUnit_id(BuildUuid.getUuid());
-		transferStation.setUnit_state("未启用");
-		transferStation.setUnit_creator(staffBasicInfo.getStaff_id());
-		transferStation.setUnit_superiorunit(staffBasicInfo.getStaff_unit());
-		transferStation.setUnit_createtime(TimeUtil.getStringSecond());
-		transferStation.setUnit_modifytime(TimeUtil.getStringSecond());
-		transferStationDao.saveOrUpdateObject(transferStation);
-		return "success";
+		return transferStation;
 	}
 
 	/**
@@ -508,10 +514,41 @@ public class TransferStationServiceImpl implements TransferStationService {
 		}
 		return null;
 	}
+
 	/**
 	 * 获取所有未分配车辆的司机
 	 */
 
-	// public List<driver> getDiver
+	@Override
+	public List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO) {
+		/**
+		 * list一个DTO
+		 */
+		List<DriverManagerDTO> listDriverManagerDTO = new ArrayList<>();
+		/**
+		 * 根据司机Id在员工信息表里面查询司机详细信息
+		 */
 
+		List<driver> listDriver = new ArrayList<>();
+
+		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle=''");
+
+		listDriverManagerDTO.add(driverManagerDTO);
+		return listDriverManagerDTO;
+	}
+
+	/**
+	 * 根据未分配的司机分配车辆
+	 */
+
+	@Override
+	public String distributeDiver(vehicle vehicle, driver driver) {
+		if (driver.getDriver_vehicle() != null && driver.getDriver_vehicle().trim().length() > 0
+				&& vehicle.getVehicle_id() != null && vehicle.getVehicle_id().trim().length() > 0) {
+			driver.setDriver_vehicle(vehicle.getVehicle_id());
+
+			return "success";
+		}
+		return "error";
+	}
 }
