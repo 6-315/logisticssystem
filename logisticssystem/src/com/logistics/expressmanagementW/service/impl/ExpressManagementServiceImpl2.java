@@ -449,6 +449,21 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	}
 
 	/**
+	 * 根据session查配送点
+	 */
+	@Override
+	public List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+
+		}
+		List<unit> listUnit = new ArrayList<>();
+		listUnit = (List<unit>) expressManagementDao2
+				.listObject("from unit where unit_superiorunit ='" + staffBasicinfo.getStaff_unit() + "'");
+		return listUnit;
+	}
+
+	/**
 	 * 更改状态为未扫描
 	 */
 

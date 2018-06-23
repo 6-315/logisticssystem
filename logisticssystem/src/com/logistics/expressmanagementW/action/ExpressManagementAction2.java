@@ -283,10 +283,25 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 
-		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId,staffBasicinfo));
+		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId, staffBasicinfo));
 
 	}
+
 	/**
-	 * 根据快件ID查询所有配送点
+	 * 根据session查询所有配送点
 	 */
+	public void getDistributionBySession() {
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		List<unit> listDistribution = new ArrayList<>();
+		listDistribution = expressManagementService2.getDistributionBySession(staffBasicinfo);
+
+		response.getWriter().write(gson.toJson(listDistribution));
+
+	}
 }
