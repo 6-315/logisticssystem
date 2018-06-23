@@ -448,7 +448,9 @@
                                                            href="#">进仓扫描</a></li>
                                                     <li><a @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">扫描装车</a></li>
-                                                    <li><a @click="" href="#">分配配送点</a></li>
+                                                    <li>
+                                                        <a @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_id)"
+                                                           href="#">分配配送点</a></li>
                                                     <li><a href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
                                                     <li><a href="#">查看快件路线</a></li>
@@ -485,6 +487,44 @@
                     <!-- /.card -->
                 </div>
                 <!-- /.col -->
+            </div>
+            <div class="modal fade" id="expressReser">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">分配至配送点</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>单位编号</th>
+                                    <th>单位名称</th>
+                                    <th>单位详细地址</th>
+                                    <th>联系方式</th>
+                                    <th>选择</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="unit in reserList" :key="unit.unit_id">
+                                    <td>{{unit.unit_num}}</td>
+                                    <td>{{vehicle.vehicle_platenum}}</td>
+                                    <td>{{vehicle.vehicle_express_state}}</td>
+                                    <td>{{vehicle.vehicle_standard}}</td>
+                                    <td>{{vehicle.vehicle_current_weight}}</td>
+                                    <td><a @click="loadCar(vehicle.vehicle_id)" class="btn btn-default" href="#">装车</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal fade" id="expressVehicle">
                 <div class="modal-dialog">
