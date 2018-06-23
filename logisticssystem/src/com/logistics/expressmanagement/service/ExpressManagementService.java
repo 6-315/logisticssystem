@@ -28,7 +28,7 @@ public interface ExpressManagementService {
 
 	public String judgeExpressType(express expressInfo);
 
-	public String saveExpressRoute(String idList, express expressInfo);
+	public String saveExpressRoute(String id_directionList, express expressInfo);
 
 	public ExpressRouteDTO queryAllRouteWithUnit(unit unitInfo);
 

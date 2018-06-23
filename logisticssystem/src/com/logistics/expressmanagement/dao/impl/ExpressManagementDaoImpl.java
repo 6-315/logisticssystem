@@ -214,13 +214,12 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	 * 获得路线信息（用于判断）
 	 */
 	@Override
-	public express_route getExpressRouteInfoByExpressId(String express_id) {
-		express_route expressRoute = new express_route();
+	public String getExpressRouteInfoByExpressId(String express_id) {
 		Session session = getSession();
-		String hql = "select * from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
+		String hql = "select express_route_route_id from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		expressRoute = (express_route) query.uniqueResult();
+		String expressRoute = (String) query.uniqueResult();
 		return expressRoute;
 	}
 
@@ -374,6 +373,20 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		query.setParameter("ID", express_route_route_id);
 		routeInfo = (route) query.uniqueResult();
 		return routeInfo;
+	}
+
+	/**
+	 * 根据快件ID查询流转信息
+	 */
+	@Override
+	public vehicle_express_relevance getVehicleExpressRelevanceByExpressId(String express_id) {
+		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
+		Session session = getSession();
+		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		vehicleExpressRelevance = (vehicle_express_relevance) query.uniqueResult();
+		return vehicleExpressRelevance;
 	}
 
 }
