@@ -8,16 +8,22 @@
     <title>单位管理-单位列表</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
+    <%--<link rel="stylesheet"
+            href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <style type="text/css">
         [v-cloak] {
             display: none;
@@ -352,7 +358,7 @@
 														<a class="dropdown-toggle" data-toggle="dropdown">单位类型<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
-															<li><a href="#">所属单位(所有)</a></li>
+															<li><a href="#">单位类型(所有)</a></li>
 															<li><a href="#">总公司</a></li>
 															<li><a href="#">中转站</a></li>
 															<li><a href="#">配送点</a></li>
@@ -360,6 +366,7 @@
 												</span></th>
                                             <th>联系方式</th>
                                             <th>管理员工号</th>
+                                            <th>姓名</th>
                                             <th><span role="presentation" class="dropdown">
 														<a class="dropdown-toggle" data-toggle="dropdown">状态<span
                                                                 class="caret"></span></a>
@@ -374,8 +381,22 @@
                                         </tr>
                                         </thead>
                                         <tbody style="min-height: 200px">
-                                        <tr>
-
+                                        <tr v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
+                                            :key="index">
+                                            <td v-html="unitManagerDTO.unit.unit_num"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_name"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_address"></td>
+                                            <td>{{unitManagerDTO.unit.unit_type}}</td>
+                                            <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
+                                            <td>{{unitManagerDTO.unit_Admin.staff_num}}</td>
+                                            <td>{{unitManagerDTO.unit_Admin.staff_name}}</td>
+                                            <td>{{unitManagerDTO.unit.unit_state}}</td>
+                                            <td>
+                                                <a href="#"><i class="fa fa-pencil-square-o"
+                                                               aria-hidden="true"></i></a>
+                                                <a href="#"><i class="fa fa-plus-circle"
+                                                               aria-hidden="true"></i></a>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -383,14 +404,14 @@
                                         <ul v-cloak class="pagination">
                                             <li></li>
                                             <li><a @click="shouye" href="#">首页</a></li>
-                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
-                                                                                   href="#">上一页</a></li>
+                                            <li :class="{disabled:!unitManagerVO.havePrePage}"><a @click="prePage"
+                                                                                                  href="#">上一页</a>
+                                            </li>
                                             <li><a>第 {{unitManagerVO.pageIndex}} 页/总
                                                 {{unitManagerVO.totalPages}}
                                                 页/共{{unitManagerVO.totalRecords}}条</a></li>
-                                            <li :class="{disabled:nextDisabled}"><a
+                                            <li :class="{disabled:!unitManagerVO.haveNextPage}"><a
                                                     :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
-                                                <%--<span aria-hidden="true">&raquo;</span>--%>
                                             </a></li>
                                             <li><a @click="weiye" href="#">尾页</a></li>
                                             <li></li>
@@ -398,8 +419,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                         <!-- /.card-body -->
                     </div>
