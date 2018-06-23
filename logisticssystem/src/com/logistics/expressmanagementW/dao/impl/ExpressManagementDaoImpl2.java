@@ -229,7 +229,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	public distributiontor getDistributiontor(String staff_id) {
 		distributiontor distributiontorNew = new distributiontor();
 		Session session = getSession();
-		String hql = " from distributiontor where distributiontor_id = :ID";
+		String hql = " from distributiontor where distributiontor_basicinfo = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", staff_id);
 		distributiontorNew = (distributiontor) query.uniqueResult();

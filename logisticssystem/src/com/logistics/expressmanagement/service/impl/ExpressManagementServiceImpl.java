@@ -732,7 +732,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						listExpressInfoHql = listExpressInfoHql + " and express_belongunit ='" + expressInfoVO.getUnit()
 								+ "' ";
 					}
-				} else {
+				} else if ("中转站管理员".equals(staffPosition.getPosition_name())) {
 					// 筛选条件存在
 					if (expressInfoVO.getUnit() != null && expressInfoVO.getUnit().trim().length() > 0) {
 						expressCountHql = expressCountHql + "  express_belongunit ='" + expressInfoVO.getUnit() + "' ";
@@ -759,7 +759,13 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							}
 						}
 					}
-
+				} else {
+					if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+						expressCountHql = expressCountHql + " express_isdistributeddistribution ='"
+								+ staffInfo.getStaff_unit() + "' ";
+						listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistribution ='"
+								+ staffInfo.getStaff_unit() + "' ";
+					}
 				}
 			}
 			expressCountHql = expressCountHql + " )  ";
