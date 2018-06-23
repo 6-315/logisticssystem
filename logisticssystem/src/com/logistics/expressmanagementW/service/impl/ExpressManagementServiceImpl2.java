@@ -48,6 +48,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<vehicle> getVehicleByID(express expressNew) {
+		if (expressNew == null) {
+			return null;
+		}
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
 			List<vehicle> listVehicle = new ArrayList<>();
 			route getRoute = new route();
@@ -60,18 +63,19 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				/**
 				 * 正向所在的车辆
 				 */
-				if ("1".equals(expressRoute.getExpress_route_state())) {
+				if ("1".equals(expressRoute.getExpress_route_route_away())) {
 					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
 							+ teamNew.getTeam_id()
 							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection = '"
 							+ getRoute.getRoute_departurestation() + "'");
+					System.out.println("???:" + listVehicle);
 					return listVehicle;
 
 				}
 				/**
 				 * 反向所在的车辆
 				 */
-				if ("2".equals(expressRoute.getExpress_route_state())) {
+				if ("2".equals(expressRoute.getExpress_route_route_away())) {
 					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
 							+ teamNew.getTeam_id()
 							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection ='"
@@ -90,12 +94,16 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@Override
 	public String judgeVehicleIsOverWeight(GetWeightDTO getWeightDTO) {
+		if (getWeightDTO == null) {
+			return "error";
+		}
 		// express_circulation expressCirculation = new express_circulation();
 		vehicle_express_relevance vehicleExpressRelevance = new vehicle_express_relevance();
 		if (getWeightDTO.getExpressNew().getExpress_id() != null
 				&& getWeightDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getWeightDTO.getVehicleNew().getVehicle_id() != null
 				&& getWeightDTO.getVehicleNew().getVehicle_id().trim().length() > 0) {
+			System.out.println("????");
 			vehicle vehicleNew = new vehicle();// 查车辆信息表
 			express getExpress = new express();// 查快件表
 			expressinfo expressInfo = new expressinfo();// 查快件信息表
@@ -109,35 +117,41 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			route routeNew = new route();// 车辆要发往哪一条路线
 			express_route expressRoute = new express_route();// 获取车辆要发往哪一条路线的ID
 			expressRoute = expressManagementDao2.getexpressRoute(getExpress.getExpress_id());
-			routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
+			System.out.println("iiiiiiiiiii" + expressRoute);
+			routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());
 			int weightByNow = Integer.parseInt(vehicleNew.getVehicle_current_weight());// 车的当前重量
 			int weighByExpressInfo = Integer.parseInt(expressInfo.getExpressinfo_productweight());// 快件重量
 			int weighByCarAll = Integer.parseInt(vehicleNew.getVehicle_standard());// 车的总重量
 			int calculation = weightByNow + weighByExpressInfo;
-			if (("空闲".equals(vehicleNew.getVehicle_state()) || "可载货".equals(vehicleNew.getVehicle_state()))
-					&& calculation <= weighByCarAll) {
+			System.out.println("LLLLL:" + vehicleNew.getVehicle_id());
+			if (("空闲".equals(vehicleNew.getVehicle_express_state())
+					|| "可载货".equals(vehicleNew.getVehicle_express_state())) && calculation <= weighByCarAll) {
+				System.out.println("?????" + expressRoute.getExpress_route_route_away());
 				express_circulation expressCirculation = new express_circulation();
 				expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
 				expressCirculation.setExpress_circulation_express_id(getExpress.getExpress_id());
 				expressCirculation.setExpress_circulation_launchpeople(getExpress.getExpress_belongunit());
+				expressCirculation.setExpress_circulation_state("流转中");
 				/**
 				 * 如果快件路线是正向，快件流转的接收方就是路线的终点单位
 				 */
-				if ("1".equals(expressRoute.getExpress_route_state())) {
+				System.out.println("ooooo:" + routeNew);
+				if ("1".equals(expressRoute.getExpress_route_route_away())) {
+					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
-				}
+				}  
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
-				if ("2".equals(expressRoute.getExpress_route_state())) {
+				else if ("2".equals(expressRoute.getExpress_route_route_away())) {
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_departurestation());
 				}
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				getExpress.setExpress_state("已装车");
 				// getExpress.setExpress_belongunit(routeNew.getRoute_departurestation());
 				expressManagementDao2.saveOrUpdateObject(getExpress);
-				if ("空闲".equals(vehicleNew.getVehicle_state())) {
-					vehicleNew.setVehicle_state("可载货");
+				if ("空闲".equals(vehicleNew.getVehicle_express_state())) {
+					vehicleNew.setVehicle_express_state("可载货");
 				}
 				vehicleNew.setVehicle_current_weight("" + calculation);
 				expressManagementDao2.saveOrUpdateObject(vehicleNew);
@@ -147,6 +161,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				vehicleExpressRelevance.setVehicle_express_relevance_modifytime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_createtime(TimeUtil.getStringSecond());
 				vehicleExpressRelevance.setVehicle_express_relevance_expressinfo_begintime(TimeUtil.getStringSecond());
+				vehicleExpressRelevance.setVehicle_express_relevance_vehicleinfo(vehicleNew.getVehicle_id());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
 				return "success";
 			} else if (calculation > weighByCarAll) {
@@ -405,10 +420,10 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
 					expressRoute = expressManagementDao2.getexpressRoute(id);
 					expressNew = expressManagementDao2.getExpress(id);
-					if ("1".equals(expressRoute.getExpress_route_state())) {
+					if ("1".equals(expressRoute.getExpress_route_route_away())) {
 						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
 					}
-					if ("2".equals(expressRoute.getExpress_route_state())) {
+					if ("2".equals(expressRoute.getExpress_route_route_away())) {
 						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
 					}
 					expressNew.setExpress_state("待扫描");
