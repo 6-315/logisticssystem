@@ -216,17 +216,35 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 			if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
 				express judgeExpress = expressManagementDao.getExpressById(expressInfo.getExpress_id());
 				if (judgeExpress != null) {
-					String expressRouteInfo = expressManagementDao
+					String expressRouteInfoRouteId = expressManagementDao
 							.getExpressRouteInfoByExpressId(judgeExpress.getExpress_id());
-					if (expressRouteInfo != null && expressRouteInfo.trim().length() > 0) {
-						route routeInfo = expressManagementDao.getRouteInfoById(expressRouteInfo);
-						if (routeInfo != null) {
-							if (routeInfo.getRoute_terminalstation() != null
-									&& routeInfo.getRoute_terminalstation().trim().length() > 0) {
-								if (judgeExpress.getExpress_belongunit().equals(routeInfo.getRoute_terminalstation())) {
-									return "end";
-								} else {
-									return "trans";
+					if (expressRouteInfoRouteId != null) {
+						express_route expressRouteInfo = expressManagementDao
+								.getExpressRouteInfoByExpressRouteId(expressRouteInfoRouteId);
+						if (expressRouteInfo != null) {
+							if (expressRouteInfo.getExpress_route_route_away() != null
+									&& expressRouteInfo.getExpress_route_route_away().trim().length() > 0) {
+								route routeInfo = expressManagementDao.getRouteInfoById(expressRouteInfoRouteId);
+								if (routeInfo != null) {
+									if (routeInfo.getRoute_terminalstation() != null
+											&& routeInfo.getRoute_terminalstation().trim().length() > 0) {
+										if (routeInfo.getRoute_departurestation() != null
+												&& routeInfo.getRoute_departurestation().trim().length() > 0) {
+											if (judgeExpress.getExpress_belongunit()
+													.equals(routeInfo.getRoute_terminalstation())
+													&& expressRouteInfo.getExpress_route_route_away().equals("正向")) {
+												return "end";
+
+											} else if (judgeExpress.getExpress_belongunit()
+													.equals(routeInfo.getRoute_departurestation())
+													&& expressRouteInfo.getExpress_route_route_away().equals("反向")) {
+												return "end";
+
+											} else {
+												return "trans";
+											}
+										}
+									}
 								}
 							}
 						}
@@ -348,17 +366,24 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 				express expressInfo = expressAndCirculationDTO.getExpressInfo();
 				if (expressInfo != null) {
 					if (expressInfo.getExpress_id() != null && expressInfo.getExpress_id().trim().length() > 0) {
-						vehicle_express_relevance vehicleExpressRelevanceInfo = expressManagementDao
+						List<vehicle_express_relevance> listVehicleExpressRelevanceInfo = expressManagementDao
 								.getVehicleExpressRelevanceByExpressId(expressInfo.getExpress_id());
-						if (vehicleExpressRelevanceInfo != null) {
-							vehicleExpressRelevanceInfo.setVehicle_express_relevance_expressinfo_endtime(TimeUtil.getStringSecond());
-							vehicleExpressRelevanceInfo.setVehicle_express_relevance_modifytime(TimeUtil.getStringSecond());
-							expressManagementDao.saveOrUpdateObject(vehicleExpressRelevanceInfo);
-							if (vehicleExpressRelevanceInfo.getVehicle_express_relevance_vehicleinfo() != null
-									&& vehicleExpressRelevanceInfo.getVehicle_express_relevance_vehicleinfo().trim()
-											.length() > 0) {
-								vehicle updateVehicle = expressManagementDao.getVehicleInfoById(
-										vehicleExpressRelevanceInfo.getVehicle_express_relevance_vehicleinfo());
+						if (listVehicleExpressRelevanceInfo.size() > 0) {
+							for (vehicle_express_relevance vehicleExpressRelevance : listVehicleExpressRelevanceInfo) {
+								vehicleExpressRelevance
+										.setVehicle_express_relevance_expressinfo_endtime(TimeUtil.getStringSecond());
+								vehicleExpressRelevance
+										.setVehicle_express_relevance_modifytime(TimeUtil.getStringSecond());
+								expressManagementDao.saveOrUpdateObject(vehicleExpressRelevance);
+							}
+
+							if (listVehicleExpressRelevanceInfo.get(0)
+									.getVehicle_express_relevance_vehicleinfo() != null
+									&& listVehicleExpressRelevanceInfo.get(0).getVehicle_express_relevance_vehicleinfo()
+											.trim().length() > 0) {
+								vehicle updateVehicle = expressManagementDao
+										.getVehicleInfoById(listVehicleExpressRelevanceInfo.get(0)
+												.getVehicle_express_relevance_vehicleinfo());
 								if (updateVehicle != null) {
 									if (staffInfo.getStaff_unit() != null
 											&& staffInfo.getStaff_unit().trim().length() > 0) {
@@ -630,7 +655,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 									.listObject(
 											" from vehicle_express_relevance where vehicle_express_relevance_vehicleinfo ='"
 													+ driverInfo.getDriver_vehicle() + "' ");
-							if (listVehicleExpressRelevance.size()>0) {
+							if (listVehicleExpressRelevance.size() > 0) {
 								for (int i = 0; i < listVehicleExpressRelevance.size(); i++) {
 									if (listVehicleExpressRelevance.get(i) != null) {
 										if (listVehicleExpressRelevance.get(i)
@@ -653,10 +678,10 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 										}
 									}
 								}
-							}
-							else {
-								expressCountHql = expressCountHql + " express_id='"+driverInfo.getDriver_id()+"' ";
-								listExpressInfoHql = listExpressInfoHql + " express_id='"+driverInfo.getDriver_id()+"' ";
+							} else {
+								expressCountHql = expressCountHql + " express_id='" + driverInfo.getDriver_id() + "' ";
+								listExpressInfoHql = listExpressInfoHql + " express_id='" + driverInfo.getDriver_id()
+										+ "' ";
 							}
 						}
 					}
@@ -669,7 +694,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							List<express_send> listExpressSend = (List<express_send>) expressManagementDao
 									.listObject(" from express_send where express_send_distributiontor ='"
 											+ distributor.getDistributiontor_id() + "' and express_send_state='未完成' ");
-							if (listExpressSend.size()>0) {
+							if (listExpressSend.size() > 0) {
 								for (int i = 0; i < listExpressSend.size(); i++) {
 									if (listExpressSend.get(i) != null) {
 										if (listExpressSend.get(i).getExpress_send_express_id() != null
@@ -687,10 +712,11 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 									}
 
 								}
-							}
-							else {
-								expressCountHql = expressCountHql + " express_isdistributeddistributor='"+distributor.getDistributiontor_id()+"' ";
-								listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor='"+distributor.getDistributiontor_id()+"' ";
+							} else {
+								expressCountHql = expressCountHql + " express_isdistributeddistributor='"
+										+ distributor.getDistributiontor_id() + "' ";
+								listExpressInfoHql = listExpressInfoHql + " express_isdistributeddistributor='"
+										+ distributor.getDistributiontor_id() + "' ";
 							}
 
 						}
