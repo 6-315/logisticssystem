@@ -490,7 +490,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 		 * 根据司机Id在员工信息表里面查询司机详细信息
 		 */
 		List<driver> listDriver = new ArrayList<>();
-		
 		for (driver driver : listDriver) {
 
 			staff_basicinfo driverUnDistributed = transferStationDao.getBasicinfoById(driver.getDriver_basicinfoid());
