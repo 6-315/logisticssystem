@@ -289,8 +289,9 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 
 	/**
 	 * 根据session查询所有配送点
+	 * @throws IOException 
 	 */
-	public void getDistributionBySession() {
+	public void getDistributionBySession() throws IOException {
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
