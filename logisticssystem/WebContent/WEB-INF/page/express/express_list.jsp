@@ -442,7 +442,7 @@
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">查看详情</a></li>
                                                     <li><a href="#">分配取件员</a></li>
-                                                    <li><a href="#">已揽件</a></li>
+                                                    <%--<li><a href="#">已揽件</a></li>--%>
                                                     <li>
                                                         <a @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
@@ -453,9 +453,13 @@
                                                            href="#">分配配送点</a></li>
                                                     <li><a @click="distribuStaff(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">分配派送员</a></li>
-                                                    <li><a href="#">已签收</a></li>
+                                                    <li>
+                                                        <a @click="qianShouExpress(expressInfoDTO.expressInfo.express_id)"
+                                                           href="#">已签收</a></li>
                                                     <li><a href="#">查看快件路线</a></li>
-                                                    <li><a href="#">已完成</a></li>
+                                                    <li>
+                                                        <a @click="completeExpress(expressInfoDTO.expressInfo.express_id)"
+                                                           href="#">已完成</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -497,7 +501,7 @@
                             <button type="button" class="close" data-dismiss="modal">
                                 <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
                             </button>
-                            <h5 class="modal-title">分配配送员</h5>
+                            <h5 class="modal-title">分配派送员</h5>
                         </div>
                         <hr>
                         <div class="mdoal-body">
@@ -519,7 +523,8 @@
                                     <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
                                     <td>{{dis.staffBasicinfo.staff_sex}}</td>
                                     <td>{{dis.staffBasicinfo.staff_state}}</td>
-                                    <td><a class="btn btn-default">分配</a></td>
+                                    <td><a @click="paiSongStaff(dis.staffBasicinfo.staff_id)"
+                                           class="btn btn-default">分配</a></td>
                                 </tr>
                                 </tbody>
                             </table>
