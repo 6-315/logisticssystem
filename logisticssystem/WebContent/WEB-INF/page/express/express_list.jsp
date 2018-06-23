@@ -451,7 +451,8 @@
                                                     <li>
                                                         <a @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">分配配送点</a></li>
-                                                    <li><a href="#">分配派送员</a></li>
+                                                    <li><a @click="distribuStaff(expressInfoDTO.expressInfo.express_id)"
+                                                           href="#">分配派送员</a></li>
                                                     <li><a href="#">已签收</a></li>
                                                     <li><a href="#">查看快件路线</a></li>
                                                     <li><a href="#">已完成</a></li>
@@ -488,6 +489,44 @@
                 </div>
                 <!-- /.col -->
             </div>
+            <div class="modal fade" id="peiSongYuan">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- 模态弹出窗内容 -->
+                        <div class="modal_header">
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                            </button>
+                            <h5 class="modal-title">分配配送员</h5>
+                        </div>
+                        <hr>
+                        <div class="mdoal-body">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>联系方式</th>
+                                    <th>性别</th>
+                                    <th>员工状态</th>
+                                    <th>分配</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="dis in paiSongYuanList">
+                                    <td>{{dis.staffBasicinfo.staff_num}}</td>
+                                    <td>{{dis.staffBasicinfo.staff_name}}</td>
+                                    <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
+                                    <td>{{dis.staffBasicinfo.staff_sex}}</td>
+                                    <td>{{dis.staffBasicinfo.staff_state}}</td>
+                                    <td><a class="btn btn-default">分配</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal fade" id="expressReser">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -513,11 +552,11 @@
                                 <tbody>
                                 <tr v-for="unit in reserList" :key="unit.unit_id">
                                     <td>{{unit.unit_num}}</td>
-                                    <td>{{vehicle.vehicle_platenum}}</td>
-                                    <td>{{vehicle.vehicle_express_state}}</td>
-                                    <td>{{vehicle.vehicle_standard}}</td>
-                                    <td>{{vehicle.vehicle_current_weight}}</td>
-                                    <td><a @click="loadCar(vehicle.vehicle_id)" class="btn btn-default" href="#">装车</a>
+                                    <td>{{unit.unit_name}}</td>
+                                    <td>{{unit.unit_detailaddress}}</td>
+                                    <td>{{unit.unit_phonenumber}}</td>
+                                    <td><a @click="selectDistribution(unit.unit_id)" class="btn btn-default"
+                                           href="#">分配</a>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -37,7 +37,9 @@
         lastAddress: '',
         routeDirectionArr: [],
         vehicleList: [],
-        reserList: []
+        reserList: [],
+        paiSongYuanList: [],
+        psiSongExpressId: ''
     }
 
 
@@ -210,9 +212,9 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
+                            $('#expressAdd').modal('hide')
                             express_view.getAllData()
                             express_view.judge()
-                            $('#expressAdd').modal('hide')
                             toastr.success('到站成功')
                         }
                     }
@@ -356,9 +358,9 @@
                 expressData.tmpReserExpressId = expressId
                 //获取配送点信息
                 $.ajax({
-                    url: '/logisticssystem',
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getDistributionBySession',
                     type: 'POST',
-                    data: {},
+                    data: '',
                     success: function (data) {
                         if (data === null) {
                             toastr.error('系统错误，获取配送点失败')
@@ -367,6 +369,46 @@
                             console.log('list:', listReser)
                             expressData.reserList = listReser
                             $('#expressReser').modal()
+                        }
+                    }
+                })
+            },
+            selectDistribution(unitId) {
+                //分配给配送点
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_chooseDistribution',
+                    type: 'POST',
+                    data: {
+                        'expressNew.express_id': expressData.tmpReserExpressId,
+                        'unitNew.unit_id': unitId
+                    },
+                    success: function (data) {
+                        if (data === 'error') {
+                            toastr.error('分配失败')
+                        } else if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
+                            $('#expressReser').modal('hide')
+                            toastr.success('分配成功')
+                        }
+                    }
+                })
+            },
+            distribuStaff(staffExpressId) {
+                //获取配送员列表
+                expressData.psiSongExpressId = staffExpressId
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getDispatcher',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        if (data === null) {
+                            toastr.error('系统错误，配送点为空失败')
+                        } else {
+                            let listDis = JSON.parse(data)
+                            console.log('list:', listDis)
+                            expressData.paiSongYuanList = listDis
+                            $('#peiSongYuan').modal()
                         }
                     }
                 })
