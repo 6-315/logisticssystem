@@ -259,6 +259,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		listDistributiontor = (List<distributiontor>) expressManagementDao2
 				.listObject("from distributiontor where distributiontor_belongdistribution ='"
 						+ staffBasicinfo.getStaff_unit() + "' ");
+		System.out.println("////" + listDistributiontor);
 		if (listDistributiontor.size() > 0) {
 			for (distributiontor distributiontor : listDistributiontor) {
 				System.out.println("ooooooooooooooooo");
@@ -292,10 +293,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				&& getExpressAndDispatcherDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() != null
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id().trim().length() > 0) {
-			List<staff_basicinfo> ListStaff = new ArrayList<>();
-			ListStaff = (List<staff_basicinfo>) expressManagementDao2
-					.listObject("from staff_basicinfo where staff_id ='"
-							+ getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() + "'");
+
 			express expressNew = new express();
 			expressNew = expressManagementDao2.getExpress(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
 			express_send expressSend = new express_send();
@@ -311,6 +309,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
 				expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 				expressNew.setExpress_isdistributeddistributor(distributiontorNew.getDistributiontor_id());
+				expressNew.setExpress_state("待派送");
 				if (expressSend != null && expressNew != null) {
 					expressManagementDao2.saveOrUpdateObject(expressNew);
 					expressManagementDao2.saveOrUpdateObject(expressSend);
@@ -385,6 +384,10 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 
 		expressNew1.setExpress_state("待派送");
 		expressNew1.setExpress_isdistributeddistribution(unitNew.getUnit_id());
+		List<express_circulation> listCirculation = new ArrayList<>();
+		/*listCirculation = (List<express_circulation>) expressManagementDao2.listObject(
+				"from express_circulation where express_circulation_express_id ='" + expressNew.getExpress_id() + "' and express_circulation_receiver ='"++"'");*/
+
 		express_circulation expressCirculation = new express_circulation();
 		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
 		expressCirculation.setExpress_circulation_express_id(expressNew1.getExpress_id());
