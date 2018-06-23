@@ -2,6 +2,7 @@ package com.logistics.vehiclemanagement.dao;
 
 import java.util.List;
 
+import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -90,6 +91,10 @@ public interface VehicleManagementDao {
 	public vehicle getVehicleInfoByPlateNumber(String vehicle_platenum);
 
 	public String getMaxNumber(String hql);
+
+	public position getPostionByName(String position);
+
+	public List<staff_basicinfo> getListManager(String hql);
 
 	/**
 	 * 

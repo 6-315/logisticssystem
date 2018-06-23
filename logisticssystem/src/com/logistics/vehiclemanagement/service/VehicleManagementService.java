@@ -1,5 +1,9 @@
 package com.logistics.vehiclemanagement.service;
 
+import java.util.List;
+
+import com.google.gson.JsonElement;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.vehicle;
 import com.logistics.domain.vehiclecirculation;
@@ -22,9 +26,10 @@ public interface VehicleManagementService {
 
 	/**
 	 * 查询车辆
+	 * @param staffInfo 
 	 * @return
 	 */
-	public VehicleVO queryVehicle(VehicleVO vehicleInfoVO);
+	public VehicleVO queryVehicle(VehicleVO vehicleInfoVO, staff_basicinfo staffInfo);
 
 	/**
 	 * 更新车辆
@@ -67,5 +72,7 @@ public interface VehicleManagementService {
 	public TeamVO queryTeam(TeamVO teamInfoVO);
 
 	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
+
+	public List<staff_basicinfo> getAllManager(String position);
 
 }

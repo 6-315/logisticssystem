@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -124,6 +126,18 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * 车辆流转表
 	 */
 	private vehiclecirculation vehicleCirculation;
+	/**
+	 * 职位名称
+	 */
+	private String position = "";
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
 
 	public team getTeamInfo() {
 		return teamInfo;
@@ -265,7 +279,9 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		vehicleInfoVO.setState(state);
 		vehicleInfoVO.setUnit(unit);
 		vehicleInfoVO.setTeam(team);
-		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO,staffInfo);
 		response.getWriter().write(gson.toJson(vehicleInfoVO));
 	}
 
@@ -391,4 +407,19 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
 	}
 
+	
+	/**
+	 * 获取所有管理员
+	 * @throws IOException 
+	 */
+	private void getAllManager() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(vehicleManagementService.getAllManager(position)));
+	}
 }

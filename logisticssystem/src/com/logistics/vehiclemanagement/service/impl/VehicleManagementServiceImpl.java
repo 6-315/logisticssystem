@@ -3,15 +3,9 @@ package com.logistics.vehiclemanagement.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.logistics.domain.staff_basicinfo;
-import com.logistics.domain.team;
-import com.logistics.domain.unit;
-import com.logistics.domain.vehicle;
-import com.logistics.domain.vehiclecirculation;
-import com.logistics.vehiclemanagement.DTO.VehicleDTOManager;
-import com.logistics.vehiclemanagement.DTO.VehicleTeamManagerDTO;
-import com.logistics.vehiclemanagement.VO.TeamVO;
-import com.logistics.vehiclemanagement.VO.VehicleVO;
+import com.logistics.domain.*;
+import com.logistics.vehiclemanagement.DTO.*;
+import com.logistics.vehiclemanagement.VO.*;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
 import com.logistics.vehiclemanagement.service.VehicleManagementService;
 
@@ -73,7 +67,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public VehicleVO queryVehicle(VehicleVO vehicleInfoVO) {
+	public VehicleVO queryVehicle(VehicleVO vehicleInfoVO, staff_basicinfo staffInfo) {
 		/**
 		 * 车辆信息DTO
 		 */
@@ -236,7 +230,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
 				vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 			}
-			
+
 			/**
 			 * 将关键字高亮
 			 */
@@ -457,6 +451,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		VehicleTeamManagerDTO teamDTO;
 		/**
+		 * 驾驶员信息DTO
+		 */
+		List<DriverDTO> listDriverInfoDTO = new ArrayList<>();
+		/**
 		 * 获取数量
 		 */
 		String teamCountHql = "select count(*) from team where 1=1 ";
@@ -540,7 +538,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
 			if (teamLeader != null) {
 				teamDTO.setStaff_BasicInfoLeader(teamLeader);
-			}		
+			}
 			/**
 			 * 查询所属单位
 			 */
@@ -551,11 +549,22 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			/**
 			 * 查询所有队员信息
 			 */
-			String staffBelongTeam = team.getTeam_leader();
-			List<staff_basicinfo> teamMember = (List<staff_basicinfo>) vehicleManagementDao
-					.listObject(" from staff_basicinfo where staff_superiorleader = '" + staffBelongTeam + "' ");
-			if (teamMember != null) {
-				teamDTO.setStaff_TeamMember(teamMember);
+
+			List<driver> listDriver = (List<driver>) vehicleManagementDao
+					.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
+			if (listDriver.size() > 0) {
+				for (driver driver : listDriver) {
+					DriverDTO driverDTO = new DriverDTO();
+					staff_basicinfo staffBasicInfo = vehicleManagementDao
+							.getStaffInfoById(driver.getDriver_basicinfoid());
+					if (staffBasicInfo != null) {
+						driverDTO.setStaffBasicInfo(staffBasicInfo);
+						driverDTO.setDriverInfo(driver);
+						listDriverInfoDTO.add(driverDTO);
+						teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
+					}
+				}
+
 			}
 			/**
 			 * 将关键字高亮
@@ -652,5 +661,28 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		System.out.println("流转失败！");
 		return "error";
 	}
-	
+
+	/**
+	 * 获得所有管理员
+	 */
+	@Override
+	public List<staff_basicinfo> getAllManager(String position) {
+		if (position != null && position.trim().length() > 0) {
+			position positionInfo = vehicleManagementDao.getPostionByName(position);
+			if (positionInfo != null) {
+				if (positionInfo.getPosition_id() != null && positionInfo.getPosition_id().trim().length() > 0) {
+					String hql = "select * from staff_basicinfo AS sta where sta.staff_position ='"
+							+ positionInfo.getPosition_id()
+							+ "' and sta.staff_id not in ( select u.unit_admin from unit AS u )  ";
+					System.out.println("+++++++++++++"+hql);
+					List<staff_basicinfo> listManager = vehicleManagementDao.getListManager(hql);
+					if (listManager.size() > 0) {
+						return listManager;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 }
