@@ -44,6 +44,7 @@ public class UnitManagerVO {
 	private String num;
 
 	private String superiorunit;
+	
 
 	public String getUnit_type() {
 		return unit_type;
