@@ -218,6 +218,11 @@
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
+                            </a></li>
                         </ul>
                     </li>
                     <li class="nav-item"><a
@@ -233,12 +238,12 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList" class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -398,8 +403,9 @@
                                                 {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
                                             </td>
                                             <td>{{unitManagerDTO.unit.unit_state}}</td>
-                                            <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_type)" href="#"><i class="fa fa-pencil-square-o"
-                                                               aria-hidden="true"></i></a></td>
+                                            <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_type)" href="#"><i
+                                                    class="fa fa-pencil-square-o"
+                                                    aria-hidden="true"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>

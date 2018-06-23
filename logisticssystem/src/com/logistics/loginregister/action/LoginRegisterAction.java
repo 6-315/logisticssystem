@@ -275,6 +275,22 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到员工列表
+	 * 
+	 * @return
+	 */
+	public String pageStaffList() {
+		return "pageStaffList";
+	}
+
+	/**
+	 * 跳转到添加员工的界面
+	 */
+	public String pageStaffAdd() {
+		return "pageStaffAdd";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
