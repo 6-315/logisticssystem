@@ -13,7 +13,7 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <%--<link rel="stylesheet"
-            href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+                href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
@@ -94,11 +94,11 @@
         }
 
         /*.pagination > li > a:focus {
-                            color: #fff;
-                            cursor: default;
-                            background-color: #337ab7;
-                            border-color: #337ab7;
-                        }*/
+                                    color: #fff;
+                                    cursor: default;
+                                    background-color: #337ab7;
+                                    border-color: #337ab7;
+                                }*/
         .dropdown-menu {
             max-height: 200px;
             overflow-y: scroll;
@@ -200,7 +200,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                                 with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -258,8 +258,8 @@
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/unit/unit_add.html" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
                         </ul>
@@ -342,8 +342,8 @@
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据搜索" @input="selectUnitSearch" v-model="search" type="text"
-                                           class="form-control input-sm"><span
+                                    <input placeholder="据搜索" @input="selectUnitSearch"
+                                           v-model="search" type="text" class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>
                                 </div>
@@ -383,27 +383,23 @@
                                         </tr>
                                         </thead>
                                         <tbody style="min-height: 200px">
-                                        <tr v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
-                                            :key="index">
+                                        <tr
+                                                v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
+                                                :key="index">
                                             <td v-html="unitManagerDTO.unit.unit_num"></td>
                                             <td v-html="unitManagerDTO.unit.unit_name"></td>
                                             <td v-html="unitManagerDTO.unit.unit_address"></td>
                                             <td>{{unitManagerDTO.unit.unit_type}}</td>
                                             <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
-                                            <td>
-                                                {{unitManagerDTO.unit_Admin !=
+                                            <td>{{unitManagerDTO.unit_Admin !=
                                                 undefined?unitManagerDTO.unit_Admin.staff_num:''}}
                                             </td>
                                             <td>
                                                 {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
                                             </td>
                                             <td>{{unitManagerDTO.unit.unit_state}}</td>
-                                            <td>
-                                                <a href="#"><i class="fa fa-pencil-square-o"
-                                                               aria-hidden="true"></i></a>
-                                                <a href="#"><i class="fa fa-plus-circle"
-                                                               aria-hidden="true"></i></a>
-                                            </td>
+                                            <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_type)" href="#"><i class="fa fa-pencil-square-o"
+                                                               aria-hidden="true"></i></a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -411,9 +407,9 @@
                                         <ul v-cloak class="pagination">
                                             <li></li>
                                             <li><a @click="shouye" href="#">首页</a></li>
-                                            <li :class="{disabled:preDisabled}"><a @click="prePage"
-                                                                                   href="#">上一页</a>
-                                            </li>
+                                            <li :class="{disabled:preDisabled}">
+                                                <a @click="prePage"
+                                                   href="#">上一页</a></li>
                                             <li><a>第 {{unitManagerVO.pageIndex}} 页/总
                                                 {{unitManagerVO.totalPages}}
                                                 页/共{{unitManagerVO.totalRecords}}条</a></li>
@@ -509,6 +505,7 @@
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
 </body>
 </html>

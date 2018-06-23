@@ -257,12 +257,21 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
-	 * 跳转到单位列表
+	 * 跳转到路线列表
 	 * 
 	 * @return
 	 */
 	public String pageRouteList() {
 		return "pageUnitList";
+	}
+
+	/**
+	 * 跳转到添加单位的页面
+	 * 
+	 * @return
+	 */
+	public String pageUnitAdd() {
+		return "pageUnitAdd";
 	}
 
 	/**

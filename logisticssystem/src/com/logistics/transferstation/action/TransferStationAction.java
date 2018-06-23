@@ -15,6 +15,8 @@ import com.google.gson.GsonBuilder;
 import com.logistics.domain.driver;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.domain.vehicle;
+import com.logistics.transferstation.DTO.DriverManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -72,6 +74,39 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 	 * @return
 	 */
 	private String driverList;
+	/**
+	 * 需要分配司机的车辆
+	 */
+	private vehicle vehicle;
+
+	private DriverManagerDTO DriverManagerDTO;
+	
+	private List<driver> listDriver; 
+	
+
+	public vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public List<driver> getListDriver() {
+		return listDriver;
+	}
+
+	public void setListDriver(List<driver> listDriver) {
+		this.listDriver = listDriver;
+	}
+
+	public DriverManagerDTO getDriverManagerDTO() {
+		return DriverManagerDTO;
+	}
+
+	public void setDriverManagerDTO(DriverManagerDTO driverManagerDTO) {
+		DriverManagerDTO = driverManagerDTO;
+	}
 
 	public String getDriverList() {
 		return driverList;
@@ -324,7 +359,6 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
-
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
@@ -416,4 +450,21 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.getWriter().write("" + transferStationService.getUnitInfo(staffBasicInfo));
 
 	}
+	public void getDiverUnDistributed() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO));
+		
+	}
+	public void distributeDiver() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + transferStationService.distributeDiver(vehicle,driver));
+	}
+	
+	
 }

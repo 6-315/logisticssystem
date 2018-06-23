@@ -154,8 +154,8 @@
 								<p>单位列表</p>
 						</a></li>
 						<li class="nav-item"><a
-							href="/test/test/pages/unit/unit_add.html" class="nav-link">
-								<i class="fa fa-plus-square-o nav-icon"></i>
+							href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+							class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
 								<p>增加单位</p>
 						</a></li>
 					</ul></li>

@@ -150,7 +150,7 @@
 				</a>
 					<ul class="nav nav-treeview">
 						<li class="nav-item"><a
-							href="/test/test/pages/unit/unit_list.html" class="nav-link">
+							href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd" class="nav-link">
 								<i class="fa fa-book nav-icon"></i>
 								<p>单位列表</p>
 						</a></li>
