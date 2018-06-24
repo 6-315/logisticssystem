@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3ef4fdff-2f77-4b2b-9c5c-d55bf4c9c3f4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/route/route_list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/route/route_list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/staff/staff_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/staff/staff_add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/staff/staff_list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/staff/staff_list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/unit/unit_add.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/unit/unit_add.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_add.js" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_add.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/config/struts2/struts2_loginregister.xml" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/config/struts2/struts2_loginregister.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logisticssystem/src/com/logistics/loginregister/action/LoginRegisterAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/src/com/logistics/loginregister/action/LoginRegisterAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -135,11 +129,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="staff_list.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="staff_list.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="210" column="30" selection-start-line="210" selection-start-column="30" selection-end-line="210" selection-end-column="30" />
+            <state relative-caret-position="208">
+              <caret line="209" column="10" lean-forward="true" selection-start-line="209" selection-start-column="10" selection-end-line="209" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -201,20 +195,21 @@
       <file leaf-file-name="express_list.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="352" column="34" lean-forward="true" selection-start-line="346" selection-start-column="28" selection-end-line="352" selection-end-column="34" />
+            <state relative-caret-position="192">
+              <caret line="474" column="72" selection-start-line="474" selection-start-column="56" selection-end-line="474" selection-end-column="72" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="express_list.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="express_list.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="242" column="52" lean-forward="true" selection-start-line="242" selection-start-column="52" selection-end-line="242" selection-end-column="52" />
+            <state relative-caret-position="194">
+              <caret line="481" column="100" selection-start-line="481" selection-start-column="100" selection-end-line="481" selection-end-column="100" />
             </state>
           </provider>
         </entry>
@@ -268,6 +263,7 @@
       <find>staff_unit</find>
       <find>window</find>
       <find>listStaDTO</find>
+      <find>快件到站</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -311,9 +307,7 @@
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/css/font/font-awesome.min.css" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/css/index.css" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/express/reservation_manager.js" />
-        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/admin/admin-index.jsp" />
-        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/reservation_manager.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_add.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/unit/unit_list.js" />
@@ -327,6 +321,8 @@
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_add.js" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/staff/staff_list.jsp" />
         <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_list.js" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp" />
+        <option value="$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js" />
       </list>
     </option>
   </component>
@@ -726,12 +722,12 @@
       <workItem from="1529625875663" duration="59441000" />
       <workItem from="1529717883798" duration="11154000" />
       <workItem from="1529741856950" duration="36022000" />
-      <workItem from="1529797910293" duration="29820000" />
+      <workItem from="1529797910293" duration="30786000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="413454000" />
+    <option name="totallyTimeSpent" value="414420000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -1009,13 +1005,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_add.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="262" column="82" selection-start-line="262" selection-start-column="71" selection-end-line="262" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/user/user-userinfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -1027,16 +1016,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="191" column="28" lean-forward="true" selection-start-line="191" selection-start-column="28" selection-end-line="191" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="352" column="34" lean-forward="true" selection-start-line="346" selection-start-column="28" selection-end-line="352" selection-end-column="34" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1074,13 +1053,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-665">
           <caret line="260" column="86" selection-start-line="260" selection-start-column="81" selection-end-line="260" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="242" column="52" lean-forward="true" selection-start-line="242" selection-start-column="52" selection-end-line="242" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1171,8 +1143,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/staff/staff_list.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="210" column="30" selection-start-line="210" selection-start-column="30" selection-end-line="210" selection-end-column="30" />
+        <state relative-caret-position="208">
+          <caret line="209" column="10" lean-forward="true" selection-start-line="209" selection-start-column="10" selection-end-line="209" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="262" column="82" selection-start-line="262" selection-start-column="71" selection-end-line="262" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/WEB-INF/page/express/express_list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="474" column="72" selection-start-line="474" selection-start-column="56" selection-end-line="474" selection-end-column="72" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#section#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logisticssystem/WebContent/js/express/express_list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="481" column="100" selection-start-line="481" selection-start-column="100" selection-end-line="481" selection-end-column="100" />
         </state>
       </provider>
     </entry>

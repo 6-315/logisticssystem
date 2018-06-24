@@ -151,7 +151,7 @@
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
-                            单位管理 <i class="fa fa-angle-left right"></i>
+                            单位管理  <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
