@@ -251,8 +251,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview menu-open"><a href="#"
-                                                                   class="nav-link active"> <i
+                    <li class="nav-item has-treeview"><a href="#"
+                                                         class="nav-link"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -261,7 +261,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
-                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -290,7 +290,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li class="nav-item has-treeview  menu-open"><a href="#" class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
@@ -299,7 +299,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -322,14 +322,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>单位列表</h1>
+                        <h1>路线列表</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
                             </li>
-                            <li class="breadcrumb-item active">单位列表</li>
+                            <li class="breadcrumb-item active">路线列表</li>
                         </ol>
                     </div>
                 </div>
@@ -342,14 +342,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">单位列表</h3>
+                            <h3 class="card-title">路线列表</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据搜索" @input="selectUnitSearch"
+                                    <input placeholder="据编号/始发站/终点站搜索" @input="selectUnitSearch"
                                            v-model="search" type="text" class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>

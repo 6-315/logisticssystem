@@ -37,7 +37,7 @@
         methods: {
             getAllData: function () {
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_staffManager',
                     type: 'POST',
                     data: {
                         'search': staffListData.search,
@@ -69,17 +69,17 @@
                 if (staffListData.preDisabled) {
                     return
                 }
-                staffListData.pageIndex = staffListData.unitManagerVO.pageIndex - 1
+                staffListData.pageIndex = staffListData.staffManagerVO.pageIndex - 1
                 staffListData.getAllData()
                 viewStaffData.judge()
             },
             judge: function () {
                 staffListData.preDisabled = false
                 staffListData.nextDisabled = false
-                if (staffListData.unitManagerVO.pageIndex <= 1) {
+                if (staffListData.staffManagerVO.pageIndex <= 1) {
                     staffListData.preDisabled = true
                 }
-                if (staffListData.unitManagerVO.pageIndex === staffListData.unitManagerVO.totalPages) {
+                if (staffListData.staffManagerVO.pageIndex === staffListData.staffManagerVO.totalPages) {
                     staffListData.nextDisabled = true
                 }
             },
@@ -88,7 +88,7 @@
                 if (staffListData.nextDisabled) {
                     return
                 }
-                staffListData.pageIndex = staffListData.unitManagerVO.pageIndex + 1
+                staffListData.pageIndex = staffListData.staffManagerVO.pageIndex + 1
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
@@ -100,7 +100,7 @@
             },
             // 尾页
             weiye: function () {
-                staffListData.pageIndex = staffListData.unitManagerVO.totalPages
+                staffListData.pageIndex = staffListData.staffManagerVO.totalPages
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
@@ -112,13 +112,13 @@
             },
             selectPosition(postionId) {
                 // 职位筛选
-                staffListData.position = position
+                staffListData.position = postionId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectUnit(unitId) {
                 // 单位筛选
-                staffListData.belongUnit = belongUnit
+                staffListData.belongUnit = unitId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
