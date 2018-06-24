@@ -233,7 +233,7 @@
             })
             //页面
             $.ajax({
-                url: '',
+                url: '/logisticssystem/personnelmanagement/personnelmanagement_staffManager',
                 type: 'POST',
                 data: '',
                 success: function (data) {
