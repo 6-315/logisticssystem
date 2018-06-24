@@ -418,6 +418,23 @@
                                             <td>{{routeList.route_Departurestation.unit_name}}</td>
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
                                             <td>{{routeList.rout.route_state}}</td>
+                                            <td>
+                                                <div class="btn-group">
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false"> <i
+                                                            class="fa fa-th-list"></i>
+													</span>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a
+                                                                @click="positionDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.position.position_name)"
+                                                                href="#">职位调度</a></li>
+                                                        <li><a
+                                                                @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
+                                                                href="#">单位调度</a></li>
+                                                        <li><a href="#">查看详情</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

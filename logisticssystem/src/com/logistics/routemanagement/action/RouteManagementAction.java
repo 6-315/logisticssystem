@@ -69,9 +69,20 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	/**
 	 * 分页
 	 */
+	
 	private RouteManagerVO routManagerVO;
 	private int page = 1;
 	private String search = "";
+
+	private String startUnit;
+	/**
+	 * 根据结束时间进行搜索
+	 */
+	private String endUnit;
+	/**
+	 * 根据状态进行筛选
+	 */
+	private String state;
 	/**
 	 * 使用域模型将route对象放置到struts中
 	 */
@@ -81,6 +92,30 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	 * 多选路线string
 	 */
 	private String routeId;
+
+	public String getStartUnit() {
+		return startUnit;
+	}
+
+	public void setStartUnit(String startUnit) {
+		this.startUnit = startUnit;
+	}
+
+	public String getEndUnit() {
+		return endUnit;
+	}
+
+	public void setEndUnit(String endUnit) {
+		this.endUnit = endUnit;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public String getRouteIds() {
 		return routeIds;
@@ -194,6 +229,9 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		RouteManagerVO routManagerVO = new RouteManagerVO();
 		routManagerVO.setPageIndex(page);
 		routManagerVO.setSearch(search);
+		routManagerVO.setEndUnit(endUnit);
+		routManagerVO.setStartUnit(startUnit);
+		routManagerVO.setState(state);
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
