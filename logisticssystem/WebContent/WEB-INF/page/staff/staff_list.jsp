@@ -8,17 +8,115 @@
     <title>人事管理-员工查询</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <%--<link rel="stylesheet"--%>
-    <%--href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">--%>
+    <!-- Ionicons -->
+    <%--<link rel="stylesheet"
+                href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/tool/site.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
+          href="${pageContext.request.contextPath}/css/toastr.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .table td, .table th {
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            clear: both;
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+
+        .dropdown-menu > li > a:hover {
+            color: #f9f9f9;
+            background-color: #3c8dbc;
+        }
+
+        body {
+            font-size: 14px;
+        }
+
+        .label {
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            border-radius: .25em;
+        }
+
+        .input-sm {
+            height: 30px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .pagePosition {
+            /*float: right;*/
+            margin: auto;
+        }
+
+        .pagination > li {
+            display: inline;
+        }
+
+        .pagination > li > a, .pagination > li > span {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+        }
+
+        .huodong > a {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            pointer-events: none;
+        }
+
+        .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+        /*.pagination > li > a:focus {
+                                    color: #fff;
+                                    cursor: default;
+                                    background-color: #337ab7;
+                                    border-color: #337ab7;
+                                }*/
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+
+        .pagination > .huodong {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
+        .pagination > .disabled > span, .pagination > .disabled > span:focus,
+        .pagination > .disabled > span:hover {
+            color: #777;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #ddd;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -299,13 +397,13 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="staffManagerVO.listStaDTO.length == 0">
-                                    <td style="text-align: center" colspan="8" height="50">
+                                    <td v-if="ready" style="text-align: center" colspan="10" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="8"><i
+                                        <td style="text-align: center" colspan="10"><i
                                                 class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>
@@ -350,7 +448,7 @@
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{staffManagerVO.pageIndex}} 页/总
-                                            {{reservationVO.totalPages}}
+                                            {{staffManagerVO.totalPages}}
                                             页/共{{staffManagerVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
                                                 :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
@@ -379,7 +477,7 @@
                                         </button>
                                         <h5 class="modal-title">职位调度</h5>
                                     </div>
-                                    <b>当前职位:{{staffListData.positionName}}</b>
+                                    <b>当前职位:{{positionName}}</b>
                                     <hr>
                                     <div class="mdoal-body">
                                         <table class="table table-hover">
@@ -416,7 +514,7 @@
                                         </button>
                                         <h5 class="modal-title">单位调度</h5>
                                     </div>
-                                    <b>当前单位:编号{{staffListData.unitNum}} 单位名：{{staffListData.unitName}}</b>
+                                    <b>当前单位:编号{{unitNum}} 单位名：{{unitName}}</b>
                                     <hr>
                                     <div class="mdoal-body">
                                         <table class="table table-hover">
