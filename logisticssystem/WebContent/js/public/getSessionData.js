@@ -5,7 +5,8 @@ let deliveryAdminStaff = null
 let deliveryStaff = null
 let teamStaff = null
 let driverStaff = null
-let userJson = null;
+let userJson = null
+let role = 0
 (function () {
     $.ajax({
         url: '/logisticssystem/loginregister/loginregister_getSessionData',
