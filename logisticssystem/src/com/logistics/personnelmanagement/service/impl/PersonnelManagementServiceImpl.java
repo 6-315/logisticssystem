@@ -46,7 +46,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			System.out.println("cao:" + positionNew.getPosition_name());
 			System.out.println("asdasdasdasdsa");
 			if (positionNew != null) {
-				if ("总公司".equals(positionNew.getPosition_name())) {
+				if ("总公司公司管理员".equals(positionNew.getPosition_name())) {
 					System.out.println("我是总公司");
 					number = "select count(*) from staff_basicinfo where 1 = 1 ";
 					table = "from staff_basicinfo where 1=1";
@@ -245,7 +245,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicinfo);
 			List<position> listPosition = new ArrayList<>();// 总职位
-			if ("总公司".equals(positionNew.getPosition_name())) {
+			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
 						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
@@ -381,7 +381,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		if (staffBasicinfo.getStaff_name() != null && staffBasicinfo.getStaff_name().trim().length() > 0) {
 			staff_basicinfo staff_basicinfo = new staff_basicinfo();
 			String maxStaffNum = personnelManagementDao.getstaffBasicinfoMaxNum();
-			System.out.println("youyouyoyuyoyu" + maxStaffNum);
 			if (staffBasicinfo != null) {
 				if (maxStaffNum == null) {
 					staff_basicinfo.setStaff_num(String.format("%08d", 1));
