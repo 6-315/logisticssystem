@@ -472,6 +472,7 @@
                                     </tbody>
                                 </table>
                                 <div style="float: right;">
+                                    <a href="#" @click="expressQujian" class="btn btn-info">取件</a>
                                     <a href="#" @click="expressFaVehicle" class="btn btn-primary">发车</a>
                                     <a href="#" @click="expressAddJ" class="btn btn-danger">快件到站</a>
                                 </div>
