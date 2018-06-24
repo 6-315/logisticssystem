@@ -352,7 +352,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	public driver getDriverById(String staff_id) {
 		driver driverNew = new driver();
 		Session session = getSession();
-		String hql = " from driver where driver_id = :ID";
+		String hql = " from driver where driver_basicinfoid = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", staff_id);
 		driverNew = (driver) query.uniqueResult();
