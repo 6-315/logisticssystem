@@ -104,70 +104,72 @@
             selectStateExpressInfo(expressState) {
                 switch (expressState) {
                     case '':
-                        active1 = true
-                        active2 = false
-                        active3 = false
-                        active4 = false
-                        active5 = false
-                        active6 = false
-                        active7 = false
+                        userMyOrderData.active1 = true
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
                         break;
                     case '待揽件':
-                        active1 = false
-                        active2 = true
-                        active3 = false
-                        active4 = false
-                        active5 = false
-                        active6 = false
-                        active7 = false
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = true
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
                         break;
                     case '已揽件':
-                        active1 = false
-                        active2 = false
-                        active3 = true
-                        active4 = false
-                        active5 = false
-                        active6 = false
-                        active7 = false
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = true
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
                         break;
                     case '在途中':
-                        active1 = false
-                        active2 = false
-                        active3 = false
-                        active4 = true
-                        active5 = false
-                        active6 = false
-                        active7 = false
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = true
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
                         break;
                     case '待派送':
-                        active1 = false
-                        active2 = false
-                        active3 = false
-                        active4 = false
-                        active5 = true
-                        active6 = false
-                        active7 = false
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = true
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
                         break;
                     case '派送中':
-                        active1 = false
-                        active2 = false
-                        active3 = false
-                        active4 = false
-                        active5 = false
-                        active6 = true
-                        active7 = false
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = true
+                        userMyOrderData.active7 = false
                         break;
                     case '已签收':
-                        active1 = false
-                        active2 = false
-                        active3 = false
-                        active4 = false
-                        active5 = false
-                        active6 = false
-                        active7 = true
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = true
                         break;
                 }
                 userMyOrderData.state = expressState
+                viewUserMyOrder.getAllData()
+                viewUserMyOrder.judge()
             }
 
         },
