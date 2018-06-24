@@ -248,6 +248,49 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到单位列表
+	 * 
+	 * @return
+	 */
+	public String pageUnitList() {
+		return "pageUnitList";
+	}
+
+	/**
+	 * 跳转到路线列表
+	 * 
+	 * @return
+	 */
+	public String pageRouteList() {
+		return "pageRouteList";
+	}
+
+	/**
+	 * 跳转到添加单位的页面
+	 * 
+	 * @return
+	 */
+	public String pageUnitAdd() {
+		return "pageUnitAdd";
+	}
+
+	/**
+	 * 跳转到员工列表
+	 * 
+	 * @return
+	 */
+	public String pageStaffList() {
+		return "pageStaffList";
+	}
+
+	/**
+	 * 跳转到添加员工的界面
+	 */
+	public String pageStaffAdd() {
+		return "pageStaffAdd";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
@@ -385,7 +428,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		request.getSession().setAttribute("teamStaff", "");
 		request.getSession().setAttribute("driverStaff", "");
 		response.getWriter().write("" + "注销成功");
-		 
 
 	}
 }

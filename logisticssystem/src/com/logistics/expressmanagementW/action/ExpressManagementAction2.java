@@ -84,6 +84,15 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	private String address;
 	private unit unitNew;
 	private String listExpressId;
+	private String expressState;
+
+	public String getExpressState() {
+		return expressState;
+	}
+
+	public void setExpressState(String expressState) {
+		this.expressState = expressState;
+	}
 
 	public String getListExpressId() {
 		return listExpressId;
@@ -252,7 +261,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.getWriter()
-				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew));
+				.write("" + expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, listExpressId));
 
 	}
 
@@ -283,10 +292,58 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 
-		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId,staffBasicinfo));
+		response.getWriter().write("" + expressManagementService2.updateNotScan(listExpressId, staffBasicinfo));
 
 	}
+
 	/**
-	 * 根据快件ID查询所有配送点
+	 * 根据session查询所有配送点
+	 * 
+	 * @throws IOException
 	 */
+	public void getDistributionBySession() throws IOException {
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		List<unit> listDistribution = new ArrayList<>();
+		listDistribution = expressManagementService2.getDistributionBySession(staffBasicinfo);
+		response.getWriter().write(gson.toJson(listDistribution));
+
+	}
+
+	/***
+	 * 更改快件状态
+	 * 
+	 * @throws IOException
+	 */
+	public void updateExpressStateByExpressId() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+
+		response.getWriter()
+				.write("" + expressManagementService2.updateExpressStateByExpressId(expressState, expressNew));
+
+	}
+
+	/**
+	 * 司机更改车辆状态
+	 * 
+	 * @throws IOException
+	 */
+	public void updateStateByDriver() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + expressManagementService2.updateStateByDriver(staffBasicinfo));
+
+	}
 }

@@ -15,8 +15,107 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .table td, .table th {
+            padding: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .dropdown-menu > li > a {
+            display: block;
+            clear: both;
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+
+        .dropdown-menu > li > a:hover {
+            color: #f9f9f9;
+            background-color: #3c8dbc;
+        }
+
+        body {
+            font-size: 14px;
+        }
+
+        .label {
+            padding: .2em .6em .3em;
+            font-size: 75%;
+            border-radius: .25em;
+        }
+
+        .input-sm {
+            height: 30px;
+            padding: 5px 10px;
+            line-height: 1.5;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .pagePosition {
+            /*float: right;*/
+            margin: auto;
+        }
+
+        .pagination > li {
+            display: inline;
+        }
+
+        .pagination > li > a, .pagination > li > span {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+        }
+
+        .huodong > a {
+            z-index: 3;
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            pointer-events: none;
+        }
+
+        .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+            color: #23527c;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+        /*.pagination > li > a:focus {
+                            color: #fff;
+                            cursor: default;
+                            background-color: #337ab7;
+                            border-color: #337ab7;
+                        }*/
+        .dropdown-menu {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+
+        .pagination > .huodong {
+            color: #fff;
+            cursor: default;
+            background-color: #337ab7;
+            border-color: #337ab7;
+        }
+
+        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
+        .pagination > .disabled > span, .pagination > .disabled > span:focus,
+        .pagination > .disabled > span:hover {
+            color: #777;
+            cursor: not-allowed;
+            background-color: #fff;
+            border-color: #ddd;
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -79,7 +178,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img src="../../img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
@@ -89,7 +189,8 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../../img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg" class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
@@ -123,6 +224,11 @@
                                     <p>增加快件</p>
                                 </a>
                             </li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
+                            </a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -141,13 +247,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>员工查询</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_add.html" class="nav-link active">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                   class="nav-link active">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>招聘员工</p>
                                 </a>
@@ -164,7 +272,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/unit/unit_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>单位列表</p>
                                 </a>
@@ -210,7 +319,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/route/route_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>路线列表</p>
                                 </a>
@@ -250,7 +360,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section id="staffAdd" class="content">
             <div class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
@@ -268,52 +378,38 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="express_mark">员工姓名</label>
-                                    <input type="text" class="form-control" id="express_mark" placeholder="请输入员工姓名..">
+                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
+                                           id="express_mark" placeholder="请输入员工姓名..">
                                 </div>
                                 <div class="form-group">
                                     <label>联系方式</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" data-inputmask='"mask": "999-9999-9999"'
-                                               data-mask>
+                                    <input v-model="staffBasicInfo.staff_phonenumber" type="text" class="form-control"
+                                           placeholder="请输入联系方式..">
+                                    <div class="form-group">
+                                        <label>所属单位</label>
+                                        <select v-model="staffBasicInfo.staff_unit" class="form-control"
+                                                style="width: 100%;">
+                                            <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <label>入职时间:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                      </span>
-                                            </div>
-                                            <input type="text" class="form-control float-right" id="entrytime">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <div class="from-group">
-                                        <label>出生年月:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                      </span>
-                                            </div>
-                                            <input type="text" class="form-control float-right" id="birthday">
-                                        </div>
-                                        <!-- /.input group -->
+                                        <label>职位</label>
+                                        <select v-model="staffBasicInfo.staff_position" class="form-control"
+                                                style="width: 100%;">
+                                            <option v-for="pos in positionList" :value="pos.position_id">
+                                                {{pos.position_name}}
+                                            </option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <br>
                                         <label>性别:</label>
-                                        <label>
-                                            <input type="radio" name="staff_sex" class="flat-red" checked>
-                                            女
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="staff_sex" class="flat-red">
-                                            男
-                                        </label>
+                                        <select v-model="staffBasicInfo.staff_sex" class="form-control"
+                                                style="width: 100%;">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
                                     </div>
 
                                     <!-- /.form-group -->
@@ -321,37 +417,34 @@
                                 <!-- /.col -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>招募人</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">张三</option>
-                                            <option>李四</option>
-                                            <option>王五</option>
-                                        </select>
+                                        <label>入职时间:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                            <input v-model="staffBasicInfo.staff_entrytime" type="text"
+                                                   class="form-control float-right" id="entrytime">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                    <div class="from-group">
+                                        <label>出生年月:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                              </span>
+                                            </div>
+                                            <input v-model="staffBasicInfo.staff_birthday" type="text"
+                                                   class="form-control float-right" id="birthday">
+                                        </div>
+                                        <!-- /.input group -->
                                     </div>
                                     <div class="form-group">
-                                        <label>职位</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option>中转站管理员</option>
-                                            <option>配送点管理员</option>
-                                            <option>总公司管理员</option>
-                                            <option>总公司管理员</option>
-                                            <option selected="selected">配送员</option>
-                                            <option>驾驶员</option>
-                                            <option>车队队长</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>所属单位</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option>中转站1</option>
-                                            <option>中转站2</option>
-                                            <option>配送点1</option>
-                                            <option>配送点2</option>
-                                            <option selected="selected">配送点3</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" style="width: 120px;float: right;margin-right: 7px"
+                                        <button @click="saveStaff" type="button"
+                                                style="width: 120px;float: right;margin-right: 7px"
                                                 class="btn btn-block btn-primary btn-lg">提交
                                         </button>
                                     </div>
@@ -366,6 +459,8 @@
                             所添加的员工信息应当真实可靠
                         </div>
                     </div>
+                </div>
+            </div>
         </section>
         <!-- /.content -->
     </div>
@@ -411,46 +506,50 @@
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
 <!-- 地址插件的使用 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
 <!-- datepicker -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_add.js"></script>
 <script>
     $(function () {
         //Initialize Select2 Elements
         $('.select2').select2()
         //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
         //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
         //Money Euro
         $('[data-mask]').inputmask()
         $('#entrytime').datetimepicker({
             minView: "month",//设置只显示到月份
-            format : "yyyy-mm-dd",//日期格式
-            autoclose:true,//选中关闭
+            format: "yyyy-mm-dd",//日期格式
+            autoclose: true,//选中关闭
             todayBtn: true//今日按钮
         })
         $('#birthday').datetimepicker({
             minView: "month",//设置只显示到月份
-            format : "yyyy-mm-dd",//日期格式
-            autoclose:true,//选中关闭
+            format: "yyyy-mm-dd",//日期格式
+            autoclose: true,//选中关闭
             todayBtn: true//今日按钮
         })
         //iCheck for checkbox and radio inputs
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
-            radioClass   : 'iradio_minimal-blue'
+            radioClass: 'iradio_minimal-blue'
         })
         //Red color scheme for iCheck
         $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
             checkboxClass: 'icheckbox_minimal-red',
-            radioClass   : 'iradio_minimal-red'
+            radioClass: 'iradio_minimal-red'
         })
         //Flat red color scheme for iCheck
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
             checkboxClass: 'icheckbox_flat-green',
-            radioClass   : 'iradio_flat-green'
+            radioClass: 'iradio_flat-green'
         })
     })
 </script>

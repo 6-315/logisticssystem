@@ -94,6 +94,11 @@ public vehicle getVehicleById(String trim);
  */
 public driver getDriverById(String trim);
 
+String getDistributionByNum(String unit_num);
+
+
+position getPositionById(String trim);
+
 
 
 

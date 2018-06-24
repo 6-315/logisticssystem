@@ -17,6 +17,12 @@
 				/WEB-INF/page/express/express_add.jsp
 			</result>
 
+			<result name="addUnit" type="redirect">
+				/expressmanagement/expressmanagement_pageAddUnit?idList=${idList}
+			</result>
+			<result name="pageAddUnit">
+				/WEB-INF/page/unit/unit_add.jsp
+			</result>
 		</action>
 	</package>
 </struts>

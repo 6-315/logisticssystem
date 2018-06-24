@@ -251,7 +251,6 @@
             if (obj.length === 0) {
                 return
             }
-            console.log('kaishi')
             $.ajax({
                 url: '/logisticssystem/expressmanagement/expressmanagement_queryCurrentReservationInfo',
                 type: 'POST',
@@ -259,33 +258,35 @@
                     'idList': obj
                 },
                 success(data) {
-                    let shuju = JSON.parse(data)
-                    expressData.expressinfo.expressinfo_id = shuju.expressInfo.expressinfo_id
-                    expressData.expressinfo.expressinfo_protectprice = shuju.expressInfo.expressinfo_protectprice
-                    expressData.expressinfo.expressinfo_productname = shuju.expressInfo.expressinfo_productname
-                    expressData.expressinfo.expressinfo_productweight = shuju.expressInfo.expressinfo_productweight
-                    expressData.expressinfo.expressinfo_addresseerealname = shuju.expressInfo.expressinfo_addresseerealname
-                    expressData.expressinfo.expressinfo_addresseeaddress = shuju.expressInfo.expressinfo_addresseeaddress
-                    expressData.expressinfo.expressinfo_adderdetailaddress = shuju.expressInfo.expressinfo_adderdetailaddress
-                    expressData.expressinfo.expressinfo_addresseephonenumber = shuju.expressInfo.expressinfo_addresseephonenumber
-                    expressData.expressinfo.expressinfo_addresseeemail = shuju.expressInfo.expressinfo_addresseeemail
-                    expressData.expressinfo.expressinfo_senderrealname = shuju.expressInfo.expressinfo_senderrealname
-                    expressData.expressinfo.expressinfo_senderaddress = shuju.expressInfo.expressinfo_senderaddress
-                    expressData.expressinfo.expressinfo_senderdetailaddress = shuju.expressInfo.expressinfo_senderdetailaddress
-                    expressData.expressinfo.expressinfo_senderphonenumber = shuju.expressInfo.expressinfo_senderphonenumber
-                    expressData.expressinfo.expressinfo_senderemail = shuju.expressInfo.expressinfo_senderemail
-                    expressData.expressinfo.expressinfo_mark = shuju.expressInfo.expressinfo_mark
-                    expressData.expressinfo.expressinfo_createtime = shuju.expressInfo.expressinfo_createtime
-                    expressData.expressinfo.expressinfo_modifytime = shuju.expressInfo.expressinfo_modifytime
-                    expressData.reservation.reservation_id = shuju.reservationInfo.reservation_id
-                    expressData.reservation.reservation_num = shuju.reservationInfo.reservation_num
-                    expressData.reservation.reservation_expressinfo = shuju.reservationInfo.reservation_expressinfo
-                    expressData.reservation.reservation_user = shuju.reservationInfo.reservation_user
-                    expressData.reservation.reservation_state = shuju.reservationInfo.reservation_state
-                    expressData.reservation.reservation_unit = shuju.reservationInfo.reservation_unit
-                    expressData.reservation.reservation_distributiontor = shuju.reservationInfo.reservation_distributiontor
-                    expressData.reservation.reservation_createtime = shuju.reservationInfo.reservation_createtime
-                    expressData.reservation.reservation_modifytime = shuju.reservationInfo.reservation_modifytime
+                    if (data != null) {
+                        let shuju = JSON.parse(data)
+                        expressData.expressinfo.expressinfo_id = shuju.expressInfo.expressinfo_id
+                        expressData.expressinfo.expressinfo_protectprice = shuju.expressInfo.expressinfo_protectprice
+                        expressData.expressinfo.expressinfo_productname = shuju.expressInfo.expressinfo_productname
+                        expressData.expressinfo.expressinfo_productweight = shuju.expressInfo.expressinfo_productweight
+                        expressData.expressinfo.expressinfo_addresseerealname = shuju.expressInfo.expressinfo_addresseerealname
+                        expressData.expressinfo.expressinfo_addresseeaddress = shuju.expressInfo.expressinfo_addresseeaddress
+                        expressData.expressinfo.expressinfo_adderdetailaddress = shuju.expressInfo.expressinfo_adderdetailaddress
+                        expressData.expressinfo.expressinfo_addresseephonenumber = shuju.expressInfo.expressinfo_addresseephonenumber
+                        expressData.expressinfo.expressinfo_addresseeemail = shuju.expressInfo.expressinfo_addresseeemail
+                        expressData.expressinfo.expressinfo_senderrealname = shuju.expressInfo.expressinfo_senderrealname
+                        expressData.expressinfo.expressinfo_senderaddress = shuju.expressInfo.expressinfo_senderaddress
+                        expressData.expressinfo.expressinfo_senderdetailaddress = shuju.expressInfo.expressinfo_senderdetailaddress
+                        expressData.expressinfo.expressinfo_senderphonenumber = shuju.expressInfo.expressinfo_senderphonenumber
+                        expressData.expressinfo.expressinfo_senderemail = shuju.expressInfo.expressinfo_senderemail
+                        expressData.expressinfo.expressinfo_mark = shuju.expressInfo.expressinfo_mark
+                        expressData.expressinfo.expressinfo_createtime = shuju.expressInfo.expressinfo_createtime
+                        expressData.expressinfo.expressinfo_modifytime = shuju.expressInfo.expressinfo_modifytime
+                        expressData.reservation.reservation_id = shuju.reservationInfo.reservation_id
+                        expressData.reservation.reservation_num = shuju.reservationInfo.reservation_num
+                        expressData.reservation.reservation_expressinfo = shuju.reservationInfo.reservation_expressinfo
+                        expressData.reservation.reservation_user = shuju.reservationInfo.reservation_user
+                        expressData.reservation.reservation_state = shuju.reservationInfo.reservation_state
+                        expressData.reservation.reservation_unit = shuju.reservationInfo.reservation_unit
+                        expressData.reservation.reservation_distributiontor = shuju.reservationInfo.reservation_distributiontor
+                        expressData.reservation.reservation_createtime = shuju.reservationInfo.reservation_createtime
+                        expressData.reservation.reservation_modifytime = shuju.reservationInfo.reservation_modifytime
+                    }
                 }
             })
         }

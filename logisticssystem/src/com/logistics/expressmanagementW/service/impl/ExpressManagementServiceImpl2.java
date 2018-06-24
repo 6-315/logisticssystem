@@ -3,9 +3,12 @@ package com.logistics.expressmanagementW.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.midi.Synthesizer;
+
 import org.apache.tomcat.jni.Time;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
 import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
@@ -53,36 +56,47 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		}
 		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
 			List<vehicle> listVehicle = new ArrayList<>();
+			List<vehicle> listVehicle1 = new ArrayList<>();
+
 			route getRoute = new route();
 			express_route expressRoute = new express_route();
 			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
 			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id()); // 得到路线
-			team teamNew = new team();
-			teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
-			if (teamNew != null) {
-				/**
-				 * 正向所在的车辆
-				 */
-				if ("1".equals(expressRoute.getExpress_route_route_away())) {
-					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-							+ teamNew.getTeam_id()
-							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection = '"
-							+ getRoute.getRoute_departurestation() + "'");
-					System.out.println("???:" + listVehicle);
-					return listVehicle;
+			// team teamNew = new team();
+			// teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
+			System.out.println("------------:" + expressRoute.getExpress_route_route_id());
+			List<team> listTeam = new ArrayList<>();
+			listTeam = (List<team>) expressManagementDao2
+					.listObject("from team where team_route ='" + getRoute.getRoute_id() + "'");
 
+			if (listTeam.size() > 0) {
+				System.out.println("?????");
+				for (team team : listTeam) {
+					listVehicle1 = new ArrayList<>();	
+					System.out.println("kkkkkkkkkk:" + team.getTeam_id());
+					/**
+					 * 正向所在的车辆
+					 */
+					System.out.println("ooooooooooooo:" + expressRoute.getExpress_route_route_away());
+					if ("正向".equals(expressRoute.getExpress_route_route_away())) {
+						listVehicle1 = (List<vehicle>) expressManagementDao2
+								.listObject("from vehicle where vehicle_team = '" + team.getTeam_id()
+										+ "' and (vehicle_express_state = '空闲' or vehicle_express_state = '可载货') and vehicle_drivingdirection = '"
+										+ getRoute.getRoute_departurestation() + "'");
+						System.out.println("listVehicle1:" + listVehicle1);
+					}
+					/**
+					 * 反向所在的车辆
+					 */
+					if ("反向".equals(expressRoute.getExpress_route_route_away())) {
+						listVehicle1 = (List<vehicle>) expressManagementDao2
+								.listObject("from vehicle where vehicle_team = '" + team.getTeam_id()
+										+ "' and (vehicle_express_state = '空闲' or vehicle_express_state = '可载货') and vehicle_drivingdirection ='"
+										+ getRoute.getRoute_terminalstation() + "'");
+					}
+					listVehicle.addAll(listVehicle1);
 				}
-				/**
-				 * 反向所在的车辆
-				 */
-				if ("2".equals(expressRoute.getExpress_route_route_away())) {
-					listVehicle = (List<vehicle>) expressManagementDao2.listObject("from vehicle where vehicle_team = '"
-							+ teamNew.getTeam_id()
-							+ "' and vehicle_state = '空闲' or vehicle_state = '可载货' and vehicle_drivingdirection ='"
-							+ getRoute.getRoute_terminalstation() + "'");
-					return listVehicle;
-				}
-
+				return listVehicle;
 			}
 		}
 		return null;
@@ -132,18 +146,20 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressCirculation.setExpress_circulation_express_id(getExpress.getExpress_id());
 				expressCirculation.setExpress_circulation_launchpeople(getExpress.getExpress_belongunit());
 				expressCirculation.setExpress_circulation_state("流转中");
+				expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond());
+				expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
 				/**
 				 * 如果快件路线是正向，快件流转的接收方就是路线的终点单位
 				 */
 				System.out.println("ooooo:" + routeNew);
-				if ("1".equals(expressRoute.getExpress_route_route_away())) {
+				if ("正向".equals(expressRoute.getExpress_route_route_away())) {
 					System.out.println("fdfd:" + routeNew.getRoute_departurestation());
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_terminalstation());
-				}  
+				}
 				/**
 				 * 如果快件路线是反向，快件流转的接收方就是路线的起始单位
 				 */
-				else if ("2".equals(expressRoute.getExpress_route_route_away())) {
+				else if ("反向".equals(expressRoute.getExpress_route_route_away())) {
 					expressCirculation.setExpress_circulation_receiver(routeNew.getRoute_departurestation());
 				}
 				expressManagementDao2.saveOrUpdateObject(expressCirculation);
@@ -164,14 +180,12 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				vehicleExpressRelevance.setVehicle_express_relevance_vehicleinfo(vehicleNew.getVehicle_id());
 				expressManagementDao2.saveOrUpdateObject(vehicleExpressRelevance);
 				return "success";
-			} else if (calculation > weighByCarAll) {
-				return "Overweight";
-			} else if (calculation == weighByCarAll) {
-				return "Pack full";
-			}
+			} else if (calculation >= weighByCarAll) {
+				return "overweight";
 
+			}
 		}
-		return null;
+		return "error";
 	}
 
 	/**
@@ -235,33 +249,34 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<DistributiontorAndStaffBasicinfoDTO> getDispatcher(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
+		System.out.println("llll:" + staffBasicinfo);
 		List<DistributiontorAndStaffBasicinfoDTO> listDistributiontorAndStaffBasicinfoDTO = new ArrayList<>();
 		DistributiontorAndStaffBasicinfoDTO distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
-		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
-				&& staffBasicinfo.getStaff_unit() != null && staffBasicinfo.getStaff_unit().trim().length() > 0) {
-			List<distributiontor> listDistributiontor = new ArrayList<>();
-			listDistributiontor = (List<distributiontor>) expressManagementDao2
-					.listObject("from distributiontor where distributiontor_belongdistribution ='"
-							+ staffBasicinfo.getStaff_unit() + "' ");
-			if (listDistributiontor.size() > 0) {
-				for (distributiontor distributiontor : listDistributiontor) {
-					System.out.println("ooooooooooooooooo");
-					distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
-					staff_basicinfo staff_Basicinfo = new staff_basicinfo();
-					staff_Basicinfo = expressManagementDao2
-							.getStaffBasicinfo(distributiontor.getDistributiontor_basicinfo());
-					if (staff_Basicinfo != null) {
-						distributiontorAndStaffBasicinfoDTO.setDistributiontorNew(distributiontor);
-						distributiontorAndStaffBasicinfoDTO.setStaffBasicinfo(staff_Basicinfo);
-						listDistributiontorAndStaffBasicinfoDTO.add(distributiontorAndStaffBasicinfoDTO);
 
-					}
-
+		List<distributiontor> listDistributiontor = new ArrayList<>();
+		listDistributiontor = (List<distributiontor>) expressManagementDao2
+				.listObject("from distributiontor where distributiontor_belongdistribution ='"
+						+ staffBasicinfo.getStaff_unit() + "' ");
+		System.out.println("////" + listDistributiontor);
+		if (listDistributiontor.size() > 0) {
+			for (distributiontor distributiontor : listDistributiontor) {
+				System.out.println("ooooooooooooooooo");
+				distributiontorAndStaffBasicinfoDTO = new DistributiontorAndStaffBasicinfoDTO();
+				staff_basicinfo staff_Basicinfo = new staff_basicinfo();
+				staff_Basicinfo = expressManagementDao2
+						.getStaffBasicinfo(distributiontor.getDistributiontor_basicinfo());
+				if (staff_Basicinfo != null) {
+					distributiontorAndStaffBasicinfoDTO.setDistributiontorNew(distributiontor);
+					distributiontorAndStaffBasicinfoDTO.setStaffBasicinfo(staff_Basicinfo);
+					listDistributiontorAndStaffBasicinfoDTO.add(distributiontorAndStaffBasicinfoDTO);
 				}
-				return listDistributiontorAndStaffBasicinfoDTO;
 			}
-
+			return listDistributiontorAndStaffBasicinfoDTO;
 		}
+
 		return null;
 	}
 
@@ -273,17 +288,15 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public String updateExpressState(GetExpressAndDispatcherDTO getExpressAndDispatcherDTO) {
+		System.out.println("iiii:" + getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
+		System.out.println("kkk:" + getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id());
 		if (getExpressAndDispatcherDTO.getExpressNew().getExpress_id() != null
 				&& getExpressAndDispatcherDTO.getExpressNew().getExpress_id().trim().length() > 0
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() != null
 				&& getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id().trim().length() > 0) {
-			List<staff_basicinfo> ListStaff = new ArrayList<>();
-			ListStaff = (List<staff_basicinfo>) expressManagementDao2
-					.listObject("from staff_basicinfo where staff_id ='"
-							+ getExpressAndDispatcherDTO.getStaffBasicInfo().getStaff_id() + "'");
+
 			express expressNew = new express();
 			expressNew = expressManagementDao2.getExpress(getExpressAndDispatcherDTO.getExpressNew().getExpress_id());
-
 			express_send expressSend = new express_send();
 			distributiontor distributiontorNew = new distributiontor();// 配送员信息
 			distributiontorNew = expressManagementDao2
@@ -297,6 +310,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
 				expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 				expressNew.setExpress_isdistributeddistributor(distributiontorNew.getDistributiontor_id());
+				expressNew.setExpress_state("待派送");
 				if (expressSend != null && expressNew != null) {
 					expressManagementDao2.saveOrUpdateObject(expressNew);
 					expressManagementDao2.saveOrUpdateObject(expressSend);
@@ -337,24 +351,30 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 * 配送员点击派送
 	 */
 	@Override
-	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, express expressNew) {
-		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, String listExpressId) {
+
+		String[] update = listExpressId.split(",");
+		for (String id : update) {
+			express_circulation expressCirculation = new express_circulation();
 			express_send expressSend = new express_send();
-			express getExpress = new express();
-			getExpress = expressManagementDao2.getExpress(expressNew.getExpress_id());
-			expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
-			if (getExpress != null && expressSend != null) {
-				getExpress.setExpress_state("派送中");
-				getExpress.setExpress_createtime(TimeUtil.getStringSecond());
-				expressSend.setExpress_send_state("未完成");
-				expressSend.setExpress_send_createtime(TimeUtil.getStringSecond());
-				expressManagementDao2.saveOrUpdateObject(getExpress);
+			express expressNew = new express();
+			expressCirculation = expressManagementDao2.getExpressCirculation(id);
+			expressSend = expressManagementDao2.getExpressSend(id);
+			expressNew = expressManagementDao2.getExpress(id);
+			expressCirculation.setExpress_circulation_state("已完成");
+			expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+			expressSend.setExpress_send_state("派送中");
+			expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
+			expressNew.setExpress_state("派送中");
+			expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
+			if (expressNew != null && expressSend != null && expressCirculation != null) {
+				expressManagementDao2.saveOrUpdateObject(expressNew);
 				expressManagementDao2.saveOrUpdateObject(expressSend);
-				System.out.println("成功！");
+				expressManagementDao2.saveOrUpdateObject(expressCirculation);
 				return "success";
 			}
-
 		}
+
 		return null;
 	}
 
@@ -366,16 +386,30 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		if (expressNew == null && unitNew == null) {
 			return "error";
 		}
-		expressNew.setExpress_state("待派送");
-		expressNew.setExpress_isdistributeddistribution(unitNew.getUnit_id());
+		express expressNew1 = new express();
+		expressNew1 = expressManagementDao2.getExpress(expressNew.getExpress_id());
+
+		expressNew1.setExpress_state("待派送");
+		expressNew1.setExpress_isdistributeddistribution(unitNew.getUnit_id());
+		List<express_circulation> listCirculation = new ArrayList<>();
+		/*
+		 * listCirculation = (List<express_circulation>)
+		 * expressManagementDao2.listObject(
+		 * "from express_circulation where express_circulation_express_id ='" +
+		 * expressNew.getExpress_id() + "' and express_circulation_receiver ='"++"'");
+		 */
+
 		express_circulation expressCirculation = new express_circulation();
 		expressCirculation.setExpress_circulation_id(BuildUuid.getUuid());
-		expressCirculation.setExpress_circulation_express_id(expressNew.getExpress_id());
-		expressCirculation.setExpress_circulation_launchpeople(expressNew.getExpress_belongunit());
+		expressCirculation.setExpress_circulation_express_id(expressNew1.getExpress_id());
+		expressCirculation.setExpress_circulation_launchpeople(expressNew1.getExpress_belongunit());
+		expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
+		expressCirculation.setExpress_circulation_createtime(TimeUtil.getStringSecond());
+		expressCirculation.setExpress_circulation_state("未完成");
 		expressCirculation.setExpress_circulation_receiver(unitNew.getUnit_id());
 		if (expressNew != null && expressCirculation != null) {
 			expressManagementDao2.saveOrUpdateObject(expressCirculation);
-			expressManagementDao2.saveOrUpdateObject(expressNew);
+			expressManagementDao2.saveOrUpdateObject(expressNew1);
 			return "success";
 		}
 		return "error";
@@ -414,22 +448,29 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			if ("驾驶员".equals(positionNew.getPosition_name())) {
 
 				for (String id : update) {
+
 					express_route expressRoute = new express_route();
 					route routeNew = new route();
 					express expressNew = new express();
-					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_id());
 					expressRoute = expressManagementDao2.getexpressRoute(id);
+					routeNew = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id());
+					System.out.println("iiiii" + expressRoute);
+					System.out.println("LLLL" + routeNew);
 					expressNew = expressManagementDao2.getExpress(id);
-					if ("1".equals(expressRoute.getExpress_route_route_away())) {
-						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
-					}
-					if ("2".equals(expressRoute.getExpress_route_route_away())) {
+					if ("正向".equals(expressRoute.getExpress_route_route_away())) {
 						expressNew.setExpress_belongunit(routeNew.getRoute_terminalstation());
+					}
+					if ("反向".equals(expressRoute.getExpress_route_route_away())) {
+						expressNew.setExpress_belongunit(routeNew.getRoute_departurestation());
 					}
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-
+					// express_route expressRoute1 = new express_route();
+					// expressRoute1 = expressManagementDao2.getexpressRoute(id);
+					expressRoute.setExpress_route_state("已完成");
+					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+					expressManagementDao2.saveOrUpdateObject(expressRoute);
 				}
 				return "succcess";
 			}
@@ -438,7 +479,57 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	}
 
 	/**
+	 * 根据session查配送点
+	 */
+	@Override
+	public List<unit> getDistributionBySession(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return null;
+		}
+		List<unit> listUnit = new ArrayList<>();
+		listUnit = (List<unit>) expressManagementDao2
+				.listObject("from unit where unit_superiorunit ='" + staffBasicinfo.getStaff_unit() + "'");
+		return listUnit;
+	}
+
+	/**
 	 * 更改状态为未扫描
 	 */
+	/**
+	 * 更改快件状态
+	 */
+	@Override
+	public String updateExpressStateByExpressId(String expressState, express expressNew) {
+		if (expressState == null && expressNew == null) {
+			return "error";
+		}
+		express express = new express();
+		express = expressManagementDao2.getExpress(expressNew.getExpress_id());
+		express.setExpress_state(expressState);
+		express.setExpress_modifytime(TimeUtil.getStringSecond());
+		return "success";
+	}
 
+	/**
+	 * 司机更改车辆状态
+	 */
+	@Override
+	public String updateStateByDriver(staff_basicinfo staffBasicinfo) {
+		if (staffBasicinfo == null) {
+			return "error";
+		}
+		driver driverNew = new driver();
+		driverNew = expressManagementDao2.getDriverById(staffBasicinfo.getStaff_id());
+		if (driverNew != null) {
+			vehicle vehicleNew = new vehicle();
+			vehicleNew = expressManagementDao2.getVehicle(driverNew.getDriver_id());
+			if (vehicleNew != null) {
+				vehicleNew.setVehicle_state("已发车");
+				vehicleNew.setVehicle_modifytime(TimeUtil.getStringSecond());
+				expressManagementDao2.saveOrUpdateObject(vehicleNew);
+				return "success";
+			}
+		}
+		return null;
+	}
 }

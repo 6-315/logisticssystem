@@ -104,7 +104,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                                     with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
@@ -115,8 +115,7 @@
                         <ul class="nav nav-treeview" style="display: block;">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                                    class="nav-link"> <i
-                                    class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -143,11 +142,15 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                    class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -161,13 +164,13 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/unit/unit_list.html" class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/unit/unit_add.html" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
                         </ul>
@@ -199,8 +202,8 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_list.html" class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -255,42 +258,36 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>内件品名</label>
-                                    <input type="hidden" id="shuju" value="${idList}">
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_productname"
-                                           class="form-control"
-                                           placeholder="请输入内件品名..">
+                                    <label>内件品名</label> <input type="hidden" id="shuju"
+                                                               value="${idList}"> <input type="text"
+                                                                                         v-model="expressinfo.expressinfo_productname"
+                                                                                         class="form-control"
+                                                                                         placeholder="请输入内件品名..">
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label for="express_weight">物品重量(kg)</label>
-                                    <input type="number"
-                                           v-model="expressinfo.expressinfo_productweight"
-                                           class="form-control"
-                                           id="express_weight"
-                                           placeholder="请输入物品重量..">
+                                    <label for="express_weight">物品重量(kg)</label> <input
+                                        type="number" v-model="expressinfo.expressinfo_productweight"
+                                        class="form-control" id="express_weight"
+                                        placeholder="请输入物品重量..">
                                 </div>
                                 <!-- /.form-group -->
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>增值服务</label>
-                                    <select class="form-control select2"
-                                            v-model="expressinfo.expressinfo_protectprice"
-                                            data-placeholder="增值服务"
-                                            style="width: 100%;">
-                                        <option>保价</option>
-                                    </select>
+                                    <label>增值服务</label> <select class="form-control"
+                                                                v-model="expressinfo.expressinfo_protectprice"
+                                                                data-placeholder="增值服务" style="width: 100%;">
+                                    <option>保价</option>
+                                </select>
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group" style="margin-top: 21px;">
-                                    <label for="express_mark">备注</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_mark"
-                                           class="form-control" id="express_mark"
-                                           placeholder="请输入备注..">
+                                    <label for="express_mark">备注</label> <input type="text"
+                                                                                v-model="expressinfo.expressinfo_mark"
+                                                                                class="form-control"
+                                                                                id="express_mark" placeholder="请输入备注..">
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -316,18 +313,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="sender">真实姓名</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_senderrealname"
-                                           class="form-control"
-                                           placeholder="请输入真实姓名..">
+                                    <label for="sender">真实姓名</label> <input type="text"
+                                                                            v-model="expressinfo.expressinfo_senderrealname"
+                                                                            class="form-control"
+                                                                            placeholder="请输入真实姓名..">
                                 </div>
                                 <div class="form-group">
-                                    <label for="sender_address">详细</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_senderdetailaddress"
-                                           class="form-control"
-                                           placeholder="请输入详细地址..">
+                                    <label for="sender_address">详细</label> <input type="text"
+                                                                                  v-model="expressinfo.expressinfo_senderdetailaddress"
+                                                                                  class="form-control"
+                                                                                  placeholder="请输入详细地址..">
                                 </div>
                                 <!-- /.form-group -->
                                 <!-- /.form-group -->
@@ -348,19 +343,20 @@
                                                 <li @click="selectCityMethod" id="city" style="color: #000;"
                                                     :class="{hover : selectCity}">市区
                                                 </li>
-                                                <li @click="selectCountyMethod" id="xian" style="color: #000;"
-                                                    :class="{hover : selectCounty}">县区
+                                                <li @click="selectCountyMethod" id="xian"
+                                                    style="color: #000;" :class="{hover : selectCounty}">县区
                                                 </li>
                                             </ul>
                                             <div class="yto-city-cont">
                                                 <dl id="sendProC" class="ytoprov"
                                                     :style="[selectProvince?bl:no]">
                                                     <dd @click="inputProvince(pro.provinceID,pro.province)"
-                                                        v-for="pro in province" :key="pro.id" :title="pro.province"
-                                                        :value="pro.provinceID">{{pro.province}}
+                                                        v-for="pro in province" :key="pro.id"
+                                                        :title="pro.province" :value="pro.provinceID">{{pro.province}}
                                                     </dd>
                                                 </dl>
-                                                <dl id="cityC" class="ytocity" :style="[selectCity ? bl : no]">
+                                                <dl id="cityC" class="ytocity"
+                                                    :style="[selectCity ? bl : no]">
                                                     <dd @click="inputCity(cit.cityID,cit.city)"
                                                         v-for="cit in city" :key="cit.id" :title="cit.city"
                                                         :value="cit.cityID">{{cit.city}}
@@ -378,11 +374,9 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>联系方式</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_senderphonenumber"
-                                           class="form-control"
-                                           placeholder="请输入联系方式..">
+                                    <label>联系方式</label> <input type="text"
+                                                               v-model="expressinfo.expressinfo_senderphonenumber"
+                                                               class="form-control" placeholder="请输入联系方式..">
                                 </div>
                                 <!-- /.form-group -->
                             </div>
@@ -408,15 +402,15 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="sender">真实姓名</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_addresseerealname"
-                                           class="form-control" id="sender"
-                                           placeholder="请输入真实姓名..">
+                                    <label for="sender">真实姓名</label> <input type="text"
+                                                                            v-model="expressinfo.expressinfo_addresseerealname"
+                                                                            class="form-control" id="sender"
+                                                                            placeholder="请输入真实姓名..">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">省/市/区</label>
-                                    <div class="dropdown yto-city" :class="{open : addressBoxIsOpen}">
+                                    <div class="dropdown yto-city"
+                                         :class="{open : addressBoxIsOpen}">
                                         <input @focus="openAddressBox" readonly="readonly"
                                                v-model="expressinfo.expressinfo_addresseeaddress"
                                                class="form-control" placeholder="请输入省市区" type="text">
@@ -465,24 +459,20 @@
                             <!-- /.col -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="sender_address">详细</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_adderdetailaddress"
-                                           class="form-control"
-                                           id="sender_address"
-                                           placeholder="请输入详细地址..">
+                                    <label for="sender_address">详细</label> <input type="text"
+                                                                                  v-model="expressinfo.expressinfo_adderdetailaddress"
+                                                                                  class="form-control"
+                                                                                  id="sender_address"
+                                                                                  placeholder="请输入详细地址..">
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>联系方式</label>
-                                    <input type="text"
-                                           v-model="expressinfo.expressinfo_addresseephonenumber"
-                                           class="form-control"
-                                           placeholder="请输入联系方式..">
+                                    <label>联系方式</label> <input type="text"
+                                                               v-model="expressinfo.expressinfo_addresseephonenumber"
+                                                               class="form-control" placeholder="请输入联系方式..">
                                 </div>
                                 <div class="form-group">
-                                    <button type="button"
-                                            @click="addExpress"
+                                    <button type="button" @click="addExpress"
                                             style="width: 120px; float: right; margin-right: 7px"
                                             class="btn btn-block btn-primary btn-lg">提交
                                     </button>
@@ -513,8 +503,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                添加快件成功，单号为 {{expressinfo.express_number}}
-                                点击<a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList">跳转</a>到列表页
+                                添加快件成功，单号为 {{expressinfo.express_number}} 点击<a
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList">跳转</a>到列表页
                             </div>
                             <!-- /.col -->
                         </div>
@@ -558,7 +548,8 @@
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/express/express_add.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/express/express_add.js"></script>
 <script>
     $(function () {
         $('.select2').select2()

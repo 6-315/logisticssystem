@@ -32,9 +32,10 @@ public class StaffManagerVO {
 	 * 职位表
 	 */
 	private String position;
-	
 
 	private List<StaffManagerDTO> listStaDTO;
+
+	private String state;
 
 	public int getTotalRecords() {
 		return totalRecords;
@@ -116,12 +117,20 @@ public class StaffManagerVO {
 		this.listStaDTO = listStaDTO;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	@Override
 	public String toString() {
 		return "StaffManagerVO [totalRecords=" + totalRecords + ", pageIndex=" + pageIndex + ", pageSize=" + pageSize
 				+ ", totalPages=" + totalPages + ", havePrePage=" + havePrePage + ", haveNextPage=" + haveNextPage
 				+ ", search=" + search + ", belongUnit=" + belongUnit + ", position=" + position + ", listStaDTO="
-				+ listStaDTO + "]";
+				+ listStaDTO + ", state=" + state + "]";
 	}
 
 }
