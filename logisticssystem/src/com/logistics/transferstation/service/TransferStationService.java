@@ -86,9 +86,7 @@ public interface TransferStationService {
 	List<unit> getUnitInfo(staff_basicinfo staffBasicInfo);
 
 
-
-	List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO);
-
+	List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO, staff_basicinfo staffBasicInfo);
 
 	
 	String distributeDiver(vehicle vehicle, driver driver);
@@ -96,6 +94,8 @@ public interface TransferStationService {
 	
 	
 	UnitManagerDTO getUnitAdmin(unit transferStation);
+
+	
 
 
 
