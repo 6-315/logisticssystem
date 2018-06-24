@@ -343,11 +343,11 @@
                             <h3 class="card-title">路线列表</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div id="routeList" class="card-body">
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据编号/始发站/终点站搜索" @input="selectUnitSearch"
+                                    <input placeholder="据编号/始发站/终点站搜索" @input="selectRouteSearch"
                                            v-model="search" type="text" class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>
@@ -356,56 +356,34 @@
                                     <table class="table table-hover" style="overflow-y: hidden">
                                         <thead>
                                         <tr>
-                                            <th>单位编号</th>
-                                            <th>单位名称</th>
-                                            <th>单位地址</th>
-                                            <th><span role="presentation" class="dropdown">
-														<a class="dropdown-toggle" data-toggle="dropdown">单位类型<span
-                                                                class="caret"></span></a>
-														<ul class="dropdown-menu">
-															<li><a @click="selectUnitType('')"
-                                                                   href="#">单位类型(所有)</a></li>
-															<li><a @click="selectUnitType('总公司')" href="#">总公司</a></li>
-															<li><a @click="selectUnitType('中转站')" href="#">中转站</a></li>
-															<li><a @click="selectUnitType('配送点')" href="#">配送点</a></li>
-														</ul>
-												</span></th>
-                                            <th>联系方式</th>
-                                            <th>管理员工号</th>
-                                            <th>姓名</th>
-                                            <th><span role="presentation" class="dropdown">
-														<a class="dropdown-toggle" data-toggle="dropdown">状态<span
-                                                                class="caret"></span></a>
-														<ul class="dropdown-menu">
-															<li><a @click="selectUnitState('')" href="#">状态(所有)</a></li>
-															<li><a @click="selectUnitState('正常使用')"
-                                                                   href="#">正常使用</a></li>
-															<li><a @click="selectUnitState('未启用')" href="#">未启用</a></li>
-															<li><a @click="selectUnitState('已废弃')" href="#">已废弃</a></li>
-														</ul>
-												</span></th>
+                                            <th>路线编号</th>
+                                            <th>路线创建者工号</th>
+                                            <th>起点</th>
+                                            <th>终点</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
-                                        <tbody style="min-height: 200px">
-                                        <tr
-                                                v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
-                                                :key="index">
-                                            <td v-html="unitManagerDTO.unit.unit_num"></td>
-                                            <td v-html="unitManagerDTO.unit.unit_name"></td>
-                                            <td v-html="unitManagerDTO.unit.unit_address"></td>
-                                            <td>{{unitManagerDTO.unit.unit_type}}</td>
-                                            <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
-                                            <td>{{unitManagerDTO.unit_Admin !=
-                                                undefined?unitManagerDTO.unit_Admin.staff_num:''}}
-                                            </td>
-                                            <td>
-                                                {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
-                                            </td>
-                                            <td>{{unitManagerDTO.unit.unit_state}}</td>
-                                            <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_id)" href="#"><i
-                                                    class="fa fa-pencil-square-o"
-                                                    aria-hidden="true"></i></a></td>
+                                        <tbody v-if="routManagerVO.listRouteManagerDTO.length == 0">
+                                        <td v-if="ready" style="text-align: center" colspan="6"
+                                            height="50">暂无数据
+                                        </td>
+                                        </tbody>
+                                        <tbody v-if="!ready">
+                                        <tr>
+                                            <td style="text-align: center" colspan="6"><i
+                                                    class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
+                                        </tr>
+                                        </tbody>
+                                        <tbody v-cloak
+                                               v-if="ready && routManagerVO.listRouteManagerDTO.length != 0"
+                                               style="min-height: 200px">
+                                        <tr v-for="routeList in routManagerVO.listRouteManagerDTO">
+                                            <td v-html="routeList.rout.route_num"></td>
+                                            <td>{{routeList.staff_Id.staff_num}}</td>
+                                            <td>{{routeList.route_Departurestation.unit_name}}</td>
+                                            <td>{{routeList.route_Terminalstation.unit_name}}</td>
+                                            <td>{{routeList.rout.route_state}}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -416,9 +394,9 @@
                                             <li :class="{disabled:preDisabled}">
                                                 <a @click="prePage"
                                                    href="#">上一页</a></li>
-                                            <li><a>第 {{unitManagerVO.pageIndex}} 页/总
-                                                {{unitManagerVO.totalPages}}
-                                                页/共{{unitManagerVO.totalRecords}}条</a></li>
+                                            <li><a>第 {{routManagerVO.pageIndex}} 页/总
+                                                {{routManagerVO.totalPages}}
+                                                页/共{{routManagerVO.totalRecords}}条</a></li>
                                             <li :class="{disabled:nextDisabled}"><a
                                                     :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
                                             </a></li>
@@ -512,6 +490,6 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
+        src="${pageContext.request.contextPath}/js/route/route_list.js"></script>
 </body>
 </html>
