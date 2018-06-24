@@ -11,6 +11,7 @@
             login: function (event) {
                 //
                 userinfo.disabled = true;
+                console.log('kaishi')
                 //验证数据的正确性
                 if ('' === userinfo.user || userinfo.user === null) {
                     userinfo.disabled = false

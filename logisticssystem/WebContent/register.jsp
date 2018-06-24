@@ -1,70 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
-    <title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/tool/site.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/toastr.css">
+<title>注册</title>
 </head>
-<body class="hold-transition register-page">
-<div class="register-box">
-    <div class="register-logo">
-        <a href="${pageContext.request.contextPath}/index.jsp"><b>Note3</b>物流</a>
-    </div>
+<body class="body-login">
+	<div class="page">
+		<div class="page-content">
 
-    <div id="register" class="card">
-        <div class="card-body register-card-body">
-            <p class="login-box-msg">注册</p>
-            <%--<form>--%>
-            <div class="form-group has-feedback">
-                <input v-model="userinfo_phonenumber" type="text" class="form-control" placeholder="手机号码">
-            </div>
-            <div class="form-group has-feedback">
-                <input v-model="userinfo_email" type="email" class="form-control" placeholder="电子邮件">
-            </div>
-            <div class="form-group has-feedback">
-                <input v-model="userinfo_password" type="password" class="form-control" placeholder="密码">
-            </div>
-            <div class="form-group has-feedback">
-                <input @change="comparePassword" v-model="userinfo_confirmPassword" type="password" class="form-control" placeholder="确认密码">
-            </div>
-            <div class="row">
-                <!-- /.col -->
-                <div class="col-6">
-                    <button @click="registerUser" type="submit" class="btn btn-primary btn-block btn-flat">注册</button>
-                </div>
-                <!-- /.col -->
-            </div>
-            <%--</form>--%>
-            <a href="${pageContext.request.contextPath}/login.jsp" class="text-center">已有账号？</a>
-        </div>
-        <!-- /.form-box -->
-    </div><!-- /.card -->
-</div>
-<script src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/user/user-register.js"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        })
-    })
-</script>
+			<div class="page-brand-info hidden-xs">
+				<div class="brand">
+					<img class="brand-img"
+						src="${pageContext.request.contextPath }/img/fugai.png"
+						style="width: 180px; height: 180px;">
+					<h1 class="brand-text">Note3物流系统</h1>
+				</div>
+				<p>我递送的每一声问候和祝福，</p>
+				<p>得到的每一份支持，都是我坚定前行的动力。</p>
+				<p>Note3期待为您服务</p>
+			</div>
+			<div class="page-login-main" id="register">
+				<h3 class="hidden-xs">注册Note3</h3>
+				<br />
+				<ul class="nav nav-tabs">
+					<li role="presentation"><a
+						href="${pageContext.request.contextPath}/user-login.jsp">账号密码登录</a></li>
+					<li role="presentation" class="active"><a
+						href="${pageContext.request.contextPath}/register.jsp">快速注册</a></li>
+				</ul>
+				<form class="fv-form fv-form-bootstrap">
+					<div class="form-group">
+						<input v-model="userinfo_phonenumber" class="form-control"
+							placeholder="用户名">
+					</div>
+					<div class="form-group">
+						<input v-model="userinfo_email" class="form-control"
+							placeholder="电子邮箱">
+					</div>
+					<div class="form-group">
+						<input type="password]" v-model="userinfo_password"
+							class="form-control" placeholder="密码">
+					</div>
+					<div class="form-group">
+						<input @change="comparePassword"
+							v-model="userinfo_confirmPassword" class="form-control"
+							placeholder="确认密码" type="password">
+					</div>
+				</form>
+				<button @click="registerUser" type="submit"
+					class="btn btn-primary btn-block btn-flat">注册</button>
+				<div class="clearfix"></div>
+				<footer class="page-copyright">
+				<p>Note物流有限公司 版权所有</p>
+				<p>© 2018. All RIGHT RESERVED.</p>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<script
+		src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/css/tool/vue.js"></script>
+	<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/user/user-register.js"></script>
 </body>
 </html>
