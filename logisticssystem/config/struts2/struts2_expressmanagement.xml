@@ -23,6 +23,14 @@
 			<result name="pageAddUnit">
 				/WEB-INF/page/unit/unit_add.jsp
 			</result>
+			
+			<result name="addStaff" type="redirect">
+				/expressmanagement/expressmanagement_pageAddStaff?idList=${idList}
+			</result>
+			<result name="pageAddUnit">
+				/WEB-INF/page/staff/staff_add.jsp
+			</result>
+			
 		</action>
 	</package>
 </struts>
