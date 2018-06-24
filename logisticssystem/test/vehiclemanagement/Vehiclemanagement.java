@@ -50,14 +50,14 @@ public class Vehiclemanagement {
 	/**
 	 * 车辆查询功能-测试
 	 */
-	@Test
+/*	@Test
 	public void queryVehicleTest() {
 		VehicleVO vehicleInfoVO = new VehicleVO();
 		String search = "7";
 		vehicleInfoVO.setSearch(search);
 		vehicleInfoVO = vehicleManagementService.queryVehicle(vehicleInfoVO);
 		System.out.println(vehicleInfoVO);
-	}
+	}*/
 
 	/**
 	 * 车辆更新功能-测试
@@ -95,14 +95,14 @@ public class Vehiclemanagement {
 	/**
 	 * 车队查询功能-测试
 	 */
-	@Test
+	/*@Test
 	public void queryTeamTest() {
 		TeamVO teamInfoVO = new TeamVO();
 		String search = "9";
 		teamInfoVO.setSearch(search);
 		vehicleManagementService.queryTeam(teamInfoVO);
 		System.out.println(teamInfoVO);
-	}
+	}*/
 	/**
 	 * 车队更新功能-测试
 	 */

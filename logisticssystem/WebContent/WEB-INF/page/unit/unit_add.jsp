@@ -1,421 +1,414 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>添加员工</title>
-<!-- Tell the browser to be responsive to screen width -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-<!-- Bootstrap Color Picker -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-<!-- Bootstrap time Picker -->
-<!-- <link rel="stylesheet" href="../plugins/timepicker/bootstrap-timepicker.min.css"> -->
-<!-- Select2 -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-<!-- Theme style -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/adminlte.min.css">
-<!-- Google Font: Source Sans Pro -->
-<!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>添加员工</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <%--<link rel="stylesheet"--%>
+    <%--href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">--%>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/adminlte.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/tool/site.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
-	<div class="wrapper">
-		<!-- Navbar -->
-		<!-- Navbar -->
-		<nav
-			class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-		<!-- Left navbar links -->
-		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
-				href="#"><i class="fa fa-bars"></i></a></li>
-			<li class="nav-item d-none d-sm-inline-block"><a href="#"
-				class="nav-link">首页</a></li>
-			<li class="nav-item d-none d-sm-inline-block"><a href="#"
-				class="nav-link">快件管理</a></li>
-		</ul>
+<div class="wrapper">
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav
+            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+                                    href="#"><i class="fa fa-bars"></i></a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">首页</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">快件管理</a></li>
+        </ul>
 
-		<!-- SEARCH FORM -->
-		<form class="form-inline ml-3">
-			<div class="input-group input-group-sm">
-				<input class="form-control form-control-navbar" type="search"
-					placeholder="Search" aria-label="Search">
-				<div class="input-group-append">
-					<button class="btn btn-navbar" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</div>
-		</form>
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search"
+                       placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
 
-		<!-- Right navbar links -->
-		<ul class="navbar-nav ml-auto">
-			<!-- Messages Dropdown Menu -->
-			<li class="nav-item dropdown"><a class="nav-link"
-				data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
-					<span class="badge badge-danger navbar-badge"></span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<a href="#" class="dropdown-item dropdown-footer">See All
-						Messages</a>
-				</div></li>
-			<!-- Notifications Dropdown Menu -->
-			<li class="nav-item dropdown"><a class="nav-link"
-				data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
-					class="badge badge-warning navbar-badge">0</span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<span class="dropdown-header">0 条消息</span>
-					<!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-				</div></li>
-		</ul>
-		</nav>
-		<!-- /.navbar -->
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item dropdown"><a class="nav-link"
+                                             data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
+                <span class="badge badge-danger navbar-badge"></span>
+            </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#" class="dropdown-item dropdown-footer">See All
+                        Messages</a>
+                </div>
+            </li>
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item dropdown"><a class="nav-link"
+                                             data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
+                    class="badge badge-warning navbar-badge">0</span>
+            </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-header">0 条消息</span>
+                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
-		<aside class="main-sidebar sidebar-dark-primary elevation-4">
-		<!-- Brand Logo --> <a href="#" class="brand-link"> <img
-			src="../../img/AdminLTELogo.png" alt="AdminLTE Logo"
-			class="brand-image img-circle elevation-3" style="opacity: .8">
-			<span class="brand-text font-weight-light">Note3物流系统</span>
-		</a> <!-- Sidebar -->
-		<div class="sidebar">
-			<!-- Sidebar user panel (optional) -->
-			<div class="user-panel mt-3 pb-3 mb-3 d-flex">
-				<div class="image">
-					<img src="../../img/user2-160x160.jpg"
-						class="img-circle elevation-2" alt="User Image">
-				</div>
-				<div class="info">
-					<a href="#" class="d-block">Note3 管理员</a>
-				</div>
-			</div>
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo --> <a href="#" class="brand-link"> <img
+            src="${pageContext.request.contextPath}/img/houtai.png"
+            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
+    </a> <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
+                         class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">Note3 管理员</a>
+                </div>
+            </div>
 
-			<!-- Sidebar Menu -->
-			<nav class="mt-2">
-			<ul class="nav nav-pills nav-sidebar flex-column"
-				data-widget="treeview" role="menu" data-accordion="false">
-				<!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-				<li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							快件管理 <i class="fa fa-angle-left right"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview" style="display: none;">
-						<li class="nav-item"><a
-							href="/test/test/pages/express/express_list.html"
-							class="nav-link"> <i class="fa fa-book nav-icon"></i>
-								<p>查询快件</p>
-						</a></li>
-						<li class="nav-item"><a
-							href="/test/test/pages/express/express_add.html" class="nav-link">
-								<i class="fa fa-plus-square-o nav-icon"></i>
-								<p>增加快件</p>
-						</a></li>
-					</ul></li>
-				<li class="nav-item"><a
-					href="/test/test/pages/user/user_list.html" class="nav-link"> <i
-						class="nav-icon fa fa-calendar"></i>
-						<p>用户管理</p>
-				</a></li>
-				<li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							人事管理 <i class="fa fa-angle-left right"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a
-							href="/test/test/pages/staff/staff_list.html" class="nav-link">
-								<i class="fa fa-book nav-icon"></i>
-								<p>员工查询</p>
-						</a></li>
-						<li class="nav-item"><a
-							href="/test/test/pages/staff/staff_add.html" class="nav-link">
-								<i class="fa fa-plus-square-o nav-icon"></i>
-								<p>招聘员工</p>
-						</a></li>
-					</ul></li>
-				<li class="nav-item has-treeview menu-open"><a href="#"
-					class="nav-link active"> <i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							单位管理 <i class="fa fa-angle-left right"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a
-							href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
-							class="nav-link"> <i class="fa fa-book nav-icon"></i>
-								<p>单位列表</p>
-						</a></li>
-						<li class="nav-item"><a
-							href="/test/test/pages/unit/unit_add.html"
-							class="nav-link active"> <i
-								class="fa fa-plus-square-o nav-icon"></i>
-								<p>增加单位</p>
-						</a></li>
-					</ul></li>
-				<li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							车辆管理 <i class="fa fa-angle-left right"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a
-							href="/test/test/pages/vehicle/vehicle_list.html"
-							class="nav-link"> <i class="fa fa-book nav-icon"></i>
-								<p>车辆列表</p>
-						</a></li>
-						<li class="nav-item"><a
-							href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link">
-								<i class="fa fa-plus-square-o nav-icon"></i>
-								<p>增加车辆</p>
-						</a></li>
-					</ul></li>
-				<li class="nav-item has-treeview"><a href="#" class="nav-link">
-						<i class="nav-icon fa fa-dashboard"></i>
-						<p>
-							路线管理 <i class="fa fa-angle-left right"></i>
-						</p>
-				</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item"><a
-							href="/test/test/pages/route/route_list.html" class="nav-link">
-								<i class="fa fa-book nav-icon"></i>
-								<p>路线列表</p>
-						</a></li>
-						<li class="nav-item"><a
-							href="/test/test/pages/route/route_add.html" class="nav-link">
-								<i class="fa fa-plus-square-o nav-icon"></i>
-								<p>增加路线</p>
-						</a></li>
-					</ul></li>
-			</ul>
-			</nav>
-			<!-- /.sidebar-menu -->
-		</div>
-		<!-- /.sidebar --> </aside>
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column"
+                    data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            快件管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/express/express_list.html"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                <p>查询快件</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加快件</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a
+                            href="/test/test/pages/user/user_list.html" class="nav-link"> <i
+                            class="nav-icon fa fa-calendar"></i>
+                        <p>用户管理</p>
+                    </a></li>
+                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            人事管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                    class="nav-link">
+                                <i class="fa fa-book nav-icon"></i>
+                                <p>员工查询</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
+                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>招聘员工</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview menu-open"><a href="#"
+                                                                   class="nav-link active"> <i
+                            class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            单位管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                <p>单位列表</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link active"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加单位</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            车辆管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/vehicle/vehicle_list.html"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                <p>车辆列表</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link">
+                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加车辆</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            路线管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/route/route_list.html" class="nav-link">
+                                <i class="fa fa-book nav-icon"></i>
+                                <p>路线列表</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加路线</p>
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>添加单位</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item active">添加单位</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container-fluid">
+                <!-- SELECT2 EXAMPLE -->
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">单位信息</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body" id="unitAdd">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>单位名称</label>
+                                    <input id="shuju" type="hidden" value="${idList}">
+                                    <input type="text" class="form-control"
+                                           v-model="transferStation.unit_name"
+                                           placeholder="请输入名称..">
+                                </div>
+                                <div class="form-group">
+                                    <label>详细地址</label>
+                                    <input type="text" class="form-control"
+                                           v-model="transferStation.unit_detailaddress"
+                                           placeholder="详细地址..">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>省/市/区</label>
+                                    <div class="dropdown yto-city" :class="{open : isOpen}">
+                                        <input @focus="openBox" v-model="transferStation.unit_address"
+                                               class="form-control" placeholder="请输入省市区" type="text">
+                                        <div @mouseleave="closeBox" class="yto-city-box dropdown-menu">
+                                            <ul>
+                                                <li @click="selectProvinceMethod" id="sendPro"
+                                                    style="color: #000;" :class="{hover : selectProvince}">省份
+                                                </li>
+                                                <li @click="selectCityMethod" id="city" style="color: #000;"
+                                                    :class="{hover : selectCity}">市区
+                                                </li>
+                                                <li @click="selectCountyMethod" id="xian"
+                                                    style="color: #000;" :class="{hover : selectCounty}">县区
+                                                </li>
+                                            </ul>
+                                            <div class="yto-city-cont">
+                                                <dl id="sendProC" class="ytoprov"
+                                                    :style="[selectProvince?bl:no]">
+                                                    <dd @click="inputProvince(pro.provinceID,pro.province)"
+                                                        v-for="pro in province" :key="pro.id"
+                                                        :title="pro.province" :value="pro.provinceID">{{pro.province}}
+                                                    </dd>
+                                                </dl>
+                                                <dl id="cityC" class="ytocity"
+                                                    :style="[selectCity ? bl : no]">
+                                                    <dd @click="inputCity(cit.cityID,cit.city)"
+                                                        v-for="cit in city" :key="cit.id" :title="cit.city"
+                                                        :value="cit.cityID">{{cit.city}}
+                                                    </dd>
+                                                </dl>
+                                                <dl id="xianC" class="ytodist"
+                                                    :style="[selectCounty ? bl : no]">
+                                                    <dd @click="inputCountry(cou.area)" v-for="cou in country"
+                                                        :key="cou.id" :title="cou.area" :value="cou.areaID">{{cou.area}}
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label>单位类型</label>
+                                    <select @change="getAdmin" class="form-control"
+                                            v-model="transferStation.unit_type"
+                                            data-placeholder="单位类型" style="width: 100%;">
+                                        <option value="总公司">总公司</option>
+                                        <option value="中转站管理员">中转站</option>
+                                        <option value="配送点管理员">配送点</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>联系方式</label>
+                                    <input type="text" class="form-control"
+                                           v-model="transferStation.unit_phonenumber"
+                                           placeholder="请输入联系方式..">
+                                </div>
+                                <div class="form-group">
+                                    <label>状态</label>
+                                    <select class="form-control"
+                                            v-model="transferStation.unit_state"
+                                            data-placeholder="单位状态" style="width: 100%;">
+                                        <option>未启用</option>
+                                        <option>正常使用</option>
+                                        <option>已废弃</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>单位编号</label>
+                                    <input disabled type="text" class="form-control"
+                                           v-model="transferStation.unit_num"
+                                           placeholder="单位编号..">
+                                </div>
+                                <div class="form-group">
+                                    <label>管理员</label>
+                                    <select class="form-control"
+                                            v-model="transferStation.unit_admin"
+                                            placeholder="请选择管理员" style="width: 100%;">
+                                        <option v-for="admin in adminList" :value="admin.managerInfo.staff_id">
+                                            {{admin.managerInfo.staff_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>上级单位</label>
+                                    <input disabled type="text" class="form-control"
+                                           v-model="transferStation.unit_superiorunit"
+                                           placeholder="上级单位编号..">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button @click="addUnit" type="button"
+                                            style="width: 120px; float: right; margin-right: 7px"
+                                            class="btn btn-block btn-primary btn-lg">提交
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer"> <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">Note3物流系统</div>
+        <!-- Default to the left --> <strong>Copyright <a
+                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+        </strong> All rights reserved.
+    </footer>
 
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-			<div class="container-fluid">
-				<div class="row mb-2">
-					<div class="col-sm-6">
-						<h1>添加单位</h1>
-					</div>
-					<div class="col-sm-6">
-						<ol class="breadcrumb float-sm-right">
-							<li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
-							<li class="breadcrumb-item active">添加单位</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-			<!-- /.container-fluid --> </section>
-
-			<!-- Main content -->
-			<section class="content">
-			<div class="container-fluid">
-				<!-- SELECT2 EXAMPLE -->
-				<div class="card card-default">
-					<div class="card-header">
-						<h3 class="card-title">单位信息</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-widget="collapse">
-								<i class="fa fa-minus"></i>
-							</button>
-						</div>
-					</div>
-					<!-- /.card-header -->
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="express_mark">单位名称</label> <input type="text"
-										class="form-control" id="express_mark" placeholder="请输入单位名称..">
-								</div>
-								<div class="form-group">
-									<label>创建人</label> <select class="form-control select2"
-										style="width: 100%;">
-										<option selected="selected">中转站管理员1</option>
-										<option>中转站管理员2</option>
-										<option>中转站管理员3</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label>单位联系方式</label>
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<span class="input-group-text"><i class="fa fa-phone"></i></span>
-										</div>
-										<input type="text" class="form-control"
-											data-inputmask='"mask": "999-9999-9999"' data-mask>
-									</div>
-									<div class="form-group">
-										<br> <label for="express_mark">单位详细地址</label> <input
-											name="unit_detailaddress" type="text" class="form-control"
-											id="unit_detailaddress" placeholder="请输入单位详细地址..">
-									</div>
-									<div class="form-group">
-										<label>单位类型</label> <select class="form-control select2"
-											style="width: 100%;">
-											<option selected="selected">中转站</option>
-											<option>总公司</option>
-											<option>配送点</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<br> <label>单位地址</label>
-										<div data-toggle="city-picker">
-											<input id="unit_address" name="unit_address" readonly
-												type="text" data-toggle="city-picker">
-										</div>
-									</div>
-									<div class="form-group">
-										<button type="button"
-											style="width: 120px; float: right; margin-right: 7px"
-											class="btn btn-block btn-primary btn-lg">提交</button>
-									</div>
-									<!-- /.form-group -->
-								</div>
-								<!-- /.col -->
-								<!-- /.col -->
-							</div>
-							<!-- /.row -->
-						</div>
-						<!-- /.card-body -->
-					</div>
-				</div>
-			</div>
-			</section>
-			<!-- /.content -->
-		</div>
-		<!-- /.content-wrapper -->
-		<footer class="main-footer"> <!-- To the right -->
-		<div class="float-right d-none d-sm-inline">Note3物流系统</div>
-		<!-- Default to the left --> <strong>Copyright <a
-			href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
-		</strong> All rights reserved. </footer>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark"> <!-- Control sidebar content goes here -->
-		</aside>
-		<!-- /.control-sidebar -->
-	</div>
-	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 4 -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Select2 -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-	<!-- InputMask -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-	<!-- date-range-picker -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-	<!-- <script src="../plugins/daterangepicker/daterangepicker.js"></script> -->
-	<!-- bootstrap color picker -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-	<!-- bootstrap time picker -->
-	<!-- <script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script> -->
-	<!-- SlimScroll 1.3.0 -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-	<!-- iCheck 1.0.1 -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-	<!-- FastClick -->
-	<script
-		src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-	<!-- AdminLTE App -->
-	<script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
-	<!-- 地址插件的使用 -->
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
-	<!-- datepicker -->
-	<!-- <script type="text/javascript" src="../plugins/datepicker/bootstrap-datetimepicker.min.js"></script> -->
-	<!-- AdminLTE for demo purposes -->
-	<!-- <script src="../../dist/js/demo.js"></script> -->
-	<!-- Page script -->
-	<script>
-		$(function() {
-			//Initialize Select2 Elements
-			$('.select2').select2()
-
-			//Datemask dd/mm/yyyy
-			$('#datemask').inputmask('dd/mm/yyyy', {
-				'placeholder' : 'dd/mm/yyyy'
-			})
-			//Datemask2 mm/dd/yyyy
-			$('#datemask2').inputmask('mm/dd/yyyy', {
-				'placeholder' : 'mm/dd/yyyy'
-			})
-			//Money Euro
-			$('[data-mask]').inputmask()
-			/*$('#entrytime').datetimepicker({
-			    minView: "month",//设置只显示到月份
-			      format : "yyyy-mm-dd",//日期格式
-			      autoclose:true,//选中关闭
-			      todayBtn: true//今日按钮
-			})
-			$('#birthday').datetimepicker({
-			    minView: "month",//设置只显示到月份
-			      format : "yyyy-mm-dd",//日期格式
-			      autoclose:true,//选中关闭
-			      todayBtn: true//今日按钮
-			})*/
-			//iCheck for checkbox and radio inputs
-			$('input[type="checkbox"].minimal, input[type="radio"].minimal')
-					.iCheck({
-						checkboxClass : 'icheckbox_minimal-blue',
-						radioClass : 'iradio_minimal-blue'
-					})
-			//Red color scheme for iCheck
-			$(
-					'input[type="checkbox"].minimal-red, input[type="radio"].minimal-red')
-					.iCheck({
-						checkboxClass : 'icheckbox_minimal-red',
-						radioClass : 'iradio_minimal-red'
-					})
-			//Flat red color scheme for iCheck
-			$('input[type="checkbox"].flat-red, input[type="radio"].flat-red')
-					.iCheck({
-						checkboxClass : 'icheckbox_flat-green',
-						radioClass : 'iradio_flat-green'
-					})
-
-		})
-	</script>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark"> <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
+<script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script>
+    $(function () {
+        $('.select2').select2()
+    })
+</script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/unit/unit_add.js"></script>
 </body>
 </html>
