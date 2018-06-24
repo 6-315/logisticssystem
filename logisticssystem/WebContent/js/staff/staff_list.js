@@ -75,7 +75,7 @@
                     return
                 }
                 staffListData.pageIndex = staffListData.staffManagerVO.pageIndex - 1
-                staffListData.getAllData()
+                viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             judge: function () {
@@ -134,9 +134,7 @@
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_getPositionById',
                     type: 'POST',
-                    data: {
-                        'ID': staffId   //员工id
-                    },
+                    data: '',
                     success: function (data) {
                         if (data != null) {
                             const positionLi = JSON.parse(data)
@@ -155,7 +153,7 @@
                     type: 'POST',
                     data: {
                         'ID': staffListData.positionDiaoStaffId,      //员工id
-                        'unitNew': postionId           //职位id
+                        'positionNew': postionId           //职位id
                     },
                     success: function (data) {
                         if (data === 'success') {
