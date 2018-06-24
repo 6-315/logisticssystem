@@ -241,7 +241,8 @@
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -471,6 +472,7 @@
                                     </tbody>
                                 </table>
                                 <div style="float: right;">
+                                    <a href="#" @click="expressFaVehicle" class="btn btn-primary">发车</a>
                                     <a href="#" @click="expressAddJ" class="btn btn-danger">快件到站</a>
                                 </div>
                                 <div class="pagePosition">

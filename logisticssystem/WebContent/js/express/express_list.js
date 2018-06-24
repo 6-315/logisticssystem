@@ -476,6 +476,20 @@
                         }
                     }
                 })
+            },
+            expressFaVehicle: function () {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateStateByDriver',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('发车成功')
+                        } else {
+                            toastr.error('发车失败')
+                        }
+                    }
+                })
             }
         },
         mounted() {
