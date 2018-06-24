@@ -77,12 +77,17 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				number = number + " and staff_position  '" + position + "' ";
 				table = table + " and staff_position '" + position + "'";
 			}
+			if (staffManagerVO.getState() != null && staffManagerVO.getState().trim().length() > 0) {
+				number = number + " and staff_state  '" + staffManagerVO.getState() + "' ";
+				table = table + " and staff_state '" + staffManagerVO.getState() + "'";
+			}
 			if (positionNew.getPosition_name() != "中转站管理员" && staffManagerVO.getBelongUnit() != null
 					&& staffManagerVO.getBelongUnit().trim().length() > 0) {
 				String belongUnit = staffManagerVO.getBelongUnit();
 				number = number + " and staff_unit like '" + belongUnit + "' ";
 				table = table + " and staff_unit like '" + belongUnit + "'";
 			}
+
 			System.out.println("________:" + table);
 			// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 			table = table + " order by staff_modifytime desc";

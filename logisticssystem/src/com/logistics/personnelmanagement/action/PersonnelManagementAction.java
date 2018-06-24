@@ -84,6 +84,24 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 	private String search = "";
 	private String staffListIdS = "";
 	private String belongUnit = "";
+	private String state = "";
+	private String position = "";
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public String getBelongUnit() {
 		return belongUnit;
@@ -151,6 +169,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerVO.setPageIndex(pageIndex);
 		staffManagerVO.setSearch(search);
 		staffManagerVO.setBelongUnit(belongUnit);
+		staffManagerVO.setState(state);
+		staffManagerVO.setPosition(position);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
@@ -161,6 +181,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		}
 
 	}
+
 	/**
 	 * 获取自身职位以下的所有单位
 	 * 
@@ -208,6 +229,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + personnelManagementService.removeListStaff(staffListIdS));
 	}
+
 	/**
 	 * 修改员工单位
 	 * 
@@ -220,6 +242,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + personnelManagementService.updateStaffInfo(staffBasicInfo));
 	}
+
 	/**
 	 * 添加员工
 	 * 
@@ -232,6 +255,5 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(personnelManagementService.addStaff(staffBasicInfo)));
 	}
-	
 
 }
