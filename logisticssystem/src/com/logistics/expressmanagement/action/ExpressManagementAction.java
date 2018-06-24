@@ -602,6 +602,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	public String pageAddUnit(){
 		return "pageAddUnit";
 	}
+	/**
+	 * 重定向到action
+	 */
+	public String addStaffPage() {
+		return "addStaff";
+	}
+	/**
+	 * 跳转到添加单位页面
+	 */
+	public String pageAddStaff(){
+		return "pageAddStaff";
+	}
 	
 	/**
 	 * 查看当前预约单信息

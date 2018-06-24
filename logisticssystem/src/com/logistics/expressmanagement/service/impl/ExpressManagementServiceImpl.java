@@ -611,7 +611,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					 */
 					if (reservationVO.getSearch() != null && reservationVO.getSearch().trim().length() > 0) {
 						reservationInfo.setReservation_num(reservationInfo.getReservation_num().replaceAll(
-								reservationVO.getSearch(), "<mark>" + reservationVO.getSearch() + "</mark>"));
+								reservationVO.getSearch(), "<span style='color: #ff5063;'>" + reservationVO.getSearch() + "</span>"));
 					}
 
 					reservationDTO.setReservationInfo(reservationInfo);
@@ -898,7 +898,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					 */
 					if (expressInfoVO.getSearch() != null && expressInfoVO.getSearch().trim().length() > 0) {
 						expressInfo.setExpress_number(expressInfo.getExpress_number().replaceAll(
-								expressInfoVO.getSearch(), "<mark>" + expressInfoVO.getSearch() + "</mark>"));
+								expressInfoVO.getSearch(), "<span style='color: #ff5063;'>" + expressInfoVO.getSearch() + "</span>"));
 					}
 
 					expressInfoDTO.setExpressInfo(expressInfo);
@@ -993,7 +993,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 							&& reservationOrderHistoryVO.getSearch().trim().length() > 0) {
 						reservationInfo.setReservation_num(
 								reservationInfo.getReservation_num().replaceAll(reservationOrderHistoryVO.getSearch(),
-										"<mark>" + reservationOrderHistoryVO.getSearch() + "</mark>"));
+										"<span style='color: #ff5063;'>" + reservationOrderHistoryVO.getSearch() + "</span>"));
 					}
 					reservationOrderHistoryDTO.setReservationInfo(reservationInfo);
 					listReservationOrderHistoryDTO.add(reservationOrderHistoryDTO);
