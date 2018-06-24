@@ -153,7 +153,7 @@
             },
             // 尾页
             weiye: function () {
-                expressData.page = reservationData.expressInfoVO.totalPages
+                expressData.page = expressData.expressInfoVO.totalPages
                 express_view.getAllData()
                 express_view.judge()
             },
@@ -417,7 +417,7 @@
                 })
             },
             paiSongStaff(staffPeiSongId) {
-                //分配快件给配送员
+                // 分配快件给配送员
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressState',
                     type: 'POST',
@@ -438,7 +438,7 @@
                 })
             },
             qianShouExpress(expressId) {
-                //签收
+                // 签收
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
                     type: 'POST',
@@ -458,7 +458,7 @@
                 })
             },
             completeExpress(expressId) {
-                //完成
+                // 完成
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
                     type: 'POST',

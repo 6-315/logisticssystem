@@ -5,12 +5,12 @@
 <head>
     <meta content="text/html; charset=UTF-8">
     <title>我的订单</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/toastr.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="${pageContext.request.contextPath}/js/vue.js"></script>
     <style>
         [v-cloak] {
             display: none;
@@ -150,59 +150,55 @@
                                 <th>收件人姓名</th>
                                 <th>收件人联系方式</th>
                                 <th>收件人详细地址</th>
-                                <th>
-                                    <span role="presentation" class="dropdown">
-                                        <a class="dropdown-toggle" data-toggle="dropdown">状态（所有）
-                                            <span class="caret"></span>
-                                        </a>
-										<ul class="dropdown-menu">
-											<li><a <%--@click="selectState('')"--%> href="#">所有</a></li>
-                                            <li><a <%--@click="selectState('待揽件')"--%> href="#">待揽件</a></li>
-											<li><a <%--@click="selectState('已揽件')"--%> href="#">已揽件</a></li>
-											<li><a <%--@click="selectState('待扫描')"--%> href="#">待扫描</a></li>
-											<li><a <%--@click="selectState('已扫描')"--%> href="#">已扫描</a></li>
-                                            <li><a <%--@click="selectState('扫描装车')"--%> href="#">扫描装车</a></li>
-                                            <li><a <%--@click="selectState('待派送')"--%> href="#">待派送</a></li>
-                                            <li><a <%--@click="selectState('派送中')"--%> href="#">派送中</a></li>
-                                            <li><a <%--@click="selectState('已签收')"--%> href="#">已签收</a></li>
-											<li><a <%--@click="selectState('已完成')"--%> href="#">已完成</a></li>
-										</ul>
-									</span>
-                                </th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-
+                            <tbody v-if="expressinfoAndExpressVO.listExpressinfoAndExpressDTO == undefined">
+                            <td style="text-align: center" colspan="8" height="50">
+                                暂无数据
+                            </td>
+                            </tbody>
+                            <tbody v-if="!ready">
+                            <tr>
+                                <td style="text-align: center" colspan="10"><i
+                                        class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
+                            </tr>
+                            </tbody>
+                            <tbody v-cloak
+                                   v-if="ready && expressinfoAndExpressVO.listExpressinfoAndExpressDTO != undefined"
+                                   style="min-height: 200px">
+                            <tr v-for="myOrder in expressinfoAndExpressVO.listExpressinfoAndExpressDTO">
+                                <td v-html="myOrder.expressNew.express_number"></td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderrealname}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderphonenumber}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderdetailaddress}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_addresseerealname}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_addresseephonenumber}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_adderdetailaddress}}</td>
+                                <td>
+                                    <a href="#">详情</a>
+                                    <a href="#">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
                         </table>
+                        <div class="pagePosition">
+                            <ul v-cloak class="pagination">
+                                <li></li>
+                                <li><a href="#">首页</a></li>
+                                <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                       href="#">上一页</a></li>
+                                <li><a>第 {{expressinfoAndExpressVO.pageIndex}} 页/总
+                                    {{expressinfoAndExpressVO.totalPages}}
+                                    页/共{{expressinfoAndExpressVO.totalRecords}}条</a></li>
+                                <li :class="{disabled:nextDisabled}"><a
+                                        :disabled="nextDisabled" href="#">
+                                    下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
+                                </a></li>
+                                <li><a href="#">尾页</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <nav>
-                        <div class="yto-message p_0">
-                            <%--<div class="yto-message-img">--%>
-                            <%--<img src="/assets/images/photos/no-cont.png">--%>
-                            <%--</div>--%>
-                            <h3 class="yto-message-title">
-                                对不起，结果空空的！
-                            </h3>
-
-                        </div>
-                        <ul class="pagination">
-                        </ul>
-                        <span class="pagination-info">
-	                共 0  条
-	    </span>
-                        <div class="pagination-set">
-                            <select name="limit" class="form-control"
-                                    onchange="window.location = '?uroleId=500&amp;createTimeET=2018-06-14 08:42:30&amp;userId=66787665&amp;sendMobile=18296929245&amp;total=0&amp;sort=orderHeadId&amp;dir=desc&amp;limit=' + this.value;">
-                                <!--  <option value="50">-每页显示条数-</option> -->
-                                <option value="10" selected="selected">10</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="500">500</option>
-                            </select>
-                            <span>条/页</span>
-                        </div>
-                    </nav>
                 </div>
             </div>
         </div>
