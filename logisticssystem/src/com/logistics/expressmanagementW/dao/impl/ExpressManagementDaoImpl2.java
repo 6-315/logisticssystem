@@ -246,18 +246,39 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public express_send getExpressSend(String express_id) {
+		System.out.println("fdfdfdf:" + express_id);
 		express_send expressSend = new express_send();
 		Session session = getSession();
 		String hql = " from express_send where express_send_express_id = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
+		System.out.println("kkkk" + hql);
 		expressSend = (express_send) query.uniqueResult();
 		if (expressSend != null) {
 			return expressSend;
 		}
-
 		return null;
 	}
+	
+	/**
+	 * 根据快件ID获取快件配送 表记录
+	 */
+	@Override
+	public express_send getExpressSend1(String express_id) {
+		System.out.println("fdfdfdf:" + express_id);
+		express_send expressSend = new express_send();
+		Session session = getSession();
+		String hql = " from express_send where express_send_express_id = :ID and express_send_type = '派送'";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		System.out.println("kkkk" + hql);
+		expressSend = (express_send) query.uniqueResult();
+		if (expressSend != null) {
+			return expressSend;
+		}
+		return null;
+	}
+
 
 	/**
 	 * 根据路线ID获取车队
@@ -370,9 +391,10 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	public express_circulation getExpressCirculation(String id) {
 		express_circulation driverNew = new express_circulation();
 		Session session = getSession();
-		String hql = " from  express_circulation where express_circulation_express_id = :ID";
+		String hql = " from  express_circulation where express_circulation_express_id = '" + id
+				+ "' and express_circulation_state ='未完成'";
 		Query query = session.createQuery(hql);
-		query.setParameter("ID", id);
+		System.out.println("lllllllllll" + hql);
 		driverNew = (express_circulation) query.uniqueResult();
 		if (driverNew != null) {
 			return driverNew;
