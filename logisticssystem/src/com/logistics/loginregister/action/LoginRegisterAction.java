@@ -265,6 +265,10 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		return "pageRouteList";
 	}
 
+	public String pageRouteAdd() {
+		return "pageRouteAdd";
+	}
+
 	/**
 	 * 跳转到添加单位的页面
 	 * 

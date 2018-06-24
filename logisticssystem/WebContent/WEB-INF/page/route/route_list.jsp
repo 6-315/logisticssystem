@@ -372,11 +372,11 @@
                                             </th>
                                             <th>
                                                 <span role="presentation" class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown">起点<span
+                                                    <a class="dropdown-toggle" data-toggle="dropdown">终点<span
                                                             class="caret"></span></a>
 													<ul class="dropdown-menu">
 													<li><a @click="selectRouteEnd('')"
-                                                           href="#">起点(所有)</a></li>
+                                                           href="#">终点(所有)</a></li>
 													<li v-for="unit in unitList"><a
                                                             @click="selectRouteEnd(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
@@ -419,7 +419,9 @@
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
                                             <td>{{routeList.rout.route_state}}</td>
                                             <td>
-                                                <div class="btn-group">
+                                                <b style="cursor: pointer;"><i color="gray" class="fa fa-list-alt"
+                                                                               aria-hidden="true"></i></b>
+                                                <%--<div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
                                                           aria-haspopup="true" aria-expanded="false"> <i
                                                             class="fa fa-th-list"></i>
@@ -433,7 +435,7 @@
                                                                 href="#">单位调度</a></li>
                                                         <li><a href="#">查看详情</a></li>
                                                     </ul>
-                                                </div>
+                                                </div>--%>
                                             </td>
                                         </tr>
                                         </tbody>

@@ -425,7 +425,8 @@
                                                     <li><a
                                                             @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
                                                             href="#">单位调度</a></li>
-                                                    <li><a href="#">查看详情</a></li>
+                                                    <li><a @click="skipDetail(staffManDTO.staffBasicInfo.staff_id)"
+                                                           href="#">查看详情</a></li>
                                                 </ul>
                                             </div>
                                         </td>
