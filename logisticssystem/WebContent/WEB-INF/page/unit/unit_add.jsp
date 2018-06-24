@@ -308,6 +308,7 @@
                                     <select @change="getAdmin" class="form-control"
                                             v-model="transferStation.unit_type"
                                             data-placeholder="单位类型" style="width: 100%;">
+                                        <option value="总公司">总公司</option>
                                         <option value="中转站管理员">中转站</option>
                                         <option value="配送点管理员">配送点</option>
                                     </select>
@@ -386,7 +387,7 @@
     <!-- /.control-sidebar -->
 </div>
 <script type="text/javascript"
-                 src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+        src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript"

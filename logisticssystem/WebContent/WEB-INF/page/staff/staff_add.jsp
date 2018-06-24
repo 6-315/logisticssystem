@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
     <style type="text/css">
@@ -357,7 +360,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section id="staffAdd" class="content">
             <div class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
@@ -375,26 +378,23 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="express_mark">员工姓名</label>
-                                    <input type="text" class="form-control" id="express_mark" placeholder="请输入员工姓名..">
+                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
+                                           id="express_mark" placeholder="请输入员工姓名..">
                                 </div>
                                 <div class="form-group">
                                     <label>联系方式</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" data-inputmask='"mask": "999-9999-9999"'
-                                               data-mask>
-                                    </div>
+                                    <input v-model="staffBasicInfo.staff_phonenumber" type="text" class="form-control"
+                                           placeholder="请输入联系方式..">
                                     <div class="form-group">
                                         <label>入职时间:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                      </span>
+                                                <span class="input-group-text">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
                                             </div>
-                                            <input type="text" class="form-control float-right" id="entrytime">
+                                            <input v-model="staffBasicInfo.staff_entrytime" type="text"
+                                                   class="form-control float-right" id="entrytime">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -402,11 +402,12 @@
                                         <label>出生年月:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                      </span>
+                                              <span class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                              </span>
                                             </div>
-                                            <input type="text" class="form-control float-right" id="birthday">
+                                            <input v-model="staffBasicInfo.staff_birthday" type="text"
+                                                   class="form-control float-right" id="birthday">
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -414,11 +415,16 @@
                                         <br>
                                         <label>性别:</label>
                                         <label>
-                                            <input type="radio" name="staff_sex" class="flat-red" checked>
+                                            <input name="staff_sex" value="女" v-model="staffBasicInfo.staff_sex"
+                                                   type="radio"
+                                                   class="flat-red"
+                                                   checked>
                                             女
                                         </label>
                                         <label>
-                                            <input type="radio" name="staff_sex" class="flat-red">
+                                            <input name="staff_sex" value="男" v-model="staffBasicInfo.staff_sex"
+                                                   type="radio"
+                                                   class="flat-red">
                                             男
                                         </label>
                                     </div>
@@ -428,33 +434,20 @@
                                 <!-- /.col -->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>招募人</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">张三</option>
-                                            <option>李四</option>
-                                            <option>王五</option>
+                                        <label>所属单位</label>
+                                        <select v-model="staffBasicInfo.staff_unit" class="form-control"
+                                                style="width: 100%;">
+                                            <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>职位</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option>中转站管理员</option>
-                                            <option>配送点管理员</option>
-                                            <option>总公司管理员</option>
-                                            <option>总公司管理员</option>
-                                            <option selected="selected">配送员</option>
-                                            <option>驾驶员</option>
-                                            <option>车队队长</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>所属单位</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option>中转站1</option>
-                                            <option>中转站2</option>
-                                            <option>配送点1</option>
-                                            <option>配送点2</option>
-                                            <option selected="selected">配送点3</option>
+                                        <select v-model="staffBasicInfo.staff_position" class="form-control"
+                                                style="width: 100%;">
+                                            <option v-for="pos in positionList" :value="pos.position_id">
+                                                {{pos.position_name}}
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -527,6 +520,7 @@
 <!-- datepicker -->
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_add.js"></script>
 <script>
     $(function () {
         //Initialize Select2 Elements

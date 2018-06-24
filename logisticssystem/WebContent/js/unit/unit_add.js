@@ -187,19 +187,20 @@
                     success: function (data) {
                         if (data != null) {
                             let transferStation = JSON.parse(data)
-                            unitAddData.transferStation.unit_id = transferStation.unitNew.unit_id
-                            unitAddData.transferStation.unit_num = transferStation.unitNew.unit_num
-                            unitAddData.transferStation.unit_name = transferStation.unitNew.unit_name
-                            unitAddData.transferStation.unit_address = transferStation.unitNew.unit_address
-                            unitAddData.transferStation.unit_detailaddress = transferStation.unitNew.unit_detailaddress
-                            unitAddData.transferStation.unit_type = transferStation.unitNew.unit_type
-                            unitAddData.transferStation.unit_superiorunit = transferStation.unitNew.unit_superiorunit
-                            unitAddData.transferStation.unit_creator = transferStation.unitNew.unit_creator
-                            unitAddData.transferStation.unit_state = transferStation.unitNew.unit_state
-                            unitAddData.transferStation.unit_admin = transferStation.unitNew.unit_admin
-                            unitAddData.transferStation.unit_phonenumber = transferStation.unitNew.unit_phonenumber
-                            unitAddData.transferStation.unit_createtime = transferStation.unitNew.unit_createtime
-                            unitAddData.transferStation.unit_modifytime = transferStation.unitNew.unit_modifytime
+                            console.log('fdfd', data)
+                            unitAddData.transferStation.unit_id = transferStation.unit.unit_id
+                            unitAddData.transferStation.unit_num = transferStation.unit.unit_num
+                            unitAddData.transferStation.unit_name = transferStation.unit.unit_name
+                            unitAddData.transferStation.unit_address = transferStation.unit.unit_address
+                            unitAddData.transferStation.unit_detailaddress = transferStation.unit.unit_detailaddress
+                            unitAddData.transferStation.unit_type = transferStation.unit.unit_type
+                            unitAddData.transferStation.unit_superiorunit = transferStation.unit.unit_superiorunit
+                            unitAddData.transferStation.unit_creator = transferStation.unit.unit_creator
+                            unitAddData.transferStation.unit_state = transferStation.unit.unit_state
+                            unitAddData.transferStation.unit_admin = transferStation.unit.unit_admin
+                            unitAddData.transferStation.unit_phonenumber = transferStation.unit.unit_phonenumber
+                            unitAddData.transferStation.unit_createtime = transferStation.unit.unit_createtime
+                            unitAddData.transferStation.unit_modifytime = transferStation.unit.unit_modifytime
                         }
                     }
                 })

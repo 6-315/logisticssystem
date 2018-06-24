@@ -243,61 +243,65 @@
                         <!-- /.card-header -->
 
 
-
-
                         <div class="card-body">
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
-                                <input placeholder="据工号或姓名搜索" @input="searchReservationNum"
+                                <input placeholder="据工号或姓名搜索" @input="searchStaffNum"
                                        v-model="search" type="text" class="form-control input-sm"><span
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover" style="overflow-y: hidden">
+                                <table v-cloak class="table table-hover" style="overflow-y: hidden">
                                     <thead>
                                     <tr>
-                                        <th>预约单号</th>
-                                        <th>发件人姓名</th>
-                                        <th>发件人联系方式</th>
-                                        <th>发件人详细地址</th>
-                                        <th><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
-                                                class="caret"></span></a>
+                                        <th>员工工号</th>
+                                        <th>员工姓名</th>
+                                        <th>入职时间</th>
+                                        <th>出生年月</th>
+                                        <th>联系方式</th>
+                                        <th>性别</th>
+                                        <th>
+                                            <span role="presentation" class="dropdown"> <a
+                                                    class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
+                                                    class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="selectPosition('')" href="#">所属单位(所有)</a></li>
+														<li v-for="pos in postionList" :key="pos.position_id"><a
+                                                                @click="selectPosition(pos.position_id)" href="#">{{pos.position_name}}</a></li>
+													</ul>
+											</span>
+                                        </th>
+                                        <th>
+                                            <span role="presentation" class="dropdown"> <a
+                                                    class="dropdown-toggle" data-toggle="dropdown">单位(所有)<span
+                                                    class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
                                                                 @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
-											</span></th>
-                                        <th><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
-                                                class="caret"></span></a>
+											</span>
+                                        </th>
+                                        <th>
+                                            <span role="presentation" class="dropdown"> <a
+                                                    class="dropdown-toggle" data-toggle="dropdown">状态(所有)<span
+                                                    class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="distributionStaff('')" href="#">所有</a></li>
-														<li><a @click="distributionStaff('是')" href="#">是</a></li>
-														<li><a @click="distributionStaff('否')" href="#">否</a></li>
+														<li><a @click="selectState('')" href="#">状态(所有)</a></li>
+														<li><a @click="selectState('在职')" href="#">在职</a></li>
+														<li><a @click="selectState('离职')" href="#">离职</a></li>
+														<li><a @click="selectState('事假')" href="#">事假</a></li>
 													</ul>
-											</span></th>
-                                        <th><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
-                                                class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectState('')" href="#">所有</a></li>
-														<li><a @click="selectState('待受理')" href="#">待受理</a></li>
-														<li><a @click="selectState('已受理')" href="#">已受理</a></li>
-														<li><a @click="selectState('已拒绝')" href="#">已拒绝</a></li>
-														<li><a @click="selectState('待取件')" href="#">待取件</a></li>
-														<li><a @click="selectState('已取件')" href="#">已取件</a></li>
-														<li><a @click="selectState('已完成')" href="#">已完成</a></li>
-													</ul>
-											</span></th>
+											</span>
+                                        </th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="reservationVO.listReservationInfoDTO.length == 0">
+                                    <tbody v-if="staffManagerVO.listStaDTO.length == 0">
                                     <td style="text-align: center" colspan="8" height="50">
-                                        暂无数据</td>
+                                        暂无数据
+                                    </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
@@ -306,24 +310,19 @@
                                     </tr>
                                     </tbody>
                                     <tbody v-cloak
-                                           v-if="ready && reservationVO.listReservationInfoDTO.length != 0"
+                                           v-if="ready && staffManagerVO.listStaDTO.length != 0"
                                            style="min-height: 200px">
-                                    <tr
-                                            v-for="(reservationDTO,index) in reservationVO.listReservationInfoDTO"
-                                            :key="index">
-                                        <td v-html="reservationDTO.reservationInfo.reservation_num"></td>
-                                        <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
-                                        <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
-                                        <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td>{{reservationDTO.unitInfo.unit_name}}</td>
-                                        <td
-                                                v-if="reservationDTO.reservationInfo.reservation_distributiontor">
-                                            是</td>
-                                        <td v-else>否</td>
-                                        <td
-                                                v-html="replaceState(reservationDTO.reservationInfo.reservation_state)">
-                                            <%--<span class="label">{{reservationDTO.reservationInfo.reservation_state}}</span>--%>
-                                        </td>
+                                    <tr v-for="(staffManDTO,index) in staffManagerVO.listStaDTO"
+                                        :key="index">
+                                        <td v-html="staffManDTO.staffBasicInfo.staff_num"></td>
+                                        <td v-html="staffManDTO.staffBasicInfo.staff_name"></td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_entrytime}}</td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_birthday}}</td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_phonenumber}}</td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_sex}}</td>
+                                        <td>{{staffManDTO.position.position_name}}</td>
+                                        <td>{{staffManDTO.unit.unit_name}}</td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_state}}</td>
                                         <td>
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
@@ -331,25 +330,13 @@
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a @click="positionDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.position.position_name)"
+                                                           href="#">职位调度</a></li>
+                                                    <li>
+                                                        <a @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
+                                                           href="#">单位调度</a></li>
                                                     <li><a href="#">查看详情</a></li>
-                                                    <li><a
-                                                            @click="acceptanceReservation('已受理',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">受理</a></li>
-                                                    <li><a
-                                                            @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">拒绝</a></li>
-                                                    <li><a
-                                                            @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">分配配送员</a></li>
-                                                    <li><a
-                                                            @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">已取件</a></li>
-                                                    <li><a
-                                                            @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">已完成</a></li>
-                                                    <li><a
-                                                            @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">填写快件单</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -362,9 +349,9 @@
                                         <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
-                                        <li><a>第 {{reservationVO.pageIndex}} 页/总
+                                        <li><a>第 {{staffManagerVO.pageIndex}} 页/总
                                             {{reservationVO.totalPages}}
-                                            页/共{{reservationVO.totalRecords}}条</a></li>
+                                            页/共{{staffManagerVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
                                                 :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
                                             <%--<span aria-hidden="true">&raquo;</span>--%>
@@ -382,11 +369,79 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="positionDiaodu">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- 模态弹出窗内容 -->
+                                    <div class="modal_header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                                        </button>
+                                        <h5 class="modal-title">职位调度</h5>
+                                    </div>
+                                    <b>当前职位:{{staffListData.positionName}}</b>
+                                    <hr>
+                                    <div class="mdoal-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>职位名称</th>
+                                                <th>调度</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(pos,index) in yixiaPosition">
+                                                <td>{{index + 1}}</td>
+                                                <td>{{pos.position_name}}</td>
+                                                <td>
+                                                    <a @click="posDiaoDu(pos.position_id)" href="#"
+                                                       class="btn btn-default">调度</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-
-
-
-
+                        <div class="modal fade" id="unitDiaodu">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- 模态弹出窗内容 -->
+                                    <div class="modal_header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                                        </button>
+                                        <h5 class="modal-title">单位调度</h5>
+                                    </div>
+                                    <b>当前单位:编号{{staffListData.unitNum}} 单位名：{{staffListData.unitName}}</b>
+                                    <hr>
+                                    <div class="mdoal-body">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>单位名称</th>
+                                                <th>调度</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(unit,index) in yixiaUnit">
+                                                <td>{{unit.unit_num}}</td>
+                                                <td>{{unit.unit_name}}</td>
+                                                <td>
+                                                    <a @click="confirmUnitDiaoDu(unit.unit_id)" href="#"
+                                                       class="btn btn-default">调度</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <!-- /.card-body -->
@@ -475,5 +530,6 @@
         $('.select2').select2()
     })
 </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_list.js"></script>
 </body>
 </html>
