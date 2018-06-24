@@ -262,7 +262,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * @return
 	 */
 	public String pageRouteList() {
-		return "pageUnitList";
+		return "pageRouteList";
 	}
 
 	/**
