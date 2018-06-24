@@ -191,7 +191,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
-						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + routeManagerVO.getSearch() + "</span>"));
 			}
 
 		}
