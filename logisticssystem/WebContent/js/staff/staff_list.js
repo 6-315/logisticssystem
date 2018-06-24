@@ -35,6 +35,11 @@
         el: '#staffList',
         data: staffListData,
         methods: {
+            searchStaffNum(search) {
+                // 搜索
+                viewStaffData.getAllData()
+                viewStaffData.judge()
+            },
             getAllData: function () {
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_staffManager',
@@ -101,12 +106,6 @@
             // 尾页
             weiye: function () {
                 staffListData.pageIndex = staffListData.staffManagerVO.totalPages
-                viewStaffData.getAllData()
-                viewStaffData.judge()
-            },
-            searchStaffNum(search) {
-                // 搜索
-                staffListData.search = search
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },

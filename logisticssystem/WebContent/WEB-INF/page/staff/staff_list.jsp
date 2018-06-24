@@ -10,13 +10,11 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <%--<link rel="stylesheet"
-                href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+                    href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/toastr.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
@@ -91,11 +89,11 @@
         }
 
         /*.pagination > li > a:focus {
-                                    color: #fff;
-                                    cursor: default;
-                                    background-color: #337ab7;
-                                    border-color: #337ab7;
-                                }*/
+                                            color: #fff;
+                                            cursor: default;
+                                            background-color: #337ab7;
+                                            border-color: #337ab7;
+                                        }*/
         .dropdown-menu {
             max-height: 200px;
             overflow-y: scroll;
@@ -175,9 +173,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Note3物流系统</span>
+            src="${pageContext.request.contextPath}/img/houtai.png"
+            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
     </a> <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
@@ -196,7 +194,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                                 with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -241,8 +239,7 @@
                             </a></li>
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
-                                    class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
                         </ul>
@@ -256,8 +253,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
-                                    class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -350,7 +346,8 @@
                                     class="fa fa-search"></i></span>
                             </div>
                             <div class="table-responsive">
-                                <table v-cloak class="table table-hover" style="overflow-y: hidden">
+                                <table v-cloak class="table table-hover"
+                                       style="overflow-y: hidden">
                                     <thead>
                                     <tr>
                                         <th>员工工号</th>
@@ -359,46 +356,40 @@
                                         <th>出生年月</th>
                                         <th>联系方式</th>
                                         <th>性别</th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
-                                                    class="caret"></span></a>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a @click="selectPosition('')" href="#">所属单位(所有)</a></li>
 														<li v-for="pos in postionList" :key="pos.position_id"><a
                                                                 @click="selectPosition(pos.position_id)" href="#">{{pos.position_name}}</a></li>
 													</ul>
-											</span>
-                                        </th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">单位(所有)<span
-                                                    class="caret"></span></a>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">单位(所有)<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
 														<li v-for="unit in unitList" :key="unit.unit_id"><a
                                                                 @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
-											</span>
-                                        </th>
-                                        <th>
-                                            <span role="presentation" class="dropdown"> <a
-                                                    class="dropdown-toggle" data-toggle="dropdown">状态(所有)<span
-                                                    class="caret"></span></a>
+											</span></th>
+                                        <th><span role="presentation" class="dropdown"> <a
+                                                class="dropdown-toggle" data-toggle="dropdown">状态(所有)<span
+                                                class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a @click="selectState('')" href="#">状态(所有)</a></li>
 														<li><a @click="selectState('在职')" href="#">在职</a></li>
 														<li><a @click="selectState('离职')" href="#">离职</a></li>
 														<li><a @click="selectState('事假')" href="#">事假</a></li>
 													</ul>
-											</span>
-                                        </th>
+											</span></th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody v-if="staffManagerVO.listStaDTO.length == 0">
-                                    <td v-if="ready" style="text-align: center" colspan="10" height="50">
-                                        暂无数据
+                                    <td v-if="ready" style="text-align: center" colspan="10"
+                                        height="50">暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
@@ -428,12 +419,12 @@
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a @click="positionDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.position.position_name)"
-                                                           href="#">职位调度</a></li>
-                                                    <li>
-                                                        <a @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
-                                                           href="#">单位调度</a></li>
+                                                    <li><a
+                                                            @click="positionDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.position.position_name)"
+                                                            href="#">职位调度</a></li>
+                                                    <li><a
+                                                            @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
+                                                            href="#">单位调度</a></li>
                                                     <li><a href="#">查看详情</a></li>
                                                 </ul>
                                             </div>
@@ -492,10 +483,8 @@
                                             <tr v-for="(pos,index) in yixiaPosition">
                                                 <td>{{index + 1}}</td>
                                                 <td>{{pos.position_name}}</td>
-                                                <td>
-                                                    <a @click="posDiaoDu(pos.position_id)" href="#"
-                                                       class="btn btn-default">调度</a>
-                                                </td>
+                                                <td><a @click="posDiaoDu(pos.position_id)" href="#"
+                                                       class="btn btn-default">调度</a></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -529,10 +518,8 @@
                                             <tr v-for="(unit,index) in yixiaUnit">
                                                 <td>{{unit.unit_num}}</td>
                                                 <td>{{unit.unit_name}}</td>
-                                                <td>
-                                                    <a @click="confirmUnitDiaoDu(unit.unit_id)" href="#"
-                                                       class="btn btn-default">调度</a>
-                                                </td>
+                                                <td><a @click="confirmUnitDiaoDu(unit.unit_id)"
+                                                       href="#" class="btn btn-default">调度</a></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -628,6 +615,7 @@
         $('.select2').select2()
     })
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_list.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/staff/staff_list.js"></script>
 </body>
 </html>
