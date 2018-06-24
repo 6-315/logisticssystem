@@ -72,7 +72,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			if (listTeam.size() > 0) {
 				System.out.println("?????");
 				for (team team : listTeam) {
-					listVehicle1 = new ArrayList<>();
+					listVehicle1 = new ArrayList<>();	
 					System.out.println("kkkkkkkkkk:" + team.getTeam_id());
 					/**
 					 * 正向所在的车辆

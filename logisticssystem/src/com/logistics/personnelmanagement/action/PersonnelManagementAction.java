@@ -232,5 +232,6 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(personnelManagementService.addStaff(staffBasicInfo)));
 	}
+	
 
 }
