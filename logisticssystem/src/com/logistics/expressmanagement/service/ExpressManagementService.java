@@ -48,6 +48,8 @@ public interface ExpressManagementService {
 
 	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
 
+	public RouteDTO getRouteInfo(String idList);
+
 
 
 }

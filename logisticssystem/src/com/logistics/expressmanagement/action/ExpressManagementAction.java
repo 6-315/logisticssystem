@@ -609,10 +609,22 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		return "addStaff";
 	}
 	/**
-	 * 跳转到添加单位页面
+	 * 跳转到添加员工页面
 	 */
 	public String pageAddStaff(){
 		return "pageAddStaff";
+	}
+	/**
+	 * 重定向到action
+	 */
+	public String addRoutePage() {
+		return "addRoute";
+	}
+	/**
+	 * 跳转到添加路线页面
+	 */
+	public String pageAddRoute(){
+		return "pageAddRoute";
 	}
 	
 	/**
@@ -631,4 +643,20 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
 
+	/**
+	 * 获得路线信息
+	 * @throws IOException 
+	 */
+	public void getRouteInfo() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(expressManagementService.getRouteInfo(idList)));
+		
+	}
+	
 }
