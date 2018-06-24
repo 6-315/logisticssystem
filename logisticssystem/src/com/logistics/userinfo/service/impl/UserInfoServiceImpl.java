@@ -177,24 +177,46 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id,
-			ExpressinfoAndExpressVO expressinfoAndExpressVO) {
-		if (userinfo_id != null && userinfo_id.trim().length() > 0) {
+			ExpressinfoAndExpressVO expressinfoAndExpressVO, UserInfoSessionDTO userInfoSessionDTO) {
+		if (userinfo_id != null && userinfo_id.trim().length() > 0 || userInfoSessionDTO != null) {
 			String number = "";
 			String table = "";
 			List<express> listExpress = new ArrayList<>();
 			List<ExpressinfoAndExpressDTO> listExpressinfoAndExpressDTO = new ArrayList<>();
-			if (expressinfoAndExpressVO.getState() != null && expressinfoAndExpressVO.getState().trim().length() > 0) {
+			if (userInfoSessionDTO == null) {
+				if (expressinfoAndExpressVO.getState() != null
+						&& expressinfoAndExpressVO.getState().trim().length() > 0) {
 
-				number = "select count(*) from express where express_belong = '" + userinfo_id
-						+ "' and express_state = '" + expressinfoAndExpressVO.getState() + "'  ";
-				table = "from express  where express_belong = '" + userinfo_id + "'and express_state = '"
-						+ expressinfoAndExpressVO.getState() + "' ";
+					number = "select count(*) from express where express_belong = '" + userinfo_id
+							+ "' and express_state = '" + expressinfoAndExpressVO.getState() + "'  ";
+					table = "from express  where express_belong = '" + userinfo_id + "'and express_state = '"
+							+ expressinfoAndExpressVO.getState() + "' ";
 
-			} else {
-				number = "select count(*) from express where express_belong = '" + userinfo_id
-						+ "' and express_state != '已完成'  ";
-				table = "from express  where express_belong = '" + userinfo_id + "'and express_state != '已完成' ";
+				} else {
+					number = "select count(*) from express where express_belong = '" + userinfo_id
+							+ "' and express_state != '已完成'  ";
+					table = "from express  where express_belong = '" + userinfo_id + "'and express_state != '已完成' ";
 
+				}
+
+			} else if (userInfoSessionDTO != null) {
+				if (expressinfoAndExpressVO.getState() != null
+						&& expressinfoAndExpressVO.getState().trim().length() > 0) {
+
+					number = "select count(*) from express where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "' and express_state = '"
+							+ expressinfoAndExpressVO.getState() + "'  ";
+					table = "from express  where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'and express_state = '"
+							+ expressinfoAndExpressVO.getState() + "' ";
+				} else {
+					number = "select count(*) from express where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+							+ "' and express_state != '已完成'  ";
+					table = "from express  where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'and express_state != '已完成' ";
+
+				}
 			}
 			if (expressinfoAndExpressVO.getSearch() != null
 					&& expressinfoAndExpressVO.getSearch().trim().length() > 0) {
@@ -202,6 +224,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				number = number + " and express_number like '" + search + "'  ";
 				table = table + " and express_number like '" + search + "'";
 			}
+
 			table = table + " order by express_createtime desc";
 			int userInfoCount = userInfoDao.getCount(number);
 			// 设置总数量
