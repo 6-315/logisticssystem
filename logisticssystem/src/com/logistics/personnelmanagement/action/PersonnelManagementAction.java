@@ -299,7 +299,9 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		List<position> listPosition = new ArrayList<>();
-		listPosition = personnelManagementService.getPositionById(ID);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffBasicSession = (staff_basicinfo) session.getAttribute("staff_session");
+		listPosition = personnelManagementService.getPositionById(staffBasicSession);
 		response.getWriter().write(gson.toJson(listPosition));
 
 	}
@@ -315,8 +317,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		
-		response.getWriter().write("" +personnelManagementService.updatePositionById(ID,positionNew));
+
+		response.getWriter().write("" + personnelManagementService.updatePositionById(ID, positionNew));
 	}
 
 	/**
@@ -330,7 +332,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" +personnelManagementService.updateUnitById(ID,unitNew));
+		response.getWriter().write("" + personnelManagementService.updateUnitById(ID, unitNew));
 	}
 
 }

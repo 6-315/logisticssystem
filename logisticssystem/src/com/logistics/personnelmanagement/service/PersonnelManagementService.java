@@ -32,7 +32,7 @@ public interface PersonnelManagementService {
 
 	String updateStaffState(staff_basicinfo staffBasicinfo);
 
-	List<position> getPositionById(String ID);
+	List<position> getPositionById(staff_basicinfo staffBasicSession);
 
 	staff_basicinfo addStaff(staff_basicinfo staffBasicInfo, staff_basicinfo staffBasicSession);
 

@@ -30,7 +30,6 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public StaffManagerVO getStaffManagerVO(StaffManagerVO staffManagerVO, staff_basicinfo staffBasicinfo) {
-		System.out.println("kakakak:" + staffManagerVO.getPosition());
 		if (staffBasicinfo == null) {
 			return null;
 		}
@@ -202,14 +201,14 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 					 * "'"); if (staffManagerVO.getSearch() != null &&
 					 * staffManagerVO.getSearch().trim().length() > 0) {
 					 * listStaff.get(0).setStaff_num(listStaff.get(0).getStaff_num().replaceAll(
-					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" + staffManagerVO.getSearch() +
-					 * "</span>")); } if (staffManagerVO.getSearch() != null &&
-					 * staffManagerVO.getSearch().trim().length() > 0) {
+					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" +
+					 * staffManagerVO.getSearch() + "</span>")); } if (staffManagerVO.getSearch() !=
+					 * null && staffManagerVO.getSearch().trim().length() > 0) {
 					 * listStaff.get(0).setStaff_name(listStaff.get(0).getStaff_name().replaceAll(
-					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" + staffManagerVO.getSearch() +
-					 * "</span>")); } System.out.println("如果多的话：" + listStaff.size()); if
-					 * (listStaff.size() != 0) { if (listStaff.size() == 1) { position position =
-					 * new position(); position =
+					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" +
+					 * staffManagerVO.getSearch() + "</span>")); } System.out.println("如果多的话：" +
+					 * listStaff.size()); if (listStaff.size() != 0) { if (listStaff.size() == 1) {
+					 * position position = new position(); position =
 					 * personnelManagementDao.getPosition(listStaff.get(0));
 					 * staffManagerDTO.setPosition(position); staffManagerDTO.setUnit(unit);
 					 * staffManagerDTO.setStaffBasicInfo(listStaff.get(0)); } else { for (int i = 0;
@@ -446,18 +445,19 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<position> getPositionById(String ID) {
-		if (ID == null) {
+	public List<position> getPositionById(staff_basicinfo staffBasicSession) {
+		if (staffBasicSession == null) {
 		}
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
-		staffBasicInfo = personnelManagementDao.getstaffById(ID);
+		staffBasicInfo = personnelManagementDao.getstaffById(staffBasicSession.getStaff_id());
 		if (staffBasicInfo != null) {
 			List<position> listPosition = new ArrayList<>();
 			position positionNew = new position();
 			positionNew = personnelManagementDao.getPosition(staffBasicInfo);
-			if ("总公司".equals(positionNew.getPosition_name())) {
+			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				listPosition = (List<position>) personnelManagementDao.listObject(
 						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+				return listPosition;
 			}
 			if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				System.out.println("进来了吗");
@@ -482,18 +482,23 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	 */
 	@Override
 	public String updatePositionById(String iD, String positionNew) {
+		System.out.println("kkkkkkkkkkkkkkk:" + iD);
+		System.out.println("kkkkkkkkkkkkkkkuuuuuuuu:" + positionNew);
 		if (iD == null || positionNew == null) {
-			return "erroe";
+
+			return "error";
 		}
+		System.out.println("uuuuuuuuuuuuuuuuuu");
 		staff_basicinfo staffBasicInfo = new staff_basicinfo();
 		staffBasicInfo = personnelManagementDao.getstaffById(iD);
 		if (staffBasicInfo != null) {
+			System.out.println("??????????????????????????????");
 			staffBasicInfo.setStaff_position(positionNew);
 			staffBasicInfo.setStaff_modifytime(TimeUtil.getStringSecond());
 			personnelManagementDao.saveOrUpdateObject(staffBasicInfo);
 			return "success";
 		}
-		return "erroe";
+		return "error";
 	}
 
 	/**
