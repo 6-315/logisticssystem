@@ -409,6 +409,14 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	@SuppressWarnings("unchecked")
 	@Override
 	public staff_basicinfo addStaff(staff_basicinfo staffBasicinfo, staff_basicinfo staffBasicSession) {
+		if (staffBasicSession == null) {
+			return null;
+		}
+		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0) {
+			staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
+			personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
+			return staffBasicinfo;
+		}
 		List<staff_basicinfo> staffBasicInfoNew = new ArrayList<>();
 		if (staffBasicinfo.getStaff_name() != null && staffBasicinfo.getStaff_name().trim().length() > 0) {
 			staff_basicinfo staff_basicinfo = new staff_basicinfo();
@@ -518,6 +526,32 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			return "success";
 		}
 		return "erroe";
+	}
+
+	/**
+	 * 根据ID查询这个人的ＤＴＯ
+	 */
+	@Override
+	public StaffManagerDTO getStaffManagerDTO(String iD) {
+		if (iD == null) {
+			return null;
+
+		}
+		unit unitNew = new unit();
+		staff_basicinfo staffNew = new staff_basicinfo();
+		position positionNew = new position();
+		unitNew = personnelManagementDao.gerUnitByID(iD);
+		staffNew = personnelManagementDao.getstaffById(iD);
+		positionNew = personnelManagementDao.getPosition(staffNew);
+		if (unitNew != null && staffNew != null && positionNew != null) {
+			StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+			staffManagerDTO.setPosition(positionNew);
+			staffManagerDTO.setStaffBasicInfo(staffNew);
+			staffManagerDTO.setUnit(unitNew);
+			return staffManagerDTO;
+		}
+
+		return null;
 	}
 
 }

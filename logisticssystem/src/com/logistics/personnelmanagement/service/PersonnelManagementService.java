@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.personnelmanagement.DTO.StaffManagerDTO;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
 
 /**
@@ -39,6 +40,8 @@ public interface PersonnelManagementService {
 	String updatePositionById(String iD, String positionNew);
 
 	String updateUnitById(String iD, String unitNew);
+
+	StaffManagerDTO getStaffManagerDTO(String iD);
 
 
 	

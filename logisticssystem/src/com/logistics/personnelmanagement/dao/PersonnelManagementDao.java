@@ -85,4 +85,6 @@ public interface PersonnelManagementDao {
 	 * @return
 	 */
 	public unit getUnitAdmin(staff_basicinfo staffBasicinfo);
+
+	public unit gerUnitByID(String iD);
 }
