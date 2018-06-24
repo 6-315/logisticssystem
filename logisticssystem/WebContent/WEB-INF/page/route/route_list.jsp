@@ -419,7 +419,9 @@
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
                                             <td>{{routeList.rout.route_state}}</td>
                                             <td>
-                                                <div class="btn-group">
+                                                <b style="cursor: pointer;"><i color="gray" class="fa fa-list-alt"
+                                                                               aria-hidden="true"></i></b>
+                                                <%--<div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
                                                           aria-haspopup="true" aria-expanded="false"> <i
                                                             class="fa fa-th-list"></i>
@@ -433,7 +435,7 @@
                                                                 href="#">单位调度</a></li>
                                                         <li><a href="#">查看详情</a></li>
                                                     </ul>
-                                                </div>
+                                                </div>--%>
                                             </td>
                                         </tr>
                                         </tbody>

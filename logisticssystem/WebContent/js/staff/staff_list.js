@@ -162,7 +162,7 @@
                             viewStaffData.judge()
                             $('#positionDiaodu').modal('hide')
                         } else {
-                            toastr.success('调度失败')
+                            toastr.error('调度失败')
                         }
                     }
                 })
@@ -203,6 +203,9 @@
                         }
                     }
                 })
+            },
+            skipDetail(staffId) {
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_addStaffPage?idList=' + staffId
             }
         },
         mounted(selectState) {

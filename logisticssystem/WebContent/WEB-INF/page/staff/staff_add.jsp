@@ -360,7 +360,7 @@
         </section>
 
         <!-- Main content -->
-        <section id="staffAdd" class="content">
+        <div v-cloak id="staffAdd" class="content">
             <div class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
@@ -377,92 +377,99 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="express_mark">员工姓名</label>
-                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
-                                           id="express_mark" placeholder="请输入员工姓名..">
+                                    <label>员工工号</label>
+                                    <input type="hidden" id="shuju" value="${idList}">
+                                    <input disabled v-model="staffBasicInfo.staff_num" type="text"
+                                           class="form-control"
+                                           placeholder="员工工号..">
                                 </div>
+                                <div class="form-group">
+                                    <label>员工姓名</label>
+                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
+                                           placeholder="请输入员工姓名..">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>联系方式</label>
                                     <input v-model="staffBasicInfo.staff_phonenumber" type="text" class="form-control"
                                            placeholder="请输入联系方式..">
-                                    <div class="form-group">
-                                        <label>所属单位</label>
-                                        <select v-model="staffBasicInfo.staff_unit" class="form-control"
-                                                style="width: 100%;">
-                                            <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>职位</label>
-                                        <select v-model="staffBasicInfo.staff_position" class="form-control"
-                                                style="width: 100%;">
-                                            <option v-for="pos in positionList" :value="pos.position_id">
-                                                {{pos.position_name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <br>
-                                        <label>性别:</label>
-                                        <select v-model="staffBasicInfo.staff_sex" class="form-control"
-                                                style="width: 100%;">
-                                            <option value="男">男</option>
-                                            <option value="女">女</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- /.form-group -->
                                 </div>
-                                <!-- /.col -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>入职时间:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
+                                <div class="form-group">
+                                    <label>所属单位</label>
+                                    <select v-model="staffBasicInfo.staff_unit" class="form-control"
+                                            style="width: 100%;">
+                                        <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>职位</label>
+                                    <select v-model="staffBasicInfo.staff_position" class="form-control"
+                                            style="width: 100%;">
+                                        <option v-for="pos in positionList" :value="pos.position_id">
+                                            {{pos.position_name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>性别:</label>
+                                    <select v-model="staffBasicInfo.staff_sex" class="form-control"
+                                            style="width: 100%;">
+                                        <option value="男">男</option>
+                                        <option value="女">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>入职时间:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
                                                 <span class="input-group-text">
                                                     <i class="fa fa-calendar"></i>
                                                 </span>
-                                            </div>
-                                            <input v-model="staffBasicInfo.staff_entrytime" type="text"
-                                                   class="form-control float-right" id="entrytime">
                                         </div>
-                                        <!-- /.input group -->
+                                        <input v-model="staffBasicInfo.staff_entrytime" type="text"
+                                               class="form-control float-right" id="entrytime">
                                     </div>
-                                    <div class="from-group">
-                                        <label>出生年月:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
+                                    <!-- /.input group -->
+                                </div>
+                                <div class="from-group">
+                                    <label>出生年月:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
                                               <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
                                               </span>
-                                            </div>
-                                            <input v-model="staffBasicInfo.staff_birthday" type="text"
-                                                   class="form-control float-right" id="birthday">
                                         </div>
-                                        <!-- /.input group -->
+                                        <input v-model="staffBasicInfo.staff_birthday" type="text"
+                                               class="form-control float-right" id="birthday">
                                     </div>
-                                    <div class="form-group">
-                                        <button @click="saveStaff" type="button"
-                                                style="width: 120px;float: right;margin-right: 7px"
-                                                class="btn btn-block btn-primary btn-lg">提交
-                                        </button>
-                                    </div>
-                                    <!-- /.form-group -->
+                                    <!-- /.input group -->
                                 </div>
-                                <!-- /.col -->
+                                <div class="form-group">
+                                    <button @click="saveStaff" type="button"
+                                            style="width: 120px;float: right;margin-right: 7px"
+                                            class="btn btn-block btn-primary btn-lg">提交
+                                    </button>
+                                </div>
+                                <!-- /.form-group -->
                             </div>
-                            <!-- /.row -->
+                            <!-- /.col -->
                         </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-                            所添加的员工信息应当真实可靠
-                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        所添加的员工信息应当真实可靠
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- /.content -->
+        </div>
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -553,5 +560,7 @@
         })
     })
 </script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 </body>
 </html>

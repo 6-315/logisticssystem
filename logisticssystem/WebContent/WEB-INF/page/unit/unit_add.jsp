@@ -137,14 +137,12 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
-                                    class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
-                                    class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
                         </ul>
@@ -246,17 +244,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>单位名称</label>
-                                    <input id="shuju" type="hidden" value="${idList}">
-                                    <input type="text" class="form-control"
-                                           v-model="transferStation.unit_name"
-                                           placeholder="请输入名称..">
+                                    <label>单位名称</label> <input id="shuju" type="hidden"
+                                                               value="${idList}"> <input type="text"
+                                                                                         class="form-control"
+                                                                                         v-model="transferStation.unit_name"
+                                                                                         placeholder="请输入名称..">
                                 </div>
                                 <div class="form-group">
-                                    <label>详细地址</label>
-                                    <input type="text" class="form-control"
-                                           v-model="transferStation.unit_detailaddress"
-                                           placeholder="详细地址..">
+                                    <label>详细地址</label> <input type="text" class="form-control"
+                                                               v-model="transferStation.unit_detailaddress"
+                                                               placeholder="详细地址..">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -304,58 +301,55 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
-                                    <label>单位类型</label>
-                                    <select @change="getAdmin" class="form-control"
-                                            v-model="transferStation.unit_type"
-                                            data-placeholder="单位类型" style="width: 100%;">
-                                        <option value="总公司">总公司</option>
-                                        <option value="中转站管理员">中转站</option>
-                                        <option value="配送点管理员">配送点</option>
-                                    </select>
+                                    <label>单位类型</label> <select @change="getAdmin"
+                                                                class="form-control" v-model="transferStation.unit_type"
+                                                                data-placeholder="单位类型" style="width: 100%;">
+                                    <option value="总公司">总公司</option>
+                                    <option value="中转站管理员">中转站</option>
+                                    <option value="配送点管理员">配送点</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>联系方式</label>
-                                    <input type="text" class="form-control"
-                                           v-model="transferStation.unit_phonenumber"
-                                           placeholder="请输入联系方式..">
+                                    <label>联系方式</label> <input type="text" class="form-control"
+                                                               v-model="transferStation.unit_phonenumber"
+                                                               placeholder="请输入联系方式..">
                                 </div>
                                 <div class="form-group">
-                                    <label>状态</label>
-                                    <select class="form-control"
-                                            v-model="transferStation.unit_state"
-                                            data-placeholder="单位状态" style="width: 100%;">
-                                        <option>未启用</option>
-                                        <option>正常使用</option>
-                                        <option>已废弃</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>单位编号</label>
-                                    <input disabled type="text" class="form-control"
-                                           v-model="transferStation.unit_num"
-                                           placeholder="单位编号..">
-                                </div>
-                                <div class="form-group">
-                                    <label>管理员</label>
-                                    <select class="form-control"
-                                            v-model="transferStation.unit_admin"
-                                            placeholder="请选择管理员" style="width: 100%;">
-                                        <option v-for="admin in adminList" :value="admin.managerInfo.staff_id">
-                                            {{admin.managerInfo.staff_name}}
-                                        </option>
-                                    </select>
+                                    <label>状态</label> <select class="form-control"
+                                                              v-model="transferStation.unit_state"
+                                                              data-placeholder="单位状态"
+                                                              style="width: 100%;">
+                                    <option>未启用</option>
+                                    <option>正常使用</option>
+                                    <option>已废弃</option>
+                                </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>上级单位</label>
-                                    <input disabled type="text" class="form-control"
-                                           v-model="transferStation.unit_superiorunit"
-                                           placeholder="上级单位编号..">
+                                    <label>单位编号</label> <input disabled type="text"
+                                                               class="form-control" v-model="transferStation.unit_num"
+                                                               placeholder="单位编号..">
+                                </div>
+                                <div class="form-group">
+                                    <label>管理员</label> <select class="form-control"
+                                                               v-model="transferStation.unit_admin" placeholder="请选择管理员"
+                                                               style="width: 100%;">
+                                    <option v-for="admin in adminList"
+                                            :value="admin.managerInfo.staff_id">
+                                        {{admin.managerInfo.staff_name}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>上级单位</label> <input disabled type="text"
+                                                               class="form-control"
+                                                               v-model="transferStation.unit_superiorunit"
+                                                               placeholder="上级单位编号..">
                                 </div>
                             </div>
                             <div class="col-md-6">
