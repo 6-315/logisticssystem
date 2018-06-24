@@ -163,7 +163,15 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		for (route route : listRoute) {
 
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
-			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
+			staff_basicinfo creator = routeManagementDao.getStaff_Basicinfo(" from staff_basicinfo where staff_id ='"+route.getRoute_creater()+"' ");
+			routeMangerDTO.setStaff_Id(creator);
+			unit beginUnit = routeManagementDao.getUnitInfoById(route.getRoute_departurestation());
+			routeMangerDTO.setRoute_Departurestation(beginUnit);
+			unit endUnit = routeManagementDao.getUnitInfoById(route.getRoute_terminalstation());
+			routeMangerDTO.setRoute_Terminalstation(endUnit);
+			routeMangerDTO.setRout(route);
+			listRouteManagerDTO.add(routeMangerDTO);
+			/*List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
 			liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
 					.listObject("from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'");
 			List<unit> listUnitD = new ArrayList<>();
@@ -178,7 +186,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
 				routeMangerDTO.setRout(route);
 				listRouteManagerDTO.add(routeMangerDTO);
-			}
+			}*/
 			// 高亮
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
