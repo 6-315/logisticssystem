@@ -199,8 +199,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 			if (expressinfoAndExpressVO.getSearch() != null
 					&& expressinfoAndExpressVO.getSearch().trim().length() > 0) {
 				String search = "%" + expressinfoAndExpressVO.getSearch() + "%";
-				number = number + " and express_id like '" + search + "' ";
-				table = table + " and express_id like '" + search + "'";
+				number = number + " and express_number like '" + search + "'  ";
+				table = table + " and express_number like '" + search + "'";
 			}
 			table = table + " order by express_createtime desc";
 			int userInfoCount = userInfoDao.getCount(number);
@@ -230,6 +230,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 				ExpressinfoAndExpressDTO expressinfoAndExpressDTO = new ExpressinfoAndExpressDTO();
 				expressinfo expressInfo = new expressinfo();
 				expressInfo = userInfoDao.getExpressInfoById(express.getExpress_id());
+
+				if (expressinfoAndExpressVO.getSearch() != null
+						&& expressinfoAndExpressVO.getSearch().trim().length() > 0) {
+					express.setExpress_number(express.getExpress_number().replaceAll(
+							expressinfoAndExpressVO.getSearch(),
+							"<span style='color: #ff5063;'>" + expressinfoAndExpressVO.getSearch() + "</span>"));
+				}
 				if (expressInfo != null) {
 					expressinfoAndExpressDTO.setExpressInfo(expressInfo);
 					expressinfoAndExpressDTO.setExpressNew(express);

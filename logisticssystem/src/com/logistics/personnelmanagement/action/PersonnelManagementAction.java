@@ -349,6 +349,5 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
 		staffManagerDTO = personnelManagementService.getStaffManagerDTO(ID);
 		response.getWriter().write(gson.toJson(staffManagerDTO));
-
 	}
 }
