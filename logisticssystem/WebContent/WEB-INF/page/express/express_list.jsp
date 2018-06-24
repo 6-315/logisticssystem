@@ -302,7 +302,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
