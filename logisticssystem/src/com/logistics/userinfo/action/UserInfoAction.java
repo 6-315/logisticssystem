@@ -318,12 +318,15 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		expressinfoAndExpressVO.setState(state);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0
-				|| userInfoSessionDTO != null || userInfoSessionDTO == null) {
-			expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(),
-					expressinfoAndExpressVO, userInfoSessionDTO);
-		}
+		String ID = "";
+		if (userInfoSessionDTO == null) {
 
+			ID = userInfo.getUserinfo_id();
+		} else {
+			ID = userInfoSessionDTO.getUserInfoSession().getUserinfo_id();
+		}
+		expressinfoAndExpressVO = userInfoService.selectExpressInfo(ID, expressinfoAndExpressVO);
+		System.out.println("llll" + expressinfoAndExpressVO);
 		response.getWriter().write(gson.toJson(expressinfoAndExpressVO));
 
 	}
