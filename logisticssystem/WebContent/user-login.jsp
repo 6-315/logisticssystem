@@ -23,28 +23,29 @@
 				</div>
 				<p>我递送的每一声问候和祝福，</p>
 				<p>得到的每一份支持，都是我坚定前行的动力。</p>
-				<p>圆通期待为您服务</p>
+				<p>Note3期待为您服务</p>
 			</div>
-			<div class="page-login-main">
+			<div id="sslogin" class="page-login-main">
 				<h3 class="hidden-xs">登陆Note3</h3>
 				<br />
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="#">账号密码登录</a>
+					<li role="presentation" class="active"><a
+						href="${pageContext.request.contextPath}/user-login.jsp">手机号密码登录</a>
 					</li>
-					<li role="presentation"><a href="#">手机号快速注册</a></li>
+					<li role="presentation"><a
+						href="${pageContext.request.contextPath}/register.jsp">快速注册</a></li>
 				</ul>
-				<form method="post" class="fv-form fv-form-bootstrap">
+				<form class="fv-form fv-form-bootstrap">
 					<div class="form-group">
-						<input name="" class="form-control" placeholder="用户名">
+						<input v-model="user" class="form-control" placeholder="手机号码">
 					</div>
 					<div class="form-group">
-						<input name="" class="form-control" placeholder="密码"
+						<input v-model="password" class="form-control" placeholder="密码"
 							type="password">
 					</div>
-
-					<input value="登录" class="btn btn-primary btn-block"
-						autocomplete="off" type="submit">
 				</form>
+				<button :disabled="disabled" v-on:click="login" id="user_login"
+					class="btn btn-primary btn-block btn-flat">登录</button>
 				<div class="clearfix"></div>
 				<footer class="page-copyright">
 				<p>Note3物流有限公司 版权所有</p>
@@ -53,5 +54,13 @@
 			</div>
 		</div>
 	</div>
+	<script
+		src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/css/tool/vue.js"></script>
+	<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
 </body>
 </html>

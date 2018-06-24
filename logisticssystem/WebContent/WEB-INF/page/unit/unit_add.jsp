@@ -107,12 +107,12 @@
                     </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_list.html"
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -124,7 +124,7 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a
-                            href="/test/test/pages/user/user_list.html" class="nav-link"> <i
+                            href="#" class="nav-link"> <i
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
@@ -176,12 +176,12 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_list.html"
+                                    href="#"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link">
+                                    href="#" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
@@ -195,12 +195,12 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_list.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList" class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>

@@ -183,12 +183,12 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_list.html"
+                                    href="#"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link">
+                                    href="#" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
@@ -207,7 +207,7 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>

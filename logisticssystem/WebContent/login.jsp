@@ -7,16 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet"
-	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	href="${pageContext.request.contextPath }/css/font/font-awesome.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/adminlte.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/plugins/iCheck/square/blue.css">
-<link
-	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
-	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/toastr.css">
 <title>登录</title>
@@ -32,19 +25,13 @@
 				<p class="login-box-msg">登录</p>
 				<div class="form-group has-feedback">
 					<input name="username" type="text" v-model="user"
-						class="form-control" placeholder="手机号码">
+						class="form-control" placeholder="工号">
 				</div>
 				<div class="form-group has-feedback">
 					<input name="password" type="password" v-model="password"
 						class="form-control" placeholder="密码">
 				</div>
 				<div class="row">
-					<div class="col-8">
-						<div class="checkbox icheck">
-							<label> <input type="checkbox"> 记住我
-							</label>
-						</div>
-					</div>
 					<!-- /.col -->
 					<div class="col-4">
 						<button :disabled="disabled" v-on:click="login" id="user_login"
@@ -52,12 +39,7 @@
 					</div>
 					<!-- /.col -->
 				</div>
-				<p class="mb-0">
-					<a href="${pageContext.request.contextPath}/register.jsp"
-						class="text-center">注册</a>
-				</p>
 			</div>
-
 			<!-- /.login-card-body -->
 		</div>
 	</div>
@@ -65,21 +47,9 @@
 		src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
-	<script>
-		$(function() {
-			$('input').iCheck({
-				checkboxClass : 'icheckbox_square-blue',
-				radioClass : 'iradio_square-blue',
-				increaseArea : '20%' // optional
-			})
-		})
-	</script>
-
 </body>
 </html>
