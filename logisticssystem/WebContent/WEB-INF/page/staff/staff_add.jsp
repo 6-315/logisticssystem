@@ -386,6 +386,37 @@
                                     <input v-model="staffBasicInfo.staff_phonenumber" type="text" class="form-control"
                                            placeholder="请输入联系方式..">
                                     <div class="form-group">
+                                        <label>所属单位</label>
+                                        <select v-model="staffBasicInfo.staff_unit" class="form-control"
+                                                style="width: 100%;">
+                                            <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>职位</label>
+                                        <select v-model="staffBasicInfo.staff_position" class="form-control"
+                                                style="width: 100%;">
+                                            <option v-for="pos in positionList" :value="pos.position_id">
+                                                {{pos.position_name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <br>
+                                        <label>性别:</label>
+                                        <select v-model="staffBasicInfo.staff_sex" class="form-control"
+                                                style="width: 100%;">
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label>入职时间:</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -412,46 +443,8 @@
                                         <!-- /.input group -->
                                     </div>
                                     <div class="form-group">
-                                        <br>
-                                        <label>性别:</label>
-                                        <label>
-                                            <input name="staff_sex" value="女" v-model="staffBasicInfo.staff_sex"
-                                                   type="radio"
-                                                   class="flat-red"
-                                                   checked>
-                                            女
-                                        </label>
-                                        <label>
-                                            <input name="staff_sex" value="男" v-model="staffBasicInfo.staff_sex"
-                                                   type="radio"
-                                                   class="flat-red">
-                                            男
-                                        </label>
-                                    </div>
-
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>所属单位</label>
-                                        <select v-model="staffBasicInfo.staff_unit" class="form-control"
-                                                style="width: 100%;">
-                                            <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>职位</label>
-                                        <select v-model="staffBasicInfo.staff_position" class="form-control"
-                                                style="width: 100%;">
-                                            <option v-for="pos in positionList" :value="pos.position_id">
-                                                {{pos.position_name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" style="width: 120px;float: right;margin-right: 7px"
+                                        <button @click="saveStaff" type="button"
+                                                style="width: 120px;float: right;margin-right: 7px"
                                                 class="btn btn-block btn-primary btn-lg">提交
                                         </button>
                                     </div>
