@@ -59,6 +59,8 @@
                                     window.location = '/logisticssystem/loginregister/loginregister_pageStaff'
                                     break;
                             }
+                            userinfo.user = ''
+                            userinfo.password = ''
                             userinfo.disabled = false
                             return
                         }
