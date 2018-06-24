@@ -315,9 +315,9 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 */
 				if (vehicleInfoVO.getSearch() != null && vehicleInfoVO.getSearch().trim().length() > 0) {
 					vehicle.setVehicle_num(vehicle.getVehicle_num().replaceAll(vehicleInfoVO.getSearch(),
-							"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
+							"<span style='color: #ff5063;'>" + vehicleInfoVO.getSearch() + "</span>"));
 					vehicle.setVehicle_platenum(vehicle.getVehicle_platenum().replaceAll(vehicleInfoVO.getSearch(),
-							"<mark>" + vehicleInfoVO.getSearch() + "</mark>"));
+							"<span style='color: #ff5063;'>" + vehicleInfoVO.getSearch() + "</span>"));
 				}
 
 				/**
@@ -690,7 +690,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 			 */
 			if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
 				team.setTeam_num(team.getTeam_num().replaceAll(teamInfoVO.getSearch(),
-						"<mark>" + teamInfoVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + teamInfoVO.getSearch() + "</span>"));
 			}
 			teamDTO.setTeam(team);
 			listTeamDTO.add(teamDTO);
