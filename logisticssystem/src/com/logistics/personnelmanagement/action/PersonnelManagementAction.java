@@ -18,7 +18,9 @@ import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.domain.userinfo;
+import com.logistics.personnelmanagement.DTO.StaffManagerDTO;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
+import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 import com.logistics.personnelmanagement.service.PersonnelManagementService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -84,6 +86,51 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 	private String search = "";
 	private String staffListIdS = "";
 	private String belongUnit = "";
+	private String state = "";
+	private String position = "";
+	private String ID;
+	private String unitNew;
+	private String positionNew;
+
+	public String getUnitNew() {
+		return unitNew;
+	}
+
+	public void setUnitNew(String unitNew) {
+		this.unitNew = unitNew;
+	}
+
+	public String getPositionNew() {
+		return positionNew;
+	}
+
+	public void setPositionNew(String positionNew) {
+		this.positionNew = positionNew;
+	}
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public String getBelongUnit() {
 		return belongUnit;
@@ -151,6 +198,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerVO.setPageIndex(pageIndex);
 		staffManagerVO.setSearch(search);
 		staffManagerVO.setBelongUnit(belongUnit);
+		staffManagerVO.setState(state);
+		staffManagerVO.setPosition(position);
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
 		if (staffBasicinfo.getStaff_id() != null && staffBasicinfo.getStaff_id().trim().length() > 0
@@ -161,6 +210,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		}
 
 	}
+
 	/**
 	 * 获取自身职位以下的所有单位
 	 * 
@@ -208,6 +258,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + personnelManagementService.removeListStaff(staffListIdS));
 	}
+
 	/**
 	 * 修改员工单位
 	 * 
@@ -220,6 +271,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + personnelManagementService.updateStaffInfo(staffBasicInfo));
 	}
+
 	/**
 	 * 添加员工
 	 * 
@@ -230,7 +282,73 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(gson.toJson(personnelManagementService.addStaff(staffBasicInfo)));
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffBasicSession = (staff_basicinfo) session.getAttribute("staff_session");
+		staff_basicinfo staffNew = new staff_basicinfo();
+		staffNew = personnelManagementService.addStaff(staffBasicInfo, staffBasicSession);
+		response.getWriter().write(gson.toJson(staffNew));
 	}
 
+	/**
+	 * 根据单位 获取该单位所有职位
+	 * 
+	 * @throws IOException
+	 */
+	public void getPositionById() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		List<position> listPosition = new ArrayList<>();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffBasicSession = (staff_basicinfo) session.getAttribute("staff_session");
+		listPosition = personnelManagementService.getPositionById(staffBasicSession);
+		response.getWriter().write(gson.toJson(listPosition));
+
+	}
+
+	/**
+	 * 根据传回来的员工ID修改职位
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public void updatePositionById() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+
+		response.getWriter().write("" + personnelManagementService.updatePositionById(ID, positionNew));
+	}
+
+	/**
+	 * 根据传回来的员工ID修改单位
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public void updateUnitById() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write("" + personnelManagementService.updateUnitById(ID, unitNew));
+	}
+
+	/**
+	 * 根据ID查询一个人的StaffManagerDTO
+	 * 
+	 * @throws IOException
+	 */
+	public void getStaffManagerDTO() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+		staffManagerDTO = personnelManagementService.getStaffManagerDTO(ID);
+		response.getWriter().write(gson.toJson(staffManagerDTO));
+
+	}
 }

@@ -1,7 +1,7 @@
 package com.logistics.domain;
 /**
  * 路线实体类
- * @author LL
+ * @author XTY
  *
  */
 public class route {

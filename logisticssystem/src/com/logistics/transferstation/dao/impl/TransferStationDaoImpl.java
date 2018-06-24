@@ -158,7 +158,9 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		String maxNum = (String) query.uniqueResult();
 		return maxNum;
 	}
-
+/**
+ * 查询配送点的最大编号
+ */
 	@Override
 	public String getDistributionByNum(String unit_num) {
 		Session session = getSession();
@@ -227,6 +229,16 @@ public class TransferStationDaoImpl implements TransferStationDao {
 			return position;
 		}
 		return null;
+	}
+	@Override
+	public team getTeamByLeader(String trim) {
+		team team = new team();
+		Session session = getSession();
+		String hql = "from team where team_leader = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		team = (team) query.uniqueResult();
+		return team;
 	}
 
 }

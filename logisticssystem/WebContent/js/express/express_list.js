@@ -476,6 +476,43 @@
                         }
                     }
                 })
+            },
+            expressFaVehicle: function () {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateStateByDriver',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('发车成功')
+                        } else {
+                            toastr.error('发车失败')
+                        }
+                    }
+                })
+            },
+            expressQujian: function () {
+                let dataDa = ''
+                $("input[name='flag']:checkbox").each(function () {
+                    if ($(this).is(':checked')) {
+                        dataDa = dataDa + $(this).attr('id') + ','
+                    }
+                })
+                console.log('dataDa:', dataDa)
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressByDistributiontor',
+                    type: 'POST',
+                    data: {
+                        'listExpressId': dataDa
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('取件成功')
+                        } else {
+                            toastr.error('取件失败')
+                        }
+                    }
+                })
             }
         },
         mounted() {

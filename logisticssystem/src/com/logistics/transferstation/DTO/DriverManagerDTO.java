@@ -10,6 +10,8 @@ public class DriverManagerDTO {
 	private staff_basicinfo staff_basicinfo;
 	
 	private driver driver;
+	
+	private  staff_basicinfo driverUnDistributed;
 
 	public staff_basicinfo getStaff_basicinfo() {
 		return staff_basicinfo;
@@ -27,10 +29,19 @@ public class DriverManagerDTO {
 		this.driver = driver;
 	}
 
+	public staff_basicinfo getDriverUnDistributed() {
+		return driverUnDistributed;
+	}
+
+	public void setDriverUnDistributed(staff_basicinfo driverUnDistributed) {
+		this.driverUnDistributed = driverUnDistributed;
+	}
+
 	@Override
 	public String toString() {
-		return "DriverManagerDTO [staff_basicinfo=" + staff_basicinfo + ", driver=" + driver + "]";
+		return "DriverManagerDTO [staff_basicinfo=" + staff_basicinfo + ", driver=" + driver + ", driverUnDistributed="
+				+ driverUnDistributed + "]";
 	}
-	
+
 	
 }

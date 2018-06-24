@@ -262,7 +262,11 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * @return
 	 */
 	public String pageRouteList() {
-		return "pageUnitList";
+		return "pageRouteList";
+	}
+
+	public String pageRouteAdd() {
+		return "pageRouteAdd";
 	}
 
 	/**
@@ -272,6 +276,22 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 */
 	public String pageUnitAdd() {
 		return "pageUnitAdd";
+	}
+
+	/**
+	 * 跳转到员工列表
+	 * 
+	 * @return
+	 */
+	public String pageStaffList() {
+		return "pageStaffList";
+	}
+
+	/**
+	 * 跳转到添加员工的界面
+	 */
+	public String pageStaffAdd() {
+		return "pageStaffAdd";
 	}
 
 	/**

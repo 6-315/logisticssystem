@@ -235,12 +235,14 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                    class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
@@ -260,7 +262,8 @@
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
@@ -293,12 +296,14 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                    class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -468,6 +473,8 @@
                                     </tbody>
                                 </table>
                                 <div style="float: right;">
+                                    <a href="#" @click="expressQujian" class="btn btn-info">取件</a>
+                                    <a href="#" @click="expressFaVehicle" class="btn btn-primary">发车</a>
                                     <a href="#" @click="expressAddJ" class="btn btn-danger">快件到站</a>
                                 </div>
                                 <div class="pagePosition">

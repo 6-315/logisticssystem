@@ -131,7 +131,7 @@
                 addUnit() {
                     // 添加单位
                     $.ajax({
-                        url: '',
+                        url: '/logisticssystem/transferstation/transferstation_addTransferStation',
                         type: 'POST',
                         data: {
                             'transferStation.unit_id': unitAddData.transferStation.unit_id,
@@ -171,6 +171,39 @@
                         }
                     })
                 }
+            },
+            mounted() {
+                //获取后台数据
+                let obj = $('#shuju').val()
+                if (obj.length === 0) {
+                    return
+                }
+                $.ajax({
+                    url: '/logisticssystem/transferstation/transferstation_getUnitAdmin',
+                    type: 'POST',
+                    data: {
+                        'transferStation.unit_id': obj
+                    },
+                    success: function (data) {
+                        if (data != null) {
+                            let transferStation = JSON.parse(data)
+                            console.log('fdfd', data)
+                            unitAddData.transferStation.unit_id = transferStation.unit.unit_id
+                            unitAddData.transferStation.unit_num = transferStation.unit.unit_num
+                            unitAddData.transferStation.unit_name = transferStation.unit.unit_name
+                            unitAddData.transferStation.unit_address = transferStation.unit.unit_address
+                            unitAddData.transferStation.unit_detailaddress = transferStation.unit.unit_detailaddress
+                            unitAddData.transferStation.unit_type = transferStation.unit.unit_type
+                            unitAddData.transferStation.unit_superiorunit = transferStation.unit.unit_superiorunit
+                            unitAddData.transferStation.unit_creator = transferStation.unit.unit_creator
+                            unitAddData.transferStation.unit_state = transferStation.unit.unit_state
+                            unitAddData.transferStation.unit_admin = transferStation.unit.unit_admin
+                            unitAddData.transferStation.unit_phonenumber = transferStation.unit.unit_phonenumber
+                            unitAddData.transferStation.unit_createtime = transferStation.unit.unit_createtime
+                            unitAddData.transferStation.unit_modifytime = transferStation.unit.unit_modifytime
+                        }
+                    }
+                })
             }
         })
 })()

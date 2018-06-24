@@ -96,4 +96,6 @@ public interface RouteManagementDao {
 
 	public String getMaxRouteNum(String route_num);
 
+	public unit getUnitInfoById(String route_departurestation);
+
 }

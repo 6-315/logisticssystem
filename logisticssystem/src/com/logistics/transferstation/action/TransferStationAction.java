@@ -362,7 +362,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + transferStationService.addTransferStation(transferStation, staffBasicInfo));
+		response.getWriter().write(gson.toJson(transferStationService.addTransferStation(transferStation, staffBasicInfo)));
 
 		System.out.println("qqqqq");
 
@@ -455,7 +455,9 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO));
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO,staffBasicInfo));
 		
 	}
 	public void distributeDiver() throws IOException {
@@ -465,6 +467,12 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + transferStationService.distributeDiver(vehicle,driver));
 	}
-	
+	public void getUnitAdmin() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.serializeNulls().create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(transferStationService.getUnitAdmin(transferStation)));
+	}
 	
 }
