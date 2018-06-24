@@ -40,48 +40,38 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 	@Override
 	public unit addTransferStation(unit transferStation, staff_basicinfo staffBasicInfo) {
-		System.out.println("fdfdfd" + staffBasicInfo);
-		if (transferStation.getUnit_id() == null || transferStation.getUnit_id()=="") {
+		if (transferStation.getUnit_id() == null || transferStation.getUnit_id() == "") {
 			unit unit = new unit();
 			position position = new position();
 			if (staffBasicInfo != null) {
 				position = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
-				System.out.println("qwqwqwqwqw" + position);
 				if (position != null && position.getPosition_name().equals("中转站管理员")) {
-					System.out.println("hhhhaaaaa");
 					String maxNum = transferStationDao.getDistributionByNum(unit.getUnit_num());
 					unit belongUnit = transferStationDao.getTransferStationInfoById(staffBasicInfo.getStaff_unit());
 					String beforeNum = belongUnit.getUnit_num();
-					System.out.println("iiiii" + maxNum);
 					if (maxNum != null) {
 						int nextNum = Integer.parseInt(maxNum);
 						nextNum = nextNum + 1;
 						String num = String.format("%02d", nextNum);
 						transferStation.setUnit_num(beforeNum + "B" + num);
 
-						System.out.println("sandanand" + num);
 					} else {
 						int nextNum = 1;
 						String num = String.format("%02d", nextNum);
 						transferStation.setUnit_num(beforeNum + "B" + num);
-						System.out.println("lalalalala" + num);
 					}
 				} else if (position != null && position.getPosition_name().equals("总公司管理员")) {
-					System.out.println("?????jinlai");
 					String maxNum = transferStationDao.getTransferStationByNum(unit.getUnit_num());
-					System.out.println("asdsdf" + maxNum);
 					if (maxNum != null) {
 						maxNum = maxNum.replaceAll("[A]", "");
 						int nextNum = Integer.parseInt(maxNum);
 						nextNum = nextNum + 1;
 						String num = String.format("%02d", nextNum);
 						transferStation.setUnit_num("A" + num);
-						System.out.println("ghghg" + num);
 					} else {
 						int nextNum = 1;
 						String num = String.format("%02d", nextNum);
 						transferStation.setUnit_num("A" + num);
-						System.out.println("uiui" + num);
 					}
 				}
 			}
@@ -523,24 +513,48 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 
 	@Override
-	public List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO) {
+	public List<DriverManagerDTO> getDiverUnDistributed(DriverManagerDTO driverManagerDTO,
+			staff_basicinfo staffBasicInfo) {
 		/**
 		 * list一个DTO
 		 */
 		List<DriverManagerDTO> listDriverManagerDTO = new ArrayList<>();
-		/**
-		 * 根据司机Id在员工信息表里面查询司机详细信息
-		 */
-		List<driver> listDriver = new ArrayList<>();
-		listDriver = (List<driver>) transferStationDao.listObject("from driver where driver_vehicle = ''");
-		for (driver driver : listDriver) {
 
-			staff_basicinfo driverUnDistributed = transferStationDao.getBasicinfoById(driver.getDriver_basicinfoid());
+		if (staffBasicInfo != null) {
+			/**
+			 * 根据session中车队队长id获取车队
+			 */
+			team team = new team();
+			
+			team = transferStationDao.getTeamByLeader(staffBasicInfo.getStaff_id());
+			System.out.println("4444"+team);
+			if (team != null) {
+				/**
+				 * 根据司机Id在员工信息表里面查询司机详细信息
+				 */
 
-			driverManagerDTO = new DriverManagerDTO();
+				List<driver> listDriver = new ArrayList<>();
 
-			driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
-			;
+				listDriver = (List<driver>) transferStationDao.listObject(
+						"from driver where (driver_vehicle = ''or driver_vehicle=null ) and driver_belong_team ='"
+								+ team.getTeam_id() + "'");
+				System.out.println("123123"+"from driver where (driver_vehicle = ''or driver_vehicle=null ) and driver_belong_team ='"
+								+ team.getTeam_id() + "'");
+				System.out.println("asasasa"+listDriver);
+				/**
+				 * 遍历司机表
+				 */
+				for (driver driver : listDriver) {
+
+					staff_basicinfo driverUnDistributed = transferStationDao
+							.getBasicinfoById(driver.getDriver_basicinfoid());
+
+					driverManagerDTO = new DriverManagerDTO();
+
+					driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
+System.out.println("fdfdfdfdf"+driverUnDistributed);
+				}
+			}
 		}
 		listDriverManagerDTO.add(driverManagerDTO);
 

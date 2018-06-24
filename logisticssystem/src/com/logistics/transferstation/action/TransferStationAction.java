@@ -455,7 +455,9 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO));
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO,staffBasicInfo));
 		
 	}
 	public void distributeDiver() throws IOException {
