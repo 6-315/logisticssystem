@@ -35,6 +35,11 @@
         el: '#staffList',
         data: staffListData,
         methods: {
+            searchStaffNum(search) {
+                // 搜索
+                viewStaffData.getAllData()
+                viewStaffData.judge()
+            },
             getAllData: function () {
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_staffManager',
@@ -104,12 +109,6 @@
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
-            searchStaffNum(search) {
-                // 搜索
-                staffListData.search = search
-                viewStaffData.getAllData()
-                viewStaffData.judge()
-            },
             selectPosition(postionId) {
                 // 职位筛选
                 staffListData.position = postionId
@@ -133,10 +132,10 @@
                 staffListData.positionName = positionName
                 staffListData.positionDiaoStaffId = staffId
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_getPositionById',
                     type: 'POST',
                     data: {
-                        '': staffId   //员工id
+                        'ID': staffId   //员工id
                     },
                     success: function (data) {
                         if (data != null) {
@@ -152,14 +151,14 @@
             posDiaoDu(postionId) {
                 //确定调度
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_updatePositionById',
                     type: 'POST',
                     data: {
-                        '': staffListData.positionDiaoStaffId,      //员工id
-                        '': postionId           //职位id
+                        'ID': staffListData.positionDiaoStaffId,      //员工id
+                        'unitNew': postionId           //职位id
                     },
                     success: function (data) {
-                        if (data === success) {
+                        if (data === 'success') {
                             toastr.success('调度成功')
                             viewStaffData.getAllData()
                             viewStaffData.judge()
@@ -189,14 +188,14 @@
             confirmUnitDiaoDu(unitId) {
                 //确定调度
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_updateUnitById',
                     type: 'POST',
                     data: {
-                        '': staffListData.unitStaffId,      //员工id
-                        '': unitId           //单位id
+                        'ID': staffListData.unitStaffId,      //员工id
+                        'unitNew': unitId           //单位id
                     },
                     success: function (data) {
-                        if (data === success) {
+                        if (data === 'success') {
                             toastr.success('调度成功')
                             viewStaffData.getAllData()
                             viewStaffData.judge()
