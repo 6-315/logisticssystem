@@ -197,4 +197,21 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		return unit;
 	}
 
+	/**
+	 * 根据ID查询单位
+	 */
+	@Override
+	public unit gerUnitByID(String iD) {
+		unit unitNew = new unit();
+		Session session = getSession();
+		String hql = " from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", iD);
+		unitNew = (unit) query.uniqueResult();
+		if (unitNew != null) {
+			return unitNew;
+		}
+		return null;
+	}
+
 }

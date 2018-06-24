@@ -18,6 +18,7 @@ import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
 import com.logistics.domain.userinfo;
+import com.logistics.personnelmanagement.DTO.StaffManagerDTO;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 import com.logistics.personnelmanagement.service.PersonnelManagementService;
@@ -299,7 +300,9 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		List<position> listPosition = new ArrayList<>();
-		listPosition = personnelManagementService.getPositionById(ID);
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffBasicSession = (staff_basicinfo) session.getAttribute("staff_session");
+		listPosition = personnelManagementService.getPositionById(staffBasicSession);
 		response.getWriter().write(gson.toJson(listPosition));
 
 	}
@@ -315,8 +318,8 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		
-		response.getWriter().write("" +personnelManagementService.updatePositionById(ID,positionNew));
+
+		response.getWriter().write("" + personnelManagementService.updatePositionById(ID, positionNew));
 	}
 
 	/**
@@ -330,7 +333,22 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" +personnelManagementService.updateUnitById(ID,unitNew));
+		response.getWriter().write("" + personnelManagementService.updateUnitById(ID, unitNew));
 	}
 
+	/**
+	 * 根据ID查询一个人的StaffManagerDTO
+	 * 
+	 * @throws IOException
+	 */
+	public void getStaffManagerDTO() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.create();
+		response.setContentType("text/html;charset=utf-8");
+		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+		staffManagerDTO = personnelManagementService.getStaffManagerDTO(ID);
+		response.getWriter().write(gson.toJson(staffManagerDTO));
+
+	}
 }
