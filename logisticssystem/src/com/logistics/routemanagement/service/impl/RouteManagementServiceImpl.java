@@ -171,7 +171,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			routeMangerDTO.setRoute_Terminalstation(endUnit);
 			routeMangerDTO.setRout(route);
 			listRouteManagerDTO.add(routeMangerDTO);
-			/*List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
+/*			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
 			liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
 					.listObject("from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'");
 			List<unit> listUnitD = new ArrayList<>();
