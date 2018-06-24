@@ -4,9 +4,11 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>路线管理-路线列表</title>
+    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>在线物流管理系统</title>
+
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -21,6 +23,7 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
     <style type="text/css">
         [v-cloak] {
             display: none;
@@ -119,6 +122,7 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
+<!-- neirong -->
 <div class="wrapper">
     <!-- Navbar -->
     <nav
@@ -145,6 +149,7 @@
                 </div>
             </div>
         </form>
+
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
@@ -174,16 +179,16 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Note3物流系统</span>
+            src="${pageContext.request.contextPath}/img/houtai.png"
+            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
     </a> <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg" class="img-circle elevation-2"
-                         alt="User Image">
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
+                         class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
@@ -195,23 +200,28 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                             with font-awesome or any other icon font library -->
+                                 with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item"><a
-                                    href="./pages/express/express_list.html" class="nav-link"> <i
-                                    class="fa fa-book nav-icon"></i>
+                                    href="/test/test/pages/express/express_list.html"
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="./pages/express/express_add.html" class="nav-link"> <i
-                                    class="fa fa-plus-square-o nav-icon"></i>
+                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -228,33 +238,35 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                    class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/staff/staff_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                    <li class="nav-item has-treeview menu-open"><a href="#"
+                                                                   class="nav-link active"> <i
+                            class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
-                                    class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
+                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/unit/unit_add.html" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
                         </ul>
@@ -302,83 +314,54 @@
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar --> </aside>
-    <!-- 内容结束 -->
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <div class="content-header">
+        <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark"></h1>
+                        <h1>单位列表</h1>
                     </div>
-                    <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/tet/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
+                            <li class="breadcrumb-item active">单位列表</li>
                         </ol>
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+            <!-- /.container-fluid --> </section>
 
         <!-- Main content -->
-        <div class="content">
-
-
-
-
-
-            <div class="content-wrapper">
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1>路线</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a
-                                            href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">路线列表</li>
-                                </ol>
-                            </div>
+        <section class="content" id="unit_list">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">单位列表</h3>
                         </div>
-                    </div>
-                    <!-- /.container-fluid --> </section>
-
-                <!-- Main content -->
-                <section class="content" id="unit_list">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">路线列表</h3>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div style="width: 250px; float: right; margin-bottom: 10px;"
+                                     class="input-group">
+                                    <input placeholder="据搜索" @input="selectUnitSearch"
+                                           v-model="search" type="text" class="form-control input-sm"><span
+                                        class="input-group-addon btn btn-default"><i
+                                        class="fa fa-search"></i></span>
                                 </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="card-body">
-                                        <div style="width: 250px; float: right; margin-bottom: 10px;"
-                                             class="input-group">
-                                            <input placeholder="始发站" @input="selectUnitSearch"
-                                                   v-model="search" type="text" class="form-control input-sm"><span
-                                                class="input-group-addon btn btn-default"><i
-                                                class="fa fa-search"></i></span>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover" style="overflow-y: hidden">
-                                                <thead>
-                                                <tr>
-                                                    <th>单位编号</th>
-                                                    <th>单位名称</th>
-                                                    <th>单位地址</th>
-                                                    <th><span role="presentation" class="dropdown">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="overflow-y: hidden">
+                                        <thead>
+                                        <tr>
+                                            <th>单位编号</th>
+                                            <th>单位名称</th>
+                                            <th>单位地址</th>
+                                            <th><span role="presentation" class="dropdown">
 														<a class="dropdown-toggle" data-toggle="dropdown">单位类型<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
@@ -389,10 +372,10 @@
 															<li><a @click="selectUnitType('配送点')" href="#">配送点</a></li>
 														</ul>
 												</span></th>
-                                                    <th>联系方式</th>
-                                                    <th>管理员工号</th>
-                                                    <th>姓名</th>
-                                                    <th><span role="presentation" class="dropdown">
+                                            <th>联系方式</th>
+                                            <th>管理员工号</th>
+                                            <th>姓名</th>
+                                            <th><span role="presentation" class="dropdown">
 														<a class="dropdown-toggle" data-toggle="dropdown">状态<span
                                                                 class="caret"></span></a>
 														<ul class="dropdown-menu">
@@ -403,78 +386,116 @@
 															<li><a @click="selectUnitState('已废弃')" href="#">已废弃</a></li>
 														</ul>
 												</span></th>
-                                                    <th>操作</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody style="min-height: 200px">
-                                                <tr
-                                                        v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
-                                                        :key="index">
-                                                    <td v-html="unitManagerDTO.unit.unit_num"></td>
-                                                    <td v-html="unitManagerDTO.unit.unit_name"></td>
-                                                    <td v-html="unitManagerDTO.unit.unit_address"></td>
-                                                    <td>{{unitManagerDTO.unit.unit_type}}</td>
-                                                    <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
-                                                    <td>{{unitManagerDTO.unit_Admin !=
-                                                        undefined?unitManagerDTO.unit_Admin.staff_num:''}}
-                                                    </td>
-                                                    <td>
-                                                        {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
-                                                    </td>
-                                                    <td>{{unitManagerDTO.unit.unit_state}}</td>
-                                                    <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_id)" href="#"><i
-                                                            class="fa fa-pencil-square-o"
-                                                            aria-hidden="true"></i></a></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="pagePosition">
-                                                <ul v-cloak class="pagination">
-                                                    <li></li>
-                                                    <li><a @click="shouye" href="#">首页</a></li>
-                                                    <li :class="{disabled:preDisabled}">
-                                                        <a @click="prePage"
-                                                           href="#">上一页</a></li>
-                                                    <li><a>第 {{unitManagerVO.pageIndex}} 页/总
-                                                        {{unitManagerVO.totalPages}}
-                                                        页/共{{unitManagerVO.totalRecords}}条</a></li>
-                                                    <li :class="{disabled:nextDisabled}"><a
-                                                            :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
-                                                    </a></li>
-                                                    <li><a @click="weiye" href="#">尾页</a></li>
-                                                    <li></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="min-height: 200px">
+                                        <tr
+                                                v-for="(unitManagerDTO,index) in unitManagerVO.listUnitManagerDTO"
+                                                :key="index">
+                                            <td v-html="unitManagerDTO.unit.unit_num"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_name"></td>
+                                            <td v-html="unitManagerDTO.unit.unit_address"></td>
+                                            <td>{{unitManagerDTO.unit.unit_type}}</td>
+                                            <td>{{unitManagerDTO.unit.unit_phonenumber}}</td>
+                                            <td>{{unitManagerDTO.unit_Admin !=
+                                                undefined?unitManagerDTO.unit_Admin.staff_num:''}}
+                                            </td>
+                                            <td>
+                                                {{unitManagerDTO.unit_Admin!=undefined?unitManagerDTO.unit_Admin.staff_name:''}}
+                                            </td>
+                                            <td>{{unitManagerDTO.unit.unit_state}}</td>
+                                            <td><a @click="skipPageAddUnit(unitManagerDTO.unit.unit_id)" href="#"><i
+                                                    class="fa fa-pencil-square-o"
+                                                    aria-hidden="true"></i></a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="pagePosition">
+                                        <ul v-cloak class="pagination">
+                                            <li></li>
+                                            <li><a @click="shouye" href="#">首页</a></li>
+                                            <li :class="{disabled:preDisabled}">
+                                                <a @click="prePage"
+                                                   href="#">上一页</a></li>
+                                            <li><a>第 {{unitManagerVO.pageIndex}} 页/总
+                                                {{unitManagerVO.totalPages}}
+                                                页/共{{unitManagerVO.totalRecords}}条</a></li>
+                                            <li :class="{disabled:nextDisabled}"><a
+                                                    :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
+                                            </a></li>
+                                            <li><a @click="weiye" href="#">尾页</a></li>
+                                            <li></li>
+                                        </ul>
                                     </div>
                                 </div>
-                                <!-- /.card-body -->
                             </div>
-                            <!-- /.card -->
                         </div>
-                        <!-- /.col -->
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.row --> </section>
-                <!-- /.content -->
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
             </div>
-
-
-
-
-
-            <!-- /.container-fluid -->
-        </div>
+            <!-- /.row --> </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <!-- Main Footer -->
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="/test/test/Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
         </strong> All rights reserved.
     </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark"> <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
+<!-- ./wrapper -->
+<div class="modal fade" id="unitDetailInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- 模态弹出窗内容 -->
+            <div class="modal_header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">单位信息</h4>
+            </div>
+            <div class="mdoal-body">
+                <p>单位详情</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteUnitInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- 模态弹出窗内容 -->
+            <div class="modal_header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                </button>
+                <h5 class="modal-title">删除单位</h5>
+            </div>
+            <hr>
+            <div class="mdoal-body">
+                <h4>是否确定删除单位</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-danger">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript"
@@ -493,6 +514,6 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/route/route_list.js"></script>
+        src="${pageContext.request.contextPath}/js/unit/unit_list.js"></script>
 </body>
 </html>
