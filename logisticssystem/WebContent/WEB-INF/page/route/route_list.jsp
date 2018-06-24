@@ -358,9 +358,43 @@
                                         <tr>
                                             <th>路线编号</th>
                                             <th>路线创建者工号</th>
-                                            <th>起点</th>
-                                            <th>终点</th>
-                                            <th>状态</th>
+                                            <th>
+                                                <span role="presentation" class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown">起点<span
+                                                            class="caret"></span></a>
+													<ul class="dropdown-menu">
+													<li><a @click="selectRouteStart('')"
+                                                           href="#">起点(所有)</a></li>
+													<li v-for="unit in unitList"><a
+                                                            @click="selectRouteStart(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
+													</ul>
+												</span>
+                                            </th>
+                                            <th>
+                                                <span role="presentation" class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown">起点<span
+                                                            class="caret"></span></a>
+													<ul class="dropdown-menu">
+													<li><a @click="selectRouteEnd('')"
+                                                           href="#">起点(所有)</a></li>
+													<li v-for="unit in unitList"><a
+                                                            @click="selectRouteEnd(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
+													</ul>
+												</span>
+                                            </th>
+                                            <th>
+                                                <span role="presentation" class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown">状态<span
+                                                            class="caret"></span></a>
+													<ul class="dropdown-menu">
+													<li><a @click="selectRouteState('')"
+                                                           href="#">状态(所有)</a></li>
+													<li><a @click="selectRouteState('正常使用')" href="#">正常使用</a></li>
+													<li><a @click="selectRouteState('已弃用')" href="#">已弃用</a></li>
+													<li><a @click="selectRouteState('未启用')" href="#">未启用</a></li>
+													</ul>
+												</span>
+                                            </th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
