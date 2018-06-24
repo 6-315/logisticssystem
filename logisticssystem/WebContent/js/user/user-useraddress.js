@@ -244,6 +244,9 @@
                     addressData.addressList = addressList
                 }
             })
+            $('#addAddress').on('hidden.bs.modal', function (e) {
+                addressData.address = []
+            })
         }
     })
 })()

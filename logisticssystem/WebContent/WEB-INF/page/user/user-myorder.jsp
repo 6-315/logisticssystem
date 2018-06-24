@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        ul li {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -30,7 +42,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -38,28 +51,28 @@
 <div class="site-menubar navbar-nav">
     <div class="site-menubar-body">
         <ul class="site-menu">
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
-						class="site-menu-title">首页</span></a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
-						class="site-menu-title">我要寄件</span></span> </a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
-						<span class="site-menu-title">我要查件</span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
-						<span class="site-menu-title">我的订单</span></span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
-						<span class="site-menu-title">用户信息</span></span>
-				</a></li>
-			</ul>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+                    class="site-menu-title">首页</span></a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+                    class="site-menu-title">我要寄件</span></span> </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+                <span class="site-menu-title">我要查件</span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+                <span class="site-menu-title">我的订单</span></span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+                <span class="site-menu-title">用户信息</span></span>
+            </a></li>
+        </ul>
     </div>
 </div>
-<div class="page" style="margin-top:110px">
+<div id="userMyOrder" class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
@@ -70,37 +83,37 @@
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked" id="ul_status">
                         <li role="presentation" class="active">
-                            <a href="?">
+                            <a href="">
                                 全部
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=1&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=0">
+                            <a href="">
                                 未接单
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=2&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=ACCEPT">
+                            <a href="">
                                 已接单
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=6&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=GOT">
+                            <a href="">
                                 已揽收
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=3&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=GOT&amp;statuses=SENT_SCAN">
+                            <a href="">
                                 在途中
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=4&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=SIGNED">
+                            <a href="">
                                 已签收
                             </a>
                         </li>
                         <li role="presentation">
-                            <a href="?combineStatus=5&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=UNACCEPT&amp;statuses=NOT_SEND&amp;statuses=FAILED&amp;statuses=WITHDRAW">
+                            <a href="">
                                 异常件
                             </a>
                         </li>
@@ -108,58 +121,58 @@
                 </div>
                 <div class="col-sm-10 b-left">
                     <div class="search-head">
-                        <form method="post" id="order_search" action="" class="form-inline">
+                        <form class="form-inline">
                             <div class="form-group" style="float: left;">
                                 <div class="input-group">
                                     <div class="input-group-btn" id="param_toggle">
                                         <button type="button" class="btn btn-default"
-                                        ><span>运单号</span></button>
-                                        <input id="param_search" name="queryKey" value="mailNo" type="hidden">
+                                        ><span>快递单号</span></button>
+                                        <input id="param_search" value="mailNo" type="hidden">
                                     </div>
-                                    <input maxlength="20" name="queryVal" value="" class="form-control" type="text">
+                                    <input maxlength="20" value="" class="form-control" type="text">
                                 </div>
                             </div>
                             <br>
-                            <div style="margin-top: -32px" class="form-group p_top_10">
-                                <input value="查询" class="btn btn-primary" id="search_button" type="submit">
-                                <%--<input value="导出" class="btn btn-primary" id="export_button" type="button">--%>
-                            </div>
                         </form>
+                        <div style="margin-top: -30px" class="form-group p_top_10">
+                            <a class="btn btn-primary">查询</a>
+                            <%--<input value="导出" class="btn btn-primary" id="export_button" type="button">--%>
+                        </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table yto-table">
+                        <table class="table table-hover m_top_10">
                             <thead>
                             <tr>
-                                <th width="260">
-                                    <div class="hidden">
-                                        <div class="icheckbox_flat-grey" style="position: relative;"><input
-                                                name="orderHeadId" style="position: absolute; opacity: 0;"
-                                                type="checkbox">
-                                            <ins class="iCheck-helper"
-                                                 style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins>
-                                        </div>
-                                    </div>
-                                    寄件人信息
+                                <th>快件单号</th>
+                                <th>发件人姓名</th>
+                                <th>发件人联系方式</th>
+                                <th>发件人详细地址</th>
+                                <th>收件人姓名</th>
+                                <th>收件人联系方式</th>
+                                <th>收件人详细地址</th>
+                                <th>
+                                    <span role="presentation" class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown">状态（所有）
+                                            <span class="caret"></span>
+                                        </a>
+										<ul class="dropdown-menu">
+											<li><a <%--@click="selectState('')"--%> href="#">所有</a></li>
+                                            <li><a <%--@click="selectState('待揽件')"--%> href="#">待揽件</a></li>
+											<li><a <%--@click="selectState('已揽件')"--%> href="#">已揽件</a></li>
+											<li><a <%--@click="selectState('待扫描')"--%> href="#">待扫描</a></li>
+											<li><a <%--@click="selectState('已扫描')"--%> href="#">已扫描</a></li>
+                                            <li><a <%--@click="selectState('扫描装车')"--%> href="#">扫描装车</a></li>
+                                            <li><a <%--@click="selectState('待派送')"--%> href="#">待派送</a></li>
+                                            <li><a <%--@click="selectState('派送中')"--%> href="#">派送中</a></li>
+                                            <li><a <%--@click="selectState('已签收')"--%> href="#">已签收</a></li>
+											<li><a <%--@click="selectState('已完成')"--%> href="#">已完成</a></li>
+										</ul>
+									</span>
                                 </th>
-                                <th width="260">收件人信息</th>
-                                <th>取件网点</th>
-                                <th class="text-center" width="90">快件状态</th>
-                                <th class="text-center" width="100">操作</th>
-                            </tr>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="btn-group btn-group-sm">
-                                        <!-- <button type="button" class="btn btn-default" id="allcheck">全选</button>
-                                        <button type="button" class="btn btn-default" id="udcheck">反选</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mybd" disabled="disabled">批量绑定面单</button>
-                                       -->
-                                    </div>
-                                </td>
+                                <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
 
-                            </tbody>
                         </table>
                     </div>
                     <nav>
@@ -216,5 +229,8 @@
 </footer>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script src="${pageContext.request.contextPath}/js/user/user-myorder.js"></script>
 </body>
 </html>
