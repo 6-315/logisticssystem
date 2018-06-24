@@ -31,6 +31,13 @@
 				/WEB-INF/page/staff/staff_add.jsp
 			</result>
 			
+			<result name="addRoute" type="redirect">
+				/expressmanagement/expressmanagement_pageAddRoute?idList=${idList}
+			</result>
+			<result name="pageAddRoute">
+				/WEB-INF/page/route/route_add.jsp
+			</result>
+			
 		</action>
 	</package>
 </struts>

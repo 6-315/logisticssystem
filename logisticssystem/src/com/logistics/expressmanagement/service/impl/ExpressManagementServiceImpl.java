@@ -1125,4 +1125,38 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		return null;
 	}
 
+	/**
+	 * 获得路线信息
+	 */
+	@Override
+	public RouteDTO getRouteInfo(String idList) {
+		RouteDTO routeDTO = new RouteDTO();
+		if(idList!=null&&idList.trim().length()>0) {
+			route routeInfo = expressManagementDao.getRouteInfoById(idList);
+			if(routeInfo!=null) {
+				if(routeInfo.getRoute_creater()!=null&&routeInfo.getRoute_creater().trim().length()>0) {
+					staff_basicinfo creator = expressManagementDao.getStaffInfoById(routeInfo.getRoute_creater());
+					if(creator!=null) {
+						routeDTO.setCreator(creator);
+					}
+				}
+				if(routeInfo.getRoute_departurestation()!=null&&routeInfo.getRoute_departurestation().trim().length()>0) {
+					unit beginUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_departurestation());
+					if(beginUnit!=null) {
+						routeDTO.setBeginUnit(beginUnit);
+					}
+				}
+				if(routeInfo.getRoute_terminalstation()!=null&&routeInfo.getRoute_terminalstation().trim().length()>0) {
+					unit endUnit = expressManagementDao.getUnitInfoById(routeInfo.getRoute_terminalstation());
+					if(endUnit!=null) {
+						routeDTO.setEndUnit(endUnit);
+					}
+				}
+				routeDTO.setRouteInfo(routeInfo);
+				return routeDTO;
+			}
+		}
+		return null;
+	}
+
 }
