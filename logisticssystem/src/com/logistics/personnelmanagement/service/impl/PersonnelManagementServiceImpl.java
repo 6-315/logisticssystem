@@ -46,7 +46,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			System.out.println("cao:" + positionNew.getPosition_name());
 			System.out.println("asdasdasdasdsa");
 			if (positionNew != null) {
-				if ("总公司公司管理员".equals(positionNew.getPosition_name())) {
+				if ("总公司管理员".equals(positionNew.getPosition_name())) {
 					System.out.println("我是总公司");
 					number = "select count(*) from staff_basicinfo where 1 = 1 ";
 					table = "from staff_basicinfo where 1=1";
@@ -91,6 +91,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			System.out.println("________:" + table);
 			// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 			table = table + " order by staff_modifytime desc";
+			System.out.println("???:" + table);
+			System.out.println("????:" + number);
 			int userInfoCount = personnelManagementDao.getCount(number);
 			// 设置总数量
 			staffManagerVO.setTotalRecords(userInfoCount);
