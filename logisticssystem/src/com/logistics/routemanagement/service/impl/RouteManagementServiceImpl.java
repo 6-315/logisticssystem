@@ -117,23 +117,19 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			String search = "%" + routeManagerVO.getSearch() + "%";
 			searchPaging = searchPaging + " and route_num like '" + search + "' ";
 			searchForm = searchForm + " and route_num like '" + search + "'";
+			searchPaging = searchPaging + " and route_departurestation ='" + routeManagerVO.getStartUnit() + "' ";
+			searchForm = searchForm + " and route_departurestation ='" + routeManagerVO.getStartUnit() + "' ";
+			searchPaging = searchPaging + " and route_terminalstation ='" + routeManagerVO.getEndUnit() + "' ";
+			searchForm = searchForm + " and route_terminalstation ='" + routeManagerVO.getEndUnit() + "' ";
 		}
 		// 根据状态查询
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
 			// String search = "%" + routeManagerVO.getState() + "%";
-			searchPaging = searchPaging + " and route_state = '" + routeManagerVO.getState() + "'";
-			searchForm = searchForm + " and route_state = '" + routeManagerVO.getState() + "'";
+			searchPaging = searchPaging + " and route_state ='" + routeManagerVO.getState() + "' ";
+			searchForm = searchForm + " and route_state ='" + routeManagerVO.getState() + "' ";
 		}
-		// 根据始发中转站查询
-		if (routeManagerVO.getStartUnit() != null && routeManagerVO.getStartUnit().trim().length() > 0) {
-			searchPaging = searchPaging + " and route_departurestation = '" + routeManagerVO.getStartUnit() + "'";
-			searchForm = searchForm + " and route_departurestation = '" + routeManagerVO.getStartUnit() + "'";
-		}
-		// 根据终止中转站查询
-		if (routeManagerVO.getEndUnit() != null && routeManagerVO.getEndUnit().trim().length() > 0) {
-			searchPaging = searchPaging + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
-			searchForm = searchForm + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
-		}
+	
+	
 
 		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 		searchForm = searchForm + " order by route_createtime desc";
@@ -184,6 +180,11 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
 						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+				route.setRoute_departurestation(route.getRoute_departurestation().replaceAll(routeManagerVO.getSearch(),
+						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+				route.setRoute_terminalstation(route.getRoute_terminalstation().replaceAll(routeManagerVO.getSearch(),
+						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+				
 			}
 
 		}
