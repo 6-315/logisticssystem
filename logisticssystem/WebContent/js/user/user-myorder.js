@@ -24,7 +24,7 @@
         methods: {
             getAllData: function () {
                 $.ajax({
-                    url: '/logisticssystem/expressmanagement/expressmanagement_selectExpressInfo',
+                    url: '/logisticssystem/userinfo/userinfo_selectExpressInfo',
                     type: 'POST',
                     data: {
                         'search': userMyOrderData.search,
@@ -91,7 +91,7 @@
         },
         mounted() {
             $.ajax({
-                url: '/logisticssystem/expressmanagement/expressmanagement_selectExpressInfo',
+                url: '/logisticssystem/userinfo/userinfo_selectExpressInfo',
                 type: 'POST',
                 data: '',
                 success: function (data) {

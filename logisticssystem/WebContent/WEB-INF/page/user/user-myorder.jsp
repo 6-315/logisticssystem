@@ -89,17 +89,12 @@
                         </li>
                         <li role="presentation">
                             <a href="">
-                                未接单
+                                待揽件
                             </a>
                         </li>
                         <li role="presentation">
                             <a href="">
-                                已接单
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="">
-                                已揽收
+                                已揽件
                             </a>
                         </li>
                         <li role="presentation">
@@ -109,12 +104,17 @@
                         </li>
                         <li role="presentation">
                             <a href="">
-                                已签收
+                                待派送
                             </a>
                         </li>
                         <li role="presentation">
                             <a href="">
-                                异常件
+                                派送中
+                            </a>
+                        </li>
+                        <li role="presentation">
+                            <a href="">
+                                已签收
                             </a>
                         </li>
                     </ul>
