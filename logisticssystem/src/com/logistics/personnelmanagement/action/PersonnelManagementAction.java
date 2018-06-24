@@ -286,7 +286,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staff_basicinfo staffNew = new staff_basicinfo();
 		staffNew = personnelManagementService.addStaff(staffBasicInfo, staffBasicSession);
 		response.getWriter().write(gson.toJson(staffNew));
-	}
+	} 
 
 	/**
 	 * 根据单位 获取该单位所有职位
