@@ -115,12 +115,12 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		// 根据路线编号查询：
 		if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 			String search = "%" + routeManagerVO.getSearch() + "%";
-			searchPaging = searchPaging + " and route_num like '" + search + "' ";
-			searchForm = searchForm + " and route_num like '" + search + "'";
-			searchPaging = searchPaging + " and route_departurestation ='" + routeManagerVO.getStartUnit() + "' ";
-			searchForm = searchForm + " and route_departurestation ='" + routeManagerVO.getStartUnit() + "' ";
-			searchPaging = searchPaging + " and route_terminalstation ='" + routeManagerVO.getEndUnit() + "' ";
-			searchForm = searchForm + " and route_terminalstation ='" + routeManagerVO.getEndUnit() + "' ";
+			searchPaging = searchPaging + " and ( route_num like '" + search + "' ";
+			searchForm = searchForm + " and ( route_num like '" + search + "'";
+			searchPaging = searchPaging + " or route_departurestation like '" + search + "' ";
+			searchForm = searchForm + " or route_departurestation like '" + search +"' ";
+			searchPaging = searchPaging + " or route_terminalstation like '" + search + "' )";
+			searchForm = searchForm + " or route_terminalstation like '" + search + "' )";
 		}
 		// 根据状态查询
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
