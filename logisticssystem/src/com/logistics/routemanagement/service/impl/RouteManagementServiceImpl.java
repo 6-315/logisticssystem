@@ -118,7 +118,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			searchPaging = searchPaging + " and route_num like '" + search + "' ";
 			searchForm = searchForm + " and route_num like '" + search + "'";
 		}
-		// 根据状态查询
+		// 根据状态查询 
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
 			// String search = "%" + routeManagerVO.getState() + "%";
 			searchPaging = searchPaging + " and route_state = '" + routeManagerVO.getState() + "'";
