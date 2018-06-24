@@ -177,31 +177,83 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id,
-			ExpressinfoAndExpressVO expressinfoAndExpressVO) {
-		if (userinfo_id != null && userinfo_id.trim().length() > 0) {
+			ExpressinfoAndExpressVO expressinfoAndExpressVO, UserInfoSessionDTO userInfoSessionDTO) {
+		if (userinfo_id == null && userInfoSessionDTO == null) {
+			return null;
+		}
+		if (userinfo_id != null && userinfo_id.trim().length() > 0 || userInfoSessionDTO != null) {
 			String number = "";
 			String table = "";
 			List<express> listExpress = new ArrayList<>();
 			List<ExpressinfoAndExpressDTO> listExpressinfoAndExpressDTO = new ArrayList<>();
-			if (expressinfoAndExpressVO.getState() != null && expressinfoAndExpressVO.getState().trim().length() > 0) {
+			if (userInfoSessionDTO == null) {
+				if (expressinfoAndExpressVO.getState() != null
+						&& expressinfoAndExpressVO.getState().trim().length() > 0) {
+					if ("在途中".equals(expressinfoAndExpressVO.getState())) {
+						number = "select count(*) from express where express_belong = '" + userinfo_id
+								+ "' and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中')";
+						table = "from express  where express_belong = '" + userinfo_id
+								+ "'and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中') ";
+					} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
+						number = "select count(*) from express where express_belong = '" + userinfo_id
+								+ "' a(nd express_state ='已签收' or '已完成') ";
+						table = "from express  where express_belong = '已签收' or '已完成' ";
+					} else {
+						number = "select count(*) from express where express_belong ='" + userinfo_id
+								+ "'and express_state='" + expressinfoAndExpressVO.getState() + "' ";
+						table = "from express  where express_belong ='" + userinfo_id + "'and express_state= '"
+								+ expressinfoAndExpressVO.getState() + "'";
+					}
 
-				number = "select count(*) from express where express_belong = '" + userinfo_id
-						+ "' and express_state = '" + expressinfoAndExpressVO.getState() + "'  ";
-				table = "from express  where express_belong = '" + userinfo_id + "'and express_state = '"
-						+ expressinfoAndExpressVO.getState() + "' ";
+				} else {
+					number = "select count(*) from express where express_belong = '" + userinfo_id
+							+ "' and (express_state != '已完成' or express_state != '已签收' )";
+					table = "from express  where express_belong = '" + userinfo_id
+							+ "'and (express_state != '已完成' or express_state != '已签收' )";
 
-			} else {
-				number = "select count(*) from express where express_belong = '" + userinfo_id
-						+ "' and express_state != '已完成'  ";
-				table = "from express  where express_belong = '" + userinfo_id + "'and express_state != '已完成' ";
+				}
 
+			} else if (userInfoSessionDTO != null) {
+				if (expressinfoAndExpressVO.getState() != null
+						&& expressinfoAndExpressVO.getState().trim().length() > 0) {
+					if ("在途中".equals(expressinfoAndExpressVO.getState())) {
+						number = "select count(*) from express where express_belong = '"
+								+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+								+ "' and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中')";
+						table = "from express  where express_belong = '"
+								+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+								+ "'and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中') ";
+					} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
+						number = "select count(*) from express where express_belong = '"
+								+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+								+ "' a(nd express_state ='已签收' or '已完成') ";
+						table = "from express  where express_belong = '已签收' or '已完成' ";
+					} else {
+						number = "select count(*) from express where express_belong ='"
+								+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'and express_state='"
+								+ expressinfoAndExpressVO.getState() + "' ";
+						table = "from express  where express_belong ='"
+								+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id() + "'and express_state= '"
+								+ expressinfoAndExpressVO.getState() + "'";
+					}
+
+				} else {
+					number = "select count(*) from express where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+							+ "' and (express_state != '已完成' or express_state != '已签收' )";
+					table = "from express  where express_belong = '"
+							+ userInfoSessionDTO.getUserInfoSession().getUserinfo_id()
+							+ "'and (express_state != '已完成' or express_state != '已签收' )";
+				}
 			}
+
 			if (expressinfoAndExpressVO.getSearch() != null
 					&& expressinfoAndExpressVO.getSearch().trim().length() > 0) {
 				String search = "%" + expressinfoAndExpressVO.getSearch() + "%";
 				number = number + " and express_number like '" + search + "'  ";
 				table = table + " and express_number like '" + search + "'";
 			}
+
 			table = table + " order by express_createtime desc";
 			int userInfoCount = userInfoDao.getCount(number);
 			// 设置总数量
@@ -221,10 +273,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 				expressinfoAndExpressVO.setHaveNextPage(true);
 			}
 			listExpress = (List<express>) userInfoDao.queryForPage(table, expressinfoAndExpressVO.getPageIndex(),
-					expressinfoAndExpressVO.getPageSize());
-			/**
-			 * 遍历它的订单得到订单的详细信息
-			 */
+					expressinfoAndExpressVO.getPageSize());/**
+															 * 遍历它的订单得到订单的详细信息
+															 */
 			for (express express : listExpress) {
 				System.out.println("ppppppp");
 				ExpressinfoAndExpressDTO expressinfoAndExpressDTO = new ExpressinfoAndExpressDTO();

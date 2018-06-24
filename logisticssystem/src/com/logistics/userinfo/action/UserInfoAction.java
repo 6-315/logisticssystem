@@ -316,9 +316,12 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 		expressinfoAndExpressVO.setPageIndex(page);
 		expressinfoAndExpressVO.setSearch(search);
 		expressinfoAndExpressVO.setState(state);
-		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0) {
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		UserInfoSessionDTO userInfoSessionDTO = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
+		if (userInfo.getUserinfo_id() != null && userInfo.getUserinfo_id().trim().length() > 0
+				|| userInfoSessionDTO != null || userInfoSessionDTO == null) {
 			expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(),
-					expressinfoAndExpressVO);
+					expressinfoAndExpressVO, userInfoSessionDTO);
 		}
 
 		response.getWriter().write(gson.toJson(expressinfoAndExpressVO));

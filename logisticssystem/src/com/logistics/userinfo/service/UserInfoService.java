@@ -25,6 +25,6 @@ public interface UserInfoService {
 
 	String addAddress(address addressNew, UserInfoSessionDTO userInfoSessionDTO);
 
-	ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id, ExpressinfoAndExpressVO expressinfoAndExpressVO);
+	ExpressinfoAndExpressVO selectExpressInfo(String userinfo_id, ExpressinfoAndExpressVO expressinfoAndExpressVO, UserInfoSessionDTO userInfoSessionDTO);
 
 }
