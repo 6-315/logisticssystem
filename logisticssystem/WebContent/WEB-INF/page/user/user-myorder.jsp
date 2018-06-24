@@ -82,39 +82,39 @@
             <div class="row">
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked" id="ul_status">
-                        <li role="presentation" class="active">
-                            <a href="">
+                        <li role="presentation" :class="{active : active1}">
+                            <a @click="selectStateExpressInfo('')" href="javascript:void(0)">
                                 全部
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="">
-                                未接单
+                        <li role="presentation" :class="{active : active2}">
+                            <a @click="selectStateExpressInfo('待揽件')" href="javascript:void(0)">
+                                待揽件
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="">
-                                已接单
+                        <li role="presentation" :class="{active : active3}">
+                            <a @click="selectStateExpressInfo('已揽件')" href="javascript:void(0)">
+                                已揽件
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="">
-                                已揽收
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="">
+                        <li role="presentation" :class="{active : active4}">
+                            <a @click="selectStateExpressInfo('在途中')" href="javascript:void(0)">
                                 在途中
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="">
-                                已签收
+                        <li role="presentation" :class="{active : active5}">
+                            <a @click="selectStateExpressInfo('待派送')" href="javascript:void(0)">
+                                待派送
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="">
-                                异常件
+                        <li role="presentation" :class="{active : active6}">
+                            <a @click="selectStateExpressInfo('派送中')" href="javascript:void(0)">
+                                派送中
+                            </a>
+                        </li>
+                        <li role="presentation" :class="{active : active7}">
+                            <a @click="selectStateExpressInfo('已签收')" href="javascript:void(0)">
+                                已签收
                             </a>
                         </li>
                     </ul>
@@ -129,7 +129,8 @@
                                         ><span>快递单号</span></button>
                                         <input id="param_search" value="mailNo" type="hidden">
                                     </div>
-                                    <input maxlength="20" value="" class="form-control" type="text">
+                                    <input v-model="search" @input="selectKuaiDi" maxlength="20" value=""
+                                           class="form-control" type="text">
                                 </div>
                             </div>
                             <br>

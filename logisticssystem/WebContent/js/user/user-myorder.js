@@ -16,7 +16,14 @@
         page: 1,
         ready: false,
         preDisabled: false,
-        nextDisabled: false
+        nextDisabled: false,
+        active1: true,
+        active2: false,
+        active3: false,
+        active4: false,
+        active5: false,
+        active6: false,
+        active7: false,
     }
     const viewUserMyOrder = new Vue({
         el: '#userMyOrder',
@@ -24,7 +31,7 @@
         methods: {
             getAllData: function () {
                 $.ajax({
-                    url: '/logisticssystem/expressmanagement/expressmanagement_selectExpressInfo',
+                    url: '/logisticssystem/userinfo/userinfo_selectExpressInfo',
                     type: 'POST',
                     data: {
                         'search': userMyOrderData.search,
@@ -87,11 +94,88 @@
                 userMyOrderData.page = userMyOrderData.expressinfoAndExpressVO.totalPages
                 viewUserMyOrder.getAllData()
                 viewUserMyOrder.judge()
+            },
+            //搜索
+            selectKuaiDi() {
+                viewUserMyOrder.getAllData()
+                viewUserMyOrder.judge()
+            },
+            //筛选
+            selectStateExpressInfo(expressState) {
+                switch (expressState) {
+                    case '':
+                        userMyOrderData.active1 = true
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
+                        break;
+                    case '待揽件':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = true
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
+                        break;
+                    case '已揽件':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = true
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
+                        break;
+                    case '在途中':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = true
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
+                        break;
+                    case '待派送':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = true
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = false
+                        break;
+                    case '派送中':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = true
+                        userMyOrderData.active7 = false
+                        break;
+                    case '已签收':
+                        userMyOrderData.active1 = false
+                        userMyOrderData.active2 = false
+                        userMyOrderData.active3 = false
+                        userMyOrderData.active4 = false
+                        userMyOrderData.active5 = false
+                        userMyOrderData.active6 = false
+                        userMyOrderData.active7 = true
+                        break;
+                }
+                userMyOrderData.state = expressState
+                viewUserMyOrder.getAllData()
+                viewUserMyOrder.judge()
             }
+
         },
         mounted() {
             $.ajax({
-                url: '/logisticssystem/expressmanagement/expressmanagement_selectExpressInfo',
+                url: '/logisticssystem/userinfo/userinfo_selectExpressInfo',
                 type: 'POST',
                 data: '',
                 success: function (data) {
