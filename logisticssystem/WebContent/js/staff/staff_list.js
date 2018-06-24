@@ -75,7 +75,7 @@
                     return
                 }
                 staffListData.pageIndex = staffListData.staffManagerVO.pageIndex - 1
-                staffListData.getAllData()
+                viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             judge: function () {
