@@ -184,7 +184,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
+                    <li  v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -200,27 +200,27 @@
                                     <p>查询快件</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item">
                                 <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                    class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加快件</p>
                                 </a>
                             </li>
-                            <li class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-calendar"></i>
                             <p>用户管理</p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -245,7 +245,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -270,7 +270,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -285,7 +285,7 @@
                                     <p>车辆列表</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li v-if="myRole == 6" class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加车辆</p>
