@@ -31,7 +31,8 @@
             unit_createtime: '',
             unit_modifytime: ''
         },
-        adminList: []
+        adminList: [],
+        myRole: role
     }
     const view_unitAdd = new Vue(
         {

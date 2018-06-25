@@ -23,7 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="unitAdd">
     <!-- Navbar -->
     <!-- Navbar -->
     <nav
@@ -112,7 +112,8 @@
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -151,7 +152,7 @@
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
-                            单位管理  <i class="fa fa-angle-left right"></i>
+                            单位管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
@@ -187,7 +188,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
@@ -195,12 +196,14 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                    class="nav-link">
                                 <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -240,7 +243,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body" id="unitAdd">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

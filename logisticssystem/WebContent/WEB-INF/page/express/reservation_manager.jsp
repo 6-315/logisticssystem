@@ -120,7 +120,7 @@
     <nav
             class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <!-- Left navbar links -->
-         <ul class="navbar-nav">
+        <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
             <li class="nav-item d-none d-sm-inline-block"><a
@@ -129,43 +129,43 @@
             <li class="nav-item d-none d-sm-inline-block"><a href="#"
                                                              class="nav-link">预约管理</a></li>
         </ul>
- 
+
         <!-- SEARCH FORM -->
-      <!--   <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search"
-                       placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
- -->
+        <!--   <form class="form-inline ml-3">
+              <div class="input-group input-group-sm">
+                  <input class="form-control form-control-navbar" type="search"
+                         placeholder="Search" aria-label="Search">
+                  <div class="input-group-append">
+                      <button class="btn btn-navbar" type="submit">
+                          <i class="fa fa-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </form>
+   -->
         <!-- Right navbar links -->
-       <!--  <ul class="navbar-nav ml-auto">
-            Messages Dropdown Menu
-            <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
-                <span class="badge badge-danger navbar-badge"></span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item dropdown-footer">See All
-                        Messages</a>
-                </div>
-            </li>
-            Notifications Dropdown Menu
-            <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
-                    class="badge badge-warning navbar-badge">0</span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">0 条消息</span>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
-        </ul> -->
+        <!--  <ul class="navbar-nav ml-auto">
+             Messages Dropdown Menu
+             <li class="nav-item dropdown"><a class="nav-link"
+                                              data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
+                 <span class="badge badge-danger navbar-badge"></span>
+             </a>
+                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                     <a href="#" class="dropdown-item dropdown-footer">See All
+                         Messages</a>
+                 </div>
+             </li>
+             Notifications Dropdown Menu
+             <li class="nav-item dropdown"><a class="nav-link"
+                                              data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
+                     class="badge badge-warning navbar-badge">0</span>
+             </a>
+                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                     <span class="dropdown-header">0 条消息</span>
+                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                 </div>
+             </li>
+         </ul> -->
     </nav>
     <!-- /.navbar -->
 
@@ -194,7 +194,8 @@
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                                                          with font-awesome or any other icon font library -->
-                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6" class="nav-item has-treeview menu-open"><a href="#"
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -207,12 +208,14 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"
+                                class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"
+                                class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link active"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
@@ -225,7 +228,8 @@
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -246,7 +250,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -266,7 +271,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a
+                            href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
@@ -358,7 +364,7 @@
                                         <th>发件人姓名</th>
                                         <th>发件人联系方式</th>
                                         <th>发件人详细地址</th>
-                                        <th><span role="presentation" class="dropdown"> <a
+                                        <th v-if="myRole==5 || myRole==6"><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">所属单位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
@@ -367,7 +373,7 @@
                                                                 @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
 											</span></th>
-                                        <th><span role="presentation" class="dropdown"> <a
+                                        <th v-if="myRole==2 || myRole==5"><span role="presentation" class="dropdown"> <a
                                                 class="dropdown-toggle" data-toggle="dropdown">是否分配配送员<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
@@ -381,7 +387,8 @@
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
 														<li><a @click="selectState('')" href="#">所有</a></li>
-														<li><a @click="selectState('待受理')" href="#">待受理</a></li>
+														<li><a @click="selectState('待受理')"
+                                                               href="#">待受理</a></li>
 														<li><a @click="selectState('已受理')" href="#">已受理</a></li>
 														<li><a @click="selectState('已拒绝')" href="#">已拒绝</a></li>
 														<li><a @click="selectState('待取件')" href="#">待取件</a></li>
@@ -413,12 +420,13 @@
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderrealname}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderphonenumber}}</td>
                                         <td>{{reservationDTO.expressInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td>{{reservationDTO.unitInfo.unit_name}}</td>
-                                        <td
-                                                v-if="reservationDTO.reservationInfo.reservation_distributiontor">
+                                        <td v-if="myRole==5 || myRole==6">{{reservationDTO.unitInfo.unit_name}}</td>
+                                        <td v-if="(myRole==2 || myRole==5)&&reservationDTO.reservationInfo.reservation_distributiontor">
                                             是
                                         </td>
-                                        <td v-else>否</td>
+                                        <td v-if="(myRole==2 || myRole==5)&& !reservationDTO.reservationInfo.reservation_distributiontor">
+                                            否
+                                        </td>
                                         <td
                                                 v-html="replaceState(reservationDTO.reservationInfo.reservation_state)">
                                             <%--<span class="label">{{reservationDTO.reservationInfo.reservation_state}}</span>--%>
@@ -431,24 +439,24 @@
 													</span>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">查看详情</a></li>
-                                                    <li><a
+                                                    <li v-if="myRole==2"><a
                                                             @click="acceptanceReservation('已受理',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
                                                             href="#">受理</a></li>
-                                                    <li><a
-                                                            @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">拒绝</a></li>
-                                                    <li><a
-                                                            @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">分配配送员</a></li>
-                                                    <li><a
-                                                            @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">已取件</a></li>
-                                                    <li><a
-                                                            @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">已完成</a></li>
-                                                    <li><a
-                                                            @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
-                                                            href="#">填写快件单</a></li>
+                                                    <li><a v-if="myRole==2"
+                                                           @click="cancleReservation('已拒绝',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">拒绝</a></li>
+                                                    <li><a v-if="myRole==2"
+                                                           @click="opendistributionReservationStaff(reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">分配配送员</a></li>
+                                                    <li><a v-if="myRole==1"
+                                                           @click="takePart('已取件',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">已取件</a></li>
+                                                    <li><a v-if="myRole==2"
+                                                           @click="completeReserv('已完成',reservationDTO.reservationInfo.reservation_state,reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">已完成</a></li>
+                                                    <li><a v-if="myRole==1"
+                                                           @click="skipExpressPage(reservationDTO.reservationInfo.reservation_id)"
+                                                           href="#">填写快件单</a></li>
                                                 </ul>
                                             </div>
                                         </td>

@@ -123,7 +123,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- neirong -->
-<div class="wrapper">
+<div id="unit_list" class="wrapper">
     <!-- Navbar -->
     <nav
             class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -214,7 +214,8 @@
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -290,7 +291,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
@@ -303,7 +304,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -337,7 +339,7 @@
             <!-- /.container-fluid --> </section>
 
         <!-- Main content -->
-        <section class="content" id="unit_list">
+        <section class="content">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
