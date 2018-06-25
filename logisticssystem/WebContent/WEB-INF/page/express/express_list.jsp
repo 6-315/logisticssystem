@@ -343,7 +343,7 @@
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="min-height: 300px">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
