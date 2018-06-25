@@ -39,7 +39,7 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        <!-- <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search"
                        placeholder="Search" aria-label="Search">
@@ -49,12 +49,12 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form> -->
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown"><a class="nav-link"
+            <!-- <li class="nav-item dropdown"><a class="nav-link"
                                              data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
                 <span class="badge badge-danger navbar-badge"></span>
             </a>
@@ -63,16 +63,16 @@
                         Messages</a>
                 </div>
             </li>
-            <!-- Notifications Dropdown Menu -->
+            Notifications Dropdown Menu
             <li class="nav-item dropdown"><a class="nav-link"
                                              data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
                     class="badge badge-warning navbar-badge">0</span>
             </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <span class="dropdown-header">0 条消息</span>
-                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
-            </li>
+            </li> -->
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -99,7 +99,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
@@ -111,25 +111,25 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
                             href="#" class="nav-link"> <i
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -148,7 +148,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview menu-open"><a href="#"
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -169,7 +169,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
@@ -181,7 +181,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a
+                            <li  v-if="myRole == 6" class="nav-item"><a
                                     href="#" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
