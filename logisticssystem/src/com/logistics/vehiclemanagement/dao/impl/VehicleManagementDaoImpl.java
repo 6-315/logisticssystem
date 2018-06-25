@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.driver;
 import com.logistics.domain.position;
+import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -249,6 +250,34 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		query.setParameter("ID", staff_id);
 		driverInfo = (driver) query.uniqueResult();
 		return driverInfo;
+	}
+
+	/**
+	 * 根据车队ID获得驾驶员信息
+	 */
+	@Override
+	public driver getDriverInfoByTeamId(String team_id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_belong_team = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", team_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
+	}
+
+	/**
+	 * 根据车队路线ID获得路线信息
+	 */
+	@Override
+	public route getRouteInfoByTeamId(String team_id) {
+		route routeInfo = new route();
+		Session session = getSession();
+		String hql = "from route where route_id = :ID and route_state='正常使用' ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", team_id);
+		routeInfo = (route) query.uniqueResult();
+		return routeInfo;
 	}
 
 }

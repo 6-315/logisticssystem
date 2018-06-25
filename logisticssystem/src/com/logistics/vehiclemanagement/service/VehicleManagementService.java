@@ -77,4 +77,6 @@ public interface VehicleManagementService {
 
 	public List<ManagerDTO> getAllManager(String position);
 
+	public List<team> getAllTeam(staff_basicinfo staffInfo);
+
 }
