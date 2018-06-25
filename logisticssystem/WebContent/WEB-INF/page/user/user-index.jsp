@@ -40,7 +40,7 @@
                         src="${pageContext.request.contextPath}/img/touxiang.jpg">
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                 </a></li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp"
+                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF; line-height: 30px">退出</a></li>
             </ul>
         </div>
@@ -145,7 +145,7 @@
                         <tr v-for="reser in reservationExpressList"
                             :key="reser.reservationInfo.reservation_id">
                             <td>{{reser.reservationInfo.reservation_num}}</td>
-                            <td>buzhidao</td>
+                            <td>{{reser.unitInfo.unit_num}}</td>
                             <td>{{reser.reservationInfo.reservation_createtime}}</td>
                             <td>{{reser.expressInfo.expressinfo_productname}}</td>
                             <td>{{reser.expressInfo.expressinfo_mark}}</td>
