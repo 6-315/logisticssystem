@@ -120,11 +120,11 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a href="#" class="nav-link"> <i
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a href="#" class="nav-link"> <i
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -143,7 +143,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -162,7 +162,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
@@ -173,7 +173,7 @@
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li v-if="myRole == 6" class="nav-item"><a href="#" class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
