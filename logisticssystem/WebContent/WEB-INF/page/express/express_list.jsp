@@ -20,8 +20,6 @@
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <style>
         [v-cloak] {
