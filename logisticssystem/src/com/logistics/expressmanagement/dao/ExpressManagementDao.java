@@ -93,6 +93,8 @@ public interface ExpressManagementDao {
 
 	public express_route getExpressRouteInfoByExpressRouteId(String expressRouteInfoRouteId);
 
+	public express_route getExpressRoute(String express_id);
+
 
 	/**
 	 * 

@@ -220,7 +220,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		String hql = "select express_route_route_id from express_route where express_route_belongexpress =:ID order by --express_route_superior desc limit 1 ";
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("ID", express_id);
-		String expressRoute =   (String) query.uniqueResult();
+		String expressRoute = (String) query.uniqueResult();
 		return expressRoute;
 	}
 
@@ -386,7 +386,7 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		String hql = "from vehicle_express_relevance where vehicle_express_relevance_expressinfo = :ID and ( vehicle_express_relevance_expressinfo_endtime='' or vehicle_express_relevance_expressinfo_endtime=null ) ";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
-		listVehicleExpressRelevance =  query.list();
+		listVehicleExpressRelevance = query.list();
 		return listVehicleExpressRelevance;
 	}
 
@@ -404,4 +404,23 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		return expressRoute;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public express_route getExpressRoute(String express_id) {
+		Session session = getSession();
+		String hql = "from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior";
+		System.out.println("hql:" + hql);
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		query.setFirstResult(0);
+		query.setMaxResults(1);
+		List<express_route> listRoute = new ArrayList<>();
+		listRoute = query.list();
+		if (listRoute.size() > 0) {
+			System.out.println("UUUUUUUU" + listRoute);
+			return listRoute.get(0);
+		} else {
+			return null;
+		}
+	}
 }

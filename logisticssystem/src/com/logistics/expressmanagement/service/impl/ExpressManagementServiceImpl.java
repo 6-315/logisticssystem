@@ -406,6 +406,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 												updateExpress.setExpress_state("已扫描");
 												updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
 												expressManagementDao.saveOrUpdateObject(updateExpress);
+												/**
+												 * 完成快件未完成路线
+												 */
+												express_route expressRoute = new express_route();
+												expressRoute = expressManagementDao.getExpressRoute(expressInfo.getExpress_id());
+												expressRoute.setExpress_route_state("已完成");
+												expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+												expressManagementDao.saveOrUpdateObject(expressRoute);
 												return "success";
 											}
 										}
@@ -679,9 +687,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 									}
 								}
 							} else {
-								expressCountHql = expressCountHql + " express_id='" + driverInfo.getDriver_id() + "' ";
-								listExpressInfoHql = listExpressInfoHql + " express_id='" + driverInfo.getDriver_id()
-										+ "' ";
+								expressCountHql = expressCountHql + " express_id='' or express_id=null ";
+								listExpressInfoHql = listExpressInfoHql + " express_id='' or express_id=null ";
 							}
 						}
 					}
