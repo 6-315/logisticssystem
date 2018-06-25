@@ -135,7 +135,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			searchForm = searchForm + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
 		}
 
-		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
+		// 这里如果不加desc表示正序，如果加**/上desc表示倒序 
 		searchForm = searchForm + " order by route_createtime desc";
 		// 获取对象的总数量
 		int userInfoCount = routeManagementDao.getCount(searchPaging);
@@ -191,7 +191,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
-						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + routeManagerVO.getSearch() + "</span>"));
 			}
 
 		}
