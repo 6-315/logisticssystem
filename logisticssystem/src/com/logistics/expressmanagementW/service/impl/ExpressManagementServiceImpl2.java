@@ -506,7 +506,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		express express = new express();
 		express = expressManagementDao2.getExpress(expressNew.getExpress_id());
 		express_send expressSend = new express_send();
-		expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
+		expressSend = expressManagementDao2.getExpressSend1(expressNew.getExpress_id());
 		expressSend.setExpress_send_state("已完成");
 		expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 		expressManagementDao2.saveOrUpdateObject(expressSend);
