@@ -113,6 +113,6 @@ public class Personnelmanagement {
 	@Test
 	public void addStaff(){
 		staff_basicinfo staffBasicinfo=new staff_basicinfo();
-		staffBasicinfo=personnelManagementService.addStaff(staffBasicinfo);
+		//staffBasicinfo=personnelManagementService.addStaff(staffBasicinfo);
 	}
 }

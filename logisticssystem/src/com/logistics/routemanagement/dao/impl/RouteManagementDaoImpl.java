@@ -178,6 +178,17 @@ public String getMaxRouteNum(String route_num) {
 	return maxRouteNum;
 }
 
+@Override
+public unit getUnitInfoById(String route_departurestation) {
+	unit unitInfo = new unit();
+	Session session = getSession();
+	String hql = "from unit where unit_id=:ID ";
+	Query query = session.createQuery(hql);
+	query.setParameter("ID", route_departurestation);
+	unitInfo = (unit) query.uniqueResult();
+	return unitInfo;
+}
+
 	
 
 }

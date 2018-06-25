@@ -39,7 +39,8 @@
         vehicleList: [],
         reserList: [],
         paiSongYuanList: [],
-        psiSongExpressId: ''
+        psiSongExpressId: '',
+        myRole: role
     }
 
 
@@ -153,7 +154,7 @@
             },
             // 尾页
             weiye: function () {
-                expressData.page = reservationData.expressInfoVO.totalPages
+                expressData.page = expressData.expressInfoVO.totalPages
                 express_view.getAllData()
                 express_view.judge()
             },
@@ -417,7 +418,7 @@
                 })
             },
             paiSongStaff(staffPeiSongId) {
-                //分配快件给配送员
+                // 分配快件给配送员
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressState',
                     type: 'POST',
@@ -438,7 +439,7 @@
                 })
             },
             qianShouExpress(expressId) {
-                //签收
+                // 签收
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
                     type: 'POST',
@@ -458,7 +459,7 @@
                 })
             },
             completeExpress(expressId) {
-                //完成
+                // 完成
                 $.ajax({
                     url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressStateByExpressId',
                     type: 'POST',
@@ -473,6 +474,43 @@
                             express_view.getAllData()
                             express_view.judge()
                             toastr.success('完成成功')
+                        }
+                    }
+                })
+            },
+            expressFaVehicle: function () {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateStateByDriver',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('发车成功')
+                        } else {
+                            toastr.error('发车失败')
+                        }
+                    }
+                })
+            },
+            expressQujian: function () {
+                let dataDa = ''
+                $("input[name='flag']:checkbox").each(function () {
+                    if ($(this).is(':checked')) {
+                        dataDa = dataDa + $(this).attr('id') + ','
+                    }
+                })
+                console.log('dataDa:', dataDa)
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement2/expressmanagement2_updateExpressByDistributiontor',
+                    type: 'POST',
+                    data: {
+                        'listExpressId': dataDa
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            toastr.success('取件成功')
+                        } else {
+                            toastr.error('取件失败')
                         }
                     }
                 })

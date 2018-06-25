@@ -262,7 +262,11 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * @return
 	 */
 	public String pageRouteList() {
-		return "pageUnitList";
+		return "pageRouteList";
+	}
+
+	public String pageRouteAdd() {
+		return "pageRouteAdd";
 	}
 
 	/**
@@ -291,11 +295,30 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 跳转到首页
+	 * 
+	 * @return
+	 */
+	public String pageIndex() {
+		return "pageIndex";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
 	 */
 	public void login() throws IOException {
+		/*
+		 * request.getSession().setAttribute("userInfoSession", "");
+		 * request.getSession().setAttribute("staff_session", "");
+		 * request.getSession().setAttribute("superAdminStaff", "");
+		 * request.getSession().setAttribute("transAdminStaff", "");
+		 * request.getSession().setAttribute("deliveryAdminStaff", "");
+		 * request.getSession().setAttribute("deliveryStaff", "");
+		 * request.getSession().setAttribute("teamStaff", "");
+		 * request.getSession().setAttribute("driverStaff", "");
+		 */
 		// 判断username是那一张表
 		if (username != null && username.trim().length() > 0 && password != null && password.trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
@@ -334,6 +357,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 								superAdminStaff.setSuperAdminStaff(staffSession);
 								request.getSession().setAttribute("superAdminStaff", superAdminStaff);
 								response.getWriter().write("总公司管理员登录成功");
+
 								break;
 							case "中转站管理员":
 								TransAdminStaffDTO transAdminStaff = new TransAdminStaffDTO();
@@ -389,19 +413,26 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.create();
-		if (request.getSession().getAttribute("userInfoSession") != null) {
+		if (request.getSession().getAttribute("userInfoSession") != null
+				&& request.getSession().getAttribute("userInfoSession") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("userInfoSession")));
-		} else if (request.getSession().getAttribute("superAdminStaff") != null) {
+		} else if (request.getSession().getAttribute("superAdminStaff") != null
+				&& request.getSession().getAttribute("superAdminStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("superAdminStaff")));
-		} else if (request.getSession().getAttribute("transAdminStaff") != null) {
+		} else if (request.getSession().getAttribute("transAdminStaff") != null
+				&& request.getSession().getAttribute("transAdminStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("transAdminStaff")));
-		} else if (request.getSession().getAttribute("deliveryAdminStaff") != null) {
+		} else if (request.getSession().getAttribute("deliveryAdminStaff") != null
+				&& request.getSession().getAttribute("deliveryAdminStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryAdminStaff")));
-		} else if (request.getSession().getAttribute("deliveryStaff") != null) {
+		} else if (request.getSession().getAttribute("deliveryStaff") != null
+				&& request.getSession().getAttribute("deliveryStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("deliveryStaff")));
-		} else if (request.getSession().getAttribute("teamStaff") != null) {
+		} else if (request.getSession().getAttribute("teamStaff") != null
+				&& request.getSession().getAttribute("teamStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("teamStaff")));
-		} else if (request.getSession().getAttribute("driverStaff") != null) {
+		} else if (request.getSession().getAttribute("driverStaff") != null
+				&& request.getSession().getAttribute("driverStaff") != "") {
 			response.getWriter().write(gson.toJson(request.getSession().getAttribute("driverStaff")));
 		}
 	}
@@ -411,23 +442,28 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 *
 	 * @throws IOException
 	 */
-	public void logoff() throws IOException {
-		HttpSession session = ServletActionContext.getRequest().getSession();
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
-		response.setContentType("text/html;charset=utf-8");
-		staff_basicinfo staffBasicinfo = (staff_basicinfo) session.getAttribute("staff_session");
-		userinfo userInfoSession = (userinfo) session.getAttribute("userInfoSession");
+	public String logoff() throws IOException {
+		// HttpSession session = ServletActionContext.getRequest().getSession();
+		/*
+		 * GsonBuilder gsonBuilder = new GsonBuilder();
+		 * gsonBuilder.setPrettyPrinting();// 格式化json数据 Gson gson =
+		 * gsonBuilder.create();
+		 */
+		// response.setContentType("text/html;charset=utf-8");
+		/*
+		 * staff_basicinfo staffBasicinfo = (staff_basicinfo)
+		 * session.getAttribute("staff_session"); userinfo userInfoSession = (userinfo)
+		 * session.getAttribute("userInfoSession");
+		 */
 		request.getSession().setAttribute("type", "");
 		request.getSession().setAttribute("staff_session", "");
 		request.getSession().setAttribute("userInfoSession", "");
 		request.getSession().setAttribute("superAdminStaff", "");
 		request.getSession().setAttribute("transAdminStaff", "");
 		request.getSession().setAttribute("deliveryAdminStaff", "");
+		request.getSession().setAttribute("deliveryStaff", "");
 		request.getSession().setAttribute("teamStaff", "");
 		request.getSession().setAttribute("driverStaff", "");
-		response.getWriter().write("" + "注销成功");
-
+		return "pageIndex";
 	}
 }

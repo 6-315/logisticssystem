@@ -5,9 +5,21 @@
 <head>
     <meta content="text/html; charset=UTF-8">
     <title>我的订单</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="${pageContext.request.contextPath}/js/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        ul li {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -30,7 +42,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a></li>
+                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -38,28 +51,28 @@
 <div class="site-menubar navbar-nav">
     <div class="site-menubar-body">
         <ul class="site-menu">
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
-						class="site-menu-title">首页</span></a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
-						class="site-menu-title">我要寄件</span></span> </a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
-						<span class="site-menu-title">我要查件</span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
-						<span class="site-menu-title">我的订单</span></span>
-				</a></li>
-				<li class="site-menu-item"><a
-					href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
-						<span class="site-menu-title">用户信息</span></span>
-				</a></li>
-			</ul>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_userIndex"><span
+                    class="site-menu-title">首页</span></a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageSendExpress"><span
+                    class="site-menu-title">我要寄件</span></span> </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}//userinfo/userinfo_pageSearchExpress">
+                <span class="site-menu-title">我要查件</span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageMyExpress">
+                <span class="site-menu-title">我的订单</span></span>
+            </a></li>
+            <li class="site-menu-item"><a
+                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">
+                <span class="site-menu-title">用户信息</span></span>
+            </a></li>
+        </ul>
     </div>
 </div>
-<div class="page" style="margin-top:110px">
+<div id="userMyOrder" class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li><a href="${pageContext.request.contextPath}/user-index.jsp">首页&nbsp;</a></li>
@@ -69,130 +82,155 @@
             <div class="row">
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked" id="ul_status">
-                        <li role="presentation" class="active">
-                            <a href="?">
+                        <li role="presentation" :class="{active : active1}">
+                            <a @click="selectStateExpressInfo('')" href="javascript:void(0)">
                                 全部
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=1&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=0">
-                                未接单
+                        <li role="presentation" :class="{active : active2}">
+                            <a @click="selectStateExpressInfo('待揽件')" href="javascript:void(0)">
+                                待揽件
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=2&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=ACCEPT">
-                                已接单
+                        <li role="presentation" :class="{active : active3}">
+                            <a @click="selectStateExpressInfo('已揽件')" href="javascript:void(0)">
+                                已揽件
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=6&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=GOT">
-                                已揽收
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=3&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=GOT&amp;statuses=SENT_SCAN">
+                        <li role="presentation" :class="{active : active4}">
+                            <a @click="selectStateExpressInfo('在途中')" href="javascript:void(0)">
                                 在途中
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=4&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=SIGNED">
-                                已签收
+                        <li role="presentation" :class="{active : active5}">
+                            <a @click="selectStateExpressInfo('待派送')" href="javascript:void(0)">
+                                待派送
                             </a>
                         </li>
-                        <li role="presentation">
-                            <a href="?combineStatus=5&amp;createTimeST=&amp;createTimeET=2018-06-14&amp;queryKey=&amp;queryVal=&amp;limit=10&amp;sort=orderHeadId&amp;dir=desc&amp;statuses=UNACCEPT&amp;statuses=NOT_SEND&amp;statuses=FAILED&amp;statuses=WITHDRAW">
-                                异常件
+                        <li role="presentation" :class="{active : active6}">
+                            <a @click="selectStateExpressInfo('派送中')" href="javascript:void(0)">
+                                派送中
+                            </a>
+                        </li>
+                        <li role="presentation" :class="{active : active7}">
+                            <a @click="selectStateExpressInfo('已签收')" href="javascript:void(0)">
+                                已签收
                             </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-sm-10 b-left">
                     <div class="search-head">
-                        <form method="post" id="order_search" action="" class="form-inline">
+                        <form class="form-inline">
                             <div class="form-group" style="float: left;">
                                 <div class="input-group">
                                     <div class="input-group-btn" id="param_toggle">
                                         <button type="button" class="btn btn-default"
-                                        ><span>运单号</span></button>
-                                        <input id="param_search" name="queryKey" value="mailNo" type="hidden">
+                                        ><span>快递单号</span></button>
+                                        <input id="param_search" value="mailNo" type="hidden">
                                     </div>
-                                    <input maxlength="20" name="queryVal" value="" class="form-control" type="text">
+                                    <input v-model="search" @input="selectKuaiDi" maxlength="20" value=""
+                                           class="form-control" type="text">
                                 </div>
                             </div>
                             <br>
-                            <div style="margin-top: -32px" class="form-group p_top_10">
-                                <input value="查询" class="btn btn-primary" id="search_button" type="submit">
-                                <%--<input value="导出" class="btn btn-primary" id="export_button" type="button">--%>
-                            </div>
                         </form>
+                        <div style="margin-top: -30px" class="form-group p_top_10">
+                            <a class="btn btn-primary">查询</a>
+                            <%--<input value="导出" class="btn btn-primary" id="export_button" type="button">--%>
+                        </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table yto-table">
+                        <table class="table table-hover m_top_10">
                             <thead>
                             <tr>
-                                <th width="260">
-                                    <div class="hidden">
-                                        <div class="icheckbox_flat-grey" style="position: relative;"><input
-                                                name="orderHeadId" style="position: absolute; opacity: 0;"
-                                                type="checkbox">
-                                            <ins class="iCheck-helper"
-                                                 style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins>
-                                        </div>
-                                    </div>
-                                    寄件人信息
-                                </th>
-                                <th width="260">收件人信息</th>
-                                <th>取件网点</th>
-                                <th class="text-center" width="90">快件状态</th>
-                                <th class="text-center" width="100">操作</th>
-                            </tr>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="btn-group btn-group-sm">
-                                        <!-- <button type="button" class="btn btn-default" id="allcheck">全选</button>
-                                        <button type="button" class="btn btn-default" id="udcheck">反选</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mybd" disabled="disabled">批量绑定面单</button>
-                                       -->
-                                    </div>
-                                </td>
+                                <th>快件单号</th>
+                                <th>发件人姓名</th>
+                                <th>发件人联系方式</th>
+                                <th>发件人详细地址</th>
+                                <th>收件人姓名</th>
+                                <th>收件人联系方式</th>
+                                <th>收件人详细地址</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
-
+                            <tbody v-if="expressinfoAndExpressVO.listExpressinfoAndExpressDTO == undefined">
+                            <td style="text-align: center" colspan="8" height="50">
+                                暂无数据
+                            </td>
+                            </tbody>
+                            <tbody v-if="!ready">
+                            <tr>
+                                <td style="text-align: center" colspan="10"><i
+                                        class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
+                            </tr>
+                            </tbody>
+                            <tbody v-cloak
+                                   v-if="ready && expressinfoAndExpressVO.listExpressinfoAndExpressDTO != undefined"
+                                   style="min-height: 200px">
+                            <tr v-for="myOrder in expressinfoAndExpressVO.listExpressinfoAndExpressDTO">
+                                <td v-html="myOrder.expressNew.express_number"></td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderrealname}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderphonenumber}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_senderdetailaddress}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_addresseerealname}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_addresseephonenumber}}</td>
+                                <td>{{myOrder.expressInfo.expressinfo_adderdetailaddress}}</td>
+                                <td>
+                                    <a href="#">详情</a>
+                                    <%--<a href="#">删除</a>--%>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
+                        <div class="pagePosition">
+                            <ul v-cloak class="pagination">
+                                <li></li>
+                                <li><a href="#">首页</a></li>
+                                <li :class="{disabled:preDisabled}"><a @click="prePage"
+                                                                       href="#">上一页</a></li>
+                                <li><a>第 {{expressinfoAndExpressVO.pageIndex}} 页/总
+                                    {{expressinfoAndExpressVO.totalPages}}
+                                    页/共{{expressinfoAndExpressVO.totalRecords}}条</a></li>
+                                <li :class="{disabled:nextDisabled}"><a
+                                        :disabled="nextDisabled" href="#">
+                                    下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
+                                </a></li>
+                                <li><a href="#">尾页</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <nav>
-                        <div class="yto-message p_0">
-                            <%--<div class="yto-message-img">--%>
-                            <%--<img src="/assets/images/photos/no-cont.png">--%>
-                            <%--</div>--%>
-                            <h3 class="yto-message-title">
-                                对不起，结果空空的！
-                            </h3>
-
-                        </div>
-                        <ul class="pagination">
-                        </ul>
-                        <span class="pagination-info">
-	                共 0  条
-	    </span>
-                        <div class="pagination-set">
-                            <select name="limit" class="form-control"
-                                    onchange="window.location = '?uroleId=500&amp;createTimeET=2018-06-14 08:42:30&amp;userId=66787665&amp;sendMobile=18296929245&amp;total=0&amp;sort=orderHeadId&amp;dir=desc&amp;limit=' + this.value;">
-                                <!--  <option value="50">-每页显示条数-</option> -->
-                                <option value="10" selected="selected">10</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="500">500</option>
-                            </select>
-                            <span>条/页</span>
-                        </div>
-                    </nav>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="expressDetail" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">订单详细信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <%-- <button type="button" class="btn btn-primary">
+                     提交更改
+                 </button>--%>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 </div>
 <footer class="page-footer" style="height: 72px">
@@ -216,5 +254,8 @@
 </footer>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script src="${pageContext.request.contextPath}/js/user/user-myorder.js"></script>
 </body>
 </html>

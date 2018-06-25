@@ -19,6 +19,10 @@ public class RouteDTO {
 	 * 方向
 	 */
 	private String direction;
+	/**
+	 * 创建者
+	 */
+	private staff_basicinfo creator;
 
 	public route getRouteInfo() {
 		return routeInfo;
@@ -52,10 +56,18 @@ public class RouteDTO {
 		this.direction = direction;
 	}
 
+	public staff_basicinfo getCreator() {
+		return creator;
+	}
+
+	public void setCreator(staff_basicinfo creator) {
+		this.creator = creator;
+	}
+
 	@Override
 	public String toString() {
 		return "RouteDTO [routeInfo=" + routeInfo + ", beginUnit=" + beginUnit + ", endUnit=" + endUnit + ", direction="
-				+ direction + "]";
+				+ direction + ", creator=" + creator + "]";
 	}
 
 }

@@ -355,12 +355,14 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 
 		String[] update = listExpressId.split(",");
 		for (String id : update) {
+			System.out.println("dddddd" + id);
 			express_circulation expressCirculation = new express_circulation();
 			express_send expressSend = new express_send();
 			express expressNew = new express();
 			expressCirculation = expressManagementDao2.getExpressCirculation(id);
 			expressSend = expressManagementDao2.getExpressSend(id);
 			expressNew = expressManagementDao2.getExpress(id);
+			System.out.println("......");
 			expressCirculation.setExpress_circulation_state("已完成");
 			expressCirculation.setExpress_circulation_modifytime(TimeUtil.getStringSecond());
 			expressSend.setExpress_send_state("派送中");
@@ -448,7 +450,6 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			if ("驾驶员".equals(positionNew.getPosition_name())) {
 
 				for (String id : update) {
-
 					express_route expressRoute = new express_route();
 					route routeNew = new route();
 					express expressNew = new express();
@@ -505,8 +506,14 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		}
 		express express = new express();
 		express = expressManagementDao2.getExpress(expressNew.getExpress_id());
+		express_send expressSend = new express_send();
+		expressSend = expressManagementDao2.getExpressSend1(expressNew.getExpress_id());
+		expressSend.setExpress_send_state("已完成");
+		expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
+		expressManagementDao2.saveOrUpdateObject(expressSend);
 		express.setExpress_state(expressState);
 		express.setExpress_modifytime(TimeUtil.getStringSecond());
+
 		return "success";
 	}
 
@@ -520,11 +527,14 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		}
 		driver driverNew = new driver();
 		driverNew = expressManagementDao2.getDriverById(staffBasicinfo.getStaff_id());
+		System.out.println("kkkkkkkkkkk");
 		if (driverNew != null) {
+			System.out.println("kkkkkkkkooookkk");
 			vehicle vehicleNew = new vehicle();
-			vehicleNew = expressManagementDao2.getVehicle(driverNew.getDriver_id());
+			vehicleNew = expressManagementDao2.getVehicle(driverNew.getDriver_vehicle());
 			if (vehicleNew != null) {
-				vehicleNew.setVehicle_state("已发车");
+				System.out.println("kkkkkdfsdsfdskkkkkk");
+				vehicleNew.setVehicle_express_state("已发车");
 				vehicleNew.setVehicle_modifytime(TimeUtil.getStringSecond());
 				expressManagementDao2.saveOrUpdateObject(vehicleNew);
 				return "success";

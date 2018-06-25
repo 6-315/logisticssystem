@@ -65,7 +65,7 @@ public interface ExpressManagementDao2 {
 
 	public express getExpress(String express_id);
 
-	public vehicle getVehicle(String vehicle_id);
+	public vehicle getVehicle(String driver_vehicle);
 
 	public expressinfo getExpressInfo(String express_expressinfoid);
 
@@ -90,6 +90,8 @@ public interface ExpressManagementDao2 {
 	public driver getDriverById(String staff_id);
 
 	public express_circulation getExpressCirculation(String id);
+
+	express_send getExpressSend1(String express_id);
 
 
 	/**
