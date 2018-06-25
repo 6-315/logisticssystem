@@ -18,7 +18,8 @@
             staff_unit: '',
             staff_createtime: '',
             staff_modifytime: ''
-        }
+        },
+        myRole: role
     }
     const viewStaffAdd = new Vue({
         el: '#staffAdd',
