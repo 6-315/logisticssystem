@@ -18,7 +18,8 @@
         ready: false,
         page: 1,
         preDisabled: false,
-        nextDisabled: false
+        nextDisabled: false,
+        myRole: role
     }
     const view_unitList = new Vue({
         el: '#unit_list',
