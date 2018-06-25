@@ -34,7 +34,7 @@
             <br/>
             <ul class="nav nav-tabs">
                 <li role="presentation"><a
-                        href="${pageContext.request.contextPath}/user-login.jsp">账号密码登录</a></li>
+                        href="${pageContext.request.contextPath}/user-login.jsp">手机号密码登录</a></li>
                 <li role="presentation" class="active"><a
                         href="${pageContext.request.contextPath}/register.jsp">快速注册</a></li>
             </ul>

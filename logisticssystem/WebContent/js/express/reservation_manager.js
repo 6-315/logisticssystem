@@ -24,7 +24,8 @@
         nextDisabled: false,
         updateState: '',
         listDistributiontorAndStaffBasicinfoDTO: [],
-        idReady: ''
+        idReady: '',
+        myRole: role
     }
     const view_reservation = new Vue({
         el: '#reservation_manager',
