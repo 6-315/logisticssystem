@@ -118,7 +118,7 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div id="staffAdd" class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -136,7 +136,7 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        <%--<form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -145,31 +145,12 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form>--%>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa fa-comments-o"></i>
-                    <span class="badge badge-danger navbar-badge"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell-o"></i>
-                    <span class="badge badge-warning navbar-badge">0</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">0 条消息</span>
-                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-                </div>
-            </li>
+
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -213,13 +194,15 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>查询快件</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加快件</p>
                                 </a>
@@ -279,7 +262,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加单位</p>
                                 </a>
@@ -309,7 +293,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -326,7 +310,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加路线</p>
                                 </a>
@@ -360,7 +345,7 @@
         </section>
 
         <!-- Main content -->
-        <div v-cloak id="staffAdd" class="content">
+        <div v-cloak class="content">
             <div class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
