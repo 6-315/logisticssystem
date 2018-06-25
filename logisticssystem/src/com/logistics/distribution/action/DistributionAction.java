@@ -19,7 +19,7 @@ import com.logistics.transferstation.VO.UnitManagerVO;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 配送点管理 的action
+ *  配送点管理 的action
  * 
  * @author LW
  *
