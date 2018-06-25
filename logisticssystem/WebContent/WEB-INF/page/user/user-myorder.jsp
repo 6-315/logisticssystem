@@ -217,14 +217,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">快件单号</label>
-                            <div class="col-sm-10">
-                                <input
-                                        v-model="reservationExpressDTO.reservation.reservation_num"
-                                        type="text" class="form-control" disabled>
-                            </div>
-                        </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
