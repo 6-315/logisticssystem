@@ -36,7 +36,7 @@
 						</span> <span class="user-name" style="color: #FFF;"> 18296929245
 						</span>
                 </a></li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp"
+                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF; line-height: 30px">退出</a></li>
             </ul>
         </div>

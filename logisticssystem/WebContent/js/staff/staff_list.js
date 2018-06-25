@@ -29,7 +29,8 @@
         unitStaffId: '',
         unitNum: '',
         unitName: '',
-        yixiaUnit: []
+        yixiaUnit: [],
+        myRole: role
     }
     const viewStaffData = new Vue({
         el: '#staffList',
