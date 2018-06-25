@@ -61,11 +61,15 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			route getRoute = new route();
 			express_route expressRoute = new express_route();
 			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
+			if (expressRoute == null) {
+				return null;
+			}
 			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id()); // 得到路线
 			// team teamNew = new team();
 			// teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
 			System.out.println("------------:" + expressRoute.getExpress_route_route_id());
 			List<team> listTeam = new ArrayList<>();
+
 			listTeam = (List<team>) expressManagementDao2
 					.listObject("from team where team_route ='" + getRoute.getRoute_id() + "'");
 
@@ -375,7 +379,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				return "success";
 			}
 		}
- 
+
 		return null;
 	}
 
@@ -466,11 +470,13 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-					/*express_route expressRoute1 = new express_route();
-					expressRoute1 = expressManagementDao2.getexpressRoute(id);
-					expressRoute.setExpress_route_state("已完成");
-					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
-					expressManagementDao2.saveOrUpdateObject(expressRoute);*/
+					/*
+					 * express_route expressRoute1 = new express_route(); expressRoute1 =
+					 * expressManagementDao2.getexpressRoute(id);
+					 * expressRoute.setExpress_route_state("已完成");
+					 * expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+					 * expressManagementDao2.saveOrUpdateObject(expressRoute);
+					 */
 				}
 				return "succcess";
 			}
