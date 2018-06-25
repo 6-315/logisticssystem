@@ -330,7 +330,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			express expressUpdate = new express();
 			expressUpdate = expressManagementDao2.getExpress(expressNew.getExpress_id());
 			express_send expressSend = new express_send();
-			expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
+			expressSend = expressManagementDao2.getExpressSend1(expressNew.getExpress_id());
 			if (expressUpdate != null && expressSend != null) {
 				expressUpdate.setExpress_state("已完成");
 				expressUpdate.setExpress_belongunit("");
@@ -352,7 +352,6 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@Override
 	public String updateExpressByDistributiontor(staff_basicinfo staffBasicinfo, String listExpressId) {
-
 		String[] update = listExpressId.split(",");
 		for (String id : update) {
 			System.out.println("dddddd" + id);
@@ -360,7 +359,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			express_send expressSend = new express_send();
 			express expressNew = new express();
 			expressCirculation = expressManagementDao2.getExpressCirculation(id);
-			expressSend = expressManagementDao2.getExpressSend(id);
+			expressSend = expressManagementDao2.getExpressSend1(id);
 			expressNew = expressManagementDao2.getExpress(id);
 			System.out.println("......");
 			expressCirculation.setExpress_circulation_state("已完成");
@@ -376,7 +375,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				return "success";
 			}
 		}
-
+ 
 		return null;
 	}
 
@@ -507,7 +506,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		express express = new express();
 		express = expressManagementDao2.getExpress(expressNew.getExpress_id());
 		express_send expressSend = new express_send();
-		expressSend = expressManagementDao2.getExpressSend1(expressNew.getExpress_id());
+		expressSend = expressManagementDao2.getExpressSend(expressNew.getExpress_id());
 		expressSend.setExpress_send_state("已完成");
 		expressSend.setExpress_send_modifytime(TimeUtil.getStringSecond());
 		expressManagementDao2.saveOrUpdateObject(expressSend);
