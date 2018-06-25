@@ -397,8 +397,8 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	public express_route getExpressRouteInfoByExpressRouteId(String expressRouteInfoRouteId) {
 		express_route expressRoute = new express_route();
 		Session session = getSession();
-		String hql = "from express_route where express_route_route_id = :ID ";
-		Query query = session.createQuery(hql);
+		String hql = "select * from express_route where express_route_route_id = :ID and express_route_state='未完成' order by --express_route_superior limit 1 ";
+		Query query = session.createSQLQuery(hql).addEntity(express_route.class);
 		query.setParameter("ID", expressRouteInfoRouteId);
 		expressRoute = (express_route) query.uniqueResult();
 		return expressRoute;
