@@ -15,9 +15,7 @@
             href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
             rel="stylesheet">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/load.css">
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/js/load.js"></script>
+          href="${pageContext.request.contextPath}/css/toastr.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -96,7 +94,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                                 with font-awesome or any other icon font library -->
+                                     with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -121,8 +119,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a
-                            href="#" class="nav-link"> <i
+                    <li class="nav-item"><a href="#" class="nav-link"> <i
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
@@ -135,14 +132,12 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
-                                    class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
-                                    class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>招聘员工</p>
                             </a></li>
                         </ul>
@@ -173,14 +168,12 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a
-                                    href="#"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                                    class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a
-                                    href="#" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
                         </ul>
@@ -198,8 +191,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
                         </ul>

@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iZimodal/iziModal.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastr.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -95,7 +100,7 @@
                     <div class="m_top_30">
                         <a @click="addAddressShow" class="btn btn-primary btn-sm">+ 新增地址</a>
                     </div>
-                    <table class="table table-bordered table-hover m_top_10">
+                    <table class="table table-hover m_top_10">
                         <thead>
                         <tr>
                             <th>姓名</th>
@@ -107,7 +112,7 @@
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-cloak>
                         <tr v-for="addre in addressList" :key="addre.address_id">
                             <td>{{addre.address_realname}}</td>
                             <td>{{addre.address_phonenumber}}</td>
@@ -116,10 +121,9 @@
                             <td>{{addre.address_postalnumber}}</td>
                             <td>{{addre.address_isdefault}}</td>
                             <td>
-                                <a @click="openMorenAddress(addre)" href="#"
-                                   class="btn btn-primary">默认地址</a>
+                                <a @click="openMorenAddress(addre)" href="#">设为默认地址</a>
                                 <%--<a href="#" class="btn btn-primary">修改</a>--%>
-                                <a @click="openDeleteAddress(addre)" href="#" class="btn btn-danger">删除</a>
+                                <a @click="openDeleteAddress(addre)" href="#">删除</a>
                             </td>
                         </tr>
                         </tbody>
