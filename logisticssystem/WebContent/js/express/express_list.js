@@ -508,6 +508,8 @@
                     },
                     success: function (data) {
                         if (data === 'success') {
+                            express_view.getAllData()
+                            express_view.judge()
                             toastr.success('取件成功')
                         } else {
                             toastr.error('取件失败')
