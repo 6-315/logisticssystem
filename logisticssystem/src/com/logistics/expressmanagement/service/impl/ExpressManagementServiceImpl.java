@@ -671,16 +671,15 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 												&& listVehicleExpressRelevance.get(i)
 														.getVehicle_express_relevance_expressinfo().trim()
 														.length() > 0) {
-											if(listVehicleExpressRelevance.get(i).getVehicle_express_relevance_expressinfo_endtime()==null) {
 											expressCountHql = expressCountHql + " express_id ='"
 													+ listVehicleExpressRelevance.get(i)
 															.getVehicle_express_relevance_expressinfo()
-													+ "' ";
+													+ "' and express_state='已装车' ";
 											listExpressInfoHql = listExpressInfoHql + " express_id ='"
 													+ listVehicleExpressRelevance.get(i)
 															.getVehicle_express_relevance_expressinfo()
-													+ "' ";
-										}}
+													+ "' and express_state='已装车' ";
+										}
 										if (i < listVehicleExpressRelevance.size() - 1) {
 											expressCountHql = expressCountHql + " or  ";
 											listExpressInfoHql = listExpressInfoHql + " or  ";
