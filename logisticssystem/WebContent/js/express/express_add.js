@@ -65,7 +65,8 @@
         addProvince: [],
         addCity: [],
         addCountry: [],
-        successAdd: false
+        successAdd: false,
+        myRole: role
     }
     const view_express = new Vue({
         el: '#express_add',
