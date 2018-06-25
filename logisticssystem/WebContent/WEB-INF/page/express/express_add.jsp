@@ -28,7 +28,7 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div id="express_add" class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
     <nav
@@ -207,7 +207,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -239,7 +240,7 @@
             <!-- /.container-fluid --> </section>
 
         <!-- Main content -->
-        <section id="express_add" class="content">
+        <section class="content">
             <div v-if="!successAdd" class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
@@ -471,7 +472,7 @@
                                                                v-model="expressinfo.expressinfo_addresseephonenumber"
                                                                class="form-control" placeholder="请输入联系方式..">
                                 </div>
-                                <div class="form-group">
+                                <div v-if="myRole==1 || myRole==2 || myRole==5" class="form-group">
                                     <button type="button" @click="addExpress"
                                             style="width: 120px; float: right; margin-right: 7px"
                                             class="btn btn-block btn-primary btn-lg">提交
