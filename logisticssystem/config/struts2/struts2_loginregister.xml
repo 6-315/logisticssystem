@@ -26,6 +26,7 @@
 			</result>
 			<result name="pageRouteAdd">/WEB-INF/page/route/route_add.jsp
 			</result>
+			<result name="pageIndex" type="redirect">/index.jsp</result>
 		</action>
 	</package>
 </struts>

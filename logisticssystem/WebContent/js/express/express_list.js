@@ -39,7 +39,8 @@
         vehicleList: [],
         reserList: [],
         paiSongYuanList: [],
-        psiSongExpressId: ''
+        psiSongExpressId: '',
+        myRole: role
     }
 
 

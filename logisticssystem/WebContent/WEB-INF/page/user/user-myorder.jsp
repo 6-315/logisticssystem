@@ -178,7 +178,7 @@
                                 <td>{{myOrder.expressInfo.expressinfo_adderdetailaddress}}</td>
                                 <td>
                                     <a href="#">详情</a>
-                                    <a href="#">删除</a>
+                                    <%--<a href="#">删除</a>--%>
                                 </td>
                             </tr>
                             </tbody>
@@ -203,6 +203,34 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="expressDetail" tabindex="-1"
+         role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 800px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">订单详细信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <%-- <button type="button" class="btn btn-primary">
+                     提交更改
+                 </button>--%>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 </div>
 <footer class="page-footer" style="height: 72px">
