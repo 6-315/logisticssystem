@@ -20,7 +20,11 @@
           href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
     <style>
         body {
             font-size: 14px;
@@ -536,8 +540,7 @@
     </aside>
     <!-- /.control-sidebar -->
 </div>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+
 
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -552,8 +555,6 @@
         src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/express/express_add.js"></script>
 <script>
