@@ -466,11 +466,11 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-					// express_route expressRoute1 = new express_route();
-					// expressRoute1 = expressManagementDao2.getexpressRoute(id);
+					/*express_route expressRoute1 = new express_route();
+					expressRoute1 = expressManagementDao2.getexpressRoute(id);
 					expressRoute.setExpress_route_state("已完成");
 					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
-					expressManagementDao2.saveOrUpdateObject(expressRoute);
+					expressManagementDao2.saveOrUpdateObject(expressRoute);*/
 				}
 				return "succcess";
 			}
