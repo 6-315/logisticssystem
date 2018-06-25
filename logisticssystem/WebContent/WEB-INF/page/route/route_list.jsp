@@ -207,12 +207,12 @@
                     </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_list.html"
+                                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/express/express_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -224,7 +224,7 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a
-                            href="/test/test/pages/user/user_list.html" class="nav-link"> <i
+                            href="#" class="nav-link"> <i
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
@@ -277,12 +277,12 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_list.html"
+                                    href="#"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link">
+                                    href="#" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
@@ -301,7 +301,7 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="/test/test/pages/route/route_add.html" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -372,11 +372,11 @@
                                             </th>
                                             <th>
                                                 <span role="presentation" class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown">起点<span
+                                                    <a class="dropdown-toggle" data-toggle="dropdown">终点<span
                                                             class="caret"></span></a>
 													<ul class="dropdown-menu">
 													<li><a @click="selectRouteEnd('')"
-                                                           href="#">起点(所有)</a></li>
+                                                           href="#">终点(所有)</a></li>
 													<li v-for="unit in unitList"><a
                                                             @click="selectRouteEnd(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
 													</ul>
@@ -418,6 +418,25 @@
                                             <td>{{routeList.route_Departurestation.unit_name}}</td>
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
                                             <td>{{routeList.rout.route_state}}</td>
+                                            <td>
+                                                <b style="cursor: pointer;"><i color="gray" class="fa fa-list-alt"
+                                                                               aria-hidden="true"></i></b>
+                                                <%--<div class="btn-group">
+													<span style="cursor: pointer;" data-toggle="dropdown"
+                                                          aria-haspopup="true" aria-expanded="false"> <i
+                                                            class="fa fa-th-list"></i>
+													</span>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a
+                                                                @click="positionDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.position.position_name)"
+                                                                href="#">职位调度</a></li>
+                                                        <li><a
+                                                                @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
+                                                                href="#">单位调度</a></li>
+                                                        <li><a href="#">查看详情</a></li>
+                                                    </ul>
+                                                </div>--%>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>

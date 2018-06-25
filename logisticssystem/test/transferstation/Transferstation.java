@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.transferstation.DTO.DriverManagerDTO;
 import com.logistics.transferstation.VO.UnitManagerVO;
 import com.logistics.transferstation.service.TransferStationService;
 
@@ -158,5 +159,17 @@ public class Transferstation {
 		staffBasicInfo.setStaff_position("71e07c34-735f-45d4-a870-3e5bebe5ddc2");
 		staffBasicInfo.setStaff_unit("77e07c34-735f-45d4-a870-3e5bebe5ddc2");
 		transferStationService.getUnitInfo(staffBasicInfo);
+	}
+	/**
+	 * 查询一个车队所有未分配车辆的司机
+	 */
+	@Test
+	public void getDiverUnDistributed() {
+		DriverManagerDTO driverManagerDTO = new DriverManagerDTO();
+		staff_basicinfo staffBasicInfo = new staff_basicinfo();
+		staffBasicInfo.setStaff_id("78e07c34-735f-45d4-a870-3e5bebe5dd12");
+		staffBasicInfo.setStaff_position("71e07c34-735f-45d4-a870-3e5bebe5ddc5");
+		transferStationService.getDiverUnDistributed(driverManagerDTO, staffBasicInfo);
+		
 	}
 }

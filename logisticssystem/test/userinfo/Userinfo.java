@@ -97,7 +97,7 @@ public class Userinfo {
 		userInfo.setUserinfo_id("1");
 		expressinfoAndExpressVO.setState("");
 		expressinfoAndExpressVO.setPageSize(2);
-		expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(), expressinfoAndExpressVO);
+		//expressinfoAndExpressVO = userInfoService.selectExpressInfo(userInfo.getUserinfo_id(), expressinfoAndExpressVO);
 		System.out.println("kkkkkkkkkkkkk:" + expressinfoAndExpressVO);
 	}
 

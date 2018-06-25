@@ -4,15 +4,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录</title>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/bootstrap/css/bootstrap.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
-    <title>注册</title>
 </head>
 <body class="body-login">
 <div class="page">
@@ -29,40 +27,31 @@
             <p>得到的每一份支持，都是我坚定前行的动力。</p>
             <p>Note3期待为您服务</p>
         </div>
-        <div class="page-login-main" id="register">
-            <h3 class="hidden-xs">注册Note3</h3>
+        <div id="sslogin" class="page-login-main">
+            <h3 class="hidden-xs">登录Note3</h3>
             <br/>
             <ul class="nav nav-tabs">
-                <li role="presentation"><a
-                        href="${pageContext.request.contextPath}/user-login.jsp">账号密码登录</a></li>
                 <li role="presentation" class="active"><a
+                        href="${pageContext.request.contextPath}/user-login.jsp">手机号密码登录</a>
+                </li>
+                <li role="presentation"><a
                         href="${pageContext.request.contextPath}/register.jsp">快速注册</a></li>
             </ul>
             <form class="fv-form fv-form-bootstrap">
                 <div class="form-group">
-                    <input v-model="userinfo_phonenumber" class="form-control"
-                           placeholder="手机号码">
+                    <input v-model="user" class="form-control" placeholder="手机号码">
                 </div>
                 <div class="form-group">
-                    <input v-model="userinfo_email" class="form-control"
-                           placeholder="电子邮箱">
-                </div>
-                <div class="form-group">
-                    <input type="password]" v-model="userinfo_password"
-                           class="form-control" placeholder="密码">
-                </div>
-                <div class="form-group">
-                    <input @change="comparePassword"
-                           v-model="userinfo_confirmPassword" class="form-control"
-                           placeholder="确认密码" type="password">
+                    <input v-model="password" class="form-control" placeholder="密码"
+                           type="password">
                 </div>
             </form>
-            <button @click="registerUser" type="submit"
-                    class="btn btn-primary btn-block btn-flat">注册
+            <button :disabled="disabled" v-on:click="login" id="user_login"
+                    class="btn btn-primary btn-block btn-flat">登录
             </button>
             <div class="clearfix"></div>
             <footer class="page-copyright">
-                <p>Note物流有限公司 版权所有</p>
+                <p>Note3物流有限公司 版权所有</p>
                 <p>© 2018. All RIGHT RESERVED.</p>
             </footer>
         </div>
@@ -75,6 +64,6 @@
 <script src="${pageContext.request.contextPath}/css/tool/vue.js"></script>
 <script src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
 <script
-        src="${pageContext.request.contextPath}/js/user/user-register.js"></script>
+        src="${pageContext.request.contextPath}/js/public/login-register.js"></script>
 </body>
 </html>

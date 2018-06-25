@@ -24,6 +24,8 @@
 			</result>
 			<result name="pageStaffAdd">/WEB-INF/page/staff/staff_add.jsp
 			</result>
+			<result name="pageRouteAdd">/WEB-INF/page/route/route_add.jsp
+			</result>
 		</action>
 	</package>
 </struts>
