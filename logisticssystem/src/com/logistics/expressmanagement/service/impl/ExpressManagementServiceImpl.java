@@ -406,6 +406,14 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 												updateExpress.setExpress_state("已扫描");
 												updateExpress.setExpress_modifytime(TimeUtil.getStringSecond());
 												expressManagementDao.saveOrUpdateObject(updateExpress);
+												/**
+												 * 完成快件未完成路线
+												 */
+												express_route expressRoute = new express_route();
+												expressRoute = expressManagementDao.getExpressRoute(expressInfo.getExpress_id());
+												expressRoute.setExpress_route_state("已完成");
+												expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+												expressManagementDao.saveOrUpdateObject(expressRoute);
 												return "success";
 											}
 										}
@@ -663,14 +671,13 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 												&& listVehicleExpressRelevance.get(i)
 														.getVehicle_express_relevance_expressinfo().trim()
 														.length() > 0) {
-											expressCountHql = expressCountHql + " express_id ='"
+											expressCountHql = expressCountHql + " ( express_id ='"
 													+ listVehicleExpressRelevance.get(i)
 															.getVehicle_express_relevance_expressinfo()
-													+ "' ";
-											listExpressInfoHql = listExpressInfoHql + " express_id ='"
-													+ listVehicleExpressRelevance.get(i)
-															.getVehicle_express_relevance_expressinfo()
-													+ "' ";
+													+ "' and ( express_state='已装车' or express_state='待扫描' ) ) ";
+											listExpressInfoHql = listExpressInfoHql + " ( express_id ='"
+													+ listVehicleExpressRelevance.get(i).getVehicle_express_relevance_expressinfo()
+													+ "' and ( express_state='已装车' or express_state='待扫描' ) ) ";
 										}
 										if (i < listVehicleExpressRelevance.size() - 1) {
 											expressCountHql = expressCountHql + " or  ";
@@ -679,9 +686,8 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 									}
 								}
 							} else {
-								expressCountHql = expressCountHql + " express_id='" + driverInfo.getDriver_id() + "' ";
-								listExpressInfoHql = listExpressInfoHql + " express_id='" + driverInfo.getDriver_id()
-										+ "' ";
+								expressCountHql = expressCountHql + " express_id='' or express_id=null ";
+								listExpressInfoHql = listExpressInfoHql + " express_id='' or express_id=null ";
 							}
 						}
 					}
