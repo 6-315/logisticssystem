@@ -1203,9 +1203,9 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						&& distributionManagerPositionInfo.getPosition_id() != null
 						&& distributionManagerPositionInfo.getPosition_id().trim().length() > 0) {
 					listStaffInfo = (List<staff_basicinfo>) expressManagementDao
-							.listObject("from staff_basicinfo where staff_position ='"
+							.listObject("from staff_basicinfo where ( staff_position ='"
 									+ transManagerPositionInfo.getPosition_id() + "' or staff_position='"
-									+ distributionManagerPositionInfo.getPosition_id() + "' ");
+									+ distributionManagerPositionInfo.getPosition_id() + "' ) ");
 					if (listStaffInfo.size() > 0) {
 						return listStaffInfo;
 					}
