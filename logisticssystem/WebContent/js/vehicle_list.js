@@ -235,7 +235,7 @@
             distVehicleDriver(vehicleId) {
                 vehicleListData.disVehicleId = vehicleId
                 $.ajax({
-                    url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getDiverUnDistributed',
+                    url: '/logisticssystem/transferstation/transferstation_getDiverUnDistributed',
                     type: 'POST',
                     data: '',
                     success: function (data) {
