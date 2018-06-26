@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/timeline.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="padding: 0px;">
@@ -32,7 +35,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/index.jsp" style="color: #FFF;line-height:30px">退出</a>
+                <li><a href="${pageContext.request.contextPath}/index.jsp"
+                       style="color: #FFF;line-height:30px">退出</a>
                 </li>
             </ul>
         </div>
@@ -62,7 +66,7 @@
         </ul>
     </div>
 </div>
-<div class="page" style="margin-top:110px">
+<div id="searchId" class="page" style="margin-top:110px">
     <div class="container m_top_10">
         <ol class="breadcrumb" style="background-color: transparent;">
             <li><a href="">首页&nbsp;</a></li>
@@ -71,18 +75,19 @@
         <div class="yto-box">
             <form method="post" id="history_search" action="" class="form-horizontal m_bottom_30">
                 <div class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                    <input class="form-control" placeholder="请输入运单号" type="text">
+                    <input v-model="search" class="form-control" placeholder="请输入运单号" type="text">
                     <span class="input-group-btn">
-					    <button style="height: 46px;" class="btn btn-primary" type="submit">
+					    <a @click="searchExpress" style="height: 46px;" class="btn btn-primary"
+                           type="submit">
 						    查询
-                        </button>
+                        </a>
                     </span>
                 </div>
             </form>
             <div class="row">
                 <div class="col-sm-2" <%--style="border-right: 1px dashed #ddd; "--%>>
                     <ul id="ul_status" class="nav nav-pills nav-stacked">
-                        <li role="presentation" class="active"><a href="javascript:void(0)">
+                        <%--<li role="presentation" class="active"><a href="javascript:void(0)">
                             全部
                         </a></li>
                         <li role="presentation" class=""><a href="javascript:void(0)">
@@ -102,14 +107,14 @@
                         </a></li>
                         <li role="presentation" class=""><a href="javascript:void(0)">
                             已签收
-                        </a></li>
+                        </a></li>--%>
                     </ul>
                 </div>
                 <div class="trace-table">
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tbody>
                         <tr>
-                            <td class="time ">
+                            <td class="time">
                                 2018-06-09 14:08:40
                             </td>
                             <td class="data ">
@@ -147,7 +152,13 @@
         </div>
     </div>
 </footer>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery/jquery.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/user/user-search.js"></script>
 </body>
 </html>

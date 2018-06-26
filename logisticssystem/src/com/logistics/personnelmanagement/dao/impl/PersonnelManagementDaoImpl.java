@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
@@ -210,6 +211,40 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		unitNew = (unit) query.uniqueResult();
 		if (unitNew != null) {
 			return unitNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据职位ID获取当前的职位
+	 */
+	@Override
+	public position getPositionByID(String positionNew) {
+		position positionNow = new position();
+		Session session = getSession();
+		String hql = " from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", positionNew);
+		positionNow = (position) query.uniqueResult();
+		if (positionNow != null) {
+			return positionNow;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据员工ID查询它管理的车队
+	 */
+	@Override
+	public team getTeam(String staff_id) {
+		team team = new team();
+		Session session = getSession();
+		String hql = " from team where team_leader = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		team = (team) query.uniqueResult();
+		if (team != null) {
+			return team;
 		}
 		return null;
 	}
