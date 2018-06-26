@@ -765,80 +765,63 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * 流转车辆
 	 */
 	@Override
-	public String exchangeVehicle(vehiclecirculation vehicleCirculation) {
-		/**
-		 * 判断前台传过来的扭转车辆是不是为空
-		 */
-		if (vehicleCirculation != null) {
-			if (vehicleCirculation.getVehiclecirculation_vehicle_id() != null
-					&& vehicleCirculation.getVehiclecirculation_vehicle_id().trim().length() > 0) {
-				System.out.println("11111");
-				/**
-				 * 得到车辆信息
-				 */
-				vehicle vehicleInfo = vehicleManagementDao
-						.getVehicleInfoById(vehicleCirculation.getVehiclecirculation_vehicle_id());
-				/**
-				 * 判断得到的车辆信息是不是为空
-				 */
-				if (vehicleInfo != null) {
-					System.out.println("22222");
-					/**
-					 * 判断得到车辆扭转的承接方和接收方是不是为空
-					 */
-					if (vehicleCirculation.getVehiclecirculation_initiative() != null
-							&& vehicleCirculation.getVehiclecirculation_acceptd() != null
-							&& vehicleCirculation.getVehiclecirculation_initiative().trim().length() > 0
-							&& vehicleCirculation.getVehiclecirculation_acceptd().trim().length() > 0) {
+	public String exchangeVehicle(String idList, String unit, staff_basicinfo staffInfo) {
+		if (staffInfo != null) {
+			if (idList != null) {
+				if (unit != null) {
+					String[] vehicle_unit = idList.split(",");
+					if (vehicle_unit != null) {
+						for (String viui : vehicle_unit) {
+							if (viui != null) {
+								String[] vu = viui.split("&");
+								if (vu[0] != null && vu[1] != null) {
+									unit initiativeUnitInfo = vehicleManagementDao.getUnitInfoById(vu[1]);
+									unit acceptUnitInfo = vehicleManagementDao.getUnitInfoById(unit);
+									if (initiativeUnitInfo != null && acceptUnitInfo != null) {
+										if (staffInfo.getStaff_id() != null
+												&& staffInfo.getStaff_id().trim().length() > 0) {
+											vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(vu[0]);
+											driver driverInfo = vehicleManagementDao.getDriverInfoByVehicleId(vu[0]);
+											if (driverInfo != null) {
+												driverInfo.setDriver_vehicle("");
+												driverInfo.setDriver_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(driverInfo);
+											}
+											if (vehicleInfo != null) {
+												vehicleInfo.setVehicle_current_weight("0");
+												vehicleInfo.setVehicle_express_state("空闲");
+												vehicleInfo.setVehicle_distribution_state("已分配到中转站");
+												vehicleInfo.setVehicle_team("");
+												vehicleInfo.setVehicle_unit(unit);
+												vehicleInfo.setVehicle_drivingdirection(unit);
+												vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 
-						/**
-						 * 得到承接方的单位信息
-						 */
-						unit initiativeUnit = vehicleManagementDao
-								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_initiative());
-						System.out.println("6666" + initiativeUnit);
-						/**
-						 * 得到接收方的单位信息
-						 */
-						unit acceptedUnit = vehicleManagementDao
-								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_acceptd());
-						System.out.println("7777" + acceptedUnit);
-						System.out.println("33333");
-						/**
-						 * 判断承接单位和接收单位是不是为空
-						 */
-						if (initiativeUnit != null && acceptedUnit != null) {
-							System.out.println("44444");
-							/**
-							 * 设置接收方的单位这辆车辆信息，车辆的扭转状态，车辆行驶方向，车辆载货状态，所属车队，生成更改时间
-							 */
-							vehicleInfo.setVehicle_unit(vehicleCirculation.getVehiclecirculation_acceptd());
-							vehicleInfo.setVehicle_distribution_state("未分配至车队");
-							vehicleInfo.setVehicle_drivingdirection("无");
-							vehicleInfo.setVehicle_express_state("空闲");
-							vehicleInfo.setVehicle_team("无");
-							vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
-							/**
-							 * 更新车辆信息
-							 */
-							vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
-							System.out.println("车辆信息更新成功");
-							/**
-							 * 设置车辆扭转表中的信息
-							 */
-							vehicleCirculation.setVehiclecirculation_id(BuildUuid.getUuid());
-							vehicleCirculation.setVehiclecirculation_time(TimeUtil.getStringSecond());
-							vehicleCirculation.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
-							vehicleCirculation.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
-							vehicleManagementDao.saveOrUpdateObject(vehicleCirculation);
-							System.out.println("流转完成！");
-							return "success";
+												vehiclecirculation vehicleCirculationInfo = new vehiclecirculation();
+												vehicleCirculationInfo.setVehiclecirculation_id(BuildUuid.getUuid());
+												vehicleCirculationInfo.setVehiclecirculation_acceptd(unit);
+												vehicleCirculationInfo.setVehiclecirculation_initiative(vu[1]);
+												vehicleCirculationInfo.setVehiclecirculation_instructions("无");
+												vehicleCirculationInfo.setVehiclecirculation_mark("无");
+												vehicleCirculationInfo.setVehiclecirculation_vehicle_id(vu[0]);
+												vehicleCirculationInfo
+														.setVehiclecirculation_people(staffInfo.getStaff_id());
+												vehicleCirculationInfo
+														.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
+												vehicleCirculationInfo
+														.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleCirculationInfo);
+												return "success";
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-		System.out.println("流转失败！");
 		return "error";
 	}
 

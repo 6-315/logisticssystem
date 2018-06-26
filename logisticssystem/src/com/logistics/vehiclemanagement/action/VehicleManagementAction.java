@@ -298,7 +298,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 
 		/**
@@ -379,7 +379,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 
 		response.setContentType("text/html;charset=utf-8");
 		/**
@@ -402,8 +402,10 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void exchangeVehicle() throws IOException {
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
+		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(idList,unit,staffInfo));
 	}
 
 	/**

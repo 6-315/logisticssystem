@@ -280,4 +280,18 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		return routeInfo;
 	}
 
+	/**
+	 * 根据车辆ID获得驾驶员信息
+	 */
+	@Override
+	public driver getDriverInfoByVehicleId(String id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_vehicle = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
+	}
+
 }

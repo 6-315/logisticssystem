@@ -106,6 +106,8 @@ public interface VehicleManagementDao {
 
 	public route getRouteInfoByTeamId(String team_id);
 
+	public driver getDriverInfoByVehicleId(String id);
+
 	/**
 	 * 
 	 * @param trim
