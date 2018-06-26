@@ -235,7 +235,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		routManagerVO = routeManagementService.getRouteManagerVO(routManagerVO);
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.getWriter().write(gson.toJson(routManagerVO));
 
 		

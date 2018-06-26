@@ -626,6 +626,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	public String pageAddRoute(){
 		return "pageAddRoute";
 	}
+	/**
+	 * 重定向到action
+	 */
+	public String addVehiclePage() {
+		return "addVehcile";
+	}
+	/**
+	 * 跳转到添加路线页面
+	 */
+	public String pageAddVehcile(){
+		return "pageAddVehcile";
+	}
 	
 	/**
 	 * 查看当前预约单信息
