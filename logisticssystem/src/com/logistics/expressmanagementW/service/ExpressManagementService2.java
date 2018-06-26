@@ -26,7 +26,7 @@ public interface ExpressManagementService2 {
 
 	List<unit> getAddressByUnit(String address);
 
-	List<ExpressCirculationAndUnitDTO> getExpressCirculation(express expressNew);
+	List<ExpressCirculationAndUnitDTO> getExpressCirculation(String waybillNumber);
 
 	List<DistributiontorAndStaffBasicinfoDTO> getDispatcher(staff_basicinfo staffBasicinfo);
 

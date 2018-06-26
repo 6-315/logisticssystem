@@ -218,13 +218,14 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ExpressCirculationAndUnitDTO> getExpressCirculation(express expressNew) {
+	public List<ExpressCirculationAndUnitDTO> getExpressCirculation(String waybillNumber) {
 		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = new ArrayList<>();
 		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
 		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
-		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+		if (waybillNumber != null && waybillNumber.trim().length() > 0) {
+			express expressNew = new express();
+			expressNew = expressManagementDao2.getExpressByWaybillNumber(waybillNumber);
 			List<express_circulation> ListExpressCirculation = new ArrayList<>();
-
 			ListExpressCirculation = (List<express_circulation>) expressManagementDao2
 					.listObject("from express_circulation where express_circulation_express_id ='"
 							+ expressNew.getExpress_id() + "' order by express_circulation_modifytime");

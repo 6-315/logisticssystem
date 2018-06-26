@@ -73,7 +73,7 @@ public class ExpressmanagementByLiWei {
 	/**
 	 * 查看快件详情
 	 */
-	@Test
+/*	@Test
 	public void listExpressCirculationAndUnitDTO() {
 		express expressNew = new express();
 		expressNew.setExpress_id("999");
@@ -81,7 +81,7 @@ public class ExpressmanagementByLiWei {
 				.getExpressCirculation(expressNew);
 		System.out.println("IIIIIIIIIIIIIIIIIII=:" + listExpressCirculationAndUnitDTO);
 	}
-
+*/
 	/**
 	 * 根据自身session查询自身以下的所有配送员
 	 */

@@ -164,7 +164,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public expressinfo getExpressInfo(String express_expressinfoid) {
-		System.out.println("ooooooo");
 		expressinfo expressinfoNew = new expressinfo();
 		Session session = getSession();
 		String hql = " from expressinfo where expressinfo_id = :ID";
@@ -246,7 +245,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public express_send getExpressSend(String express_id) {
-		System.out.println("fdfdfdf:" + express_id);
 		express_send expressSend = new express_send();
 		Session session = getSession();
 		String hql = " from express_send where express_send_express_id = :ID";
@@ -259,13 +257,12 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 根据快件ID获取快件配送 表记录
 	 */
 	@Override
 	public express_send getExpressSend1(String express_id) {
-		System.out.println("fdfdfdf:" + express_id);
 		express_send expressSend = new express_send();
 		Session session = getSession();
 		String hql = " from express_send where express_send_express_id = :ID and express_send_type = '派送'";
@@ -278,7 +275,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		}
 		return null;
 	}
-
 
 	/**
 	 * 根据路线ID获取车队
@@ -399,6 +395,24 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		if (driverNew != null) {
 			return driverNew;
 		}
+		return null;
+	}
+
+	/**
+	 * 根据运单号查询快件
+	 */
+	@Override
+	public express getExpressByWaybillNumber(String waybillNumber) {
+		express expressNew = new express();
+		Session session = getSession();
+		String hql = " from express where express_number = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", waybillNumber);
+		expressNew = (express) query.uniqueResult();
+		if (expressNew != null) {
+			return expressNew;
+		}
+
 		return null;
 	}
 }
