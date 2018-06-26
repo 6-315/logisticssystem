@@ -32,33 +32,46 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * @return 1 代表添加成功
 	 */
 	@Override
-	public String addVehicle(vehicle vehicleInfo) {
-		if (vehicleInfo.getVehicle_platenum() != null && vehicleInfo.getVehicle_platenum().trim().length() > 0) {
-			vehicle queryVehicle = vehicleManagementDao.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
-			if (queryVehicle != null) {
-				System.out.println("该车牌号已经存在");
-				return "error";
-			} else {
-				/**
-				 * 添加信息
-				 */
-				vehicleInfo.setVehicle_id(BuildUuid.getUuid());
-				vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
-				vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
-				vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
-				vehicleInfo.setVehicle_mark("无");
-				/**
-				 * 完成添加功能
-				 */
-				vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
-				System.out.println("添加成功");
-				return "success";
+	public vehicle addVehicle(vehicle vehicleInfo, staff_basicinfo staffInfo) {
+		if (staffInfo != null) {
+			if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
+				if (vehicleInfo != null) {
+					if (vehicleInfo.getVehicle_id() != null && vehicleInfo.getVehicle_id().trim().length() > 0) {
+						vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+						return vehicleInfo;
+					} else {
+						if (vehicleInfo.getVehicle_platenum() != null
+								&& vehicleInfo.getVehicle_platenum().trim().length() > 0) {
+							vehicle queryVehicle = vehicleManagementDao
+									.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
+							if (queryVehicle != null) {
+								System.out.println("该车牌号已经存在");
+								return null;
+							} else {
+								/**
+								 * 添加信息
+								 */
+								vehicleInfo.setVehicle_id(BuildUuid.getUuid());
+								vehicleInfo.setVehicle_acquisitionpeople(staffInfo.getStaff_id());
+								vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
+								vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
+								vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+								/**
+								 * 完成添加功能
+								 */
+								vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+								System.out.println("添加成功");
+								return vehicleInfo;
+							}
+						} else {
+							System.out.println("未获得车牌号");
+							return null;
+						}
+					}
+				}
 			}
-		} else {
-			System.out.println("未获得车牌号");
-			return "error";
 		}
-
+		return null;
 	}
 
 	/**

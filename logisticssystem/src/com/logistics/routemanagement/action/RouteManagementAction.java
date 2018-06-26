@@ -5,13 +5,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logistics.domain.route;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
 import com.logistics.routemanagement.service.RouteManagementService;
 import com.opensymphony.xwork2.ActionSupport;
@@ -172,9 +175,11 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void addRoute() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(gson.toJson(routeManagementService.addRout(rout)));
+		response.getWriter().write(gson.toJson(routeManagementService.addRout(rout,staffInfo)));
 
 		
 	}
@@ -186,7 +191,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void updateRouteInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(routeManagementService.updateRoutInfo(rout)));
 	}
@@ -198,7 +203,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 	public void updateRouteState() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(routeManagementService.updateRouteState(rout)));
 		//routeManagementService.updateRouteState(rout);
@@ -214,7 +219,7 @@ public class RouteManagementAction extends ActionSupport implements ServletRespo
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(routeManagementService.removeListRoute(routeId));
+		response.getWriter().write(""+routeManagementService.removeListRoute(routeId));
 
 
 	}

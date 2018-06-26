@@ -20,10 +20,11 @@ public interface VehicleManagementService {
 
 	/**
 	 * 添加车辆
+	 * @param staffInfo 
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public String addVehicle(vehicle vehicleInfo);
+	public vehicle addVehicle(vehicle vehicleInfo, staff_basicinfo staffInfo);
 
 	/**
 	 * 查询车辆

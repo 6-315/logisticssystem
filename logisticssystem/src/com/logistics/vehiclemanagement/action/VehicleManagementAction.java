@@ -283,8 +283,16 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 */
 
 	public void addVehicle() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.addVehicle(vehicleInfo));
+		response.getWriter().write(gson.toJson(vehicleManagementService.addVehicle(vehicleInfo,staffInfo)));
 	}
 
 	/**
