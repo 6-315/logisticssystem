@@ -180,7 +180,7 @@
                     url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',
                     type: 'POST',
                     data: {
-                        'position': unitAddData.transferStation.unit_admin
+                        'unit': unitAddData.transferStation.unit_admin
                     },
                     success: function (data) {
                         if (data != null) {

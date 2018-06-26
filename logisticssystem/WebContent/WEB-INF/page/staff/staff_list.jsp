@@ -387,7 +387,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="staffManagerVO.listStaDTO.length == 0">
+                                    <tbody v-if="staffManagerVO.listStaDTO!=undefined && staffManagerVO.listStaDTO.length == 0">
                                     <td v-if="ready" style="text-align: center" colspan="10"
                                         height="50">暂无数据
                                     </td>
