@@ -113,7 +113,7 @@
                 <div class="trace-table">
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tbody>
-                        <tr v-if="liuZhuan in liuZhuanList">
+                        <tr v-for="liuZhuan in liuZhuanList">
                             <td v-if="liuZhuan.number == 'one'" class="time">
                                 {{liuZhuan.expressCirculation.express_circulation_createtime}}
                             </td>

@@ -392,8 +392,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setTeamLeader(teamLeader);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO, staffInfo);
-		response.getWriter().write(gson.toJson(teamInfoVO));
+		response.getWriter().write(gson.toJson(vehicleManagementService.queryTeam(teamInfoVO, staffInfo)));
 	}
 
 	/**

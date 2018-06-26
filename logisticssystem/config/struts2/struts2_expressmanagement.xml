@@ -38,6 +38,13 @@
 				/WEB-INF/page/route/route_add.jsp
 			</result>
 			
+			<result name="addVehcile" type="redirect">
+				/expressmanagement/expressmanagement_pageAddVehcile?idList=${idList}
+			</result>
+			<result name="pageAddVehcile">
+				/WEB-INF/page/vehicle/vehicle_add.jsp
+			</result>
+			
 		</action>
 	</package>
 </struts>

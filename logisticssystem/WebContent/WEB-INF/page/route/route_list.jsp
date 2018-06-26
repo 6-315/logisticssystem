@@ -212,7 +212,8 @@
                                 <p>查询快件</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
@@ -301,7 +302,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
@@ -414,7 +416,16 @@
                                                style="min-height: 200px">
                                         <tr v-for="routeList in routManagerVO.listRouteManagerDTO">
                                             <td v-html="routeList.rout.route_num"></td>
-                                            <td>{{routeList.staff_Id.staff_num}}</td>
+
+
+                                            <td v-if="routeList.staff_Id != undefined">
+                                                {{routeList.staff_Id.staff_num}}
+                                            </td>
+                                            <td v-else>
+
+                                            </td>
+
+
                                             <td>{{routeList.route_Departurestation.unit_name}}</td>
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
                                             <td>{{routeList.rout.route_state}}</td>
