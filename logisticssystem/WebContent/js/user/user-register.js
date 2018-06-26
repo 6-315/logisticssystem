@@ -34,6 +34,10 @@
                                     password: userInfo.userinfo_password
                                 },
                                 success: function (data) {
+                                    userInfo.userinfo_phonenumber = ''
+                                    userInfo.userinfo_password = ''
+                                    userInfo.userinfo_email = ''
+                                    userInfo.userinfo_confirmPassword = ''
                                     window.location = '/logisticssystem/loginregister/loginregister_pageUser'
                                 }
                             })

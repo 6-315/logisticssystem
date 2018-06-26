@@ -133,10 +133,9 @@
                     }
                 })
             },
-            getReservationByState: function (event) {
-                const obj = event.target
-                const index = obj.selectedIndex
-                reservationData.selectState = obj.options[index].value
+            getReservationByState: function (reserState) {
+                console.log('fdfdfdfdfdfd---')
+                reservationData.selectState = reserState
                 reservationList.getReservationData(reservationData.selectState)
             }
         },

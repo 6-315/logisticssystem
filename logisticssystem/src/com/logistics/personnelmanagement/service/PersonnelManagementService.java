@@ -2,9 +2,11 @@ package com.logistics.personnelmanagement.service;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.unit;
+import com.logistics.personnelmanagement.DTO.StaffManagerDTO;
 import com.logistics.personnelmanagement.VO.StaffManagerVO;
 
 /**
@@ -24,13 +26,22 @@ public interface PersonnelManagementService {
 
 
 
-	staff_basicinfo addStaff(staff_basicinfo staffBasicinfo);
 
 	String updateStaffInfo(staff_basicinfo staffBasicInfo);
 
 	String updateStaffUnit(staff_basicinfo staffBasicinfo);
 
 	String updateStaffState(staff_basicinfo staffBasicinfo);
+
+	List<position> getPositionById(staff_basicinfo staffBasicSession);
+
+	staff_basicinfo addStaff(staff_basicinfo staffBasicInfo, staff_basicinfo staffBasicSession);
+
+	String updatePositionById(String iD, String positionNew);
+
+	String updateUnitById(String iD, String unitNew);
+
+	StaffManagerDTO getStaffManagerDTO(String iD);
 
 
 	

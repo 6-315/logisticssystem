@@ -69,7 +69,7 @@ public interface TransferStationDao {
 	 */
 	public staff_basicinfo getBasicinfoById(String trim);
 /**
- * 生成编号
+ * 查询中转站最大编号
  * @param string 
  * @param trim
  * @return
@@ -93,6 +93,26 @@ public vehicle getVehicleById(String trim);
  * @return
  */
 public driver getDriverById(String trim);
+/**
+ * 查询配送点最大编号
+ * @param unit_num
+ * @return
+ */
+String getDistributionByNum(String unit_num);
+
+/**
+ * 根据id查询职位
+ * @param trim
+ * @return
+ */
+position getPositionById(String trim);
+
+/**
+ * 根据车队队长id查询车队
+ * @param trim
+ * @return
+ */
+team getTeamByLeader(String trim);
 
 
 

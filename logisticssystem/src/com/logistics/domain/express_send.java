@@ -1,6 +1,8 @@
 package com.logistics.domain;
+
 /**
  * 快件派送表
+ * 
  * @author LMJ
  *
  */
@@ -29,6 +31,12 @@ public class express_send {
 	 * 修改时间
 	 */
 	private String express_send_modifytime;
+	/**
+	 * 快件配送点类型
+	 * 
+	 * @return
+	 */
+	private String express_send_type;
 
 	public String getExpress_send_id() {
 		return express_send_id;
@@ -78,12 +86,21 @@ public class express_send {
 		this.express_send_modifytime = express_send_modifytime;
 	}
 
+	public String getExpress_send_type() {
+		return express_send_type;
+	}
+
+	public void setExpress_send_type(String express_send_type) {
+		this.express_send_type = express_send_type;
+	}
+
 	@Override
 	public String toString() {
 		return "express_send [express_send_id=" + express_send_id + ", express_send_express_id="
 				+ express_send_express_id + ", express_send_distributiontor=" + express_send_distributiontor
 				+ ", express_send_state=" + express_send_state + ", express_send_createtime=" + express_send_createtime
-				+ ", express_send_modifytime=" + express_send_modifytime + "]";
+				+ ", express_send_modifytime=" + express_send_modifytime + ", express_send_type=" + express_send_type
+				+ "]";
 	}
 
 }

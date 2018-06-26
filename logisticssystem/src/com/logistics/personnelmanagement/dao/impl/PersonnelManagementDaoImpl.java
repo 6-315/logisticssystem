@@ -127,7 +127,10 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		query.setParameter("ID", id);
 		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
 		System.out.println("OK");
-		return staffBasicInfo;
+		if (staffBasicInfo != null) {
+			return staffBasicInfo;
+		}
+		return null;
 	}
 
 	/**
@@ -179,18 +182,36 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		String num = (String) query.uniqueResult();
 		return num;
 	}
+
 	/**
 	 * 根据单位查上级单位
 	 */
-	
+
 	@Override
 	public unit getUnitAdmin(staff_basicinfo staffBasicinfo) {
-		unit unit=new unit();
-		Session session=getSession();
-		String hql="from unit where unit_id='"+staffBasicinfo.getStaff_unit()+"'";
-		Query query=session.createQuery(hql);
+		unit unit = new unit();
+		Session session = getSession();
+		String hql = "from unit where unit_id='" + staffBasicinfo.getStaff_unit() + "'";
+		Query query = session.createQuery(hql);
 		unit = (unit) query.uniqueResult();
 		return unit;
+	}
+
+	/**
+	 * 根据ID查询单位
+	 */
+	@Override
+	public unit gerUnitByID(String iD) {
+		unit unitNew = new unit();
+		Session session = getSession();
+		String hql = " from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", iD);
+		unitNew = (unit) query.uniqueResult();
+		if (unitNew != null) {
+			return unitNew;
+		}
+		return null;
 	}
 
 }

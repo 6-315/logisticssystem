@@ -37,21 +37,21 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	@Override
 	public route addRout(route rout) {
 		route route = new route();
-	String	routeMax = routeManagementDao.getMaxRouteNum(route.getRoute_num());
-		if(routeMax!=null) {
-			routeMax=routeMax.replaceAll("[A]", "");
-			int nextNum=Integer.parseInt(routeMax);
-			nextNum=nextNum+1;
-			String num=String.format("%03d", nextNum);
-			rout.setRoute_num("A"+num);
+		String routeMax = routeManagementDao.getMaxRouteNum(route.getRoute_num());
+		if (routeMax != null) {
+			routeMax = routeMax.replaceAll("[A]", "");
+			int nextNum = Integer.parseInt(routeMax);
+			nextNum = nextNum + 1;
+			String num = String.format("%03d", nextNum);
+			rout.setRoute_num("A" + num);
 			System.out.println("eeee");
-		}else {
-			int nextNum=1;
-			String num=String.format("%03d", nextNum);
-			rout.setRoute_num("A"+num);
+		} else {
+			int nextNum = 1;
+			String num = String.format("%03d", nextNum);
+			rout.setRoute_num("A" + num);
 		}
 		rout.setRoute_id(BuildUuid.getUuid());
-		if(rout!=null) {
+		if (rout != null) {
 			routeManagementDao.saveOrUpdateObject(rout);
 		}
 		return rout;
@@ -62,8 +62,8 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 */
 	@Override
 	public String updateRoutInfo(route rout) {
-		if(rout.getRoute_id().trim().length() > 0) {
-		routeManagementDao.saveOrUpdateObject(rout);
+		if (rout.getRoute_id().trim().length() > 0) {
+			routeManagementDao.saveOrUpdateObject(rout);
 		}
 		return "success";
 	}
@@ -73,8 +73,8 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 */
 	@Override
 	public String updateRouteState(route rout) {
-		if(rout.getRoute_id().trim().length()>0 && rout.getRoute_state().trim().length()>0) {
-		routeManagementDao.saveOrUpdateObject(rout);
+		if (rout.getRoute_id().trim().length() > 0 && rout.getRoute_state().trim().length() > 0) {
+			routeManagementDao.saveOrUpdateObject(rout);
 		}
 		return "success";
 
@@ -109,7 +109,6 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		List<route> listRoute = new ArrayList<>();
 		// 初始化DTO集合
 		List<RouteManagerDTO> listRouteManagerDTO = new ArrayList<>();
-		RouteManagerDTO routeManagerDTO;
 		// 查询分页，表
 		String searchPaging = " select count(*) from route where 1=1 ";
 		String searchForm = " from route where 1=1 ";
@@ -119,26 +118,24 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			searchPaging = searchPaging + " and route_num like '" + search + "' ";
 			searchForm = searchForm + " and route_num like '" + search + "'";
 		}
-		// 根据状态查询
+		// 根据状态查询 
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
-			String search = "%" + routeManagerVO.getState() + "%";
-			searchPaging = searchPaging + " and route_state = '" + search + "'";
-			searchForm = searchForm + " and route_state = '" + search + "'";
+			// String search = "%" + routeManagerVO.getState() + "%";
+			searchPaging = searchPaging + " and route_state = '" + routeManagerVO.getState() + "'";
+			searchForm = searchForm + " and route_state = '" + routeManagerVO.getState() + "'";
 		}
 		// 根据始发中转站查询
 		if (routeManagerVO.getStartUnit() != null && routeManagerVO.getStartUnit().trim().length() > 0) {
-			String search = "%" + routeManagerVO.getStartUnit() + "%";
-			searchPaging = searchPaging + " and route_departurestation = '" + search + "'";
-			searchForm = searchForm + " and route_departurestation = '" + search + "'";
+			searchPaging = searchPaging + " and route_departurestation = '" + routeManagerVO.getStartUnit() + "'";
+			searchForm = searchForm + " and route_departurestation = '" + routeManagerVO.getStartUnit() + "'";
 		}
 		// 根据终止中转站查询
 		if (routeManagerVO.getEndUnit() != null && routeManagerVO.getEndUnit().trim().length() > 0) {
-			String search = "%" + routeManagerVO.getEndUnit() + "%";
-			searchPaging = searchPaging + " and route_terminalstation = '" + search + "'";
-			searchForm = searchForm + " and route_terminalstation = '" + search + "'";
+			searchPaging = searchPaging + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
+			searchForm = searchForm + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
 		}
 
-		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
+		// 这里如果不加desc表示正序，如果加**/上desc表示倒序 
 		searchForm = searchForm + " order by route_createtime desc";
 		// 获取对象的总数量
 		int userInfoCount = routeManagementDao.getCount(searchPaging);
@@ -164,66 +161,42 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 				routeManagerVO.getPageSize());
 		System.out.println("--------------------a a a a a " + listRoute.size());
 		for (route route : listRoute) {
-			System.out.println("这是什么" + route.getRoute_id());
+
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
-			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
+			staff_basicinfo creator = routeManagementDao.getStaff_Basicinfo(" from staff_basicinfo where staff_id ='"+route.getRoute_creater()+"' ");
+			routeMangerDTO.setStaff_Id(creator);
+			unit beginUnit = routeManagementDao.getUnitInfoById(route.getRoute_departurestation());
+			routeMangerDTO.setRoute_Departurestation(beginUnit);
+			unit endUnit = routeManagementDao.getUnitInfoById(route.getRoute_terminalstation());
+			routeMangerDTO.setRoute_Terminalstation(endUnit);
+			routeMangerDTO.setRout(route);
+			listRouteManagerDTO.add(routeMangerDTO);
+/*			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
 			liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
 					.listObject("from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'");
-
 			List<unit> listUnitD = new ArrayList<>();
 			listUnitD = (List<unit>) routeManagementDao
 					.listObject("from unit where unit_id = '" + route.getRoute_departurestation() + "'");
-			System.out.println("________:" + listUnitD.get(0).getUnit_id());
 			List<unit> listUnitT = new ArrayList<>();
 			listUnitT = (List<unit>) routeManagementDao
 					.listObject("from unit where unit_id = '" + route.getRoute_terminalstation() + "'");
-			System.out.println("gggggggggg:" + listUnitT.size());
 			if (listUnitT.size() != 0 && listUnitD.size() != 0 && liststaffBasicinfo.size() != 0) {
 				routeMangerDTO.setStaff_Id(liststaffBasicinfo.get(0));
 				routeMangerDTO.setRoute_Departurestation(listUnitD.get(0));
-				System.out.println("MMMMMMMMMMM" + routeMangerDTO);
 				routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
-				System.out.println("PPPPPP:" + routeMangerDTO);
+				routeMangerDTO.setRout(route);
 				listRouteManagerDTO.add(routeMangerDTO);
-				System.out.println();
-			}
+			}*/
 			// 高亮
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
 				route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch(),
-						"<mark>" + routeManagerVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + routeManagerVO.getSearch() + "</span>"));
 			}
 
 		}
-
-		/*
-		 * for (route route : listRoute) { RouteManagerDTO routeMangerDTO = new
-		 * RouteManagerDTO(); staff_basicinfo staffBasicinfo = new staff_basicinfo(); //
-		 * 始发站，终止站 unit routeDeparturestation = new unit(); unit routeTerminalstation =
-		 * new unit(); String sql = "from staff_basicinfo where staff_id='" +
-		 * route.getRoute_creater() + "'"; staffBasicinfo =
-		 * routeManagementDao.getStaff_Basicinfo(sql); String sql1 =
-		 * "from unit where unit_id='" + route.getRoute_departurestation() + "'";
-		 * routeDeparturestation = routeManagementDao.getRoute_Departurestation(sql1);
-		 * String sql2 = "from unit where unit_id='" + route.getRoute_terminalstation()
-		 * + "'"; routeTerminalstation =
-		 * routeManagementDao.getRoute_Terminalstation(sql2);
-		 * 
-		 * staffBasicinfo.getStaff_id(); routeDeparturestation.getUnit_id();
-		 * routeTerminalstation.getUnit_id(); System.out.println("5555" + route);
-		 * System.out.println("5555" + staffBasicinfo); System.out.println("5555" +
-		 * routeDeparturestation); if (routeManagerVO.getSearch() != null &&
-		 * routeManagerVO.getSearch().trim().length() > 0) {
-		 * route.setRoute_num(route.getRoute_num().replaceAll(routeManagerVO.getSearch()
-		 * , "<mark>" + routeManagerVO.getSearch() + "</mark>")); }
-		 * routeMangerDTO.setRout(route); routeMangerDTO.setStaff_Id(staffBasicinfo);
-		 * routeMangerDTO.setRoute_Departurestation(routeDeparturestation);
-		 * routeMangerDTO.setRoute_Terminalstation(routeTerminalstation);
-		 * listRouteManagerDTO.add(routeMangerDTO); }
-		 */
-		System.out.println("3333333" + listRouteManagerDTO);
+		System.out.println("size:" + listRouteManagerDTO.size());
 		routeManagerVO.setListRouteManagerDTO(listRouteManagerDTO);
-		System.out.println("hsahdioashdoihasodh" + routeManagerVO);
 		return routeManagerVO;
 	}
 

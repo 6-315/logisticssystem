@@ -175,10 +175,20 @@ public String getMaxRouteNum(String route_num) {
 	String hql = "select substring(route_num,2) from route order by --substring(route_num,2) desc limit 1";
 	Query query = session.createSQLQuery(hql);
 	String maxRouteNum = (String) query.uniqueResult();
-
 	return maxRouteNum;
 }
 
+@Override
+public unit getUnitInfoById(String route_departurestation) {
+	unit unitInfo = new unit();
+	Session session = getSession();
+	String hql = "from unit where unit_id=:ID ";
+	Query query = session.createQuery(hql);
+	query.setParameter("ID", route_departurestation);
+	unitInfo = (unit) query.uniqueResult();
+	return unitInfo;
+}
 
+	
 
 }

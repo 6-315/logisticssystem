@@ -22,21 +22,21 @@ public interface ExpressManagementService {
 
 	public String updateReservationWithDistributor(String idList, distributiontor distributor);
 
-	public ExpressAndCirculationDTO completePickExpress(staff_basicinfo staffInfo);
+	public ExpressAndCirculationDTO completePickExpress(ExpressAndCirculationDTO expressAndCirculationDTO,staff_basicinfo staffInfo);
 
-	public String updateExpressState(express expressInfo);
+	/*public String updateExpressState(express expressInfo);*/
 
 	public String judgeExpressType(express expressInfo);
 
-	public String saveExpressRoute(String idList, express expressInfo);
+	public String saveExpressRoute(String id_directionList, express expressInfo);
 
-	public List<route> queryAllRouteWithUnit(unit unitInfo);
+	public ExpressRouteDTO queryAllRouteWithUnit(unit unitInfo);
 
-	public String updateVehicleAndExpressCirculationAndExpressInfo(express expressInfo, vehicle vehicleInfo, staff_basicinfo staffInfo);
+	public String updateVehicleAndExpressCirculationAndExpressInfo(ExpressAndCirculationDTO expressAndCirculationDTO, staff_basicinfo staffInfo);
 
 	public ReservationVO queryReservationInfo(ReservationVO reservationVO, staff_basicinfo staffInfo);
 
-	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressVO, staff_basicinfo staffInfo);
+	public ExpressInfoVO queryExpressInfo(ExpressInfoVO expressInfoVO, staff_basicinfo staffInfo);
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
@@ -47,6 +47,9 @@ public interface ExpressManagementService {
 	public String updateReservationInfo(ReservationExpressInfoDTO reservationExpressInfoDTO);
 
 	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
+
+	public RouteDTO getRouteInfo(String idList);
+
 
 
 }

@@ -14,6 +14,19 @@
 			</result>
 			<result name="pageReservationManager">/WEB-INF/page/express/reservation_manager.jsp
 			</result>
+			<result name="pageUnitList">/WEB-INF/page/unit/unit_list.jsp
+			</result>
+			<result name="pageRouteList">/WEB-INF/page/route/route_list.jsp
+			</result>
+			<result name="pageUnitAdd">/WEB-INF/page/unit/unit_add.jsp
+			</result>
+			<result name="pageStaffList">/WEB-INF/page/staff/staff_list.jsp
+			</result>
+			<result name="pageStaffAdd">/WEB-INF/page/staff/staff_add.jsp
+			</result>
+			<result name="pageRouteAdd">/WEB-INF/page/route/route_add.jsp
+			</result>
+			<result name="pageIndex" type="redirect">/index.jsp</result>
 		</action>
 	</package>
 </struts>

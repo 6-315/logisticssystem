@@ -123,9 +123,9 @@ public class ExpressmanagementByLiWei {
 
 	}
 
-	/**
+/*	*//**
 	 * 配送员对快件的操作
-	 */
+	 *//*
 	@Test
 	public void qq() {
 		express expressNew = new express();
@@ -133,5 +133,5 @@ public class ExpressmanagementByLiWei {
 		staff_basicinfo staffBasicinfo = new staff_basicinfo();
 		expressManagementService2.updateExpressByDistributiontor(staffBasicinfo, expressNew);
 
-	}
+	}*/
 }

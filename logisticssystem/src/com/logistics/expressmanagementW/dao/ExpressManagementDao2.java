@@ -3,10 +3,13 @@ package com.logistics.expressmanagementW.dao;
 import java.util.List;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
+import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -62,7 +65,7 @@ public interface ExpressManagementDao2 {
 
 	public express getExpress(String express_id);
 
-	public vehicle getVehicle(String vehicle_id);
+	public vehicle getVehicle(String driver_vehicle);
 
 	public expressinfo getExpressInfo(String express_expressinfoid);
 
@@ -79,6 +82,16 @@ public interface ExpressManagementDao2 {
 	public unit getUnitById(String unitId);
 
 	public staff_basicinfo getStaffBasicinfo(String distributiontor_basicinfo);
+
+	public position getPosition(String staff_id);
+
+	public unit getUpUnit(String staff_unit);
+
+	public driver getDriverById(String staff_id);
+
+	public express_circulation getExpressCirculation(String id);
+
+	express_send getExpressSend1(String express_id);
 
 
 	/**

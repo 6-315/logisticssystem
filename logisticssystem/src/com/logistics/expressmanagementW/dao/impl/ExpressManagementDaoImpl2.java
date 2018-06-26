@@ -8,10 +8,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.express;
+import com.logistics.domain.express_circulation;
 import com.logistics.domain.express_route;
 import com.logistics.domain.express_send;
 import com.logistics.domain.expressinfo;
+import com.logistics.domain.position;
 import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -214,6 +217,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_route_id);
 		routeNew = (route) query.uniqueResult();
+		System.out.println("----------" + routeNew);
 		if (routeNew != null) {
 			return routeNew;
 		}
@@ -227,7 +231,7 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	public distributiontor getDistributiontor(String staff_id) {
 		distributiontor distributiontorNew = new distributiontor();
 		Session session = getSession();
-		String hql = " from distributiontor where distributiontor_id = :ID";
+		String hql = " from distributiontor where distributiontor_basicinfo = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", staff_id);
 		distributiontorNew = (distributiontor) query.uniqueResult();
@@ -242,18 +246,39 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 	 */
 	@Override
 	public express_send getExpressSend(String express_id) {
+		System.out.println("fdfdfdf:" + express_id);
 		express_send expressSend = new express_send();
 		Session session = getSession();
 		String hql = " from express_send where express_send_express_id = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
+		System.out.println("kkkk" + hql);
 		expressSend = (express_send) query.uniqueResult();
 		if (expressSend != null) {
 			return expressSend;
 		}
-
 		return null;
 	}
+	
+	/**
+	 * 根据快件ID获取快件配送 表记录
+	 */
+	@Override
+	public express_send getExpressSend1(String express_id) {
+		System.out.println("fdfdfdf:" + express_id);
+		express_send expressSend = new express_send();
+		Session session = getSession();
+		String hql = " from express_send where express_send_express_id = :ID and express_send_type = '派送'";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", express_id);
+		System.out.println("kkkk" + hql);
+		expressSend = (express_send) query.uniqueResult();
+		if (expressSend != null) {
+			return expressSend;
+		}
+		return null;
+	}
+
 
 	/**
 	 * 根据路线ID获取车队
@@ -302,6 +327,77 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		staffBasicinfoNew = (staff_basicinfo) query.uniqueResult();
 		if (staffBasicinfoNew != null) {
 			return staffBasicinfoNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据ID获取职位
+	 */
+	@Override
+	public position getPosition(String staff_id) {
+		position positionNew = new position();
+		Session session = getSession();
+		String hql = " from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		positionNew = (position) query.uniqueResult();
+		if (positionNew != null) {
+			return positionNew;
+		}
+		return null;
+	}
+
+	/***
+	 * 查找上级单位
+	 */
+	@Override
+	public unit getUpUnit(String staff_unit) {
+
+		unit unitNew = new unit();
+		Session session = getSession();
+		String hql = " from unit where unit_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_unit);
+		unitNew = (unit) query.uniqueResult();
+		if (unitNew != null) {
+			return unitNew;
+		}
+		return null;
+	}
+
+	/**
+	 * 查找司机
+	 */
+	@Override
+	public driver getDriverById(String staff_id) {
+		driver driverNew = new driver();
+		Session session = getSession();
+		String hql = " from driver where driver_basicinfoid = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		driverNew = (driver) query.uniqueResult();
+		if (driverNew != null) {
+			return driverNew;
+		}
+
+		return null;
+	}
+
+	/**
+	 * 查找未完成的流转表
+	 */
+	@Override
+	public express_circulation getExpressCirculation(String id) {
+		express_circulation driverNew = new express_circulation();
+		Session session = getSession();
+		String hql = " from  express_circulation where express_circulation_express_id = '" + id
+				+ "' and express_circulation_state ='未完成'";
+		Query query = session.createQuery(hql);
+		System.out.println("lllllllllll" + hql);
+		driverNew = (express_circulation) query.uniqueResult();
+		if (driverNew != null) {
+			return driverNew;
 		}
 		return null;
 	}

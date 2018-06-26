@@ -17,6 +17,27 @@
 				/WEB-INF/page/express/express_add.jsp
 			</result>
 
+			<result name="addUnit" type="redirect">
+				/expressmanagement/expressmanagement_pageAddUnit?idList=${idList}
+			</result>
+			<result name="pageAddUnit">
+				/WEB-INF/page/unit/unit_add.jsp
+			</result>
+			
+			<result name="addStaff" type="redirect">
+				/expressmanagement/expressmanagement_pageAddStaff?idList=${idList}
+			</result>
+			<result name="pageAddStaff">
+				/WEB-INF/page/staff/staff_add.jsp
+			</result>
+			
+			<result name="addRoute" type="redirect">
+				/expressmanagement/expressmanagement_pageAddRoute?idList=${idList}
+			</result>
+			<result name="pageAddRoute">
+				/WEB-INF/page/route/route_add.jsp
+			</result>
+			
 		</action>
 	</package>
 </struts>
