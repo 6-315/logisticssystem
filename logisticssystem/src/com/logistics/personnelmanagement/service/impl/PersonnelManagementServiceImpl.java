@@ -61,14 +61,12 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 						|| "配送点管理员".equals(positionNew.getPosition_name())) {
 					System.out.println("我是中转站或者配点");
 					if (staffManagerVO.getBelongUnit() != null && staffManagerVO.getBelongUnit().trim().length() > 0) {
-						System.out.println("??????????????");
 						number = "select count(*) from staff_basicinfo where staff_unit = '"
 								+ staffManagerVO.getBelongUnit() + "'";
 						table = "from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
 					} else {
 
-						System.out.println("ooooooooooooooooo");
-						number = "select count(*) from staff_basicinfo where staff_unit = '"
+						number = "select count(*) from staff_basicinfo where (staff_unit = '"
 								+ staffBasicinfo.getStaff_unit() + "'  ";
 						table = "from staff_basicinfo where  ( staff_unit = '" + staffBasicinfo.getStaff_unit() + "' ";
 						List<unit> listUnitByDistribution = (List<unit>) personnelManagementDao.listObject(
@@ -518,7 +516,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		position positionNew = new position();
 		staffNew = personnelManagementDao.getstaffById(iD);
 		unitNew = personnelManagementDao.gerUnitByID(staffNew.getStaff_unit());
-		
+
 		positionNew = personnelManagementDao.getPosition(staffNew);
 		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
 		staffManagerDTO.setPosition(positionNew);
