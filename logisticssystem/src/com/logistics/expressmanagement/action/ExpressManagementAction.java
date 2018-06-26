@@ -344,7 +344,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
@@ -385,7 +385,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
@@ -437,7 +437,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.queryAllRouteWithUnit(unitInfo)));
 	}
@@ -466,7 +466,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		ExpressInfoVO expressInfoVO = new ExpressInfoVO();
 		expressInfoVO.setPageIndex(page);
@@ -491,7 +491,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		ReservationVO reservationVO = new ReservationVO();
 		reservationVO.setPageIndex(page);
@@ -517,7 +517,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		ReservationOrderHistoryVO reservationOrderHistoryVO = new ReservationOrderHistoryVO();
 		reservationOrderHistoryVO.setPageIndex(page);
@@ -547,12 +547,12 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo, state)));
+		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo.getUserInfoSession(), state)));
 	}
 
 	/**
@@ -626,6 +626,18 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	public String pageAddRoute(){
 		return "pageAddRoute";
 	}
+	/**
+	 * 重定向到action
+	 */
+	public String addVehiclePage() {
+		return "addVehcile";
+	}
+	/**
+	 * 跳转到添加路线页面
+	 */
+	public String pageAddVehcile(){
+		return "pageAddVehcile";
+	}
 	
 	/**
 	 * 查看当前预约单信息
@@ -638,7 +650,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.queryCurrentReservationInfo(idList)));
 	}
@@ -653,10 +665,25 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.getRouteInfo(idList)));
 		
+	}
+	
+	/**
+	 * 获得与职位匹配的所有人员
+	 * @throws IOException 
+	 */
+	public void getStaffInfoByPosition() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(expressManagementService.getStaffInfoByPosition(unit)));
 	}
 	
 }

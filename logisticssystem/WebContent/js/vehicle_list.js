@@ -240,8 +240,8 @@
                     data: '',
                     success: function (data) {
                         const driverManagerDTO = JSON.parse(data)
-                        vehicleListData.driverManagerDTO = vehicleListData.driverManagerDTO
-                        $('#teamDistList').modal()
+                        vehicleListData.driverManagerDTO = driverManagerDTO
+                        $('#driverDistList').modal()
                     }
                 })
             },
@@ -251,14 +251,14 @@
                     url: '/logisticssystem/transferstation/transferstation_distributeDiver',
                     type: 'POST',
                     data: {
-                        'vehicle': vehicleListData.disVehicleId,
-                        'driver': driverId
+                        'vehicle.vehicle_id': vehicleListData.disVehicleId,
+                        'driver.driver_id': driverId
                     },
                     success: function (data) {
                         if (data === 'success') {
                             viewVehicleList.getAllData()
                             viewVehicleList.judge()
-                            $('#teamDistList').modal('hide')
+                            $('#driverDistList').modal('hide')
                             toastr.success('调度成功')
                         } else {
                             toastr.error('调度失败')

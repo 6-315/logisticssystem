@@ -193,11 +193,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/vehicle/vehicle_add.html" class="nav-link active">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                   class="nav-link active">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加车辆</p>
                                 </a>
                             </li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
+                            </a></li>
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">
@@ -309,7 +316,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="vehicle_platenum">备注</label>
-                                    <input type="text" class="form-control" id="vehicle_platenum"
+                                    <input type="text" class="form-control" id=""
                                            placeholder="请输入车辆备注..">
                                 </div>
                                 <!-- /.form-group -->
@@ -326,7 +333,9 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
+            </div>
         </section>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

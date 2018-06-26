@@ -238,10 +238,17 @@
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li v-if="myRole == 6" class="nav-item"><a href="#"
-                                                                       class="nav-link"> <i
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -465,6 +472,50 @@
                 <!-- /.col -->
             </div>
         </section>
+        <%-- 车队列表 --%>
+        <div class="modal fade" id="driverDistList">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">分配驾驶员</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                                <th>是否分配车</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="driver in driverManagerDTO" :key="driver.driver.driver_id">
+                                <td>{{driver.driverUnDistributed.staff_num}}</td>
+                                <td>{{driver.driverUnDistributed.staff_name}}</td>
+                                <td>{{driver.driverUnDistributed.staff_phonenumber}}</td>
+                                <td v-if="driver.driver != undefined">
+                                    是
+                                </td>
+                                <td v-else>
+                                    否
+                                </td>
+                                <td><a @click="selectVehicleDriver(driver.driver.driver_id)" class="btn btn-default"
+                                       href="#">分配</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <%-- 车队列表 --%>
         <div class="modal fade" id="teamDistList">
             <div class="modal-dialog">

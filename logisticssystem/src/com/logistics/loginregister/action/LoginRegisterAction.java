@@ -322,6 +322,15 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 车队管理
+	 * 
+	 * @return
+	 */
+	public String pageTeamManager() {
+		return "pageTeamManager";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
