@@ -381,20 +381,24 @@ public class TransferStationServiceImpl implements TransferStationService {
 				System.out.println("进入循环");
 				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
-					System.out.println("ghghghg" + vehicle);
-					driver driver = transferStationDao.getDriverById(eachVehicleId);
+					System.out.println("ghghghg" + vehicle);	
+					driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
+					System.out.println("qaqaqaq"+driver);
 					if(driver!=null) {
-						driver.setDriver_vehicle(null);
+						driver.setDriver_vehicle("");
+					}else {
 					if (vehicle != null) {
-
 						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
 						vehicle.setVehicle_createtime(TimeUtil.getStringSecond());
 						vehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
+						
 						System.out.println("分配成功");
+						return "success";
 					} else {
 						System.out.println("分配失败");
 						return "fail";
+					
 					}
 					}
 				} else {

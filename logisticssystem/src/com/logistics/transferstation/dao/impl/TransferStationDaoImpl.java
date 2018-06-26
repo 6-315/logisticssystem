@@ -240,5 +240,14 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		team = (team) query.uniqueResult();
 		return team;
 	}
-
+	@Override
+	public driver getDriverByVehicle_id(String trim) {
+		driver driver = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_vehicle= :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		driver = (driver) query.uniqueResult();
+		return driver;
+	}
 }
