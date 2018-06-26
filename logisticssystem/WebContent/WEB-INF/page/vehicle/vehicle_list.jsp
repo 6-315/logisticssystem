@@ -489,7 +489,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="driver in driverManagerDTO" :key="team.team.team_id">
+                            <tr v-for="driver in driverManagerDTO" :key="driver.driver.driver_id">
                                 <td>{{driver.driverUnDistributed.staff_num}}</td>
                                 <td>{{driver.driverUnDistributed.staff_name}}</td>
                                 <td>{{driver.driverUnDistributed.staff_phonenumber}}</td>
