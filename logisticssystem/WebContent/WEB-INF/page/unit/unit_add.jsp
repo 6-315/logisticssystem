@@ -186,9 +186,16 @@
                                 <p>车辆列表</p>
                             </a></li>
                             <li v-if="myRole == 6" class="nav-item"><a
-                                    href="#" class="nav-link">
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>

@@ -18,7 +18,7 @@
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div id="adminIndex" class="wrapper">
     <!-- Navbar -->
     <nav
@@ -183,6 +183,12 @@
                                     class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
