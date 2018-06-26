@@ -379,7 +379,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 				 * 如果每辆车不为空
 				 */
 				System.out.println("进入循环");
-				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
+				
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
 					System.out.println("ghghghg" + vehicle);	
 					driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
@@ -400,10 +400,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					
 					}
 					}
-				} else {
-					System.out.println("分配失败");
-					return "fail";
-				}
+				
 
 			}
 		} else {
