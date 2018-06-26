@@ -124,7 +124,7 @@ public class Vehiclemanagement {
 	/**
 	 * 车辆流转测试
 	 */
-	@Test
+	/*@Test
 	public void exchangeVehicleTest() {
 		vehiclecirculation vehicleCirculation = new vehiclecirculation();
 		vehicleCirculation.setVehiclecirculation_vehicle_id("2");
@@ -132,5 +132,5 @@ public class Vehiclemanagement {
 		vehicleCirculation.setVehiclecirculation_acceptd("33");
 		vehicleManagementService.exchangeVehicle(vehicleCirculation);
 		
-	}
+	}*/
 }

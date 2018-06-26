@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.logistics.domain.*;
+import com.logistics.expressmanagement.DTO.RouteDTO;
 import com.logistics.vehiclemanagement.DTO.*;
 import com.logistics.vehiclemanagement.VO.*;
 import com.logistics.vehiclemanagement.dao.VehicleManagementDao;
@@ -93,6 +94,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		staff_basicinfo teamLeaderInfo = null;
 		/**
+		 * 驾驶员
+		 */
+		DriverDTO driverDTO;
+		/**
 		 * 获取数量
 		 */
 		String vehicleCountHql = "select count(*) from vehicle where 1=1 ";
@@ -111,10 +116,26 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 					if ("总公司管理员".equals(postionInfo.getPosition_name())) {
 						vehicleCountHql = vehicleCountHql + " 1=1 ";
 						listVehicleDTOCountHql = listVehicleDTOCountHql + " 1=1 ";
+						/**
+						 * 按所属单位(unit)分类查询
+						 */
+						if (vehicleInfoVO.getUnit() != null && vehicleInfoVO.getUnit().trim().length() > 0) {
+							String unit = vehicleInfoVO.getUnit().trim();
+							vehicleCountHql = vehicleCountHql + " and vehicle_unit ='" + unit + "' ";
+							listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_unit ='" + unit + "'";
+						}
 					} else if ("中转站管理员".equals(postionInfo.getPosition_name())) {
 						vehicleCountHql = vehicleCountHql + " vehicle_unit='" + staffInfo.getStaff_unit() + "' ";
 						listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_unit='" + staffInfo.getStaff_unit()
 								+ "' ";
+						/**
+						 * 按所属队伍(team)分类查询
+						 */
+						if (vehicleInfoVO.getTeam() != null && vehicleInfoVO.getTeam().trim().length() > 0) {
+							String team = vehicleInfoVO.getTeam().trim();
+							vehicleCountHql = vehicleCountHql + " and vehicle_team = '" + team + "' ";
+							listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_team = '" + team + "'";
+						}
 					} else if ("车队队长".equals(postionInfo.getPosition_name())) {
 						List<team> listTeam = (List<team>) vehicleManagementDao
 								.listObject("from team where team_leader ='" + staffInfo.getStaff_id() + "' ");
@@ -133,8 +154,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								}
 							}
 						} else {
-							vehicleCountHql = vehicleCountHql + " vehicle_id='' ";
-							listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='' ";
+							vehicleCountHql = vehicleCountHql + " 1！=1 ";
+							listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
 						}
 					} else if ("驾驶员".equals(postionInfo.getPosition_name())) {
 						if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
@@ -148,8 +169,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											+ driverInfo.getDriver_vehicle() + "' ";
 								}
 							} else {
-								vehicleCountHql = vehicleCountHql + " vehicle_id='' ";
-								listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='' ";
+								vehicleCountHql = vehicleCountHql + " 1！=1 ";
+								listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
 							}
 						}
 					}
@@ -197,24 +218,6 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 						+ "' ";
 				listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_express_state='"
 						+ vehicleInfoVO.getExpressState() + "' ";
-			}
-
-			/**
-			 * 按所属单位(unit)分类查询
-			 */
-			if (vehicleInfoVO.getUnit() != null && vehicleInfoVO.getUnit().trim().length() > 0) {
-				String unit = vehicleInfoVO.getUnit().trim();
-				vehicleCountHql = vehicleCountHql + " and vehicle_unit = '" + unit + "' ";
-				listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_unit = '" + unit + "'";
-			}
-
-			/**
-			 * 按所属队伍(team)分类查询
-			 */
-			if (vehicleInfoVO.getTeam() != null && vehicleInfoVO.getTeam().trim().length() > 0) {
-				String team = vehicleInfoVO.getTeam().trim();
-				vehicleCountHql = vehicleCountHql + " and vehicle_team = '" + team + "' ";
-				listVehicleDTOCountHql = listVehicleDTOCountHql + " and vehicle_team = '" + team + "'";
 			}
 
 			/**
@@ -270,6 +273,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 */
 				vehicleDTO = new VehicleDTOManager();
 				/**
+				 * 驾驶员
+				 */
+				driverDTO = new DriverDTO();
+				/**
 				 * 查询车辆购置人
 				 */
 				staff_basicinfo staff_BasicInfo = vehicleManagementDao
@@ -295,18 +302,45 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 */
 				vehicleBelongTeam = vehicleManagementDao.getTeamInfoById(vehicle.getVehicle_team());
 				/**
-				 * 根据队长id获取队长信息
+				 * 根据队长id获取队长、驾驶员信息
 				 */
 				if (vehicleBelongTeam != null) {
 					if (vehicleBelongTeam.getTeam_leader() != null
 							&& vehicleBelongTeam.getTeam_leader().trim().length() > 0) {
 						teamLeaderInfo = vehicleManagementDao
 								.getStaffInfoById(vehicleBelongTeam.getTeam_leader().trim());
+						if (teamLeaderInfo != null) {
+							vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
+						}
+					}
+					if (vehicleBelongTeam.getTeam_id() != null && vehicleBelongTeam.getTeam_id().trim().length() > 0) {
+						List<driver> listDriverInfo = (List<driver>) vehicleManagementDao.listObject(
+								"from driver where driver_belong_team='" + vehicleBelongTeam.getTeam_id() + "' ");
+						if (listDriverInfo.size() > 0) {
+							for (driver driverInfo : listDriverInfo) {
+								if (driverInfo != null) {
+									if (driverInfo.getDriver_basicinfoid() != null
+											&& driverInfo.getDriver_basicinfoid().trim().length() > 0) {
+										staff_basicinfo driverBasicInfo = vehicleManagementDao
+												.getStaffInfoById(driverInfo.getDriver_basicinfoid());
+										if (driverBasicInfo != null) {
+											if (driverInfo.getDriver_vehicle() != null
+													&& driverInfo.getDriver_vehicle().trim().length() > 0) {
+												if (driverInfo.getDriver_vehicle().equals(vehicle.getVehicle_id())) {
+													driverDTO.setStaffBasicInfo(driverBasicInfo);
+													driverDTO.setDriverInfo(driverInfo);
+												}
+											}
+										}
+									}
+								}
+							}
+						}
 					}
 					/**
-					 * 将查询到的信息放入车队DTO
+					 * 将查询到的信息放入DTO
 					 */
-					vehicleBelongTeamDTO.setStaff_BasicInfoLeader(teamLeaderInfo);
+					vehicleDTO.setDriverDTO(driverDTO);
 					vehicleBelongTeamDTO.setTeam(vehicleBelongTeam);
 				}
 
@@ -518,7 +552,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public TeamVO queryTeam(TeamVO teamInfoVO,staff_basicinfo staffInfo) {
+	public TeamVO queryTeam(TeamVO teamInfoVO, staff_basicinfo staffInfo) {
 		/**
 		 * 车队信息DTO
 		 */
@@ -532,6 +566,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 */
 		VehicleTeamManagerDTO teamDTO;
 		/**
+		 * 路线DTO
+		 */
+		RouteDTO routeDTO;
+		/**
 		 * 驾驶员信息DTO
 		 */
 		List<DriverDTO> listDriverInfoDTO = new ArrayList<>();
@@ -543,161 +581,182 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		 * 链接数量的hql以及遍历的hql
 		 */
 		String listTeamDTOCountHql = "from team where 1=1 ";
-		
-		if(staffInfo!=null) {
+
+		if (staffInfo != null) {
 			teamCountHql = teamCountHql + " and ( ";
 			listTeamDTOCountHql = listTeamDTOCountHql + " and ( ";
-		if(staffInfo.getStaff_position()!=null&&staffInfo.getStaff_position().trim().length()>0) {
-			position positionInfo = vehicleManagementDao.getPostionById(staffInfo.getStaff_position());
-			if("中转站管理员".equals(positionInfo.getPosition_name())) {
-				if(staffInfo.getStaff_unit()!=null&&staffInfo.getStaff_unit().trim().length()>0) {
-				teamCountHql = teamCountHql + " team_unit='"+staffInfo.getStaff_unit()+"' ";
-				listTeamDTOCountHql = listTeamDTOCountHql + " team_unit='"+staffInfo.getStaff_unit()+"' ";
-				}else {
-					teamCountHql = teamCountHql + " team_id='' ";
-					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
-				}
-			}else if("车队队长".equals(positionInfo.getPosition_name())) {
-				if(staffInfo.getStaff_id()!=null&&staffInfo.getStaff_id().trim().length()>0) {
-				teamCountHql = teamCountHql + " team_leader='"+staffInfo.getStaff_id()+"' ";
-				listTeamDTOCountHql = listTeamDTOCountHql + " team_leader='"+staffInfo.getStaff_id()+"' ";
-				}else {
-					teamCountHql = teamCountHql + " team_id='' ";
-					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
-				}
-			}else if("驾驶员".equals(positionInfo.getPosition_name())) {
-				driver driverInfo = vehicleManagementDao.getDriverInfoByStaffId(staffInfo.getStaff_id());
-				if(driverInfo!=null) {
-					if(driverInfo.getDriver_belong_team()!=null&&driverInfo.getDriver_belong_team().trim().length()>0) {
-						teamCountHql = teamCountHql + " team_id='"+driverInfo.getDriver_belong_team()+"' ";
-						listTeamDTOCountHql = listTeamDTOCountHql + " team_id='"+driverInfo.getDriver_belong_team()+"' ";
+			if (staffInfo.getStaff_position() != null && staffInfo.getStaff_position().trim().length() > 0) {
+				position positionInfo = vehicleManagementDao.getPostionById(staffInfo.getStaff_position());
+				if ("中转站管理员".equals(positionInfo.getPosition_name())) {
+					if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+						teamCountHql = teamCountHql + " team_unit='" + staffInfo.getStaff_unit() + "' ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " team_unit='" + staffInfo.getStaff_unit() + "' ";
+					} else {
+						teamCountHql = teamCountHql + " 1！=1 ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " 1！=1 ";
 					}
-				}else {
-					teamCountHql = teamCountHql + " team_id='' ";
-					listTeamDTOCountHql = listTeamDTOCountHql + " team_id='' ";
-				}
-			}
-		}
-		teamCountHql = teamCountHql + " ) ";
-		listTeamDTOCountHql = listTeamDTOCountHql + " ) ";
-		
-		/**
-		 * 根据关键词进行模糊查询
-		 */
-		if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
-			String search = "%" + teamInfoVO.getSearch().trim() + "%";
-			teamCountHql = teamCountHql + " and team_num like '" + search + "' ";
-			listTeamDTOCountHql = listTeamDTOCountHql + " and team_num like '" + search + "'";
-		}
-		/**
-		 * 按状态(state)分类查询
-		 */
-		if (teamInfoVO.getState() != null && teamInfoVO.getState().trim().length() > 0) {
-			String state = teamInfoVO.getState().trim();
-			teamCountHql = teamCountHql + " and team_state = '" + state + "' ";
-			listTeamDTOCountHql = listTeamDTOCountHql + " and team_state = '" + state + "'";
-		}
-
-		/**
-		 * 按所属单位(unit)分类查询
-		 */
-		if (teamInfoVO.getUnit() != null && teamInfoVO.getUnit().trim().length() > 0) {
-			String unit = teamInfoVO.getUnit().trim();
-			teamCountHql = teamCountHql + " and team_unit = '" + unit + "' ";
-			listTeamDTOCountHql = listTeamDTOCountHql + " and team_unit = '" + unit + "'";
-		}
-
-		/**
-		 * 按所属队长(teamLeader)分类查询
-		 */
-		if (teamInfoVO.getTeamLeader() != null && teamInfoVO.getTeamLeader().trim().length() > 0) {
-			String teamLeader = teamInfoVO.getTeamLeader().trim();
-			teamCountHql = teamCountHql + " and team_leader = '" + teamLeader + "' ";
-			listTeamDTOCountHql = listTeamDTOCountHql + " and team_leader = '" + teamLeader + "'";
-		}
-		/**
-		 * 这里如果不加desc表示正序，如果加上desc表示倒序
-		 */
-		listTeamDTOCountHql = listTeamDTOCountHql + " order by team_modifytime desc ";
-		int teamCount = vehicleManagementDao.getCount(teamCountHql);
-		/**
-		 * 设置总数量
-		 */
-		teamInfoVO.setTotalRecords(teamCount);
-		/**
-		 * 设置总页数
-		 */
-		teamInfoVO.setTotalPages(((teamCount - 1) / teamInfoVO.getPageSize()) + 1);
-		/**
-		 * 判断是否拥有上一页
-		 */
-		if (teamInfoVO.getPageIndex() <= 1) {
-			teamInfoVO.setHavePrePage(false);
-		} else {
-			teamInfoVO.setHavePrePage(true);
-		}
-		/**
-		 * 判断是否拥有下一页
-		 */
-		if (teamInfoVO.getPageIndex() >= teamInfoVO.getTotalPages()) {
-			teamInfoVO.setHaveNextPage(false);
-		} else {
-			teamInfoVO.setHaveNextPage(true);
-		}
-		/**
-		 * 分页查询
-		 */
-		teamInfo = (List<team>) vehicleManagementDao.queryForPage(listTeamDTOCountHql, teamInfoVO.getPageIndex(),
-				teamInfoVO.getPageSize());
-		for (team team : teamInfo) {
-			teamDTO = new VehicleTeamManagerDTO();
-			/**
-			 * 查询队长信息
-			 */
-			staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
-			if (teamLeader != null) {
-				teamDTO.setStaff_BasicInfoLeader(teamLeader);
-			}
-			/**
-			 * 查询所属单位
-			 */
-			unit teamUnit = vehicleManagementDao.getUnitInfoById(team.getTeam_unit());
-			if (teamUnit != null) {
-				teamDTO.setTeamBelongUnit(teamUnit);
-			}
-			/**
-			 * 查询所有队员信息
-			 */
-
-			List<driver> listDriver = (List<driver>) vehicleManagementDao
-					.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
-			if (listDriver.size() > 0) {
-				for (driver driver : listDriver) {
-					DriverDTO driverDTO = new DriverDTO();
-					staff_basicinfo staffBasicInfo = vehicleManagementDao
-							.getStaffInfoById(driver.getDriver_basicinfoid());
-					if (staffBasicInfo != null) {
-						driverDTO.setStaffBasicInfo(staffBasicInfo);
-						driverDTO.setDriverInfo(driver);
-						listDriverInfoDTO.add(driverDTO);
-						teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
+				} else if ("车队队长".equals(positionInfo.getPosition_name())) {
+					if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
+						teamCountHql = teamCountHql + " team_leader='" + staffInfo.getStaff_id() + "' ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " team_leader='" + staffInfo.getStaff_id() + "' ";
+					} else {
+						teamCountHql = teamCountHql + " 1！=1 ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " 1！=1 ";
+					}
+				} else if ("驾驶员".equals(positionInfo.getPosition_name())) {
+					driver driverInfo = vehicleManagementDao.getDriverInfoByStaffId(staffInfo.getStaff_id());
+					if (driverInfo != null) {
+						if (driverInfo.getDriver_belong_team() != null
+								&& driverInfo.getDriver_belong_team().trim().length() > 0) {
+							teamCountHql = teamCountHql + " team_id='" + driverInfo.getDriver_belong_team() + "' ";
+							listTeamDTOCountHql = listTeamDTOCountHql + " team_id='"
+									+ driverInfo.getDriver_belong_team() + "' ";
+						}
+					} else {
+						teamCountHql = teamCountHql + " 1！=1 ";
+						listTeamDTOCountHql = listTeamDTOCountHql + " 1！=1 ";
 					}
 				}
-
 			}
+			teamCountHql = teamCountHql + " ) ";
+			listTeamDTOCountHql = listTeamDTOCountHql + " ) ";
+
 			/**
-			 * 将关键字高亮
+			 * 根据关键词进行模糊查询
 			 */
 			if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
-				team.setTeam_num(team.getTeam_num().replaceAll(teamInfoVO.getSearch(),
-						"<span style='color: #ff5063;'>" + teamInfoVO.getSearch() + "</span>"));
+				String search = "%" + teamInfoVO.getSearch().trim() + "%";
+				teamCountHql = teamCountHql + " and team_num like '" + search + "' ";
+				listTeamDTOCountHql = listTeamDTOCountHql + " and team_num like '" + search + "'";
 			}
-			teamDTO.setTeam(team);
-			listTeamDTO.add(teamDTO);
-		}
-		teamInfoVO.setListTeamDTO(listTeamDTO);
+			/**
+			 * 按状态(state)分类查询
+			 */
+			if (teamInfoVO.getState() != null && teamInfoVO.getState().trim().length() > 0) {
+				String state = teamInfoVO.getState().trim();
+				teamCountHql = teamCountHql + " and team_state = '" + state + "' ";
+				listTeamDTOCountHql = listTeamDTOCountHql + " and team_state = '" + state + "'";
+			}
 
-		return teamInfoVO;
+			/**
+			 * 这里如果不加desc表示正序，如果加上desc表示倒序
+			 */
+			listTeamDTOCountHql = listTeamDTOCountHql + " order by team_modifytime desc ";
+			int teamCount = vehicleManagementDao.getCount(teamCountHql);
+			/**
+			 * 设置总数量
+			 */
+			teamInfoVO.setTotalRecords(teamCount);
+			/**
+			 * 设置总页数
+			 */
+			teamInfoVO.setTotalPages(((teamCount - 1) / teamInfoVO.getPageSize()) + 1);
+			/**
+			 * 判断是否拥有上一页
+			 */
+			if (teamInfoVO.getPageIndex() <= 1) {
+				teamInfoVO.setHavePrePage(false);
+			} else {
+				teamInfoVO.setHavePrePage(true);
+			}
+			/**
+			 * 判断是否拥有下一页
+			 */
+			if (teamInfoVO.getPageIndex() >= teamInfoVO.getTotalPages()) {
+				teamInfoVO.setHaveNextPage(false);
+			} else {
+				teamInfoVO.setHaveNextPage(true);
+			}
+			/**
+			 * 分页查询
+			 */
+			teamInfo = (List<team>) vehicleManagementDao.queryForPage(listTeamDTOCountHql, teamInfoVO.getPageIndex(),
+					teamInfoVO.getPageSize());
+			if (teamInfo.size() > 0) {
+				for (team team : teamInfo) {
+					teamDTO = new VehicleTeamManagerDTO();
+					routeDTO = new RouteDTO();
+					/**
+					 * 查询队长信息
+					 */
+					if (team.getTeam_leader() != null && team.getTeam_leader().trim().length() > 0) {
+						staff_basicinfo teamLeader = vehicleManagementDao.getStaffInfoById(team.getTeam_leader());
+						if (teamLeader != null) {
+							teamDTO.setStaff_BasicInfoLeader(teamLeader);
+						}
+					}
+					/**
+					 * 查询所属单位
+					 */
+					if (team.getTeam_unit() != null && team.getTeam_unit().trim().length() > 0) {
+						unit teamUnit = vehicleManagementDao.getUnitInfoById(team.getTeam_unit());
+						if (teamUnit != null) {
+							teamDTO.setTeamBelongUnit(teamUnit);
+						}
+					}
+					/**
+					 * 查询路线信息
+					 */
+					if (team.getTeam_route() != null && team.getTeam_route().trim().length() > 0) {
+						route routeInfo = vehicleManagementDao.getRouteInfoByTeamId(team.getTeam_route());
+						if (routeInfo != null) {
+							if (routeInfo.getRoute_departurestation() != null
+									&& routeInfo.getRoute_departurestation().trim().length() > 0) {
+								unit beginUnit = vehicleManagementDao
+										.getUnitInfoById(routeInfo.getRoute_departurestation());
+								if (beginUnit != null) {
+									routeDTO.setBeginUnit(beginUnit);
+								}
+							}
+							if (routeInfo.getRoute_terminalstation() != null
+									&& routeInfo.getRoute_terminalstation().trim().length() > 0) {
+								unit endUnit = vehicleManagementDao
+										.getUnitInfoById(routeInfo.getRoute_terminalstation());
+								if (endUnit != null) {
+									routeDTO.setEndUnit(endUnit);
+								}
+							}
+							routeDTO.setRouteInfo(routeInfo);
+						}
+
+					}
+					/**
+					 * 查询所有队员信息
+					 */
+					if (team.getTeam_id() != null && team.getTeam_id().trim().length() > 0) {
+						List<driver> listDriver = (List<driver>) vehicleManagementDao
+								.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
+						if (listDriver.size() > 0) {
+							for (driver driver : listDriver) {
+								DriverDTO driverDTO = new DriverDTO();
+								if (driver.getDriver_basicinfoid() != null
+										&& driver.getDriver_basicinfoid().trim().length() > 0) {
+									staff_basicinfo staffBasicInfo = vehicleManagementDao
+											.getStaffInfoById(driver.getDriver_basicinfoid());
+									if (staffBasicInfo != null) {
+										driverDTO.setStaffBasicInfo(staffBasicInfo);
+										driverDTO.setDriverInfo(driver);
+										listDriverInfoDTO.add(driverDTO);
+										teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
+									}
+								}
+							}
+						}
+						/**
+						 * 将关键字高亮
+						 */
+						if (teamInfoVO.getSearch() != null && teamInfoVO.getSearch().trim().length() > 0) {
+							team.setTeam_num(team.getTeam_num().replaceAll(teamInfoVO.getSearch(),
+									"<span style='color: #ff5063;'>" + teamInfoVO.getSearch() + "</span>"));
+						}
+						teamDTO.setTeam(team);
+						teamDTO.setRouteDTO(routeDTO);
+						listTeamDTO.add(teamDTO);
+					}
+				}
+				teamInfoVO.setListTeamDTO(listTeamDTO);
+				return teamInfoVO;
+			}
 		}
 		return null;
 	}
@@ -706,80 +765,63 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * 流转车辆
 	 */
 	@Override
-	public String exchangeVehicle(vehiclecirculation vehicleCirculation) {
-		/**
-		 * 判断前台传过来的扭转车辆是不是为空
-		 */
-		if (vehicleCirculation != null) {
-			if (vehicleCirculation.getVehiclecirculation_vehicle_id() != null
-					&& vehicleCirculation.getVehiclecirculation_vehicle_id().trim().length() > 0) {
-				System.out.println("11111");
-				/**
-				 * 得到车辆信息
-				 */
-				vehicle vehicleInfo = vehicleManagementDao
-						.getVehicleInfoById(vehicleCirculation.getVehiclecirculation_vehicle_id());
-				/**
-				 * 判断得到的车辆信息是不是为空
-				 */
-				if (vehicleInfo != null) {
-					System.out.println("22222");
-					/**
-					 * 判断得到车辆扭转的承接方和接收方是不是为空
-					 */
-					if (vehicleCirculation.getVehiclecirculation_initiative() != null
-							&& vehicleCirculation.getVehiclecirculation_acceptd() != null
-							&& vehicleCirculation.getVehiclecirculation_initiative().trim().length() > 0
-							&& vehicleCirculation.getVehiclecirculation_acceptd().trim().length() > 0) {
+	public String exchangeVehicle(String idList, String unit, staff_basicinfo staffInfo) {
+		if (staffInfo != null) {
+			if (idList != null) {
+				if (unit != null) {
+					String[] vehicle_unit = idList.split(",");
+					if (vehicle_unit != null) {
+						for (String viui : vehicle_unit) {
+							if (viui != null) {
+								String[] vu = viui.split("&");
+								if (vu[0] != null && vu[1] != null) {
+									unit initiativeUnitInfo = vehicleManagementDao.getUnitInfoById(vu[1]);
+									unit acceptUnitInfo = vehicleManagementDao.getUnitInfoById(unit);
+									if (initiativeUnitInfo != null && acceptUnitInfo != null) {
+										if (staffInfo.getStaff_id() != null
+												&& staffInfo.getStaff_id().trim().length() > 0) {
+											vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(vu[0]);
+											driver driverInfo = vehicleManagementDao.getDriverInfoByVehicleId(vu[0]);
+											if (driverInfo != null) {
+												driverInfo.setDriver_vehicle("");
+												driverInfo.setDriver_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(driverInfo);
+											}
+											if (vehicleInfo != null) {
+												vehicleInfo.setVehicle_current_weight("0");
+												vehicleInfo.setVehicle_express_state("空闲");
+												vehicleInfo.setVehicle_distribution_state("已分配到中转站");
+												vehicleInfo.setVehicle_team("");
+												vehicleInfo.setVehicle_unit(unit);
+												vehicleInfo.setVehicle_drivingdirection(unit);
+												vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 
-						/**
-						 * 得到承接方的单位信息
-						 */
-						unit initiativeUnit = vehicleManagementDao
-								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_initiative());
-						System.out.println("6666" + initiativeUnit);
-						/**
-						 * 得到接收方的单位信息
-						 */
-						unit acceptedUnit = vehicleManagementDao
-								.getUnitInfoById(vehicleCirculation.getVehiclecirculation_acceptd());
-						System.out.println("7777" + acceptedUnit);
-						System.out.println("33333");
-						/**
-						 * 判断承接单位和接收单位是不是为空
-						 */
-						if (initiativeUnit != null && acceptedUnit != null) {
-							System.out.println("44444");
-							/**
-							 * 设置接收方的单位这辆车辆信息，车辆的扭转状态，车辆行驶方向，车辆载货状态，所属车队，生成更改时间
-							 */
-							vehicleInfo.setVehicle_unit(vehicleCirculation.getVehiclecirculation_acceptd());
-							vehicleInfo.setVehicle_distribution_state("未分配至车队");
-							vehicleInfo.setVehicle_drivingdirection("无");
-							vehicleInfo.setVehicle_express_state("空闲");
-							vehicleInfo.setVehicle_team("无");
-							vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
-							/**
-							 * 更新车辆信息
-							 */
-							vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
-							System.out.println("车辆信息更新成功");
-							/**
-							 * 设置车辆扭转表中的信息
-							 */
-							vehicleCirculation.setVehiclecirculation_id(BuildUuid.getUuid());
-							vehicleCirculation.setVehiclecirculation_time(TimeUtil.getStringSecond());
-							vehicleCirculation.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
-							vehicleCirculation.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
-							vehicleManagementDao.saveOrUpdateObject(vehicleCirculation);
-							System.out.println("流转完成！");
-							return "success";
+												vehiclecirculation vehicleCirculationInfo = new vehiclecirculation();
+												vehicleCirculationInfo.setVehiclecirculation_id(BuildUuid.getUuid());
+												vehicleCirculationInfo.setVehiclecirculation_acceptd(unit);
+												vehicleCirculationInfo.setVehiclecirculation_initiative(vu[1]);
+												vehicleCirculationInfo.setVehiclecirculation_instructions("无");
+												vehicleCirculationInfo.setVehiclecirculation_mark("无");
+												vehicleCirculationInfo.setVehiclecirculation_vehicle_id(vu[0]);
+												vehicleCirculationInfo
+														.setVehiclecirculation_people(staffInfo.getStaff_id());
+												vehicleCirculationInfo
+														.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
+												vehicleCirculationInfo
+														.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleCirculationInfo);
+												return "success";
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}
 			}
 		}
-		System.out.println("流转失败！");
 		return "error";
 	}
 
@@ -801,13 +843,30 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 					if (listManager.size() > 0) {
 						for (staff_basicinfo manager : listManager) {
 							managerDTO = new ManagerDTO();
-							if(manager!=null) {
+							if (manager != null) {
 								managerDTO.setManagerInfo(manager);
 								listManagerDTO.add(managerDTO);
 							}
 						}
 						return listManagerDTO;
 					}
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 获得所有车队
+	 */
+	@Override
+	public List<team> getAllTeam(staff_basicinfo staffInfo) {
+		if (staffInfo != null) {
+			if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+				List<team> listTeam = (List<team>) vehicleManagementDao
+						.listObject("from team where team_unit='" + staffInfo.getStaff_unit() + "' ");
+				if (listTeam.size() > 0) {
+					return listTeam;
 				}
 			}
 		}
