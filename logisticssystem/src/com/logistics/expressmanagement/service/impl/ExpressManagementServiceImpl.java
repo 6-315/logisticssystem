@@ -1177,7 +1177,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 	public List<staff_basicinfo> getStaffInfoByPosition(String unit) {
 		List<staff_basicinfo> listStaffInfo = new ArrayList<>();
 		position positionInfo = new position();
-		if (unit != null) {
+		if (unit != null && unit.trim().length() > 0) {
 			if ("总公司".equals(unit)) {
 				positionInfo = expressManagementDao.getPositionInfoByName("总公司管理员");
 			} else if ("中转站".equals(unit)) {
@@ -1203,7 +1203,7 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 						&& distributionManagerPositionInfo.getPosition_id() != null
 						&& distributionManagerPositionInfo.getPosition_id().trim().length() > 0) {
 					listStaffInfo = (List<staff_basicinfo>) expressManagementDao
-							.listObject("from staff_basicinfo where ( staff_position ='"
+							.listObject("from staff_basicinfo where 1=1 and ( staff_position ='"
 									+ transManagerPositionInfo.getPosition_id() + "' or staff_position='"
 									+ distributionManagerPositionInfo.getPosition_id() + "' ) ");
 					if (listStaffInfo.size() > 0) {
