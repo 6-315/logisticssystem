@@ -1194,6 +1194,23 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 					}
 				}
 			}
+		} else {
+			position transManagerPositionInfo = expressManagementDao.getPositionInfoByName("中转站管理员");
+			position distributionManagerPositionInfo = expressManagementDao.getPositionInfoByName("配送点管理员");
+			if (transManagerPositionInfo != null && distributionManagerPositionInfo != null) {
+				if (transManagerPositionInfo.getPosition_id() != null
+						&& transManagerPositionInfo.getPosition_id().trim().length() > 0
+						&& distributionManagerPositionInfo.getPosition_id() != null
+						&& distributionManagerPositionInfo.getPosition_id().trim().length() > 0) {
+					listStaffInfo = (List<staff_basicinfo>) expressManagementDao
+							.listObject("from staff_basicinfo where staff_position ='"
+									+ transManagerPositionInfo.getPosition_id() + "' or staff_position='"
+									+ distributionManagerPositionInfo.getPosition_id() + "' ");
+					if (listStaffInfo.size() > 0) {
+						return listStaffInfo;
+					}
+				}
+			}
 		}
 		return null;
 	}
