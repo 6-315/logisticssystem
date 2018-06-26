@@ -534,12 +534,15 @@ public class TransferStationServiceImpl implements TransferStationService {
                        System.out.println("qaqqqqqqq"+driver);
 					driverManagerDTO = new DriverManagerDTO();
 					driverManagerDTO.setDriver(driver);
+
 					driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
+					listDriverManagerDTO.add(driverManagerDTO);
 					System.out.println("fdfdfdfdf" + driverUnDistributed);
 				}
+				System.out.println("wewewewe"+driverManagerDTO);
 			}
 		}
-		listDriverManagerDTO.add(driverManagerDTO);
+		
 
 		return listDriverManagerDTO;
 	}
