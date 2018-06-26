@@ -382,6 +382,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
 					System.out.println("ghghghg" + vehicle);
+					driver driver = transferStationDao.getDriverById(eachVehicleId);
+					if(driver!=null) {
+						driver.setDriver_vehicle(null);
 					if (vehicle != null) {
 
 						System.out.println("qwqwqw");
@@ -392,6 +395,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 					} else {
 						System.out.println("分配失败");
 						return "fail";
+					}
 					}
 				} else {
 					System.out.println("分配失败");
