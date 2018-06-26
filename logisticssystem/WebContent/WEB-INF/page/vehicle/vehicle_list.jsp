@@ -395,9 +395,18 @@
                                                    type="checkbox" name="flag"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
-                                        <td>{{listVehicleDTO.unit.unit_name}}</td>
-                                        <td>{{listVehicleDTO.vehicle_TeamDTO.team.team_num}}</td>
-                                        <td>{{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}</td>
+                                        <td v-if="listVehicleDTO.unit != undefined">
+                                            {{listVehicleDTO.unit.unit_name}}
+                                        </td>
+                                        <td v-else></td>
+                                        <td v-if="listVehicleDTO.vehicle_TeamDTO.team != undefined">
+                                            {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
+                                        </td>
+                                        <td v-else></td>
+                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
+                                            {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
+                                        </td>
+                                        <td v-else></td>
                                         <td>{{listVehicleDTO.vehicleInfo.vehicle_distribution_state}}</td>
                                         <td>{{listVehicleDTO.vehicleInfo.vehicle_express_state}}</td>
                                         <td>{{listVehicleDTO.vehicleInfo.vehicle_state}}</td>
