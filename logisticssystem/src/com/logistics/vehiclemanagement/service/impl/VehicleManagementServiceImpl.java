@@ -769,47 +769,50 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		if (staffInfo != null) {
 			if (idList != null) {
 				if (unit != null) {
-					String[] unitInfo = unit.split(",");
-					if (unitInfo != null) {
-						unit initiativeUnitInfo = vehicleManagementDao.getUnitInfoById(unitInfo[0]);
-						unit acceptUnitInfo = vehicleManagementDao.getUnitInfoById(unitInfo[1]);
-						if (initiativeUnitInfo != null && acceptUnitInfo != null) {
-							if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
-								String[] listId = idList.split(",");
-								if (listId != null) {
-									for (String id : listId) {
-										vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(id);
-										driver driverInfo = vehicleManagementDao.getDriverInfoByVehicleId(id);
-										if (driverInfo != null) {
-											driverInfo.setDriver_vehicle("");
-											driverInfo.setDriver_modifytime(TimeUtil.getStringSecond());
-											vehicleManagementDao.saveOrUpdateObject(driverInfo);
-										}
-										if (vehicleInfo != null) {
-											vehicleInfo.setVehicle_current_weight("0");
-											vehicleInfo.setVehicle_express_state("空闲");
-											vehicleInfo.setVehicle_distribution_state("已分配到中转站");
-											vehicleInfo.setVehicle_team("");
-											vehicleInfo.setVehicle_unit(unitInfo[1]);
-											vehicleInfo.setVehicle_drivingdirection(unitInfo[1]);
-											vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
-											vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
+					String[] vehicle_unit = idList.split(",");
+					if (vehicle_unit != null) {
+						for (String viui : vehicle_unit) {
+							if (viui != null) {
+								String[] vu = viui.split("&");
+								if (vu[0] != null && vu[1] != null) {
+									unit initiativeUnitInfo = vehicleManagementDao.getUnitInfoById(vu[1]);
+									unit acceptUnitInfo = vehicleManagementDao.getUnitInfoById(unit);
+									if (initiativeUnitInfo != null && acceptUnitInfo != null) {
+										if (staffInfo.getStaff_id() != null
+												&& staffInfo.getStaff_id().trim().length() > 0) {
+											vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(vu[0]);
+											driver driverInfo = vehicleManagementDao.getDriverInfoByVehicleId(vu[0]);
+											if (driverInfo != null) {
+												driverInfo.setDriver_vehicle("");
+												driverInfo.setDriver_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(driverInfo);
+											}
+											if (vehicleInfo != null) {
+												vehicleInfo.setVehicle_current_weight("0");
+												vehicleInfo.setVehicle_express_state("空闲");
+												vehicleInfo.setVehicle_distribution_state("已分配到中转站");
+												vehicleInfo.setVehicle_team("");
+												vehicleInfo.setVehicle_unit(unit);
+												vehicleInfo.setVehicle_drivingdirection(unit);
+												vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
 
-											vehiclecirculation vehicleCirculationInfo = new vehiclecirculation();
-											vehicleCirculationInfo.setVehiclecirculation_id(BuildUuid.getUuid());
-											vehicleCirculationInfo.setVehiclecirculation_acceptd(unitInfo[1]);
-											vehicleCirculationInfo.setVehiclecirculation_initiative(unitInfo[0]);
-											vehicleCirculationInfo.setVehiclecirculation_instructions("无");
-											vehicleCirculationInfo.setVehiclecirculation_mark("无");
-											vehicleCirculationInfo.setVehiclecirculation_vehicle_id(id);
-											vehicleCirculationInfo
-													.setVehiclecirculation_people(staffInfo.getStaff_id());
-											vehicleCirculationInfo
-													.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
-											vehicleCirculationInfo
-													.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
-											vehicleManagementDao.saveOrUpdateObject(vehicleCirculationInfo);
-											return "success";
+												vehiclecirculation vehicleCirculationInfo = new vehiclecirculation();
+												vehicleCirculationInfo.setVehiclecirculation_id(BuildUuid.getUuid());
+												vehicleCirculationInfo.setVehiclecirculation_acceptd(unit);
+												vehicleCirculationInfo.setVehiclecirculation_initiative(vu[1]);
+												vehicleCirculationInfo.setVehiclecirculation_instructions("无");
+												vehicleCirculationInfo.setVehiclecirculation_mark("无");
+												vehicleCirculationInfo.setVehiclecirculation_vehicle_id(vu[0]);
+												vehicleCirculationInfo
+														.setVehiclecirculation_people(staffInfo.getStaff_id());
+												vehicleCirculationInfo
+														.setVehiclecirculation_createtime(TimeUtil.getStringSecond());
+												vehicleCirculationInfo
+														.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
+												vehicleManagementDao.saveOrUpdateObject(vehicleCirculationInfo);
+												return "success";
+											}
 										}
 									}
 								}
