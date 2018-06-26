@@ -1172,4 +1172,30 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<staff_basicinfo> getStaffInfoByPosition(String unit) {
+		List<staff_basicinfo> listStaffInfo = new ArrayList<>();
+		position positionInfo = new position();
+		if (unit != null) {
+			if ("总公司".equals(unit)) {
+				positionInfo = expressManagementDao.getPositionInfoByName("总公司管理员");
+			} else if ("中转站".equals(unit)) {
+				positionInfo = expressManagementDao.getPositionInfoByName("中转站管理员");
+			} else {
+				positionInfo = expressManagementDao.getPositionInfoByName("配送点管理员");
+			}
+			if (positionInfo != null) {
+				if (positionInfo.getPosition_id() != null && positionInfo.getPosition_id().trim().length() > 0) {
+					listStaffInfo = (List<staff_basicinfo>) expressManagementDao.listObject(
+							"from staff_basicinfo where staff_position='" + positionInfo.getPosition_id() + "' ");
+					if (listStaffInfo.size() > 0) {
+						return listStaffInfo;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 }
