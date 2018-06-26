@@ -240,7 +240,7 @@
                     data: '',
                     success: function (data) {
                         const driverManagerDTO = JSON.parse(data)
-                        vehicleListData.driverManagerDTO = vehicleListData.driverManagerDTO
+                        vehicleListData.driverManagerDTO = driverManagerDTO
                         $('#driverDistList').modal()
                     }
                 })
