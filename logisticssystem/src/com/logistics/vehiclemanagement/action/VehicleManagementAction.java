@@ -298,7 +298,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 
 		/**
@@ -379,7 +379,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 
 		response.setContentType("text/html;charset=utf-8");
 		/**
