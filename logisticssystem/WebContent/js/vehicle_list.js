@@ -35,7 +35,8 @@
         myRole: role,
         distVehicleTranIndex: '',
         teamList: [],
-        teamInfoList: []
+        teamInfoList: [],
+        driverManagerDTO: []
     }
     const viewVehicleList = new Vue({
         el: '#vehicleList',
@@ -144,7 +145,7 @@
             },
             //
             selectState(state) {
-                vehicleListData.state = zaiHuoState
+                vehicleListData.state = state
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()
             },
@@ -229,6 +230,41 @@
                         $(this).attr("checked", true)
                     })
                 }
+            },
+            //分配司机
+            distVehicleDriver(vehicleId) {
+                vehicleListData.disVehicleId = vehicleId
+                $.ajax({
+                    url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getDiverUnDistributed',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        const driverManagerDTO = JSON.parse(data)
+                        vehicleListData.driverManagerDTO = vehicleListData.driverManagerDTO
+                        $('#teamDistList').modal()
+                    }
+                })
+            },
+            //选择司机
+            selectVehicleDriver(driverId) {
+                $.ajax({
+                    url: '/logisticssystem/transferstation/transferstation_distributeDiver',
+                    type: 'POST',
+                    data: {
+                        'vehicle': vehicleListData.disVehicleId,
+                        'driver': driverId
+                    },
+                    success: function (data) {
+                        if (data === 'success') {
+                            viewVehicleList.getAllData()
+                            viewVehicleList.judge()
+                            $('#teamDistList').modal('hide')
+                            toastr.success('调度成功')
+                        } else {
+                            toastr.error('调度失败')
+                        }
+                    }
+                })
             }
         },
         mounted() {
@@ -237,15 +273,17 @@
                 vehicleListData.distVehicleId = ''
             })*/
             // 获取单位信息
-            $.ajax({
-                url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
-                type: 'POST',
-                data: '',
-                success: function (data) {
-                    let uList = JSON.parse(data)
-                    vehicleListData.unitList = uList.filter(u => u.unit_type == '中转站')
-                }
-            })
+            if (vehicleListData.myRole == 6) {
+                $.ajax({
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        let uList = JSON.parse(data)
+                        vehicleListData.unitList = uList.filter(u => u.unit_type == '中转站')
+                    }
+                })
+            }
             //获取车队信息
             $.ajax({
                 url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getAllTeam',

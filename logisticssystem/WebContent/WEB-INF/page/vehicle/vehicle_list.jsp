@@ -317,7 +317,7 @@
                                                    v-model="checkData"></th>
                                         <th>编号</th>
                                         <th>车牌号</th>
-                                        <th>
+                                        <th v-if="myRole==6">
                                             <span role="presentation" class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">单位(所有)
                                                     <span class="caret"></span></a>
@@ -347,7 +347,7 @@
                                                         <li @click="isFenPei('')"><a href="#">所有</a></li>
 														<li @click="isFenPei('未分配至单位')"><a href="#">未分配至单位</a></li>
 														<li><a @click="isFenPei('未分配至车队')" href="#">未分配至车队</a></li>
-														<li><a @click="isFenPei('已完成分配')" href="#">已完成分配</a></li>
+														<li><a @click="isFenPei('已分配至驾驶员')" href="#">已完成分配</a></li>
 													</ul>
 											</span></th>
                                         <th><span role="presentation" class="dropdown"> <a
@@ -395,15 +395,15 @@
                                                    type="checkbox" name="flag"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
-                                        <td v-if="listVehicleDTO.unit != undefined">
+                                        <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
                                             {{listVehicleDTO.unit.unit_name}}
                                         </td>
-                                        <td v-else></td>
+                                        <td v-if="myRole==6 && listVehicleDTO.unit == undefined"></td>
                                         <td v-if="listVehicleDTO.vehicle_TeamDTO.team != undefined">
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
                                         <td v-else></td>
-                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
+                                        <td v-if="listVehicleDTO.driverDTO != undefined">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
                                         <td v-else></td>
@@ -424,7 +424,8 @@
                                                     </li>--%>
                                                     <%--<li><a href="javascript:void(0);">分配车辆到车队</a>--%>
                                                     </li>
-                                                    <li><a @click="distVehicleDriver(listVehicleDTO.unit.unit_id)"
+                                                    <li>
+                                                        <a @click="distVehicleDriver(listVehicleDTO.vehicleInfo.vehicle_id)"
                                                            href="javascript:void(0);">分配车辆到驾驶员</a>
                                                     </li>
                                                 </ul>
@@ -436,7 +437,6 @@
                                 <div style="float: right;">
                                     <a v-if="myRole==6" href="#" @click="distVehicleTran" class="btn btn-info">单位调度</a>
                                     <a v-if="myRole==5" href="#" @click="distVehicleTeam" class="btn btn-info">车队调度</a>
-
                                     <%--<a v-if="myRole==1 || myRole==3" href="#" @click="expressAddJ"
                                        class="btn btn-danger">快件到站</a>--%>
                                 </div>
