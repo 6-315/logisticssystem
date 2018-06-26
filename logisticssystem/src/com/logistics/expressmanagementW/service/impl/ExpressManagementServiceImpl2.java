@@ -225,6 +225,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 		if (waybillNumber != null && waybillNumber.trim().length() > 0) {
 			express expressNew = new express();
 			expressNew = expressManagementDao2.getExpressByWaybillNumber(waybillNumber);
+			if (expressNew == null) {
+				return null;
+			}
 			List<express_circulation> ListExpressCirculation = new ArrayList<>();
 			ListExpressCirculation = (List<express_circulation>) expressManagementDao2
 					.listObject("from express_circulation where express_circulation_express_id ='"
