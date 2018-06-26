@@ -231,7 +231,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			List<express_circulation> ListExpressCirculation = new ArrayList<>();
 			ListExpressCirculation = (List<express_circulation>) expressManagementDao2
 					.listObject("from express_circulation where express_circulation_express_id ='"
-							+ expressNew.getExpress_id() + "' order by express_circulation_modifytime");
+							+ expressNew.getExpress_id() + "' order by express_circulation_modifytime desc");
 			if (ListExpressCirculation == null) {
 				return null;
 			}
