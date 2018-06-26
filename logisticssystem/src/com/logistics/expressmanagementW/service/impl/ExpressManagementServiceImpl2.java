@@ -219,12 +219,14 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ExpressCirculationAndUnitDTO> getExpressCirculation(String waybillNumber) {
+		System.out.println("<<<<<<<<<<<<<<<<" + waybillNumber);
 		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = new ArrayList<>();
 		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
 		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
 		if (waybillNumber != null && waybillNumber.trim().length() > 0) {
 			express expressNew = new express();
 			expressNew = expressManagementDao2.getExpressByWaybillNumber(waybillNumber);
+			System.out.println("LLLLLLLLLLLLLLLLL:" + expressNew);
 			if (expressNew == null) {
 				return null;
 			}
@@ -277,7 +279,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 
 			}
 			if (ListExpressCirculation.size() > 1) {
+				System.out.println("???????????????????????????????????????");
 				for (express_circulation expressCirculation : ListExpressCirculation) {
+					System.out.println("排序" + expressCirculation.getExpress_circulation_state());
 					unit unitByLaunchpeople = new unit();
 					unit unitByReceiver = new unit();
 					unitByLaunchpeople = expressManagementDao2
@@ -310,8 +314,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
 							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
 						}
-					}
-					if ("配送点".equals(unitByReceiver.getUnit_type())) {
+					} else if ("配送点".equals(unitByReceiver.getUnit_type())) {
 						if ("流转中".equals(expressCirculation.getExpress_circulation_state())) {
 							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
 							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
@@ -354,21 +357,27 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
 							expressCirculationAndUnitDTO.setMotion("已发出");
 							expressCirculationAndUnitDTO.setNumber("one");
-							expressCirculationAndUnitDTO2.setExpressCirculation(expressCirculation);
 							expressCirculationAndUnitDTO2.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO2.setExpressCirculation(expressCirculation);
+
 							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
 							expressCirculationAndUnitDTO2.setMotion("已扫描");
 							expressCirculationAndUnitDTO.setNumber("two");
-							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
 							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
 						}
 
 					}
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO.getNumber());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO.getMotion());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO2.getNumber());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO2.getMotion());
 
 				}
-				return listExpressCirculationAndUnitDTO;
-			}
 
+			}
+			return listExpressCirculationAndUnitDTO;
 		}
 		return null;
 	}
