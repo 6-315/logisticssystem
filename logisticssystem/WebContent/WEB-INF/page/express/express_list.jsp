@@ -494,7 +494,7 @@
                                             {{expressInfoVO.totalPages}}
                                             页/共{{expressInfoVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
-                                                :disabled="nextDisabled" href="#">
+                                                :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
                                         <li><a href="#">尾页</a></li>

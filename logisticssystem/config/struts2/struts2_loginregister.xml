@@ -26,6 +26,10 @@
 			</result>
 			<result name="pageRouteAdd">/WEB-INF/page/route/route_add.jsp
 			</result>
+			<result name="pageVehicleList">/WEB-INF/page/vehicle/vehicle_list.jsp
+			</result>
+			<result name="pageVehicleAdd">/WEB-INF/page/vehicle/vehicle_add.jsp
+			</result>
 			<result name="pageIndex" type="redirect">/index.jsp</result>
 		</action>
 	</package>
