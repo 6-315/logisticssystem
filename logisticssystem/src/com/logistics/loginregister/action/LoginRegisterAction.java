@@ -304,6 +304,24 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 车辆列表
+	 * 
+	 * @return
+	 */
+	public String pageVehicleList() {
+		return "pageVehicleList";
+	}
+
+	/**
+	 * 添加车辆
+	 * 
+	 * @return
+	 */
+	public String pageVehicleAdd() {
+		return "pageVehicleAdd";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException

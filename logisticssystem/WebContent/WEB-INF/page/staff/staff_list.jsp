@@ -360,7 +360,7 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="selectPosition('')" href="#">所属单位(所有)</a></li>
+														<li><a @click="selectPosition('')" href="#">所属职位(所有)</a></li>
 														<li v-for="pos in postionList" :key="pos.position_id"><a
                                                                 @click="selectPosition(pos.position_id)" href="#">{{pos.position_name}}</a></li>
 													</ul>
