@@ -342,13 +342,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 模糊查询显示高亮
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 				unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'> " + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_address(unit.getUnit_address().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_num(unit.getUnit_num().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 				System.out.println("987654321");
 			}
 
