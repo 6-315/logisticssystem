@@ -99,7 +99,8 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
@@ -129,7 +130,8 @@
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -148,8 +150,9 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
-                                                                   class="nav-link active"> <i
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                            href="#"
+                            class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -169,7 +172,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a
+                            href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
@@ -181,7 +185,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li  v-if="myRole == 6" class="nav-item"><a
+                            <li v-if="myRole == 6" class="nav-item"><a
                                     href="#" class="nav-link">
                                 <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
@@ -308,8 +312,8 @@
                                                                 class="form-control" v-model="transferStation.unit_type"
                                                                 data-placeholder="单位类型" style="width: 100%;">
                                     <option value="总公司">总公司</option>
-                                    <option value="中转站管理员">中转站</option>
-                                    <option value="配送点管理员">配送点</option>
+                                    <option value="中转站">中转站</option>
+                                    <option value="配送点">配送点</option>
                                 </select>
                                 </div>
                             </div>
@@ -337,22 +341,28 @@
                                                                placeholder="单位编号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>管理员</label> <select class="form-control"
-                                                               v-model="transferStation.unit_admin" placeholder="请选择管理员"
-                                                               style="width: 100%;">
-                                    <option v-for="admin in adminList"
-                                            :value="admin.managerInfo.staff_id">
-                                        {{admin.managerInfo.staff_name}}
-                                    </option>
-                                </select>
+                                    <label>管理员</label>
+                                    <select class="form-control"
+                                            v-model="transferStation.unit_admin" placeholder="请选择管理员"
+                                            style="width: 100%;">
+                                        <option v-for="admin in adminList"
+                                                :value="admin.managerInfo.staff_id">
+                                            {{admin.managerInfo.staff_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>上级单位</label> <input disabled type="text"
-                                                               class="form-control"
-                                                               v-model="transferStation.unit_superiorunit"
-                                                               placeholder="上级单位编号..">
+                                    <label>上级单位</label>
+                                    <select disabled class="form-control"
+                                            v-model="transferStation.unit_superiorunit" placeholder="单位"
+                                            style="width: 100%;">
+                                        <option v-for="unit in unitList"
+                                                :value="unit.unit_id">
+                                            {{unit.unit_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">

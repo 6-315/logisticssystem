@@ -121,7 +121,7 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- neirong -->
-<div class="wrapper">
+<div id="routeList" class="wrapper">
     <!-- Navbar -->
     <nav
             class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -345,11 +345,11 @@
                             <h3 class="card-title">路线列表</h3>
                         </div>
                         <!-- /.card-header -->
-                        <div id="routeList" class="card-body">
+                        <div class="card-body">
                             <div class="card-body">
                                 <div style="width: 250px; float: right; margin-bottom: 10px;"
                                      class="input-group">
-                                    <input placeholder="据编号/始发站/终点站搜索" @input="selectRouteSearch"
+                                    <input placeholder="据编号搜索" @input="selectRouteSearch"
                                            v-model="search" type="text" class="form-control input-sm"><span
                                         class="input-group-addon btn btn-default"><i
                                         class="fa fa-search"></i></span>
@@ -422,16 +422,16 @@
                                                 {{routeList.staff_Id.staff_num}}
                                             </td>
                                             <td v-else>
-
                                             </td>
 
-
                                             <td>{{routeList.route_Departurestation.unit_name}}</td>
+
                                             <td>{{routeList.route_Terminalstation.unit_name}}</td>
+
                                             <td>{{routeList.rout.route_state}}</td>
                                             <td>
-                                                <b style="cursor: pointer;"><i color="gray" class="fa fa-list-alt"
-                                                                               aria-hidden="true"></i></b>
+                                                <a @click="skipRouteAdd(routeList.rout.route_id)" href="#"
+                                                   style="cursor: pointer;">详情</a>
                                                 <%--<div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
                                                           aria-haspopup="true" aria-expanded="false"> <i
@@ -477,7 +477,8 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <!-- /.row --> </section>
+            <!-- /.row -->
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
