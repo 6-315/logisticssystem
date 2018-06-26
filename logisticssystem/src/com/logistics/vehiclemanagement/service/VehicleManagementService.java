@@ -73,10 +73,10 @@ public interface VehicleManagementService {
 	 */
 	public TeamVO queryTeam(TeamVO teamInfoVO, staff_basicinfo staffInfo);
 
-	public String exchangeVehicle(vehiclecirculation vehicleCirculation);
-
 	public List<ManagerDTO> getAllManager(String position);
 
 	public List<team> getAllTeam(staff_basicinfo staffInfo);
+
+	public String exchangeVehicle(String idList, String unit, staff_basicinfo staffInfo);
 
 }
