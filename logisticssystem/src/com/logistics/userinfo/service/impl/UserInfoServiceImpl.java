@@ -192,7 +192,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 						+ "'and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中') ";
 			} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
 				number = "select count(*) from express where express_belong = '" + ID
-						+ "' (and express_state ='已签收' or '已完成') ";
+						+ "' and  (express_state ='已签收' or '已完成') ";
 				table = "from express  where express_belong = '已签收' or '已完成' ";
 			} else {
 				number = "select count(*) from express where express_belong ='" + ID + "'and express_state='"
