@@ -186,7 +186,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		if (expressinfoAndExpressVO.getState() != null && expressinfoAndExpressVO.getState().trim().length() > 0) {
 			if ("在途中".equals(expressinfoAndExpressVO.getState())) {
-				number = "select count(*) from express where express_belong = '" + ID
+				number = "select count(*) from express where express_belong = '" + ID	
 						+ "' and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中')";
 				table = "from express  where express_belong = '" + ID
 						+ "'and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中') ";
