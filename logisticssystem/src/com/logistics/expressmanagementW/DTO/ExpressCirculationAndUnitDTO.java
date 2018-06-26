@@ -27,6 +27,18 @@ public class ExpressCirculationAndUnitDTO {
 	 * 动作
 	 */
 	private String motion;
+	/**
+	 * 
+	 * @return
+	 */
+	private String number;
+	
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
 	public express_circulation getExpressCirculation() {
 		return expressCirculation;
 	}
@@ -54,8 +66,8 @@ public class ExpressCirculationAndUnitDTO {
 	@Override
 	public String toString() {
 		return "ExpressCirculationAndUnitDTO [expressCirculation=" + expressCirculation + ", unitByLaunchpeople="
-				+ unitByLaunchpeople + ", unitByReceiver=" + unitByReceiver + ", motion=" + motion + "]";
+				+ unitByLaunchpeople + ", unitByReceiver=" + unitByReceiver + ", motion=" + motion + ", number="
+				+ number + "]";
 	}
-	
 
 }
