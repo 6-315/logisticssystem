@@ -457,7 +457,7 @@ public class TransferStationAction extends ActionSupport implements ServletRespo
 		response.setContentType("text/html;charset=utf-8");
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		staff_basicinfo staffBasicInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		response.getWriter().write("" + transferStationService.getDiverUnDistributed(DriverManagerDTO,staffBasicInfo));
+		response.getWriter().write(gson.toJson(transferStationService.getDiverUnDistributed(DriverManagerDTO,staffBasicInfo)));
 		
 	}
 	public void distributeDiver() throws IOException {

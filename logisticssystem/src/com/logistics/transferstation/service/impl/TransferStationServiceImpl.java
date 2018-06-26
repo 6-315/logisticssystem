@@ -342,13 +342,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 模糊查询显示高亮
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 				unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'> " + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_address(unit.getUnit_address().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_num(unit.getUnit_num().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 				System.out.println("987654321");
 			}
 
@@ -379,28 +379,28 @@ public class TransferStationServiceImpl implements TransferStationService {
 				 * 如果每辆车不为空
 				 */
 				System.out.println("进入循环");
-				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
+				
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
-					System.out.println("ghghghg" + vehicle);
-					driver driver = transferStationDao.getDriverById(eachVehicleId);
+					System.out.println("ghghghg" + vehicle);	
+					driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
+					System.out.println("qaqaqaq"+driver);
 					if(driver!=null) {
-						driver.setDriver_vehicle(null);
+						driver.setDriver_vehicle("");
 					if (vehicle != null) {
-
 						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
 						vehicle.setVehicle_createtime(TimeUtil.getStringSecond());
 						vehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
+						
 						System.out.println("分配成功");
+						return "success";
 					} else {
 						System.out.println("分配失败");
 						return "fail";
+					
 					}
 					}
-				} else {
-					System.out.println("分配失败");
-					return "fail";
-				}
+				
 
 			}
 		} else {

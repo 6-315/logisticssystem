@@ -16,6 +16,7 @@
                     },
                     success: function (data) {
                         console.log('data:', data)
+                        liuZhuanData.liuZhuanList = JSON.parse(data)
                     }
 
                 })

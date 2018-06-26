@@ -114,6 +114,8 @@ position getPositionById(String trim);
  */
 team getTeamByLeader(String trim);
 
+driver getDriverByVehicle_id(String trim);
+
 
 
 

@@ -113,14 +113,38 @@
                 <div class="trace-table">
                     <table cellspacing="0" cellpadding="0" border="0">
                         <tbody>
-                        <tr>
-                            <td class="time">
-                                2018-06-09 14:08:40
+                        <tr v-for="liuZhuan in liuZhuanList">
+                            <td v-if="liuZhuan.number == 'one'" class="time">
+                                {{liuZhuan.expressCirculation.express_circulation_createtime}}
                             </td>
-                            <td class="data ">
-                                <span class="netColor">广东省广州市番禺区火车南站VIP窗口公司(点击查询电话)</span> 已揽收&nbsp;&nbsp;
+                            <td v-else>
+                                {{liuZhuan.expressCirculation.express_circulation_modifytime}}
+                            </td>
+                            <td v-if="liuZhuan.number == 'one'" class="data">
+                                <span class="netColor">
+                                    {{liuZhuan.unitByLaunchpeople.unit_name}}
+                                </span>
+                                <span>
+                                    {{liuZhuan.motion}}
+                                </span>
+                            </td>
+                            <td v-else class="data">
+                                <span class="netColor">
+                                    {{liuZhuan.unitByReceiver.unit_name}}
+                                </span>
+                                <span>
+                                    {{liuZhuan.motion}}
+                                </span>
                             </td>
                         </tr>
+                        <%-- <tr>
+                             <td class="time">
+                                 2018-06-09 14:08:40
+                             </td>
+                             <td class="data ">
+                                 <span class="netColor">广东省广州市番禺区火车南站VIP窗口公司(点击查询电话)</span> 已揽收&nbsp;&nbsp;
+                             </td>
+                         </tr>--%>
                         </tbody>
                     </table>
                 </div>

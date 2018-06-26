@@ -403,7 +403,7 @@
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
                                         <td v-else></td>
-                                        <td v-if="listVehicleDTO.driverDTO != undefined">
+                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
                                         <td v-else></td>
