@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 
 /**
@@ -87,4 +88,8 @@ public interface PersonnelManagementDao {
 	public unit getUnitAdmin(staff_basicinfo staffBasicinfo);
 
 	public unit gerUnitByID(String iD);
+
+	public position getPositionByID(String positionNew);
+
+	public team getTeam(String staff_id);
 }
