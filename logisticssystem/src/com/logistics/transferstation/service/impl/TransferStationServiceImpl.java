@@ -553,8 +553,12 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 	@Override
 	public String distributeDiver(vehicle vehicle, driver driver) {
-		if (driver.getDriver_vehicle() != null && driver.getDriver_vehicle().trim().length() > 0
-				&& vehicle.getVehicle_id() != null && vehicle.getVehicle_id().trim().length() > 0) {
+		vehicle vehicleNew = new vehicle();
+		vehicleNew = transferStationDao.getVehicleById(vehicle.getVehicle_id());
+		driver driverNew = new driver();
+		driverNew = transferStationDao.getDriverById(driver.getDriver_id());
+		if (driverNew.getDriver_vehicle() != null && driverNew.getDriver_vehicle().trim().length() > 0
+				&& vehicleNew.getVehicle_id() != null && vehicleNew.getVehicle_id().trim().length() > 0) {
 			driver.setDriver_vehicle(vehicle.getVehicle_id());
 
 			return "success";
