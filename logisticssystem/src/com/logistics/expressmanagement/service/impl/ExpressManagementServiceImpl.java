@@ -1172,4 +1172,47 @@ public class ExpressManagementServiceImpl implements ExpressManagementService {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<staff_basicinfo> getStaffInfoByPosition(String unit) {
+		List<staff_basicinfo> listStaffInfo = new ArrayList<>();
+		position positionInfo = new position();
+		if (unit != null) {
+			if ("总公司".equals(unit)) {
+				positionInfo = expressManagementDao.getPositionInfoByName("总公司管理员");
+			} else if ("中转站".equals(unit)) {
+				positionInfo = expressManagementDao.getPositionInfoByName("中转站管理员");
+			} else {
+				positionInfo = expressManagementDao.getPositionInfoByName("配送点管理员");
+			}
+			if (positionInfo != null) {
+				if (positionInfo.getPosition_id() != null && positionInfo.getPosition_id().trim().length() > 0) {
+					listStaffInfo = (List<staff_basicinfo>) expressManagementDao.listObject(
+							"from staff_basicinfo where staff_position='" + positionInfo.getPosition_id() + "' ");
+					if (listStaffInfo.size() > 0) {
+						return listStaffInfo;
+					}
+				}
+			}
+		} else {
+			position transManagerPositionInfo = expressManagementDao.getPositionInfoByName("中转站管理员");
+			position distributionManagerPositionInfo = expressManagementDao.getPositionInfoByName("配送点管理员");
+			if (transManagerPositionInfo != null && distributionManagerPositionInfo != null) {
+				if (transManagerPositionInfo.getPosition_id() != null
+						&& transManagerPositionInfo.getPosition_id().trim().length() > 0
+						&& distributionManagerPositionInfo.getPosition_id() != null
+						&& distributionManagerPositionInfo.getPosition_id().trim().length() > 0) {
+					listStaffInfo = (List<staff_basicinfo>) expressManagementDao
+							.listObject("from staff_basicinfo where staff_position ='"
+									+ transManagerPositionInfo.getPosition_id() + "' or staff_position='"
+									+ distributionManagerPositionInfo.getPosition_id() + "' ");
+					if (listStaffInfo.size() > 0) {
+						return listStaffInfo;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 }
