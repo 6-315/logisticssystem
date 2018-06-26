@@ -344,7 +344,7 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 	public void getStaffManagerDTO() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting();// 格式化json数据
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
 		staffManagerDTO = personnelManagementService.getStaffManagerDTO(ID);

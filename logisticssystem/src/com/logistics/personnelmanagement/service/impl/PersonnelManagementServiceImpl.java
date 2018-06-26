@@ -512,23 +512,20 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	public StaffManagerDTO getStaffManagerDTO(String iD) {
 		if (iD == null) {
 			return null;
-
 		}
 		unit unitNew = new unit();
 		staff_basicinfo staffNew = new staff_basicinfo();
 		position positionNew = new position();
-		unitNew = personnelManagementDao.gerUnitByID(iD);
 		staffNew = personnelManagementDao.getstaffById(iD);
+		unitNew = personnelManagementDao.gerUnitByID(staffNew.getStaff_unit());
+		
 		positionNew = personnelManagementDao.getPosition(staffNew);
-		if (unitNew != null && staffNew != null && positionNew != null) {
-			StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
-			staffManagerDTO.setPosition(positionNew);
-			staffManagerDTO.setStaffBasicInfo(staffNew);
-			staffManagerDTO.setUnit(unitNew);
-			return staffManagerDTO;
-		}
+		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+		staffManagerDTO.setPosition(positionNew);
+		staffManagerDTO.setStaffBasicInfo(staffNew);
+		staffManagerDTO.setUnit(unitNew);
+		return staffManagerDTO;
 
-		return null;
 	}
 
 }
