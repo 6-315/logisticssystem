@@ -186,14 +186,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		if (expressinfoAndExpressVO.getState() != null && expressinfoAndExpressVO.getState().trim().length() > 0) {
 			if ("在途中".equals(expressinfoAndExpressVO.getState())) {
-				number = "select count(*) from express where express_belong = '" + ID	
-						+ "' and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中')";
-				table = "from express  where express_belong = '" + ID
-						+ "'and (express_state = '待揽件' or express_state='已揽件' or express_state='待派送' or express_state='派送中') ";
-			} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
+				System.out.println("MMMMMMMMMMMMMMMMMMM");
 				number = "select count(*) from express where express_belong = '" + ID
-						+ "' and  (express_state ='已签收' or '已完成') ";
-				table = "from express  where express_belong = '已签收' or '已完成' ";
+						+ "' and (express_state = '已装车' or  express_state = '待揽件' or express_state = '已揽件' or express_state =' 待派送' or express_state = '派送中')";
+				table = "from express  where express_belong = '" + ID
+						+ "'and (express_state = '已装车' or  express_state = '待揽件' or express_state = '已揽件' or express_state = '待派送' or express_state = '派送中') ";
+			} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
+				System.out.println("?????????><><><>><><><");
+				number = "select count(*) from express where express_belong = '" + ID
+						+ "' and  (express_state ='已签收' or express_state = '已完成') ";
+				table = "from express  where express_belong = '" + ID
+						+ "' and (express_state ='已签收' or express_state ='已完成') ";
 			} else {
 				number = "select count(*) from express where express_belong ='" + ID + "'and express_state='"
 						+ expressinfoAndExpressVO.getState() + "' ";
@@ -229,6 +232,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else {
 			expressinfoAndExpressVO.setHaveNextPage(true);
 		}
+		System.out.println("lallalala: " + table);
 		listExpress = (List<express>) userInfoDao.queryForPage(table, expressinfoAndExpressVO.getPageIndex(),
 				expressinfoAndExpressVO.getPageSize());
 		for (express express : listExpress) {
@@ -248,6 +252,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				expressinfoAndExpressDTO.setExpressNew(express);
 				listExpressinfoAndExpressDTO.add(expressinfoAndExpressDTO);
 			}
+
 		}
 		expressinfoAndExpressVO.setListExpressinfoAndExpressDTO(listExpressinfoAndExpressDTO);
 		return expressinfoAndExpressVO;
