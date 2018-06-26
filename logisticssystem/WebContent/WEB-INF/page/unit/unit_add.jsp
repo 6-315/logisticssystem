@@ -22,7 +22,7 @@
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div class="wrapper" id="unitAdd">
     <!-- Navbar -->
     <!-- Navbar -->

@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div id="staffAdd" class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
@@ -97,7 +97,8 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li  v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"class="nav-item has-treeview">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -113,7 +114,8 @@
                                     <p>查询快件</p>
                                 </a>
                             </li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item">
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"
+                                class="nav-item">
                                 <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                    class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>

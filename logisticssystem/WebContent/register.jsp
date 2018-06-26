@@ -48,7 +48,7 @@
                            placeholder="电子邮箱">
                 </div>
                 <div class="form-group">
-                    <input type="password]" v-model="userinfo_password"
+                    <input type="password" v-model="userinfo_password"
                            class="form-control" placeholder="密码">
                 </div>
                 <div class="form-group">
