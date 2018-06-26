@@ -531,7 +531,7 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 					staff_basicinfo driverUnDistributed = transferStationDao
 							.getBasicinfoById(driver.getDriver_basicinfoid());
-                       
+                       System.out.println("qaqqqqqqq"+driver);
 					driverManagerDTO = new DriverManagerDTO();
 					driverManagerDTO.setDriver(driver);
 					driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
