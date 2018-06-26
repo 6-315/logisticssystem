@@ -31,7 +31,9 @@
             unit_createtime: '',
             unit_modifytime: ''
         },
-        adminList: []
+        adminList: [],
+        myRole: role,
+        unitList: []
     }
     const view_unitAdd = new Vue(
         {
@@ -115,7 +117,7 @@
                 getAdmin(event) {
                     //获取对应的所有管理员
                     $.ajax({
-                        url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getAllManager',
+                        url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',
                         type: 'POST',
                         data: {
                             'position': event.target.value
@@ -173,6 +175,20 @@
                 }
             },
             mounted() {
+                //获取对应的所有管理员
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',
+                    type: 'POST',
+                    data: {
+                        'unit': unitAddData.transferStation.unit_admin
+                    },
+                    success: function (data) {
+                        if (data != null) {
+                            const da = JSON.parse(data)
+                            unitAddData.adminList = da
+                        }
+                    }
+                })
                 //获取后台数据
                 let obj = $('#shuju').val()
                 if (obj.length === 0) {

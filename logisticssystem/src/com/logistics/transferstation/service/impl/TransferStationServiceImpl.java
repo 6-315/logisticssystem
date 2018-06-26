@@ -342,13 +342,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 模糊查询显示高亮
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
 				unit.setUnit_name(unit.getUnit_name().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'> " + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_address(unit.getUnit_address().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 
 				unit.setUnit_num(unit.getUnit_num().replaceAll(transferStationVO.getSearch(),
-						"<mark>" + transferStationVO.getSearch() + "</mark>"));
+						"<span style='color: #ff5063;'>" + transferStationVO.getSearch() + "</span>"));
 				System.out.println("987654321");
 			}
 
@@ -371,40 +371,31 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 */
 	public String vehicleDistribution(String vehicleList, String teamNum) {
 		team team = transferStationDao.getTeamById(teamNum);
-		System.out.println("888888" + team);
 		if (team != null) {
 			String[] vehicleListDistribute = vehicleList.split(",");
 			for (String eachVehicleId : vehicleListDistribute) {
 				/**
 				 * 如果每辆车不为空
 				 */
-				System.out.println("进入循环");
-				if (eachVehicleId != null && eachVehicleId.trim().length() > 0) {
-					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
-					System.out.println("ghghghg" + vehicle);
+				vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
+				driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
+				if (driver != null) {
+					driver.setDriver_vehicle("");
+					}
 					if (vehicle != null) {
-
-						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
 						vehicle.setVehicle_createtime(TimeUtil.getStringSecond());
 						vehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
-						System.out.println("分配成功");
-					} else {
-						System.out.println("分配失败");
-						return "fail";
+						transferStationDao.saveOrUpdateObject(vehicle);
+						
 					}
-				} else {
-					System.out.println("分配失败");
-					return "fail";
-				}
+				
 
 			}
+			return "success";
 		} else {
-			System.out.println("meinjin");
 			return "fail";
 		}
-
-		return "fail";
 	}
 
 	/**
@@ -442,28 +433,19 @@ public class TransferStationServiceImpl implements TransferStationService {
 				 * 如果每个司机不为空
 				 */
 				System.out.println("进入循环");
-				if (eachDriverId != null && eachDriverId.trim().length() > 0) {
 					driver driver = transferStationDao.getDriverById(eachDriverId);
 					System.out.println("ghghghg" + driver);
 					staff_basicinfo driverNew = transferStationDao.getBasicinfoById(eachDriverId);
 					if (driver != null && driverNew != null) {
-
 						driverNew.setStaff_superiorleader(team.getTeam_leader());
 						System.out.println("qwqwqw");
-
 						driver.setDriver_belong_team(teamNum);
 						driver.setDriver_createtime(TimeUtil.getStringSecond());
 						driver.setDriver_modifytime(TimeUtil.getStringSecond());
+						transferStationDao.saveOrUpdateObject(driver);
 						System.out.println("分配成功");
-						return "success";
-					} else {
-						System.out.println("分配失败");
-						return "fail";
-					}
-				} else {
-					System.out.println("分配失败");
-					return "fail";
-				}
+					} 
+					return "success";
 			}
 		} else {
 			System.out.println("meinjin");
@@ -525,9 +507,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 			 * 根据session中车队队长id获取车队
 			 */
 			team team = new team();
-			
+
 			team = transferStationDao.getTeamByLeader(staffBasicInfo.getStaff_id());
-			System.out.println("4444"+team);
+			System.out.println("4444" + team);
 			if (team != null) {
 				/**
 				 * 根据司机Id在员工信息表里面查询司机详细信息
@@ -538,9 +520,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 				listDriver = (List<driver>) transferStationDao.listObject(
 						"from driver where (driver_vehicle = ''or driver_vehicle=null ) and driver_belong_team ='"
 								+ team.getTeam_id() + "'");
-				System.out.println("123123"+"from driver where (driver_vehicle = ''or driver_vehicle=null ) and driver_belong_team ='"
-								+ team.getTeam_id() + "'");
-				System.out.println("asasasa"+listDriver);
+				System.out.println("123123"
+						+ "from driver where (driver_vehicle = ''or driver_vehicle=null ) and driver_belong_team ='"
+						+ team.getTeam_id() + "'");
+				System.out.println("asasasa" + listDriver);
 				/**
 				 * 遍历司机表
 				 */
@@ -548,15 +531,18 @@ public class TransferStationServiceImpl implements TransferStationService {
 
 					staff_basicinfo driverUnDistributed = transferStationDao
 							.getBasicinfoById(driver.getDriver_basicinfoid());
-
+                       System.out.println("qaqqqqqqq"+driver);
 					driverManagerDTO = new DriverManagerDTO();
+					driverManagerDTO.setDriver(driver);
 
 					driverManagerDTO.setDriverUnDistributed(driverUnDistributed);
-System.out.println("fdfdfdfdf"+driverUnDistributed);
+					listDriverManagerDTO.add(driverManagerDTO);
+					System.out.println("fdfdfdfdf" + driverUnDistributed);
 				}
+				System.out.println("wewewewe"+driverManagerDTO);
 			}
 		}
-		listDriverManagerDTO.add(driverManagerDTO);
+		
 
 		return listDriverManagerDTO;
 	}
@@ -567,8 +553,12 @@ System.out.println("fdfdfdfdf"+driverUnDistributed);
 
 	@Override
 	public String distributeDiver(vehicle vehicle, driver driver) {
-		if (driver.getDriver_vehicle() != null && driver.getDriver_vehicle().trim().length() > 0
-				&& vehicle.getVehicle_id() != null && vehicle.getVehicle_id().trim().length() > 0) {
+		vehicle vehicleNew = new vehicle();
+		vehicleNew = transferStationDao.getVehicleById(vehicle.getVehicle_id());
+		driver driverNew = new driver();
+		driverNew = transferStationDao.getDriverById(driver.getDriver_id());
+		if (driverNew.getDriver_vehicle() != null && driverNew.getDriver_vehicle().trim().length() > 0
+				&& vehicleNew.getVehicle_id() != null && vehicleNew.getVehicle_id().trim().length() > 0) {
 			driver.setDriver_vehicle(vehicle.getVehicle_id());
 
 			return "success";

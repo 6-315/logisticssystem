@@ -20,8 +20,6 @@
           href="${pageContext.request.contextPath}/css/adminlte.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <style>
         [v-cloak] {
@@ -345,7 +343,7 @@
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="min-height: 300px">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -496,7 +494,7 @@
                                             {{expressInfoVO.totalPages}}
                                             页/共{{expressInfoVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
-                                                :disabled="nextDisabled" href="#">
+                                                :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
                                         <li><a href="#">尾页</a></li>

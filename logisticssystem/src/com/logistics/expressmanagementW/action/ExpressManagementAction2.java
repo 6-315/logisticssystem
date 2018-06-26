@@ -85,6 +85,16 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	private unit unitNew;
 	private String listExpressId;
 	private String expressState;
+	private String waybillNumber;
+	
+
+	public String getWaybillNumber() {
+		return waybillNumber;
+	}
+
+	public void setWaybillNumber(String waybillNumber) {
+		this.waybillNumber = waybillNumber;
+	}
 
 	public String getExpressState() {
 		return expressState;
@@ -191,7 +201,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 	}
 
 	/**
-	 * 快件详情(流转信息)
+	 * 快件详情(流转信息) 根据运单号
 	 * 
 	 * @throws IOException
 	 */
@@ -201,7 +211,7 @@ public class ExpressManagementAction2 extends ActionSupport implements ServletRe
 		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = new ArrayList<>();
-		listExpressCirculationAndUnitDTO = expressManagementService2.getExpressCirculation(expressNew);
+		listExpressCirculationAndUnitDTO = expressManagementService2.getExpressCirculation(waybillNumber);
 		response.getWriter().write(gson.toJson(listExpressCirculationAndUnitDTO));
 	}
 

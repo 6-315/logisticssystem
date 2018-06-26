@@ -7,118 +7,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>人事管理-添加员工</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/adminlte.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/toastr.css">
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
-    <style type="text/css">
-        [v-cloak] {
-            display: none;
-        }
-
-        .table td, .table th {
-            padding: 0.5rem;
-            vertical-align: middle;
-        }
-
-        .dropdown-menu > li > a {
-            display: block;
-            clear: both;
-            font-size: 14px;
-            padding: 6px 10px;
-        }
-
-        .dropdown-menu > li > a:hover {
-            color: #f9f9f9;
-            background-color: #3c8dbc;
-        }
-
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
+    <style>
         body {
             font-size: 14px;
-        }
-
-        .label {
-            padding: .2em .6em .3em;
-            font-size: 75%;
-            border-radius: .25em;
-        }
-
-        .input-sm {
-            height: 30px;
-            padding: 5px 10px;
-            line-height: 1.5;
-            font-size: 12px;
-            border-radius: 3px;
-        }
-
-        .pagePosition {
-            /*float: right;*/
-            margin: auto;
-        }
-
-        .pagination > li {
-            display: inline;
-        }
-
-        .pagination > li > a, .pagination > li > span {
-            padding: 6px 12px;
-            border: 1px solid #ddd;
-        }
-
-        .huodong > a {
-            z-index: 3;
-            color: #fff;
-            cursor: default;
-            background-color: #337ab7;
-            border-color: #337ab7;
-            pointer-events: none;
-        }
-
-        .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
-            color: #23527c;
-            background-color: #eee;
-            border-color: #ddd;
-        }
-
-        /*.pagination > li > a:focus {
-                            color: #fff;
-                            cursor: default;
-                            background-color: #337ab7;
-                            border-color: #337ab7;
-                        }*/
-        .dropdown-menu {
-            max-height: 200px;
-            overflow-y: scroll;
-        }
-
-        .pagination > .huodong {
-            color: #fff;
-            cursor: default;
-            background-color: #337ab7;
-            border-color: #337ab7;
-        }
-
-        .pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover,
-        .pagination > .disabled > span, .pagination > .disabled > span:focus,
-        .pagination > .disabled > span:hover {
-            color: #777;
-            cursor: not-allowed;
-            background-color: #fff;
-            border-color: #ddd;
         }
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div id="staffAdd" class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -136,7 +49,7 @@
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        <%--<form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -145,31 +58,12 @@
                     </button>
                 </div>
             </div>
-        </form>
+        </form>--%>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa fa-comments-o"></i>
-                    <span class="badge badge-danger navbar-badge"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="fa fa-bell-o"></i>
-                    <span class="badge badge-warning navbar-badge">0</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">0 条消息</span>
-                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-                </div>
-            </li>
+
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -203,7 +97,7 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
+                    <li  v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -213,31 +107,33 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>查询快件</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item">
+                                <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加快件</p>
                                 </a>
                             </li>
-                            <li class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-calendar"></i>
                             <p>用户管理</p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -262,7 +158,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -279,14 +175,15 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加单位</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -301,7 +198,7 @@
                                     <p>车辆列表</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li v-if="myRole == 6" class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加车辆</p>
@@ -309,7 +206,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -326,7 +223,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加路线</p>
                                 </a>
@@ -360,7 +258,7 @@
         </section>
 
         <!-- Main content -->
-        <div v-cloak id="staffAdd" class="content">
+        <div v-cloak class="content">
             <div class="container-fluid">
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
@@ -487,80 +385,25 @@
     </aside>
     <!-- /.control-sidebar -->
 </div>
-<!-- jQuery -->
-<script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
-<script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<!-- <script src="../plugins/daterangepicker/daterangepicker.js"></script> -->
-<!-- bootstrap color picker -->
-<script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<!-- <script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script> -->
-<!-- SlimScroll 1.3.0 -->
-<script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
-<!-- 地址插件的使用 -->
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
-<!-- datepicker -->
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_add.js"></script>
-<script>
-    $(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2()
-        //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
-        //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
-        //Money Euro
-        $('[data-mask]').inputmask()
-        $('#entrytime').datetimepicker({
-            minView: "month",//设置只显示到月份
-            format: "yyyy-mm-dd",//日期格式
-            autoclose: true,//选中关闭
-            todayBtn: true//今日按钮
-        })
-        $('#birthday').datetimepicker({
-            minView: "month",//设置只显示到月份
-            format: "yyyy-mm-dd",//日期格式
-            autoclose: true,//选中关闭
-            todayBtn: true//今日按钮
-        })
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-        })
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-            checkboxClass: 'icheckbox_minimal-red',
-            radioClass: 'iradio_minimal-red'
-        })
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        })
-    })
-</script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script>
+    $(function () {
+        $('.select2').select2()
+    })
+</script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/staff/staff_add.js"></script>
 </body>
 </html>

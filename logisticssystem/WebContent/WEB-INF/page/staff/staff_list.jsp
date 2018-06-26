@@ -10,7 +10,7 @@
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <%--<link rel="stylesheet"
-                    href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
+                        href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
@@ -89,11 +89,11 @@
         }
 
         /*.pagination > li > a:focus {
-                                            color: #fff;
-                                            cursor: default;
-                                            background-color: #337ab7;
-                                            border-color: #337ab7;
-                                        }*/
+                                                    color: #fff;
+                                                    cursor: default;
+                                                    background-color: #337ab7;
+                                                    border-color: #337ab7;
+                                                }*/
         .dropdown-menu {
             max-height: 200px;
             overflow-y: scroll;
@@ -117,7 +117,7 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div id="staffList" class="wrapper">
     <!-- Navbar -->
     <nav
             class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -131,8 +131,7 @@
                                                              class="nav-link">快件管理</a></li>
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        <!-- SEARCH FORM --> <!--  <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search"
                        placeholder="Search" aria-label="Search">
@@ -142,11 +141,8 @@
                     </button>
                 </div>
             </div>
-        </form>
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
+        </form> --> <!-- Right navbar links --> <!-- <ul class="navbar-nav ml-auto">
+            Messages Dropdown Menu
             <li class="nav-item dropdown"><a class="nav-link"
                                              data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
                 <span class="badge badge-danger navbar-badge"></span>
@@ -156,18 +152,17 @@
                         Messages</a>
                 </div>
             </li>
-            <!-- Notifications Dropdown Menu -->
+            Notifications Dropdown Menu
             <li class="nav-item dropdown"><a class="nav-link"
                                              data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
                     class="badge badge-warning navbar-badge">0</span>
             </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <span class="dropdown-header">0 条消息</span>
-                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
-        </ul>
-    </nav>
+        </ul> --> </nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -194,8 +189,10 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                                 with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                                     with font-awesome or any other icon font library -->
+                    <li
+                            v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                            class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
@@ -207,24 +204,26 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
+                                class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
+                                class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a
-                            href="#" class="nav-link"> <i
-                            class="nav-icon fa fa-calendar"></i>
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
+                            href="#" class="nav-link"> <i class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li class="nav-item has-treeview menu-open"><a href="#"
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open"><a href="#"
                                                                    class="nav-link active"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -244,7 +243,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -252,38 +252,38 @@
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>单位列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="#" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a
-                                    href="#"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                                    class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a
-                                    href="#" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview"><a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a
+                            href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -295,8 +295,8 @@
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
                         </ul>
@@ -327,7 +327,7 @@
             <!-- /.container-fluid --> </section>
 
         <!-- Main content -->
-        <section class="content" id="staffList">
+        <section class="content">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -360,7 +360,7 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="selectPosition('')" href="#">所属单位(所有)</a></li>
+														<li><a @click="selectPosition('')" href="#">所属职位(所有)</a></li>
 														<li v-for="pos in postionList" :key="pos.position_id"><a
                                                                 @click="selectPosition(pos.position_id)" href="#">{{pos.position_name}}</a></li>
 													</ul>
@@ -387,7 +387,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="staffManagerVO.listStaDTO.length == 0">
+                                    <tbody v-if="staffManagerVO.listStaDTO!=undefined && staffManagerVO.listStaDTO.length == 0">
                                     <td v-if="ready" style="text-align: center" colspan="10"
                                         height="50">暂无数据
                                     </td>
@@ -425,8 +425,9 @@
                                                     <li><a
                                                             @click="unitDiaoDu(staffManDTO.staffBasicInfo.staff_id,staffManDTO.unit.unit_num,staffManDTO.unit.unit_name)"
                                                             href="#">单位调度</a></li>
-                                                    <li><a @click="skipDetail(staffManDTO.staffBasicInfo.staff_id)"
-                                                           href="#">查看详情</a></li>
+                                                    <li><a
+                                                            @click="skipDetail(staffManDTO.staffBasicInfo.staff_id)"
+                                                            href="#">查看详情</a></li>
                                                 </ul>
                                             </div>
                                         </td>

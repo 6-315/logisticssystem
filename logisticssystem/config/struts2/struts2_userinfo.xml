@@ -8,7 +8,7 @@
 		<action name="userinfo_*"
 			class="com.logistics.userinfo.action.UserInfoAction" method="{1}">
 			<result name="pageSendExpress">/WEB-INF/page/user/user-order.jsp</result>
-			<result name="pageSearchExpress">/user-search.jsp</result>
+			<result name="pageSearchExpress">/WEB-INF/page/user/user-search.jsp</result>
 			<result name="pageMyExpress">/WEB-INF/page/user/user-myorder.jsp</result>
 			<result name="pageUserInfo">/WEB-INF/page/user/user-userinfo.jsp</result>
 			<result name="userIndex">/WEB-INF/page/user/user-index.jsp</result>
