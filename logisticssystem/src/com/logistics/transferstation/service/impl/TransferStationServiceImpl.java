@@ -386,7 +386,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 					System.out.println("qaqaqaq"+driver);
 					if(driver!=null) {
 						driver.setDriver_vehicle("");
-					}else {
 					if (vehicle != null) {
 						System.out.println("qwqwqw");
 						vehicle.setVehicle_team(teamNum);
