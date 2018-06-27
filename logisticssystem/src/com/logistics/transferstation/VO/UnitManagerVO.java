@@ -29,7 +29,7 @@ public class UnitManagerVO {
 	
 	private int pageIndex = 1;
 
-	private int pageSize = 2;
+	private int pageSize = 10;
 
 	private int totalPages = 1;
 	/**
