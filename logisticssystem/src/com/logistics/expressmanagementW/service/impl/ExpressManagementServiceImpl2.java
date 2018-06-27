@@ -61,11 +61,15 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 			route getRoute = new route();
 			express_route expressRoute = new express_route();
 			expressRoute = expressManagementDao2.getexpressRoute(expressNew.getExpress_id());// 得到要跑哪一条路线
+			if (expressRoute == null) {
+				return null;
+			}
 			getRoute = expressManagementDao2.getRoute(expressRoute.getExpress_route_route_id()); // 得到路线
 			// team teamNew = new team();
 			// teamNew = expressManagementDao2.getTeam(getRoute.getRoute_id());
 			System.out.println("------------:" + expressRoute.getExpress_route_route_id());
 			List<team> listTeam = new ArrayList<>();
+
 			listTeam = (List<team>) expressManagementDao2
 					.listObject("from team where team_route ='" + getRoute.getRoute_id() + "'");
 
@@ -214,28 +218,166 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ExpressCirculationAndUnitDTO> getExpressCirculation(express expressNew) {
+	public List<ExpressCirculationAndUnitDTO> getExpressCirculation(String waybillNumber) {
+		System.out.println("<<<<<<<<<<<<<<<<" + waybillNumber);
 		List<ExpressCirculationAndUnitDTO> listExpressCirculationAndUnitDTO = new ArrayList<>();
 		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
-		if (expressNew.getExpress_id() != null && expressNew.getExpress_id().trim().length() > 0) {
+		ExpressCirculationAndUnitDTO expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
+		if (waybillNumber != null && waybillNumber.trim().length() > 0) {
+			express expressNew = new express();
+			expressNew = expressManagementDao2.getExpressByWaybillNumber(waybillNumber);
+			System.out.println("LLLLLLLLLLLLLLLLL:" + expressNew);
+			if (expressNew == null) {
+				return null;
+			}
 			List<express_circulation> ListExpressCirculation = new ArrayList<>();
 			ListExpressCirculation = (List<express_circulation>) expressManagementDao2
 					.listObject("from express_circulation where express_circulation_express_id ='"
-							+ expressNew.getExpress_id() + "' order by express_circulation_createtime");
-			for (express_circulation expressCirculation : ListExpressCirculation) {
+							+ expressNew.getExpress_id() + "' order by express_circulation_createtime desc");
+			if (ListExpressCirculation == null) {
+				return null;
+			}
+			if (ListExpressCirculation.size() == 1) {
 				expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
 				unit unitByLaunchpeople = new unit();
 				unit unitByReceiver = new unit();
 				unitByLaunchpeople = expressManagementDao2
-						.getUnitById(expressCirculation.getExpress_circulation_launchpeople());
+						.getUnitById(ListExpressCirculation.get(0).getExpress_circulation_launchpeople());
 				unitByReceiver = expressManagementDao2
-						.getUnitById(expressCirculation.getExpress_circulation_receiver());
-				if (expressCirculation != null && unitByLaunchpeople != null && unitByReceiver != null) {
-					expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
-					expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
-					expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
-					listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						.getUnitById(ListExpressCirculation.get(0).getExpress_circulation_receiver());
+				if ("流转中".equals(ListExpressCirculation.get(0).getExpress_circulation_state())) {
+					if (ListExpressCirculation.get(0) != null && unitByLaunchpeople != null && unitByReceiver != null) {
+						expressCirculationAndUnitDTO.setExpressCirculation(ListExpressCirculation.get(0));
+						expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+						expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+						expressCirculationAndUnitDTO.setMotion("已揽件");
+						expressCirculationAndUnitDTO.setNumber("one");
+						listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+					}
+					return listExpressCirculationAndUnitDTO;
+
+				} else {
+					expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+					expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
+					if (ListExpressCirculation.get(0) != null && unitByLaunchpeople != null && unitByReceiver != null) {
+						expressCirculationAndUnitDTO.setExpressCirculation(ListExpressCirculation.get(0));
+						expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+						expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+						expressCirculationAndUnitDTO.setMotion("已揽件");
+						expressCirculationAndUnitDTO.setNumber("one");
+						expressCirculationAndUnitDTO2.setExpressCirculation(ListExpressCirculation.get(0));
+						expressCirculationAndUnitDTO2.setUnitByLaunchpeople(unitByLaunchpeople);
+						expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
+						expressCirculationAndUnitDTO2.setMotion("已扫描");
+						expressCirculationAndUnitDTO2.setNumber("two");
+						listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+						return listExpressCirculationAndUnitDTO;
+					}
+
 				}
+
+			}
+			if (ListExpressCirculation.size() > 1) {
+				System.out.println("???????????????????????????????????????");
+				for (express_circulation expressCirculation : ListExpressCirculation) {
+					System.out.println("排序" + expressCirculation.getExpress_circulation_state());
+					unit unitByLaunchpeople = new unit();
+					unit unitByReceiver = new unit();
+					unitByLaunchpeople = expressManagementDao2
+							.getUnitById(expressCirculation.getExpress_circulation_launchpeople());
+					unitByReceiver = expressManagementDao2
+							.getUnitById(expressCirculation.getExpress_circulation_receiver());
+					if ("配送点".equals(unitByLaunchpeople.getUnit_type())) {
+
+						if ("流转中".equals(expressCirculation.getExpress_circulation_state())) {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已揽件");
+							expressCirculationAndUnitDTO.setNumber("one");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						} else {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已揽件");
+							expressCirculationAndUnitDTO.setNumber("one");
+							expressCirculationAndUnitDTO2.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO2.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO2.setMotion("已扫描");
+							expressCirculationAndUnitDTO2.setNumber("two");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
+						}
+					} else if ("配送点".equals(unitByReceiver.getUnit_type())) {
+						if ("流转中".equals(expressCirculation.getExpress_circulation_state())) {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已发出等待配送");
+							expressCirculationAndUnitDTO.setNumber("one");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						} else {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已发出等待派送送");
+							expressCirculationAndUnitDTO.setNumber("one");
+							expressCirculationAndUnitDTO2.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO2.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO2.setMotion("已经接收正在派送");
+							expressCirculationAndUnitDTO2.setNumber("two");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
+						}
+
+					} else {
+						if ("流转中".equals(expressCirculation.getExpress_circulation_state())) {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已发出");
+							expressCirculationAndUnitDTO.setNumber("one");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						} else {
+							expressCirculationAndUnitDTO = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO2 = new ExpressCirculationAndUnitDTO();
+							expressCirculationAndUnitDTO.setExpressCirculation(expressCirculation);
+							expressCirculationAndUnitDTO.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO.setMotion("已发出");
+							expressCirculationAndUnitDTO.setNumber("one");
+							expressCirculationAndUnitDTO2.setUnitByLaunchpeople(unitByLaunchpeople);
+							expressCirculationAndUnitDTO2.setExpressCirculation(expressCirculation);
+
+							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
+							expressCirculationAndUnitDTO2.setMotion("已扫描");
+							expressCirculationAndUnitDTO.setNumber("two");
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
+						}
+
+					}
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO.getNumber());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO.getMotion());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO2.getNumber());
+					System.out.println("KKKKK:" + expressCirculationAndUnitDTO2.getMotion());
+
+				}
+
 			}
 			return listExpressCirculationAndUnitDTO;
 		}
@@ -375,7 +517,7 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 				return "success";
 			}
 		}
- 
+
 		return null;
 	}
 
@@ -466,11 +608,13 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 					expressNew.setExpress_state("待扫描");
 					expressNew.setExpress_modifytime(TimeUtil.getStringSecond());
 					expressManagementDao2.saveOrUpdateObject(expressNew);
-					/*express_route expressRoute1 = new express_route();
-					expressRoute1 = expressManagementDao2.getexpressRoute(id);
-					expressRoute.setExpress_route_state("已完成");
-					expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
-					expressManagementDao2.saveOrUpdateObject(expressRoute);*/
+					/*
+					 * express_route expressRoute1 = new express_route(); expressRoute1 =
+					 * expressManagementDao2.getexpressRoute(id);
+					 * expressRoute.setExpress_route_state("已完成");
+					 * expressRoute.setExpress_route_modifytime(TimeUtil.getStringSecond());
+					 * expressManagementDao2.saveOrUpdateObject(expressRoute);
+					 */
 				}
 				return "succcess";
 			}

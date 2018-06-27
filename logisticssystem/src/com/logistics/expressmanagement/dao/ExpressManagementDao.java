@@ -95,6 +95,8 @@ public interface ExpressManagementDao {
 
 	public express_route getExpressRoute(String express_id);
 
+	public position getPositionInfoByName(String string);
+
 
 	/**
 	 * 

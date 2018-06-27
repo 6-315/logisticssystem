@@ -22,35 +22,52 @@ public class ExpressCirculationAndUnitDTO {
 	 * 快件流转接收方
 	 */
 	private unit unitByReceiver;
-
+	/**
+	 * 
+	 * 动作
+	 */
+	private String motion;
+	/**
+	 * 
+	 * @return
+	 */
+	private String number;
+	
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
 	public express_circulation getExpressCirculation() {
 		return expressCirculation;
 	}
-
 	public void setExpressCirculation(express_circulation expressCirculation) {
 		this.expressCirculation = expressCirculation;
 	}
-
 	public unit getUnitByLaunchpeople() {
 		return unitByLaunchpeople;
 	}
-
 	public void setUnitByLaunchpeople(unit unitByLaunchpeople) {
 		this.unitByLaunchpeople = unitByLaunchpeople;
 	}
-
 	public unit getUnitByReceiver() {
 		return unitByReceiver;
 	}
-
 	public void setUnitByReceiver(unit unitByReceiver) {
 		this.unitByReceiver = unitByReceiver;
 	}
-
+	public String getMotion() {
+		return motion;
+	}
+	public void setMotion(String motion) {
+		this.motion = motion;
+	}
 	@Override
 	public String toString() {
-		return "ExpressCirculationAndUnit [expressCirculation=" + expressCirculation + ", unitByLaunchpeople="
-				+ unitByLaunchpeople + ", unitByReceiver=" + unitByReceiver + "]";
+		return "ExpressCirculationAndUnitDTO [expressCirculation=" + expressCirculation + ", unitByLaunchpeople="
+				+ unitByLaunchpeople + ", unitByReceiver=" + unitByReceiver + ", motion=" + motion + ", number="
+				+ number + "]";
 	}
 
 }
