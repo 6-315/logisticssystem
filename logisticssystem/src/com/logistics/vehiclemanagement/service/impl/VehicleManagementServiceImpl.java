@@ -601,7 +601,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 驾驶员信息DTO
 		 */
-		List<DriverDTO> listDriverInfoDTO = new ArrayList<>();
+		
+		DriverDTO driverDTO;
 		/**
 		 * 获取数量
 		 */
@@ -703,6 +704,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 					teamInfoVO.getPageSize());
 			if (teamInfo.size() > 0) {
 				for (team team : teamInfo) {
+					List<DriverDTO> listDriverDTO = new ArrayList<>();
 					teamDTO = new VehicleTeamManagerDTO();
 					routeDTO = new RouteDTO();
 					/**
@@ -756,20 +758,22 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 						List<driver> listDriver = (List<driver>) vehicleManagementDao
 								.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
 						if (listDriver.size() > 0) {
-							for (driver driver : listDriver) {
-								DriverDTO driverDTO = new DriverDTO();
-								if (driver.getDriver_basicinfoid() != null
-										&& driver.getDriver_basicinfoid().trim().length() > 0) {
+							for (int i =0;i<listDriver.size();i++) {
+								driverDTO = new DriverDTO();
+								if (listDriver.get(i).getDriver_basicinfoid() != null
+										&& listDriver.get(i).getDriver_basicinfoid().trim().length() > 0) {
 									staff_basicinfo staffBasicInfo = vehicleManagementDao
-											.getStaffInfoById(driver.getDriver_basicinfoid());
+											.getStaffInfoById(listDriver.get(i).getDriver_basicinfoid());
 									if (staffBasicInfo != null) {
+										if(listDriver.get(i).getDriver_belong_team().equals(team.getTeam_id())) {
 										driverDTO.setStaffBasicInfo(staffBasicInfo);
-										driverDTO.setDriverInfo(driver);
-										listDriverInfoDTO.add(driverDTO);
+										driverDTO.setDriverInfo(listDriver.get(i));
+										listDriverDTO.add(driverDTO);
+										teamDTO.setListDriverInfoDTO(listDriverDTO);
+										}
 									}
 								}
 							}
-							teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
 						}
 						/**
 						 * 将关键字高亮
