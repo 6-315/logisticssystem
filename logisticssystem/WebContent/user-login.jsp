@@ -52,7 +52,7 @@
             <div class="clearfix"></div>
             <footer class="page-copyright">
                 <p>Note3物流有限公司 版权所有</p>
-                <p>© 2018. All RIGHT RESERVED.</p>
+                <p><a href="${pageContext.request.contextPath }/login.jsp">©</a>2018. All RIGHT RESERVED.</p>
             </footer>
         </div>
     </div>

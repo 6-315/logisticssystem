@@ -350,4 +350,20 @@ public class PersonnelManagementAction extends ActionSupport implements ServletR
 		staffManagerDTO = personnelManagementService.getStaffManagerDTO(ID);
 		response.getWriter().write(gson.toJson(staffManagerDTO));
 	}
+
+	/**
+	 * 根根session拿到该单位的所有车队队长s
+	 */
+	public void getCarTeamCaptain() {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting();// 格式化json数据
+		Gson gson = gsonBuilder.serializeNulls().create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffBasicSession = (staff_basicinfo) session.getAttribute("staff_session");
+		List<staff_basicinfo> listStaff  = new ArrayList<>();
+		listStaff = personnelManagementService.getCarTeamCaptain(staffBasicSession);
+
+	}
+
 }

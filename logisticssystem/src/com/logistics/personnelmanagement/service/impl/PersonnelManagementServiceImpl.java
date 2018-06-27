@@ -61,14 +61,12 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 						|| "配送点管理员".equals(positionNew.getPosition_name())) {
 					System.out.println("我是中转站或者配点");
 					if (staffManagerVO.getBelongUnit() != null && staffManagerVO.getBelongUnit().trim().length() > 0) {
-						System.out.println("??????????????");
 						number = "select count(*) from staff_basicinfo where staff_unit = '"
 								+ staffManagerVO.getBelongUnit() + "'";
 						table = "from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
 					} else {
 
-						System.out.println("ooooooooooooooooo");
-						number = "select count(*) from staff_basicinfo where staff_unit = '"
+						number = "select count(*) from staff_basicinfo where (staff_unit = '"
 								+ staffBasicinfo.getStaff_unit() + "'  ";
 						table = "from staff_basicinfo where  ( staff_unit = '" + staffBasicinfo.getStaff_unit() + "' ";
 						List<unit> listUnitByDistribution = (List<unit>) personnelManagementDao.listObject(
@@ -244,7 +242,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '中转站管理员' or position_name='车队队长' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 			/**
@@ -254,7 +252,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				System.out.println("进来了吗");
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '车队队长' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 
@@ -518,7 +516,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		position positionNew = new position();
 		staffNew = personnelManagementDao.getstaffById(iD);
 		unitNew = personnelManagementDao.gerUnitByID(staffNew.getStaff_unit());
-		
+
 		positionNew = personnelManagementDao.getPosition(staffNew);
 		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
 		staffManagerDTO.setPosition(positionNew);
@@ -526,6 +524,26 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 		staffManagerDTO.setUnit(unitNew);
 		return staffManagerDTO;
 
+	}
+
+	/**
+	 * 根据session获取该单位的所有车队队长
+	 */
+	@Override
+	public List<staff_basicinfo> getCarTeamCaptain(staff_basicinfo staffBasicSession) {
+		if (staffBasicSession == null) {
+			return null;
+		}
+		position positionNew = new position();
+		positionNew = personnelManagementDao.getPositionByTeamCaptain();
+		List<staff_basicinfo> listListStaff = new ArrayList<>();
+		listListStaff = (List<staff_basicinfo>) personnelManagementDao
+				.listObject("from staff_basicinfo where staff_unit = '" + staffBasicSession.getStaff_unit()
+						+ "'and staff_position = '" + positionNew.getPosition_id() + "'");
+		if (listListStaff.size() > 0) {
+			return listListStaff;
+		}
+		return null;
 	}
 
 }
