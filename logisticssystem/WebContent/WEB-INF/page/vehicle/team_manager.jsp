@@ -115,27 +115,26 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div id="teamManager" class="wrapper">
-    <!-- Navbar -->
-    <nav
-            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-        <!-- Left navbar links -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
-                    class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                    class="nav-link">快件管理</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">首页</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">快件管理</a></li>
         </ul>
-
+        <ul class="navbar-nav ml-auto">
+            <li><a
+                    href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                    style="float: right;">注销</a></li>
+        </ul>
     </nav>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="#" class="brand-link"> <img
-                src="${pageContext.request.contextPath}/img/houtai.png"
-                alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
+                src="${pageContext.request.contextPath}/img/houtai.png" alt="Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -147,18 +146,12 @@
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
             </div>
-
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                                         with font-awesome or any other icon font library -->
-                    <li
-                            v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
-                            class="nav-item has-treeview"><a href="#"
-                                                             class="nav-link"> <i
-                            class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -169,26 +162,20 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
-                                class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
-                                class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
-                            href="#" class="nav-link"> <i class="nav-icon fa fa-calendar"></i>
-                        <p>用户管理</p>
-                    </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -207,8 +194,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -227,31 +214,28 @@
                             </a></li>
                         </ul>
                     </li>
-
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fa fa-dashboard"></i>
-                            <p>
-                                车辆管理
-                                <i class="fa fa-angle-left right"></i>
-                            </p>
-                        </a>
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open"><a
+                            href="#" class="nav-link active">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            运输管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
-                                   class="nav-link">
-                                    <i class="fa fa-book nav-icon"></i>
-                                    <p>车辆列表</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
-                                   class="nav-link">
-                                    <i class="fa fa-plus-square-o nav-icon"></i>
-                                    <p>增加车辆</p>
-                                </a>
-                            </li>
                             <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                    class="nav-link"> <i
+                                    class="fa fa-book nav-icon"></i>
+                                <p>车辆列表</p>
+                            </a></li>
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加车辆</p>
+                            </a></li>
+                            <li v-if="myRole == 5 || myRole == 3 || myRole == 4" class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
                                     class="nav-link active"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
@@ -259,9 +243,8 @@
                             </a></li>
                         </ul>
                     </li>
-
-                    <li v-if="myRole == 6" class="nav-item has-treeview"><a
-                            href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -283,7 +266,7 @@
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar --> </aside>
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -316,6 +299,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <%--<div>
+                                <a @click="addTeamModal" class="btn btn-default">添加车队</a>
+                            </div>--%>
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
@@ -330,8 +316,6 @@
                                         <th>车队编号</th>
                                         <th>车队队长工号</th>
                                         <th>运输路线</th>
-                                        <th>所属单位</th>
-                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -350,26 +334,15 @@
                                            v-if="ready && teamInfoVO.listTeamDTO != undefined"
                                            style="min-height: 200px">
                                     <tr v-for="teamDTO in teamInfoVO.listTeamDTO">
-                                        <td v-html="teamDTO.team.team_id"></td>
+                                        <td v-html="teamDTO.team.team_num"></td>
                                         <td v-if="teamDTO.staff_BasicInfoLeader != undefined">
                                             {{teamDTO.staff_BasicInfoLeader.staff_num}}
                                         </td>
                                         <td v-else></td>
                                         <td>{{teamDTO.routeDTO.routeInfo.route_num}}</td>
-                                        <td>{{teamDTO.teamBelongUnit.unit_name}}</td>
-                                        <td>{{teamDTO.team.team_state}}</td>
+                                        <%--<td>{{teamDTO.team.team_state}}</td>--%>
                                         <td>
-                                            <div class="btn-group">
-													<span style="cursor: pointer;" data-toggle="dropdown"
-                                                          aria-haspopup="true" aria-expanded="false"> <i
-                                                            class="fa fa-th-list"></i>
-													</span>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">我的车队</a></li>
-                                                    <li><a href="#"></a></li>
-                                                    <li><a href="#">查看详情</a></li>
-                                                </ul>
-                                            </div>
+                                            <a @click="myTeamMember(teamDTO.listDriverInfoDTO)" href="#">车队成员</a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -398,223 +371,109 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <div class="modal fade" id="peiSongYuan">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">分配派送员</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>工号</th>
-                                    <th>姓名</th>
-                                    <th>联系方式</th>
-                                    <th>性别</th>
-                                    <th>员工状态</th>
-                                    <th>分配</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="dis in paiSongYuanList">
-                                    <td>{{dis.staffBasicinfo.staff_num}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_name}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_sex}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_state}}</td>
-                                    <td><a @click="paiSongStaff(dis.staffBasicinfo.staff_id)"
-                                           class="btn btn-default">分配</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        </section>
+
+        <%--<div class="modal fade" id="addTeam">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">添加车队</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label>车队队长</label>
+                                <select v-model="teamOb.team_leader" class="form-control">
+                                    <option v-for="team in teamLeader" value="team.team_id">{{team.team_leader}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>所跑路线</label>
+                                <select v-model="teamOb.team_route" class="form-control">
+                                    <option v-for="route in routeList" value="route.routInfo.route_id">
+                                        {{route.routeInfo.route_num}}
+                                    </option>
+                                </select>
+                            </div>
+                            &lt;%&ndash;<div class="form-group">
+                                <label>状态</label>
+                                <select v-model="teamOb.team_state" class="form-control">
+
+                                </select>
+                            </div>&ndash;%&gt;
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="expressReser">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">分配至配送点</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>单位编号</th>
-                                    <th>单位名称</th>
-                                    <th>单位详细地址</th>
-                                    <th>联系方式</th>
-                                    <th>选择</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="unit in reserList" :key="unit.unit_id">
-                                    <td>{{unit.unit_num}}</td>
-                                    <td>{{unit.unit_name}}</td>
-                                    <td>{{unit.unit_detailaddress}}</td>
-                                    <td>{{unit.unit_phonenumber}}</td>
-                                    <td><a @click="selectDistribution(unit.unit_id)"
-                                           class="btn btn-default" href="#">分配</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        </div>--%>
+
+        <div class="modal fade" id="myTeamMember">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">车队成员</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="men in member">
+                                <td>{{men.staffBasicInfo.staff_num}}</td>
+                                <td>{{men.staffBasicInfo.staff_name}}</td>
+                                <td>{{men.staffBasicInfo.staff_phonenumber}}</td>
+                                <td>{{men.driverInfo.driver_state}}</td>
+                            </tr>
+                            <%--<tr v-for="driver in driverManagerDTO" :key="driver.driver.driver_id">
+                                <td>{{driver.driverUnDistributed.staff_num}}</td>
+                                <td>{{driver.driverUnDistributed.staff_name}}</td>
+                                <td>{{driver.driverUnDistributed.staff_phonenumber}}</td>
+                                <td v-if="driver.driver != undefined">
+                                    是
+                                </td>
+                                <td v-else>
+                                    否
+                                </td>
+                                <td><a @click="selectVehicleDriver(driver.driver.driver_id)" class="btn btn-default"
+                                       href="#">分配</a>
+                                </td>
+                            </tr>--%>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="expressVehicle">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件装车</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>车辆编号</th>
-                                    <th>车牌号</th>
-                                    <th>车辆载货状态</th>
-                                    <th>车辆规格</th>
-                                    <th>车辆载货重量</th>
-                                    <th>选择</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="vehicle in vehicleList" :key="vehicle.vehicle_id">
-                                    <td>{{vehicle.vehicle_num}}</td>
-                                    <td>{{vehicle.vehicle_platenum}}</td>
-                                    <td>{{vehicle.vehicle_express_state}}</td>
-                                    <td>{{vehicle.vehicle_standard}}</td>
-                                    <td>{{vehicle.vehicle_current_weight}}</td>
-                                    <td><a @click="loadCar(vehicle.vehicle_id)"
-                                           class="btn btn-default" href="#">装车</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressRoute">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">选择快件路线</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <tr-com @getroute="getRoute" @pushroute="pushRoute"
-                                    :lastaddress="lastAddress" :expresslistr="expressListR"></tr-com>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" @click="saveExpressRoute"
-                                    class="btn btn-danger">保存
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressAdd">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件到站</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <h4>是否确定快件到站</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button @click="daozhan" type="button" class="btn btn-danger">确定</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="mymodal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h4 class="modal-title">快件详情</h4>
-                        </div>
-                        <div class="mdoal-body">
-                            <p>我的详情</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" class="btn btn-primary">保存</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="deleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件详情</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <h4>是否确定删除数据</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" class="btn btn-danger">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row --> </section>
+        </div>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
@@ -635,6 +494,7 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/vehicle/team_manager.js"></script>
 
 </body>
 </html>

@@ -423,7 +423,7 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	 */
 	public void saveExpressRoute() throws IOException {
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + expressManagementService.saveExpressRoute(id_directionList,expressInfo));
+		response.getWriter().write("" + expressManagementService.saveExpressRoute(id_directionList, expressInfo));
 	}
 
 	/**
@@ -439,6 +439,32 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		gsonBuilder.setPrettyPrinting();
 		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(expressManagementService.queryAllRouteWithUnit(unitInfo)));
+	}
+
+	/**
+	 * 查询经过该中转站的所有路线
+	 * 
+	 * @throws IOException
+	 */
+	public void queryAllRouteWithUnitSession() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		unit unitInfo = new unit();
+		if (staffInfo != null) {
+			if (staffInfo.getStaff_unit() != null && staffInfo.getStaff_unit().trim().length() > 0) {
+				unitInfo.setUnit_id(staffInfo.getStaff_unit());
+			}
+		} else {
+			response.getWriter().write("");
+		}
 		response.getWriter().write(gson.toJson(expressManagementService.queryAllRouteWithUnit(unitInfo)));
 	}
 
@@ -552,7 +578,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		UserInfoSessionDTO userInfo = new UserInfoSessionDTO();
 		userInfo = (UserInfoSessionDTO) session.getAttribute("userInfoSession");
-		response.getWriter().write(gson.toJson(expressManagementService.queryUserReservation(userInfo.getUserInfoSession(), state)));
+		response.getWriter().write(
+				gson.toJson(expressManagementService.queryUserReservation(userInfo.getUserInfoSession(), state)));
 	}
 
 	/**
@@ -596,49 +623,56 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 	public String addUnitPage() {
 		return "addUnit";
 	}
+
 	/**
 	 * 跳转到添加单位页面
 	 */
-	public String pageAddUnit(){
+	public String pageAddUnit() {
 		return "pageAddUnit";
 	}
+
 	/**
 	 * 重定向到action
 	 */
 	public String addStaffPage() {
 		return "addStaff";
 	}
+
 	/**
 	 * 跳转到添加员工页面
 	 */
-	public String pageAddStaff(){
+	public String pageAddStaff() {
 		return "pageAddStaff";
 	}
+
 	/**
 	 * 重定向到action
 	 */
 	public String addRoutePage() {
 		return "addRoute";
 	}
+
 	/**
 	 * 跳转到添加路线页面
 	 */
-	public String pageAddRoute(){
+	public String pageAddRoute() {
 		return "pageAddRoute";
 	}
+
 	/**
 	 * 重定向到action
 	 */
 	public String addVehiclePage() {
 		return "addVehcile";
 	}
+
 	/**
 	 * 跳转到添加路线页面
 	 */
-	public String pageAddVehcile(){
+	public String pageAddVehcile() {
 		return "pageAddVehcile";
 	}
-	
+
 	/**
 	 * 查看当前预约单信息
 	 * 
@@ -657,7 +691,8 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 
 	/**
 	 * 获得路线信息
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void getRouteInfo() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -668,12 +703,13 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.getRouteInfo(idList)));
-		
+
 	}
-	
+
 	/**
 	 * 获得与职位匹配的所有人员
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void getStaffInfoByPosition() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -685,5 +721,5 @@ public class ExpressManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(expressManagementService.getStaffInfoByPosition(unit)));
 	}
-	
+
 }

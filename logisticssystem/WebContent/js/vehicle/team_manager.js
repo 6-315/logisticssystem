@@ -20,7 +20,20 @@
         preDisabled: false,
         nextDisabled: false,
         page: 1,
-
+        myRole: role,
+        member: [],
+        teamLeader: [],
+        routeList: [],
+        teamOb: {
+            team_id: '',
+            tean_num: '',
+            team_leader: '',
+            team_unit: '',
+            team_route: '',
+            team_state: '',
+            team_createtime: '',
+            team_modifytime: ''
+        }
     }
     const viewTeamManager = new Vue({
         el: '#teamManager',
@@ -29,7 +42,7 @@
             getAllData: function () {
                 // 数据
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/vehiclemanagement/vehiclemanagement_queryTeam',
                     type: 'POST',
                     data: {
                         'search': teamManagerData.search,
@@ -95,11 +108,61 @@
                 teamManagerData.pageIndex = teamManagerData.teamInfoVO.totalPages
                 viewTeamManager.getAllData()
                 viewTeamManager.judge()
+            },
+            //选择单位
+            selectUnit(unitId) {
+                teamManagerData.unit = unitId
+                viewTeamManager.getAllData()
+                viewTeamManager.judge()
+            },
+            selectSearch() {
+                viewTeamManager.getAllData()
+                viewTeamManager.judge()
+            },
+            myTeamMember(teamMember) {
+                if (teamMember == null) {
+                    toastr.info('该车队没有员工')
+                }
+                teamManagerData.member = teamMember
+                $('#myTeamMember').modal()
+            },
+            addTeamModal() {
+                $('#addTeam').modal()
             }
         },
         mounted() {
+            //
+            /*if (teamManagerData.myRole == 5) {
+                $.ajax({
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_getCarTeamCaptain',
+                    type: 'POST',
+                    data: '',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data != null) {
+                            const teamLeader = JSON.parse(data)
+                            teamManagerData.teamLeader = teamLeader
+                        }
+                    }
+
+                })
+            }
+            if (teamManagerData.myRole == 5) {
+                $.ajax({
+                    url: '/logisticssystem/expressmanagement/expressmanagement_queryAllRouteWithUnitSession',
+                    type: 'post',
+                    data: '',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data != null && data != '') {
+                            const routeList = data
+                            teamManagerData.routeList = routeList
+                        }
+                    }
+                })
+            }*/
             // 获取单位信息
-            if (vehicleListData.myRole == 6) {
+            if (teamManagerData.myRole == 6) {
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
                     type: 'POST',
@@ -112,7 +175,7 @@
             }
             // 数据
             $.ajax({
-                url: '',
+                url: '/logisticssystem/vehiclemanagement/vehiclemanagement_queryTeam',
                 type: 'POST',
                 data: '',
                 success: function (data) {

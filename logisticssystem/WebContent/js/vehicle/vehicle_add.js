@@ -26,11 +26,12 @@
         data: vehicleAddData,
         methods: {
             saveVehicle() {
-                //验证
-                //提交
+                // 验证
+                // 提交
                 $.ajax({
                     url: '/logisticssystem/vehiclemanagement/vehiclemanagement_addVehicle',
                     type: 'POST',
+                    dataType:'json',
                     data: {
                         'vehicleInfo.vehicle_id': vehicleAddData.vehicleInfo.vehicle_id,
                         'vehicleInfo.vehicle_num': vehicleAddData.vehicleInfo.vehicle_num,
@@ -50,6 +51,7 @@
                     },
                     success: function (data) {
                         if (data != null) {
+                        	vehicleAddData.vehicleInfo = data
                             toastr.success('添加成功')
                         } else {
                             toastr.error('添加失败')
@@ -59,16 +61,16 @@
             }
         },
         mounted() {
-            //根据id获取车辆信息
+            // 根据id获取车辆信息
             let obj = $('#shuju').val()
             if (obj.length === 0) {
                 return
             }
             $.ajax({
-                url: '',
+                url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getVehicleInfoById',
                 type: 'POST',
                 data: {
-                    '': obj
+                    'idList': obj
                 },
                 success: function (data) {
                     if (data != null) {
