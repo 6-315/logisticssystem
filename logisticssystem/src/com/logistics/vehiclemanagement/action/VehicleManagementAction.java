@@ -292,7 +292,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write(gson.toJson(vehicleManagementService.addVehicle(vehicleInfo,staffInfo)));
+		response.getWriter().write(gson.toJson(vehicleManagementService.addVehicle(vehicleInfo, staffInfo)));
 	}
 
 	/**
@@ -418,7 +418,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(idList,unit,staffInfo));
+		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(idList, unit, staffInfo));
 	}
 
 	/**
@@ -436,10 +436,11 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(vehicleManagementService.getAllManager(position)));
 	}
-	
+
 	/**
 	 * 获得所有车队
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void getAllTeam() throws IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -453,6 +454,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(vehicleManagementService.getAllTeam(staffInfo)));
 	}
+
 	
 	/**
 	 * 根据Id获得车辆信息
@@ -469,4 +471,5 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		response.getWriter().write(gson.toJson(vehicleManagementService.getVehicleInfoById(idList)));
 	}
 	
+
 }

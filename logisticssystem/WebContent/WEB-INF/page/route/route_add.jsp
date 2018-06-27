@@ -21,12 +21,11 @@
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
-<div id="routeAdd" class="wrapper">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
+<div class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
-    <nav
-            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
@@ -37,41 +36,9 @@
                                                              class="nav-link">快件管理</a></li>
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search"
-                       placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
-                <span class="badge badge-danger navbar-badge"></span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item dropdown-footer">See All
-                        Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
-                    class="badge badge-warning navbar-badge">0</span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">0 条消息</span>
-                    <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-                </div>
-            </li>
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -174,13 +141,21 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList" class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -212,7 +187,7 @@
         <!-- /.sidebar --> </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div id="routeassd" class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -251,49 +226,44 @@
                                     <label for="route_num">路线编号</label>
                                     <input id="shuju" type="hidden" value="${idList}">
                                     <input disabled type="text" class="form-control" id="route_num"
-                                           placeholder="路线编号..">
+                                           v-model="routeDTO.routeInfo.route_num" placeholder="路线编号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>路线始发站</label> <select class="form-control select2"
-                                                                 style="width: 100%;">
-                                    <option selected="selected">中转站1</option>
-                                    <option>中转站2</option>
-                                    <option>中转站3</option>
-                                </select>
+                                    <label>路线始发站</label>
+                                    <select v-model="routeDTO.routeInfo.route_departurestation"
+                                            class="form-control select2"
+                                            style="width: 100%;">
+                                        <option v-for="unit in unitList" :value="unit.unit_id"
+                                        >{{unit.unit_name}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>路线终点站</label> <select class="form-control select2"
-                                                                 style="width: 100%;">
-                                    <option>中转站1</option>
-                                    <option selected="selected">中转站2</option>
-                                    <option>中转站3</option>
-                                </select>
+                                    <label>路线终点站</label>
+                                    <select v-model="routeDTO.routeInfo.route_terminalstation"
+                                            class="form-control select2"
+                                            style="width: 100%;">
+                                        <option v-for="unit in unitList" :value="unit.unit_id"
+                                        >{{unit.unit_name}}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>路线创建者</label> <select class="form-control select2"
-                                                                 style="width: 100%;">
-                                    <option selected="selected">0001</option>
-                                    <option>0002</option>
-                                    <option>0003</option>
-                                </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>创建时间:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-											<span class="input-group-text"> <i
-                                                    class="fa fa-calendar"></i>
-											</span>
-                                        </div>
-                                        <input type="text" class="form-control float-right"
-                                               id="route_createtime">
-                                    </div>
-                                    <!-- /.input group -->
+                                    <label>状态</label>
+                                    <select class="form-control"
+                                            v-model="routeDTO.routeInfo.route_state"
+                                            data-placeholder="路线状态"
+                                            style="width: 100%;">
+                                        <option>未启用</option>
+                                        <option>正常使用</option>
+                                        <option>已废弃</option>
+                                    </select>
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
                                     <button type="button"
                                             style="width: 120px; float: right; margin-right: 7px"
+                                            @click="saveRoute"
                                             class="btn btn-block btn-primary btn-lg">提交
                                     </button>
                                 </div>
@@ -341,16 +311,6 @@
         src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
-<script>
-    $(function () {
-
-        $('#route_createtime').datetimepicker({
-            minView: "month",//设置只显示到月份
-            format: "yyyy-mm-dd",//日期格式
-            autoclose: true,//选中关闭
-            todayBtn: true
-        })
-    })
-</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/route/route_add.js"></script>
 </body>
 </html>

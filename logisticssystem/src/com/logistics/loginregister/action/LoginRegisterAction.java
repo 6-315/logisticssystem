@@ -322,6 +322,15 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	}
 
 	/**
+	 * 车队管理
+	 * 
+	 * @return
+	 */
+	public String pageTeamManager() {
+		return "pageTeamManager";
+	}
+
+	/**
 	 * 登陆方法
 	 *
 	 * @throws IOException
@@ -350,6 +359,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			if (listUserInfo.size() > 0) {
 				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
 				if (userInfoSession != null) {
+
 					UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
 					userInfoSessionDTO.setUserInfoSession(userInfoSession);
 					request.getSession().setAttribute("userInfoSession", userInfoSessionDTO);
@@ -360,6 +370,9 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			} else if (listStaffBasicInfo.size() > 0) {
 				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
 				if (staffSession != null) {
+					if ("离职".equals(staffSession.getStaff_state())) {
+						response.getWriter().write("error");
+					}
 					position positionNew = new position();
 					if (staffSession.getStaff_position() != null
 							&& staffSession.getStaff_position().trim().length() > 0) {

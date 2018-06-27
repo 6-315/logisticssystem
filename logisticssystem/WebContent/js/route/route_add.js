@@ -10,61 +10,50 @@
                 route_state: '',
                 route_createtime: '',
                 route_modifytime: ''
-            },
-            endUnit: {
-                unit_id: '',
-                unit_num: '',
-                unit_name: '',
-                unit_address: '',
-                unit_detailaddress: '',
-                unit_type: '',
-                unit_superiorunit: '',
-                unit_creator: '',
-                unit_state: '',
-                unit_admin: '',
-                unit_phonenumber: '',
-                unit_createtime: '',
-                unit_modifytime: ''
-            },
-            beginUnit: {
-                unit_id: '',
-                unit_num: '',
-                unit_name: '',
-                unit_address: '',
-                unit_detailaddress: '',
-                unit_type: '',
-                unit_superiorunit: '',
-                unit_creator: '',
-                unit_state: '',
-                unit_admin: '',
-                unit_phonenumber: '',
-                unit_createtime: '',
-                unit_modifytime: ''
-            },
-            creator: {
-                staff_id: '',
-                staff_num: '',
-                staff_name: '',
-                staff_password: '',
-                staff_phonenumber: '',
-                staff_birthday: '',
-                staff_entrytime: '',
-                staff_state: '',
-                staff_sex: '',
-                staff_recruit: '',
-                staff_position: '',
-                staff_superiorleader: '',
-                staff_unit: '',
-                staff_createtime: '',
-                staff_modifytime: ''
             }
         },
-        unitList: []
+        unitList: [],
+        myRole: role
     }
     const viewRouteData = new Vue({
-        el: '#routeAdd',
+        el: '#routeassd',
         data: routeAddData,
-        methods: {},
+        methods: {
+            saveRoute: function () {
+                //保存路线
+                $.ajax({
+                    url: '/logisticssystem/routemanagement/routemanagement_addRoute',
+                    type: 'POST',
+                    data: {
+                        'rout.route_id': routeAddData.routeDTO.routeInfo.route_id,
+                        'rout.route_num': routeAddData.routeDTO.routeInfo.route_num,
+                        'rout.route_creater': routeAddData.routeDTO.routeInfo.route_creater,
+                        'rout.route_departurestation': routeAddData.routeDTO.routeInfo.route_departurestation,
+                        'rout.route_terminalstation': routeAddData.routeDTO.routeInfo.route_terminalstation,
+                        'rout.route_state': routeAddData.routeDTO.routeInfo.route_state,
+                        'rout.route_createtime': routeAddData.routeDTO.routeInfo.route_createtime,
+                        'rout.route_modifytime': routeAddData.routeDTO.routeInfo.route_modifytime
+                    },
+                    success: function (data) {
+                        if (data == null) {
+                            toastr.error('保存失败')
+                        } else {
+                            const da = JSON.parse(data)
+                            routeAddData.routeDTO.routeInfo.route_id = da.route_id
+                            routeAddData.routeDTO.routeInfo.route_num = da.route_num
+                            routeAddData.routeDTO.routeInfo.route_creater = da.route_creater
+                            routeAddData.routeDTO.routeInfo.route_departurestation = da.route_departurestation
+                            routeAddData.routeDTO.routeInfo.route_terminalstation = da.route_terminalstation
+                            routeAddData.routeDTO.routeInfo.route_state = da.route_state
+                            routeAddData.routeDTO.routeInfo.route_createtime = da.route_createtime
+                            routeAddData.routeDTO.routeInfo.route_modifytime = da.route_modifytime
+                            toastr.success('保存成功,编号为:' + routeAddData.routeDTO.routeInfo.route_num)
+                        }
+                    }
+                })
+
+            }
+        },
         mounted() {
             //获取后台数据
             let obj = $('#shuju').val()
@@ -72,38 +61,36 @@
                 return
             }
             $.ajax({
-                url: '/logisticssystem/expressmanagement/expressmanagement_getRoute',
+                url: '/logisticssystem/expressmanagement/expressmanagement_getRouteInfo',
                 type: 'POST',
                 data: {
-                    '': obj
+                    'idList': obj
                 },
                 success: function (data) {
                     if (data != null) {
-                        let routeInfo = JSON.parse(data)
-                        routeAddData.routeDTO.routeInfo.route_id = routeInfo.route_id
-                        routeAddData.routeDTO.routeInfo.route_num = routeInfo.route_num
-                        routeAddData.routeDTO.routeInfo.route_creater = routeInfo.route_creater
-                        routeAddData.routeDTO.routeInfo.route_departurestation = routeInfo.route_departurestation
-                        routeAddData.routeDTO.routeInfo.route_terminalstation = routeInfo.route_terminalstation
-                        routeAddData.routeDTO.routeInfo.route_state = routeInfo.route_state
-                        routeAddData.routeDTO.routeInfo.route_createtime = routeInfo.route_createtime
-                        routeAddData.routeDTO.routeInfo.route_modifytime = routeInfo.route_modifytime
+                        let da = JSON.parse(data)
+                        routeAddData.routeDTO.routeInfo.route_id = da.routeInfo.route_id
+                        routeAddData.routeDTO.routeInfo.route_num = da.routeInfo.route_num
+                        routeAddData.routeDTO.routeInfo.route_creater = da.routeInfo.route_creater
+                        routeAddData.routeDTO.routeInfo.route_departurestation = da.routeInfo.route_departurestation
+                        routeAddData.routeDTO.routeInfo.route_terminalstation = da.routeInfo.route_terminalstation
+                        routeAddData.routeDTO.routeInfo.route_state = da.routeInfo.route_state
+                        routeAddData.routeDTO.routeInfo.route_createtime = da.routeInfo.route_createtime
+                        routeAddData.routeDTO.routeInfo.route_modifytime = da.routeInfo.route_modifytime
                     }
                 }
             })
+            $.ajax({})
             // 获取单位信息
-            if (vehicleListData.myRole == 6) {
-                $.ajax({
-                    url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
-                    type: 'POST',
-                    data: '',
-                    success: function (data) {
-                        let uList = JSON.parse(data)
-                        routeAddData.unitList = uList.filter(u => u.unit_type == '中转站')
-                    }
-                })
-            }
-
+            $.ajax({
+                url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                type: 'POST',
+                data: '',
+                success: function (data) {
+                    let uList = JSON.parse(data)
+                    routeAddData.unitList = uList.filter(u => u.unit_type == '中转站')
+                }
+            })
         }
     })
 })()
