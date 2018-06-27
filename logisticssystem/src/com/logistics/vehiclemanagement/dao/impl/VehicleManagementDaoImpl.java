@@ -193,7 +193,7 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 	@Override
 	public String getMaxNumber(String hql) {
 		Session session = getSession();
-		Query query = session.createQuery(hql);
+		Query query = session.createSQLQuery(hql);
 		String number = (String) query.uniqueResult();
 		return number;
 	}
@@ -215,6 +215,7 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 	/**
 	 * 获得未分配单位的管理员列表
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<staff_basicinfo> getListManager(String hql) {
 		Session session = getSession();
