@@ -78,11 +78,11 @@
         <div class="yto-box">
             <div class="row">
                 <div class="col-sm-2 hidden-xs">
-                    <div class="my-avatar center-block p_bottom_10">
+                    <%--<div class="my-avatar center-block p_bottom_10">
 							<span class="avatar"> <img alt="..."
                                                        src="${pageContext.request.contextPath}/img/touxiang.jpg">
 							</span>
-                    </div>
+                    </div>--%>
                     <h5 class="text-center p_bottom_10">您好！18296929245</h5>
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a
@@ -101,24 +101,10 @@
                 <div class="col-sm-10 b-left">
                     <p class="alert alert-danger hidden" role="alert" id="error"></p>
                     <form class="form-horizontal">
-                        <input
-                                value="0051f077-3fd2-48a7-a72a-9404139cfa08" type="hidden">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">头像</label>
-                            <div class="col-sm-4">
-                                <div class="avatar-edit" title="" data-original-title="点击上传头像">
-                                    <img id="headUrlImg"
-                                         src="${pageContext.request.contextPath}/img/touxiang.jpg">
-                                    <input class="headimg" type="hidden">
-                                    <div class="loading" aria-label="Loading" role="img"
-                                         tabindex="-1"></div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">真实姓名</label>
                             <div class="col-sm-4">
-                                <input v-model="userinfo_username"
+                                <input readonly="readonly" v-model="userinfo_username"
                                        title="nickname"
                                        class="form-control">
                             </div>

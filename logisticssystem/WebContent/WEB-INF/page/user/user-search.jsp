@@ -75,7 +75,7 @@
         <div class="yto-box">
             <form method="post" id="history_search" action="" class="form-horizontal m_bottom_30">
                 <div class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                    <input v-model="search" class="form-control" placeholder="请输入运单号" type="text">
+                    <input v-model="search" type="number" class="form-control" placeholder="请输入快递单号" type="text">
                     <span class="input-group-btn">
 					    <a @click="searchExpress" style="height: 46px;" class="btn btn-primary"
                            type="submit">

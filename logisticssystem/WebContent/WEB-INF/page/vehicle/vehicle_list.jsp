@@ -401,12 +401,9 @@
                                         <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
                                             {{listVehicleDTO.unit.unit_name}}
                                         </td>
-                                        <td v-if="myRole==6 && listVehicleDTO.unit == undefined"></td>
-                                        <td v-if="listVehicleDTO.vehicle_TeamDTO.team != undefined">
+                                        <td v-if="myRole!=6 && listVehicleDTO.vehicle_TeamDTO.team != undefined">
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
-                                        <td v-else></td>
-
                                         <td v-if="listVehicleDTO.driverDTO && listVehicleDTO.driverDTO.staffBasicInfo">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
@@ -429,7 +426,7 @@
                                                     </li>--%>
                                                     <%--<li><a href="javascript:void(0);">分配车辆到车队</a>--%>
                                                     </li>
-                                                    <li>
+                                                    <li v-if="myRole==4">
                                                         <a @click="distVehicleDriver(listVehicleDTO.vehicleInfo.vehicle_id)"
                                                            href="javascript:void(0);">分配车辆到驾驶员</a>
                                                     </li>

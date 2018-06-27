@@ -40,16 +40,16 @@
             </ul>
             <form class="fv-form fv-form-bootstrap">
                 <div class="form-group">
-                    <input v-model="userinfo_phonenumber" class="form-control"
+                    <input @change="phone" v-model="userinfo_phonenumber" class="form-control"
                            placeholder="手机号码">
                 </div>
                 <div class="form-group">
-                    <input v-model="userinfo_email" class="form-control"
+                    <input @change="email" v-model="userinfo_email" class="form-control"
                            placeholder="电子邮箱">
                 </div>
                 <div class="form-group">
                     <input type="password" v-model="userinfo_password"
-                           class="form-control" placeholder="密码">
+                           @change="password" class="form-control" placeholder="密码格式为6-20位字母、数字、下划线">
                 </div>
                 <div class="form-group">
                     <input @change="comparePassword"
