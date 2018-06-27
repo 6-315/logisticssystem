@@ -365,7 +365,7 @@
                                                                @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
-                                        <th>操作</th>
+                                        <th v-if="myRole!=6">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
@@ -407,14 +407,14 @@
                                         <td v-if="myRole==1 || myRole==2 || myRole==5 || myRole==6">
                                             {{expressInfoDTO.expressInfo.express_state}}
                                         </td>
-                                        <td>
+                                        <td v-if="myRole!=6">
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
                                                           aria-haspopup="true" aria-expanded="false"> <i
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">查看详情</a></li>
+                                                    <%--<li><a href="#">查看详情</a></li>--%>
                                                     <li><a v-if="myRole==2" href="#">分配取件员</a></li>
                                                     <%--<li><a href="#">已揽件</a></li>--%>
                                                     <li><a v-if="myRole==5"
@@ -432,7 +432,7 @@
                                                     <li><a v-if="myRole==1"
                                                            @click="qianShouExpress(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">已签收</a></li>
-                                                    <li><a v-if="myRole==5 || myRole==6" href="#">查看快件路线</a></li>
+                                                    <%--<li><a v-if="myRole==5 || myRole==6" href="#">查看快件路线</a></li>--%>
                                                     <li><a v-if="myRole==2"
                                                            @click="completeExpress(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">已完成</a></li>
@@ -689,7 +689,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
