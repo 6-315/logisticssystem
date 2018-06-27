@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
@@ -79,7 +79,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img src="../../img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="${pageContext.request.contextPath}/img/houtai.png" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
@@ -89,7 +90,8 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../../img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg" class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
@@ -102,7 +104,8 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -112,26 +115,34 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="/test/test/pages/express/express_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>查询快件</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/test/test/pages/express/express_add.html" class="nav-link">
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"
+                                class="nav-item">
+                                <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加快件</p>
                                 </a>
                             </li>
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
+                                <p>预约管理</p>
+                            </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="/test/test/pages/user/user_list.html" class="nav-link">
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-calendar"></i>
                             <p>用户管理</p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -141,20 +152,22 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>员工查询</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/staff/staff_add.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>招聘员工</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -164,20 +177,23 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/unit/unit_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>单位列表</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/unit/unit_add.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加单位</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -187,12 +203,12 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/vehicle/vehicle_list.html" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>车辆列表</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li v-if="myRole == 6" class="nav-item">
                                 <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
                                    class="nav-link active">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
@@ -207,7 +223,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <li v-if="myRole == 6" class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -217,13 +233,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/route/route_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>路线列表</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/test/test/pages/route/route_add.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加路线</p>
                                 </a>
@@ -248,7 +266,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
                             <li class="breadcrumb-item active">新增车辆</li>
                         </ol>
                     </div>
@@ -273,61 +291,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="vehicle_platenum">车辆车牌号</label>
-                                    <input type="text" class="form-control" id="vehicle_platenum"
-                                           placeholder="请输入车辆车牌号..">
+                                    <label>车辆编号</label>
+                                    <input type="hidden" id="shuju" value="${idList}">
+                                    <input disabled v-model="staffBasicInfo.staff_num" type="text"
+                                           class="form-control"
+                                           placeholder="员工工号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>车辆所属单位</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">中转站1</option>
-                                        <option>中转站2</option>
-                                        <option>中转站3</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>车辆所属车队</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">0001车队</option>
-                                        <option>0002车队</option>
-                                        <option>0003车队</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>车辆购置人</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected">张三</option>
-                                        <option>李四</option>
-                                        <option>王五</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>购置时间:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-calendar"></i>
-                      </span>
-                                        </div>
-                                        <input type="text" class="form-control float-right"
-                                               id="vehicle_acquisitiontime">
-                                    </div>
-                                    <!-- /.input group -->
-                                </div>
-                                <div class="form-group">
-                                    <label for="vehicle_platenum">备注</label>
-                                    <input type="text" class="form-control" id=""
-                                           placeholder="请输入车辆备注..">
-                                </div>
-                                <!-- /.form-group -->
-                                <div class="form-group">
-                                    <button type="button" style="width: 120px;float: right;margin-right: 7px"
-                                            class="btn btn-block btn-primary btn-lg">提交
-                                    </button>
+                                    <label>员工姓名</label>
+                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
+                                           placeholder="请输入员工姓名..">
                                 </div>
                             </div>
-                            <!-- /.col -->
-                            <!-- /.col -->
                         </div>
                         <!-- /.row -->
                     </div>

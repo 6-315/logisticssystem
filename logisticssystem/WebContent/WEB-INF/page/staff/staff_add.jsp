@@ -213,7 +213,6 @@
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>车队管理</p>
                             </a></li>
-                            s
                         </ul>
                     </li>
                     <li v-if="myRole == 6" class="nav-item has-treeview">
@@ -259,7 +258,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
                             <li class="breadcrumb-item active">添加员工</li>
                         </ol>
                     </div>
