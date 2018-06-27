@@ -15,6 +15,7 @@ import com.logistics.routemanagement.dao.RouteManagementDao;
 import com.logistics.routemanagement.service.RouteManagementService;
 
 import util.BuildUuid;
+import util.TimeUtil;
 
 /**
  * 路线管理的业务接口层
@@ -35,26 +36,41 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 	 * @return
 	 */
 	@Override
-	public route addRout(route rout) {
-		route route = new route();
-		String routeMax = routeManagementDao.getMaxRouteNum(route.getRoute_num());
-		if (routeMax != null) {
-			routeMax = routeMax.replaceAll("[A]", "");
-			int nextNum = Integer.parseInt(routeMax);
-			nextNum = nextNum + 1;
-			String num = String.format("%03d", nextNum);
-			rout.setRoute_num("A" + num);
-			System.out.println("eeee");
-		} else {
-			int nextNum = 1;
-			String num = String.format("%03d", nextNum);
-			rout.setRoute_num("A" + num);
+	public route addRout(route rout, staff_basicinfo staffInfo) {
+		if (staffInfo != null) {
+			if (rout != null) {
+				if (rout.getRoute_id() != null && rout.getRoute_id().trim().length() > 0) {
+					routeManagementDao.saveOrUpdateObject(rout);
+					return rout;
+
+				} else {
+					route route = new route();
+					String routeMax = routeManagementDao.getMaxRouteNum(route.getRoute_num());
+					if (routeMax != null) {
+						routeMax = routeMax.replaceAll("[A]", "");
+						int nextNum = Integer.parseInt(routeMax);
+						nextNum = nextNum + 1;
+						String num = String.format("%03d", nextNum);
+						rout.setRoute_num("A" + num);
+					} else {
+						int nextNum = 1;
+						String num = String.format("%03d", nextNum);
+						rout.setRoute_num("A" + num);
+					}
+					rout.setRoute_id(BuildUuid.getUuid());
+					if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
+						rout.setRoute_creater(staffInfo.getStaff_id());
+					}
+					rout.setRoute_createtime(TimeUtil.getStringSecond());
+					rout.setRoute_modifytime(TimeUtil.getStringSecond());
+					if (rout != null) {
+						routeManagementDao.saveOrUpdateObject(rout);
+					}
+					return rout;
+				}
+			}
 		}
-		rout.setRoute_id(BuildUuid.getUuid());
-		if (rout != null) {
-			routeManagementDao.saveOrUpdateObject(rout);
-		}
-		return rout;
+		return null;
 	}
 
 	/**
@@ -118,7 +134,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			searchPaging = searchPaging + " and route_num like '" + search + "' ";
 			searchForm = searchForm + " and route_num like '" + search + "'";
 		}
-		// 根据状态查询 
+		// 根据状态查询
 		if (routeManagerVO.getState() != null && routeManagerVO.getState().trim().length() > 0) {
 			// String search = "%" + routeManagerVO.getState() + "%";
 			searchPaging = searchPaging + " and route_state = '" + routeManagerVO.getState() + "'";
@@ -135,7 +151,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			searchForm = searchForm + " and route_terminalstation = '" + routeManagerVO.getEndUnit() + "'";
 		}
 
-		// 这里如果不加desc表示正序，如果加**/上desc表示倒序 
+		// 这里如果不加desc表示正序，如果加**/上desc表示倒序
 		searchForm = searchForm + " order by route_createtime desc";
 		// 获取对象的总数量
 		int userInfoCount = routeManagementDao.getCount(searchPaging);
@@ -163,7 +179,8 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		for (route route : listRoute) {
 
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
-			staff_basicinfo creator = routeManagementDao.getStaff_Basicinfo(" from staff_basicinfo where staff_id ='"+route.getRoute_creater()+"' ");
+			staff_basicinfo creator = routeManagementDao
+					.getStaff_Basicinfo(" from staff_basicinfo where staff_id ='" + route.getRoute_creater() + "' ");
 			routeMangerDTO.setStaff_Id(creator);
 			unit beginUnit = routeManagementDao.getUnitInfoById(route.getRoute_departurestation());
 			routeMangerDTO.setRoute_Departurestation(beginUnit);
@@ -171,22 +188,22 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			routeMangerDTO.setRoute_Terminalstation(endUnit);
 			routeMangerDTO.setRout(route);
 			listRouteManagerDTO.add(routeMangerDTO);
-/*			List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
-			liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
-					.listObject("from staff_basicinfo where staff_id='" + route.getRoute_creater() + "'");
-			List<unit> listUnitD = new ArrayList<>();
-			listUnitD = (List<unit>) routeManagementDao
-					.listObject("from unit where unit_id = '" + route.getRoute_departurestation() + "'");
-			List<unit> listUnitT = new ArrayList<>();
-			listUnitT = (List<unit>) routeManagementDao
-					.listObject("from unit where unit_id = '" + route.getRoute_terminalstation() + "'");
-			if (listUnitT.size() != 0 && listUnitD.size() != 0 && liststaffBasicinfo.size() != 0) {
-				routeMangerDTO.setStaff_Id(liststaffBasicinfo.get(0));
-				routeMangerDTO.setRoute_Departurestation(listUnitD.get(0));
-				routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
-				routeMangerDTO.setRout(route);
-				listRouteManagerDTO.add(routeMangerDTO);
-			}*/
+			/*
+			 * List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
+			 * liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
+			 * .listObject("from staff_basicinfo where staff_id='" +
+			 * route.getRoute_creater() + "'"); List<unit> listUnitD = new ArrayList<>();
+			 * listUnitD = (List<unit>) routeManagementDao
+			 * .listObject("from unit where unit_id = '" + route.getRoute_departurestation()
+			 * + "'"); List<unit> listUnitT = new ArrayList<>(); listUnitT = (List<unit>)
+			 * routeManagementDao .listObject("from unit where unit_id = '" +
+			 * route.getRoute_terminalstation() + "'"); if (listUnitT.size() != 0 &&
+			 * listUnitD.size() != 0 && liststaffBasicinfo.size() != 0) {
+			 * routeMangerDTO.setStaff_Id(liststaffBasicinfo.get(0));
+			 * routeMangerDTO.setRoute_Departurestation(listUnitD.get(0));
+			 * routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
+			 * routeMangerDTO.setRout(route); listRouteManagerDTO.add(routeMangerDTO); }
+			 */
 			// 高亮
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
