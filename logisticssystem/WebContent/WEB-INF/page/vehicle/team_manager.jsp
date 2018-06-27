@@ -386,10 +386,32 @@
                     <hr>
                     <div class="mdoal-body">
                         <form class="form-horizontal" role="form">
-                            <table style="width: 100%; margin: auto;">
-                                <tr></tr>
-                            </table>
+                            <div class="form-group">
+                                <label>车队队长</label>
+                                <select v-model="teamOb.team_leader" class="form-control">
+                                    <option v-for="team in teamLeader" value="team.team_id">{{team.team_leader}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>所跑路线</label>
+                                <select v-model="teamOb.team_route" class="form-control">
+                                    <option v-for="route in routeList" value="route.routInfo.route_id">
+                                        {{route.routeInfo.route_num}}
+                                    </option>
+                                </select>
+                            </div>
+                            <%--<div class="form-group">
+                                <label>状态</label>
+                                <select v-model="teamOb.team_state" class="form-control">
+
+                                </select>
+                            </div>--%>
                         </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
                     </div>
                 </div>
             </div>
