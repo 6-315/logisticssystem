@@ -115,27 +115,26 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div id="teamManager" class="wrapper">
-    <!-- Navbar -->
-    <nav
-            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-        <!-- Left navbar links -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
-                    class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                    class="nav-link">快件管理</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">首页</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+                                                             class="nav-link">快件管理</a></li>
         </ul>
-
+        <ul class="navbar-nav ml-auto">
+            <li><a
+                    href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                    style="float: right;">注销</a></li>
+        </ul>
     </nav>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <a href="#" class="brand-link"> <img
-                src="${pageContext.request.contextPath}/img/houtai.png"
-                alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
+                src="${pageContext.request.contextPath}/img/houtai.png" alt="Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -147,18 +146,12 @@
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
             </div>
-
-            <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                                         with font-awesome or any other icon font library -->
-                    <li
-                            v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
-                            class="nav-item has-treeview"><a href="#"
-                                                             class="nav-link"> <i
-                            class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -169,26 +162,20 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
-                                class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
-                                class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
-                            href="#" class="nav-link"> <i class="nav-icon fa fa-calendar"></i>
-                        <p>用户管理</p>
-                    </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -207,8 +194,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -227,31 +214,27 @@
                             </a></li>
                         </ul>
                     </li>
-
-                    <li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fa fa-dashboard"></i>
-                            <p>
-                                车辆管理
-                                <i class="fa fa-angle-left right"></i>
-                            </p>
-                        </a>
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                            href="#" class="nav-link active">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            运输管理 <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
-                                   class="nav-link">
-                                    <i class="fa fa-book nav-icon"></i>
-                                    <p>车辆列表</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
-                                   class="nav-link">
-                                    <i class="fa fa-plus-square-o nav-icon"></i>
-                                    <p>增加车辆</p>
-                                </a>
-                            </li>
                             <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                    class="nav-link"> <i
+                                    class="fa fa-book nav-icon"></i>
+                                <p>车辆列表</p>
+                            </a></li>
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>增加车辆</p>
+                            </a></li>
+                            <li v-if="myRole == 5 || myRole == 3 || myRole == 4" class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
                                     class="nav-link active"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
@@ -259,9 +242,8 @@
                             </a></li>
                         </ul>
                     </li>
-
-                    <li v-if="myRole == 6" class="nav-item has-treeview"><a
-                            href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -283,7 +265,7 @@
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar --> </aside>
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -316,7 +298,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div style="width: 250px; float: right; margin-bottom: 10px;"
+                            <div>
+                                <a class="btn btn-default">添加车队</a>
+                            </div>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;margin-top:-30px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
                                        v-model="search" type="text" class="form-control input-sm"><span
@@ -330,18 +315,7 @@
                                         <th>车队编号</th>
                                         <th>车队队长工号</th>
                                         <th>运输路线</th>
-                                        <th>
-                                            <span role="presentation" class="dropdown">
-                                                <a class="dropdown-toggle" data-toggle="dropdown">单位(所有)
-                                                    <span class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
-														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
-													</ul>
-											</span>
-                                        </th>
-                                        <th>
+                                        <%--<th>
                                             <span role="presentation" class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">状态(所有)
                                                     <span class="caret"></span></a>
@@ -351,7 +325,7 @@
 														<li><a @click="" href="#">状态(所有)</a></li>
 													</ul>
 											</span>
-                                        </th>
+                                        </th>--%>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -370,14 +344,13 @@
                                            v-if="ready && teamInfoVO.listTeamDTO != undefined"
                                            style="min-height: 200px">
                                     <tr v-for="teamDTO in teamInfoVO.listTeamDTO">
-                                        <td v-html="teamDTO.team.team_id"></td>
+                                        <td v-html="teamDTO.team.team_num"></td>
                                         <td v-if="teamDTO.staff_BasicInfoLeader != undefined">
                                             {{teamDTO.staff_BasicInfoLeader.staff_num}}
                                         </td>
                                         <td v-else></td>
                                         <td>{{teamDTO.routeDTO.routeInfo.route_num}}</td>
-                                        <td>{{teamDTO.teamBelongUnit.unit_name}}</td>
-                                        <td>{{teamDTO.team.team_state}}</td>
+                                        <%--<td>{{teamDTO.team.team_state}}</td>--%>
                                         <td>
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
@@ -386,7 +359,6 @@
 													</span>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">我的车队</a></li>
-                                                    <li><a href="#"></a></li>
                                                     <li><a href="#">查看详情</a></li>
                                                 </ul>
                                             </div>
@@ -425,7 +397,7 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
         </strong> All rights reserved.
     </footer>
 
