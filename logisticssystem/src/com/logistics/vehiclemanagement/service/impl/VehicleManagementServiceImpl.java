@@ -766,10 +766,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 										driverDTO.setStaffBasicInfo(staffBasicInfo);
 										driverDTO.setDriverInfo(driver);
 										listDriverInfoDTO.add(driverDTO);
-										teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
 									}
 								}
 							}
+							teamDTO.setListDriverInfoDTO(listDriverInfoDTO);
 						}
 						/**
 						 * 将关键字高亮
