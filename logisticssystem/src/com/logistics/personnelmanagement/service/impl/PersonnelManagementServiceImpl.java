@@ -242,7 +242,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '中转站管理员' or position_name='车队队长' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 			/**
@@ -252,7 +252,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				System.out.println("进来了吗");
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '车队队长' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 
