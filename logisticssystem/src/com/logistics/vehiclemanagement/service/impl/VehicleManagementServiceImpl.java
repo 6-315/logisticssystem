@@ -188,11 +188,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											+ "' ";
 									listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='"
 											+ driverInfo.getDriver_vehicle() + "' ";
+								}else {
+									vehicleCountHql = vehicleCountHql + " 1！=1 ";
+									listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
 								}
-							} else {
-								vehicleCountHql = vehicleCountHql + " 1！=1 ";
-								listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
-							}
+							} 
 						}
 					}
 				}
