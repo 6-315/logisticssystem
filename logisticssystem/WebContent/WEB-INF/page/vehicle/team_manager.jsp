@@ -302,7 +302,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div style="width: 250px; float: right; margin-bottom: 10px;"
+                            <div>
+                                <a class="btn btn-default">添加车队</a>
+                            </div>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;margin-top:-30px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
                                        v-model="search" type="text" class="form-control input-sm"><span
@@ -316,18 +319,7 @@
                                         <th>车队编号</th>
                                         <th>车队队长工号</th>
                                         <th>运输路线</th>
-                                        <th>
-                                            <span role="presentation" class="dropdown">
-                                                <a class="dropdown-toggle" data-toggle="dropdown">单位(所有)
-                                                    <span class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
-														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
-													</ul>
-											</span>
-                                        </th>
-                                        <th>
+                                        <%--<th>
                                             <span role="presentation" class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">状态(所有)
                                                     <span class="caret"></span></a>
@@ -337,7 +329,7 @@
 														<li><a @click="" href="#">状态(所有)</a></li>
 													</ul>
 											</span>
-                                        </th>
+                                        </th>--%>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -356,14 +348,13 @@
                                            v-if="ready && teamInfoVO.listTeamDTO != undefined"
                                            style="min-height: 200px">
                                     <tr v-for="teamDTO in teamInfoVO.listTeamDTO">
-                                        <td v-html="teamDTO.team.team_id"></td>
+                                        <td v-html="teamDTO.team.team_num"></td>
                                         <td v-if="teamDTO.staff_BasicInfoLeader != undefined">
                                             {{teamDTO.staff_BasicInfoLeader.staff_num}}
                                         </td>
                                         <td v-else></td>
                                         <td>{{teamDTO.routeDTO.routeInfo.route_num}}</td>
-                                        <td>{{teamDTO.teamBelongUnit.unit_name}}</td>
-                                        <td>{{teamDTO.team.team_state}}</td>
+                                        <%--<td>{{teamDTO.team.team_state}}</td>--%>
                                         <td>
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
@@ -372,7 +363,6 @@
 													</span>
                                                 <ul class="dropdown-menu">
                                                     <li><a href="#">我的车队</a></li>
-                                                    <li><a href="#"></a></li>
                                                     <li><a href="#">查看详情</a></li>
                                                 </ul>
                                             </div>
