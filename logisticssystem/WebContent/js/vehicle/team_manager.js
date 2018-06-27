@@ -20,8 +20,8 @@
         preDisabled: false,
         nextDisabled: false,
         page: 1,
-        myRole: role
-
+        myRole: role,
+        member: []
     }
     const viewTeamManager = new Vue({
         el: '#teamManager',
@@ -106,6 +106,16 @@
             selectSearch() {
                 viewTeamManager.getAllData()
                 viewTeamManager.judge()
+            },
+            myTeamMember(teamMember) {
+                if (teamMember == null) {
+                    toastr.info('该车队没有员工')
+                }
+                teamManagerData.member = teamMember
+                $('#myTeamMember').modal()
+            },
+            addTeamModal() {
+                $('#addTeam').modal()
             }
         },
         mounted() {
