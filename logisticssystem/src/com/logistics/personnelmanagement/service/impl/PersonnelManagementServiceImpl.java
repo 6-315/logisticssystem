@@ -61,14 +61,12 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 						|| "配送点管理员".equals(positionNew.getPosition_name())) {
 					System.out.println("我是中转站或者配点");
 					if (staffManagerVO.getBelongUnit() != null && staffManagerVO.getBelongUnit().trim().length() > 0) {
-						System.out.println("??????????????");
 						number = "select count(*) from staff_basicinfo where staff_unit = '"
 								+ staffManagerVO.getBelongUnit() + "'";
 						table = "from staff_basicinfo where staff_unit = '" + staffManagerVO.getBelongUnit() + "'";
 					} else {
 
-						System.out.println("ooooooooooooooooo");
-						number = "select count(*) from staff_basicinfo where staff_unit = '"
+						number = "select count(*) from staff_basicinfo where (staff_unit = '"
 								+ staffBasicinfo.getStaff_unit() + "'  ";
 						table = "from staff_basicinfo where  ( staff_unit = '" + staffBasicinfo.getStaff_unit() + "' ";
 						List<unit> listUnitByDistribution = (List<unit>) personnelManagementDao.listObject(
@@ -178,50 +176,14 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 					staffManagerDTO.setStaffBasicInfo(staff_basicinfo);
 					staffManagerDTO.setUnit(listUnit.get(0));
 					listStaffManagerDTO.add(staffManagerDTO);
+					System.out.println("mkmkmkmkmkmkm:" + staffManagerDTO);
 				}
 			}
-
-			/*
-			 * if (staffManagerVO.getBelongUnit() == null &&
-			 * "中转站管理员".equals(positionNew.getPosition_name())) {
-			 * 
-			 * listUnit = (List<unit>) personnelManagementDao
-			 * .listObject("from unit where unit_superiorunit = '" +
-			 * staffBasicinfo.getStaff_unit() + "'");
-			 * System.out.println("+++++++++++++++++++++++++" + listUnit.size()); for (unit
-			 * unit : listUnit) {
-			 *//**
-				 * 
-				 * 循环遍历显示高亮
-				 *//*
-					 * System.out.println("hoashdoiashdoasho"); System.out.println("ddd" +
-					 * unit.getUnit_id()); StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
-					 * listStaff = new ArrayList<>(); listStaff = (List<staff_basicinfo>)
-					 * personnelManagementDao
-					 * .listObject("from staff_basicinfo where staff_unit = '" + unit.getUnit_id() +
-					 * "'"); if (staffManagerVO.getSearch() != null &&
-					 * staffManagerVO.getSearch().trim().length() > 0) {
-					 * listStaff.get(0).setStaff_num(listStaff.get(0).getStaff_num().replaceAll(
-					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" +
-					 * staffManagerVO.getSearch() + "</span>")); } if (staffManagerVO.getSearch() !=
-					 * null && staffManagerVO.getSearch().trim().length() > 0) {
-					 * listStaff.get(0).setStaff_name(listStaff.get(0).getStaff_name().replaceAll(
-					 * staffManagerVO.getSearch(), "<span style='color: #ff5063;'>" +
-					 * staffManagerVO.getSearch() + "</span>")); } System.out.println("如果多的话：" +
-					 * listStaff.size()); if (listStaff.size() != 0) { if (listStaff.size() == 1) {
-					 * position position = new position(); position =
-					 * personnelManagementDao.getPosition(listStaff.get(0));
-					 * staffManagerDTO.setPosition(position); staffManagerDTO.setUnit(unit);
-					 * staffManagerDTO.setStaffBasicInfo(listStaff.get(0)); } else { for (int i = 0;
-					 * i < listStaff.size(); i++) { position position = new position(); position =
-					 * personnelManagementDao.getPosition(listStaff.get(i));
-					 * staffManagerDTO.setPosition(position); StaffManagerDTO staffManagerDTO2 = new
-					 * StaffManagerDTO(); staffManagerDTO2.setStaffBasicInfo(listStaff.get(i));
-					 * staffManagerDTO2.setUnit(unit); listStaffManagerDTO.add(staffManagerDTO2); }
-					 * } } listStaffManagerDTO.add(staffManagerDTO); } }
-					 */
+			staffManagerVO.setListStaDTO(listStaffManagerDTO);
+			return staffManagerVO;
 		}
-		return staffManagerVO;
+		return null;
+
 	}
 
 	/**
@@ -280,7 +242,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '中转站管理员' or position_name='车队管理员' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '中转站管理员' or position_name='车队队长' or position_name='配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 			/**
@@ -290,7 +252,7 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				System.out.println("进来了吗");
 				listPosition = new ArrayList<>();
 				listPosition = (List<position>) personnelManagementDao.listObject(
-						"from position where position_name = '车队管理员' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
+						"from position where position_name = '车队队长' or position_name= '配送点管理员' or position_name='驾驶员' or position_name='配送员'");
 				return listPosition;
 			}
 
@@ -548,22 +510,39 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 	public StaffManagerDTO getStaffManagerDTO(String iD) {
 		if (iD == null) {
 			return null;
-
 		}
 		unit unitNew = new unit();
 		staff_basicinfo staffNew = new staff_basicinfo();
 		position positionNew = new position();
-		unitNew = personnelManagementDao.gerUnitByID(iD);
 		staffNew = personnelManagementDao.getstaffById(iD);
-		positionNew = personnelManagementDao.getPosition(staffNew);
-		if (unitNew != null && staffNew != null && positionNew != null) {
-			StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
-			staffManagerDTO.setPosition(positionNew);
-			staffManagerDTO.setStaffBasicInfo(staffNew);
-			staffManagerDTO.setUnit(unitNew);
-			return staffManagerDTO;
-		}
+		unitNew = personnelManagementDao.gerUnitByID(staffNew.getStaff_unit());
 
+		positionNew = personnelManagementDao.getPosition(staffNew);
+		StaffManagerDTO staffManagerDTO = new StaffManagerDTO();
+		staffManagerDTO.setPosition(positionNew);
+		staffManagerDTO.setStaffBasicInfo(staffNew);
+		staffManagerDTO.setUnit(unitNew);
+		return staffManagerDTO;
+
+	}
+
+	/**
+	 * 根据session获取该单位的所有车队队长
+	 */
+	@Override
+	public List<staff_basicinfo> getCarTeamCaptain(staff_basicinfo staffBasicSession) {
+		if (staffBasicSession == null) {
+			return null;
+		}
+		position positionNew = new position();
+		positionNew = personnelManagementDao.getPositionByTeamCaptain();
+		List<staff_basicinfo> listListStaff = new ArrayList<>();
+		listListStaff = (List<staff_basicinfo>) personnelManagementDao
+				.listObject("from staff_basicinfo where staff_unit = '" + staffBasicSession.getStaff_unit()
+						+ "'and staff_position = '" + positionNew.getPosition_id() + "'");
+		if (listListStaff.size() > 0) {
+			return listListStaff;
+		}
 		return null;
 	}
 

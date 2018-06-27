@@ -20,10 +20,11 @@ public interface VehicleManagementService {
 
 	/**
 	 * 添加车辆
+	 * @param staffInfo 
 	 * @param vehicleinfo
 	 * @return
 	 */
-	public String addVehicle(vehicle vehicleInfo);
+	public vehicle addVehicle(vehicle vehicleInfo, staff_basicinfo staffInfo);
 
 	/**
 	 * 查询车辆
@@ -50,7 +51,7 @@ public interface VehicleManagementService {
 	 * @param teamInfo
 	 * @return
 	 */
-	public String addTeam(team teamInfo);
+	public team addTeam(team teamInfo);
 
 	/**
 	 * 更新车队信息
@@ -78,5 +79,7 @@ public interface VehicleManagementService {
 	public List<team> getAllTeam(staff_basicinfo staffInfo);
 
 	public String exchangeVehicle(String idList, String unit, staff_basicinfo staffInfo);
+
+	public vehicle getVehicleInfoById(String idList);
 
 }

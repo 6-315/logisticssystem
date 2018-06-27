@@ -104,7 +104,6 @@
                                 <small :style="[oldEnity ? bl : no]" class="help-block"
                                 >请输入旧密码
                                 </small>
-                                <small :style="[errorPass ? bl : no]" class="help-block">密码输入错误
                                 </small>
                             </div>
                         </div>

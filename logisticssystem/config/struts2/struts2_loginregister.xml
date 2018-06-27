@@ -30,7 +30,9 @@
 			</result>
 			<result name="pageVehicleAdd">/WEB-INF/page/vehicle/vehicle_add.jsp
 			</result>
-			<result name="pageIndex" type="redirect">/index.jsp</result>
+			<result name="pageTeamManager">/WEB-INF/page/vehicle/team_manager.jsp
+			</result>
+			<result name="pageIndex" type="redirect">/user-login.jsp</result>
 		</action>
 	</package>
 </struts>

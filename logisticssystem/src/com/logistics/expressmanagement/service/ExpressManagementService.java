@@ -50,6 +50,8 @@ public interface ExpressManagementService {
 
 	public RouteDTO getRouteInfo(String idList);
 
+	public List<staff_basicinfo> getStaffInfoByPosition(String unit);
+
 
 
 }

@@ -22,13 +22,9 @@
           href="${pageContext.request.contextPath}/css/toastr.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div class="wrapper" id="unitAdd">
-    <!-- Navbar -->
-    <!-- Navbar -->
-    <nav
-            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-        <!-- Left navbar links -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
@@ -37,55 +33,19 @@
             <li class="nav-item d-none d-sm-inline-block"><a href="#"
                                                              class="nav-link">快件管理</a></li>
         </ul>
-
-        <!-- SEARCH FORM -->
-        <!-- <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search"
-                       placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form> -->
-
-        <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <!-- <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
-                <span class="badge badge-danger navbar-badge"></span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item dropdown-footer">See All
-                        Messages</a>
-                </div>
-            </li>
-            Notifications Dropdown Menu
-            <li class="nav-item dropdown"><a class="nav-link"
-                                             data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
-                    class="badge badge-warning navbar-badge">0</span>
-            </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-header">0 条消息</span>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li> -->
+            <li><a
+                    href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                    style="float: right;">注销</a></li>
         </ul>
     </nav>
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png"
-            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
-    </a> <!-- Sidebar -->
+        <a href="#" class="brand-link"> <img
+                src="${pageContext.request.contextPath}/img/houtai.png" alt="Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Note3物流系统</span>
+        </a>
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
@@ -95,17 +55,17 @@
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
             </div>
-
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-                        <ul class="nav nav-treeview" style="display: none;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
@@ -113,8 +73,7 @@
                             </a></li>
                             <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
-                                    class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
                             <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
@@ -124,12 +83,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
-                            href="#" class="nav-link"> <i
-                            class="nav-icon fa fa-calendar"></i>
-                        <p>用户管理</p>
-                    </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -149,8 +104,8 @@
                         </ul>
                     </li>
                     <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
-                                                                   class="nav-link active"> <i
-                            class="nav-icon fa fa-dashboard"></i>
+                                                                                                          class="nav-link active">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -163,28 +118,36 @@
                             </a></li>
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageUnitAdd"
-                                    class="nav-link active"> <i
-                                    class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link active"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加单位</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a
+                            href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
-                            车辆管理 <i class="fa fa-angle-left right"></i>
+                            运输管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
-                                    href="#"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                    class="nav-link"> <i
+                                    class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li  v-if="myRole == 6" class="nav-item"><a
-                                    href="#" class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li v-if="myRole == 5 || myRole == 3 || myRole == 4" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -197,20 +160,19 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteList"
-                                    class="nav-link">
-                                <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>路线列表</p>
                             </a></li>
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath }/loginregister/loginregister_pageRouteAdd"
-                                    class="nav-link">
-                                <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加路线</p>
                             </a></li>
                         </ul>
                     </li>
                 </ul>
             </nav>
+            <!-- /.sidebar-menu -->
         </div>
     </aside>
     <div class="content-wrapper">
@@ -223,7 +185,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
                             <li class="breadcrumb-item active">添加单位</li>
                         </ol>
                     </div>
@@ -308,8 +270,8 @@
                                                                 class="form-control" v-model="transferStation.unit_type"
                                                                 data-placeholder="单位类型" style="width: 100%;">
                                     <option value="总公司">总公司</option>
-                                    <option value="中转站管理员">中转站</option>
-                                    <option value="配送点管理员">配送点</option>
+                                    <option value="中转站">中转站</option>
+                                    <option value="配送点">配送点</option>
                                 </select>
                                 </div>
                             </div>
@@ -337,22 +299,28 @@
                                                                placeholder="单位编号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>管理员</label> <select class="form-control"
-                                                               v-model="transferStation.unit_admin" placeholder="请选择管理员"
-                                                               style="width: 100%;">
-                                    <option v-for="admin in adminList"
-                                            :value="admin.managerInfo.staff_id">
-                                        {{admin.managerInfo.staff_name}}
-                                    </option>
-                                </select>
+                                    <label>管理员</label>
+                                    <select class="form-control"
+                                            v-model="transferStation.unit_admin" placeholder="请选择管理员"
+                                            style="width: 100%;">
+                                        <option v-for="admin in adminList"
+                                                :value="admin.staff_id">
+                                            {{admin.staff_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>上级单位</label> <input disabled type="text"
-                                                               class="form-control"
-                                                               v-model="transferStation.unit_superiorunit"
-                                                               placeholder="上级单位编号..">
+                                    <label>上级单位</label>
+                                    <select disabled class="form-control"
+                                            v-model="transferStation.unit_superiorunit" placeholder="单位"
+                                            style="width: 100%;">
+                                        <option v-for="unit in unitList"
+                                                :value="unit.unit_id">
+                                            {{unit.unit_name}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -374,7 +342,7 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
         </strong> All rights reserved.
     </footer>
 

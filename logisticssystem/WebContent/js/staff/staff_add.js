@@ -60,7 +60,7 @@
                             staffAddData.staffBasicInfo.staff_entrytime = staffInfo.staff_entrytime
                             staffAddData.staffBasicInfo.staff_sex = staffInfo.staff_sex
                             staffAddData.staffBasicInfo.staff_position = staffInfo.staff_position
-                            staffAddData.staffBasicInfo.staff_unit = staffBasicinfo.staff_unit
+                            staffAddData.staffBasicInfo.staff_unit = staffInfo.staff_unit
                             staffAddData.staffBasicInfo.staff_recruit = staffInfo.staff_recruit
                             staffAddData.staffBasicInfo.staff_superiorleader = staffInfo.staff_superiorleader
                             staffAddData.staffBasicInfo.staff_createtime = staffInfo.staff_createtime

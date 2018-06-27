@@ -311,8 +311,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
 							expressCirculationAndUnitDTO2.setMotion("已扫描");
 							expressCirculationAndUnitDTO2.setNumber("two");
-							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
 							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
 						}
 					} else if ("配送点".equals(unitByReceiver.getUnit_type())) {
 						if ("流转中".equals(expressCirculation.getExpress_circulation_state())) {
@@ -336,8 +337,9 @@ public class ExpressManagementServiceImpl2 implements ExpressManagementService2 
 							expressCirculationAndUnitDTO2.setUnitByReceiver(unitByReceiver);
 							expressCirculationAndUnitDTO2.setMotion("已经接收正在派送");
 							expressCirculationAndUnitDTO2.setNumber("two");
-							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
 							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO2);
+							listExpressCirculationAndUnitDTO.add(expressCirculationAndUnitDTO);
+						
 						}
 
 					} else {
