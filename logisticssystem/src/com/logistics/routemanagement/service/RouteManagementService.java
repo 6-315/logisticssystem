@@ -2,6 +2,7 @@ package com.logistics.routemanagement.service;
 
 
 import com.logistics.domain.route;
+import com.logistics.domain.staff_basicinfo;
 import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
 
 /**
@@ -11,7 +12,7 @@ import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
  */
 public interface RouteManagementService {
 
-	route addRout(route rout);
+	route addRout(route rout, staff_basicinfo staffInfo);
 
 	String updateRoutInfo(route rout);
 

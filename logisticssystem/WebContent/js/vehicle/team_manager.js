@@ -20,6 +20,7 @@
         preDisabled: false,
         nextDisabled: false,
         page: 1,
+        myRole: role
 
     }
     const viewTeamManager = new Vue({
@@ -29,7 +30,7 @@
             getAllData: function () {
                 // 数据
                 $.ajax({
-                    url: '',
+                    url: '/logisticssystem/vehiclemanagement/vehiclemanagement_queryTeam',
                     type: 'POST',
                     data: {
                         'search': teamManagerData.search,
@@ -95,11 +96,21 @@
                 teamManagerData.pageIndex = teamManagerData.teamInfoVO.totalPages
                 viewTeamManager.getAllData()
                 viewTeamManager.judge()
+            },
+            //选择单位
+            selectUnit(unitId) {
+                teamManagerData.unit = unitId
+                viewTeamManager.getAllData()
+                viewTeamManager.judge()
+            },
+            selectSearch() {
+                viewTeamManager.getAllData()
+                viewTeamManager.judge()
             }
         },
         mounted() {
             // 获取单位信息
-            if (vehicleListData.myRole == 6) {
+            if (teamManagerData.myRole == 6) {
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
                     type: 'POST',
@@ -112,7 +123,7 @@
             }
             // 数据
             $.ajax({
-                url: '',
+                url: '/logisticssystem/vehiclemanagement/vehiclemanagement_queryTeam',
                 type: 'POST',
                 data: '',
                 success: function (data) {

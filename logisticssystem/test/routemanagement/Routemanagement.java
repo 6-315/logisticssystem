@@ -37,12 +37,12 @@ public class Routemanagement {
 	/**
 	 * 增加路线信息
 	 */
-	@Test
+	/*@Test
 	public void addRouteInfo() {
 		route rout = new route();
 		System.out.println();
 		routeManagementService.addRout(rout);
-	}
+	}*/
 
 	/*
 	 * @Test public void mai2n() { String a = "A001"; String b = a.substring(0,1);

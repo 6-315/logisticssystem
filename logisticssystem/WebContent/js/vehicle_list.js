@@ -265,6 +265,9 @@
                         }
                     }
                 })
+            },
+            detailVehicle(vehicleId) {
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_addVehiclePage?idList=' + vehicleId
             }
         },
         mounted() {
