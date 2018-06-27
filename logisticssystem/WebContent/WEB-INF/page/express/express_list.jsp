@@ -167,7 +167,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
                             <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
@@ -227,13 +227,13 @@
                         </ul>
                     </li>
                     <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link active">
+                        class="nav-item has-treeview"><a href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             车辆管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-                        <ul class="nav nav-treeview" style="display: block;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item"><a href="#" class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
@@ -459,7 +459,7 @@
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
-                                        <li><a href="#">首页</a></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{expressInfoVO.pageIndex}} 页/总
@@ -469,7 +469,7 @@
                                                 :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
-                                        <li><a href="#">尾页</a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>
