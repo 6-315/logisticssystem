@@ -162,7 +162,7 @@
                     }
                 })
                 $.ajax({
-                    url: '/vehiclemanagement/vehiclemanagement_exchangeVehicle',
+                    url: '/logisticssystem/vehiclemanagement/vehiclemanagement_exchangeVehicle',
                     type: 'POST',
                     data: {
                         'idList': dataDa,
@@ -173,6 +173,10 @@
                             viewVehicleList.getAllData()
                             viewVehicleList.judge()
                             $('#unitDistList').modal('hide')
+                            $("input[name='flag']:checkbox").each(function () {
+                                $(this).attr("checked",false);
+                                console.log($(this))
+                            })
                             toastr.success('调度成功')
                         } else {
                             toastr.error('调度失败')
