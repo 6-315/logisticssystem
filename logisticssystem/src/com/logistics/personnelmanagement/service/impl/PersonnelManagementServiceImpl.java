@@ -526,4 +526,24 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 
 	}
 
+	/**
+	 * 根据session获取该单位的所有车队队长
+	 */
+	@Override
+	public List<staff_basicinfo> getCarTeamCaptain(staff_basicinfo staffBasicSession) {
+		if (staffBasicSession == null) {
+			return null;
+		}
+		position positionNew = new position();
+		positionNew = personnelManagementDao.getPositionByTeamCaptain();
+		List<staff_basicinfo> listListStaff = new ArrayList<>();
+		listListStaff = (List<staff_basicinfo>) personnelManagementDao
+				.listObject("from staff_basicinfo where staff_unit = '" + staffBasicSession.getStaff_unit()
+						+ "'and staff_position = '" + positionNew.getPosition_id() + "'");
+		if (listListStaff.size() > 0) {
+			return listListStaff;
+		}
+		return null;
+	}
+
 }

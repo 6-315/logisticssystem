@@ -92,4 +92,6 @@ public interface PersonnelManagementDao {
 	public position getPositionByID(String positionNew);
 
 	public team getTeam(String staff_id);
+
+	public position getPositionByTeamCaptain();
 }

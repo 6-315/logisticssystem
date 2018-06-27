@@ -249,4 +249,21 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		return null;
 	}
 
+	/**
+	 * 查询车队队长的ID
+	 */
+	@Override
+	public position getPositionByTeamCaptain() {
+		position position = new position();
+		Session session = getSession();
+		String hql = " from position where position_name = '车队队长'";
+		Query query = session.createQuery(hql);
+		position = (position) query.uniqueResult();
+		if (position != null) {
+			return position;
+		}
+
+		return null;
+	}
+
 }
