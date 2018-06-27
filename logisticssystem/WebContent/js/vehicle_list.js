@@ -173,10 +173,10 @@
                             viewVehicleList.getAllData()
                             viewVehicleList.judge()
                             $('#unitDistList').modal('hide')
-                            $("input[name='flag']:checkbox").each(function () {
-                                $(this).attr("checked",false);
+                            /*$("input[check='check']").each(function () {
+                                $(this).attr("checked", false);
                                 console.log($(this))
-                            })
+                            })*/
                             toastr.success('调度成功')
                         } else {
                             toastr.error('调度失败')

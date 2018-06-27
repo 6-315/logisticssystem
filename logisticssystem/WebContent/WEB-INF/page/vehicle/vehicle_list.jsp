@@ -395,7 +395,7 @@
                                     <tr v-for="(listVehicleDTO,index) in vehicleInfoVO.listVehicleDTO">
                                         <td><input :id="listVehicleDTO.vehicleInfo.vehicle_id"
                                                    :uni="listVehicleDTO.unit.unit_id"
-                                                   type="checkbox" name="flag"></td>
+                                                   type="checkbox" name="flag" check="check"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
                                         <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
@@ -406,8 +406,8 @@
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
                                         <td v-else></td>
-                                        
-                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
+
+                                        <td v-if="listVehicleDTO.driverDTO && listVehicleDTO.driverDTO.staffBasicInfo">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
                                         <td v-else></td>

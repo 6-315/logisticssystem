@@ -299,10 +299,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div>
+                            <%--<div>
                                 <a @click="addTeamModal" class="btn btn-default">添加车队</a>
-                            </div>
-                            <div style="width: 250px; float: right; margin-bottom: 10px;margin-top:-30px;"
+                            </div>--%>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
                                        v-model="search" type="text" class="form-control input-sm"><span
@@ -373,7 +373,7 @@
             </div>
         </section>
 
-        <div class="modal fade" id="addTeam">
+        <%--<div class="modal fade" id="addTeam">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- 模态弹出窗内容 -->
@@ -386,14 +386,36 @@
                     <hr>
                     <div class="mdoal-body">
                         <form class="form-horizontal" role="form">
-                            <table style="width: 100%; margin: auto;">
-                                <tr></tr>
-                            </table>
+                            <div class="form-group">
+                                <label>车队队长</label>
+                                <select v-model="teamOb.team_leader" class="form-control">
+                                    <option v-for="team in teamLeader" value="team.team_id">{{team.team_leader}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>所跑路线</label>
+                                <select v-model="teamOb.team_route" class="form-control">
+                                    <option v-for="route in routeList" value="route.routInfo.route_id">
+                                        {{route.routeInfo.route_num}}
+                                    </option>
+                                </select>
+                            </div>
+                            &lt;%&ndash;<div class="form-group">
+                                <label>状态</label>
+                                <select v-model="teamOb.team_state" class="form-control">
+
+                                </select>
+                            </div>&ndash;%&gt;
                         </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <div class="modal fade" id="myTeamMember">
             <div class="modal-dialog">
