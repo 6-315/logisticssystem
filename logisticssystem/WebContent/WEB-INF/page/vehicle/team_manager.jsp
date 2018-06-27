@@ -238,7 +238,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/test/test/pages/vehicle/vehicle_list.html" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>车辆列表</p>
                                 </a>
@@ -335,13 +336,13 @@
                                     </tr>
                                     </thead>
                                     <tbody v-if="teamInfoVO.listTeamDTO == undefined">
-                                    <td style="text-align: center" colspan="5" height="50">
+                                    <td style="text-align: center" colspan="6" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="5"><i
+                                        <td style="text-align: center" colspan="6"><i
                                                 class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>

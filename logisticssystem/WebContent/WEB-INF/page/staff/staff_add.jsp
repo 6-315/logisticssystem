@@ -195,7 +195,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList" class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>车辆列表</p>
                                 </a>

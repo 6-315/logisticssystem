@@ -7,19 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>添加车辆</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/iCheck/all.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/adminlte.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/plugins/select2/select2.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/adminlte.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/tool/site.min.css">
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/plugins/city-picker/css/city-picker.css">
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/toastr.css">
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 </head>
 <body class="hold-transition sidebar-mini" style="font-size: 14px;">
-<div class="wrapper">
+<div class="wrapper" id="addVehicle">
     <!-- Navbar -->
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -203,7 +208,8 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                   class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>车辆列表</p>
                                 </a>
@@ -291,16 +297,43 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>车辆编号</label>
+                                    <label>编号</label>
                                     <input type="hidden" id="shuju" value="${idList}">
-                                    <input disabled v-model="staffBasicInfo.staff_num" type="text"
+                                    <input disabled v-model="vehicleInfo.vehicle_num" type="text"
                                            class="form-control"
-                                           placeholder="员工工号..">
+                                           placeholder="车辆编号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>员工姓名</label>
-                                    <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
-                                           placeholder="请输入员工姓名..">
+                                    <label>车牌号</label>
+                                    <input v-model="vehicleInfo.vehicle_platenum" type="text" class="form-control"
+                                           placeholder="请输入唯一车牌号..">
+                                </div>
+                                <div class="form-group">
+                                    <label>备注</label>
+                                    <input v-model="vehicleInfo.vehicle_mark" type="text" class="form-control"
+                                           placeholder="请输入载重规格..">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>载重规格(KG)</label>
+                                    <input v-model="vehicleInfo.vehicle_standard" type="number" class="form-control"
+                                           placeholder="请输入载重规格..">
+                                </div>
+                                <div class="form-group">
+                                    <label>车辆状态</label>
+                                    <select v-model="vehicleInfo.vehicle_state" class="form-control"
+                                            style="width: 100%;">
+                                        <option value="正常">正常</option>
+                                        <option value="维修">维修</option>
+                                        <option value="报废">报废</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button @click="saveVehicle" type="button"
+                                            style="width: 120px;float: right;margin-right: 7px"
+                                            class="btn btn-block btn-primary btn-lg">提交
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -329,79 +362,26 @@
     </aside>
     <!-- /.control-sidebar -->
 </div>
-<!-- jQuery -->
-<script src="${pageContext.request.contextPath}/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
-<script src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="${pageContext.request.contextPath}/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<!-- <script src="../plugins/daterangepicker/daterangepicker.js"></script> -->
-<!-- bootstrap color picker -->
-<script src="${pageContext.request.contextPath}/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<!-- <script src="../plugins/timepicker/bootstrap-timepicker.min.js"></script> -->
-<!-- SlimScroll 1.3.0 -->
-<script src="${pageContext.request.contextPath}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="${pageContext.request.contextPath}/plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/select2/select2.full.min.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
-<!-- 地址插件的使用 -->
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.data.min.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/city-picker/js/city-picker.min.js"></script>
-<!-- datepicker -->
 <script type="text/javascript"
-        src="${pageContext.request.contextPath}/plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+        src="${pageContext.request.contextPath}/js/public/toastr.js"></script>
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/js/public/getSessionData.js"></script>
 <script>
     $(function () {
-        //Initialize Select2 Elements
         $('.select2').select2()
-
-        //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', {'placeholder': 'dd/mm/yyyy'})
-        //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', {'placeholder': 'mm/dd/yyyy'})
-        //Money Euro
-        $('[data-mask]').inputmask()
-        $('#vehicle_acquisitiontime').datetimepicker({
-            minView: "month",//设置只显示到月份
-            format: "yyyy-mm-dd",//日期格式
-            autoclose: true,//选中关闭
-            todayBtn: true//今日按钮
-        })
-        // $('#birthday').datetimepicker({
-        // 	minView: "month",//设置只显示到月份
-        //  		format : "yyyy-mm-dd",//日期格式
-        //  		autoclose:true,//选中关闭
-        //  		todayBtn: true//今日按钮
-        // })
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-        })
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-            checkboxClass: 'icheckbox_minimal-red',
-            radioClass: 'iradio_minimal-red'
-        })
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        })
-
     })
 </script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/vehicle/vehicle_add.js"></script>
 </body>
 </html>

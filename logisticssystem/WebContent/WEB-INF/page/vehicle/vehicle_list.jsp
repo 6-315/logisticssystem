@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>单位列表</title>
+    <title>车辆列表</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%--    <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/font/font-awesome.min.css">--%>
@@ -234,7 +234,9 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="#" class="nav-link active"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                    class="nav-link active"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
@@ -424,7 +426,8 @@
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="javascript:void(0);">查看详情</a></li>
+                                                    <li><a @click="detailVehicle(listVehicleDTO.vehicleInfo.vehicle_id)"
+                                                           href="javascript:void(0);">查看详情</a></li>
                                                     <%--<li>
                                                         <a @click="distVehicleTran(listVehicleDTO.unit.unit_id,listVehicleDTO.vehicleInfo.vehicle_id)"
                                                            href="javascript:void(0);">单位调度</a>
