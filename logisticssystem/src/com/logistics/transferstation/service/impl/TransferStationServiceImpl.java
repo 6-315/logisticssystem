@@ -340,10 +340,11 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 
 	 */
 	public String vehicleDistribution(String vehicleList, String teamNum) {
+		if(vehicleList!=null && vehicleList.trim().length()>0) {
 		team team = transferStationDao.getTeamById(teamNum);
 		String[] vehicleListDistribute = vehicleList.split(",");
-		
-		if (team != null && vehicleListDistribute!=null) {
+		System.out.println("qaqaewewe"+vehicleListDistribute);
+		if (team != null ) {
 			
 		
 			for (String eachVehicleId : vehicleListDistribute) {
@@ -366,10 +367,13 @@ public class TransferStationServiceImpl implements TransferStationService {
 						transferStationDao.saveOrUpdateObject(vehicle);
 					}
 			}
+			
 			return "success";
-		} else {
-			return "fail";
 		}
+		return "fail";
+		} 
+			return "fail";
+		
 	}
 
 	/**
