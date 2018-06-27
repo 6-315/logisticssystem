@@ -177,12 +177,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a href="#" class="nav-link"> <i
-                            class="nav-icon fa fa-calendar"></i>
-                        <p>用户管理</p>
-                    </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
-                                                                                                          class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
+                                                                                                          class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -191,7 +187,7 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaffList"
-                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>员工查询</p>
                             </a></li>
                             <li class="nav-item"><a
@@ -284,7 +280,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
                             <li class="breadcrumb-item active">查询用户</li>
                         </ol>
                     </div>
@@ -510,7 +506,7 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
         </strong> All rights reserved.
     </footer>
 
