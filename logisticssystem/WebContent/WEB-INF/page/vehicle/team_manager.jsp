@@ -330,8 +330,28 @@
                                         <th>车队编号</th>
                                         <th>车队队长工号</th>
                                         <th>运输路线</th>
-                                        <th>所属单位</th>
-                                        <th>状态</th>
+                                        <th>
+                                            <span role="presentation" class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">单位(所有)
+                                                    <span class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
+														<li v-for="unit in unitList" :key="unit.unit_id"><a
+                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
+													</ul>
+											</span>
+                                        </th>
+                                        <th>
+                                            <span role="presentation" class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">状态(所有)
+                                                    <span class="caret"></span></a>
+													<ul class="dropdown-menu">
+														<li><a @click="" href="#">状态(所有)</a></li>
+														<li><a @click="" href="#">状态(所有)</a></li>
+														<li><a @click="" href="#">状态(所有)</a></li>
+													</ul>
+											</span>
+                                        </th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -398,216 +418,7 @@
                 </div>
                 <!-- /.col -->
             </div>
-            <div class="modal fade" id="peiSongYuan">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">分配派送员</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>工号</th>
-                                    <th>姓名</th>
-                                    <th>联系方式</th>
-                                    <th>性别</th>
-                                    <th>员工状态</th>
-                                    <th>分配</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="dis in paiSongYuanList">
-                                    <td>{{dis.staffBasicinfo.staff_num}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_name}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_phonenumber}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_sex}}</td>
-                                    <td>{{dis.staffBasicinfo.staff_state}}</td>
-                                    <td><a @click="paiSongStaff(dis.staffBasicinfo.staff_id)"
-                                           class="btn btn-default">分配</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressReser">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">分配至配送点</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>单位编号</th>
-                                    <th>单位名称</th>
-                                    <th>单位详细地址</th>
-                                    <th>联系方式</th>
-                                    <th>选择</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="unit in reserList" :key="unit.unit_id">
-                                    <td>{{unit.unit_num}}</td>
-                                    <td>{{unit.unit_name}}</td>
-                                    <td>{{unit.unit_detailaddress}}</td>
-                                    <td>{{unit.unit_phonenumber}}</td>
-                                    <td><a @click="selectDistribution(unit.unit_id)"
-                                           class="btn btn-default" href="#">分配</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressVehicle">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件装车</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>车辆编号</th>
-                                    <th>车牌号</th>
-                                    <th>车辆载货状态</th>
-                                    <th>车辆规格</th>
-                                    <th>车辆载货重量</th>
-                                    <th>选择</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="vehicle in vehicleList" :key="vehicle.vehicle_id">
-                                    <td>{{vehicle.vehicle_num}}</td>
-                                    <td>{{vehicle.vehicle_platenum}}</td>
-                                    <td>{{vehicle.vehicle_express_state}}</td>
-                                    <td>{{vehicle.vehicle_standard}}</td>
-                                    <td>{{vehicle.vehicle_current_weight}}</td>
-                                    <td><a @click="loadCar(vehicle.vehicle_id)"
-                                           class="btn btn-default" href="#">装车</a></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressRoute">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">选择快件路线</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <tr-com @getroute="getRoute" @pushroute="pushRoute"
-                                    :lastaddress="lastAddress" :expresslistr="expressListR"></tr-com>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" @click="saveExpressRoute"
-                                    class="btn btn-danger">保存
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="expressAdd">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件到站</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <h4>是否确定快件到站</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button @click="daozhan" type="button" class="btn btn-danger">确定</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="mymodal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h4 class="modal-title">快件详情</h4>
-                        </div>
-                        <div class="mdoal-body">
-                            <p>我的详情</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" class="btn btn-primary">保存</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="deleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <!-- 模态弹出窗内容 -->
-                        <div class="modal_header">
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-                            </button>
-                            <h5 class="modal-title">快件详情</h5>
-                        </div>
-                        <hr>
-                        <div class="mdoal-body">
-                            <h4>是否确定删除数据</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">关闭
-                            </button>
-                            <button type="button" class="btn btn-danger">删除</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row --> </section>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -635,6 +446,7 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/vehicle/team_manager.js"></script>
 
 </body>
 </html>
