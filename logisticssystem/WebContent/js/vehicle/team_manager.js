@@ -132,7 +132,7 @@
         },
         mounted() {
             //
-            if (teamManagerData.myRole == 5) {
+            /*if (teamManagerData.myRole == 5) {
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_getCarTeamCaptain',
                     type: 'POST',
@@ -160,7 +160,7 @@
                         }
                     }
                 })
-            }
+            }*/
             // 获取单位信息
             if (teamManagerData.myRole == 6) {
                 $.ajax({

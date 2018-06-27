@@ -299,10 +299,10 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <div>
+                            <%--<div>
                                 <a @click="addTeamModal" class="btn btn-default">添加车队</a>
-                            </div>
-                            <div style="width: 250px; float: right; margin-bottom: 10px;margin-top:-30px;"
+                            </div>--%>
+                            <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
                                        v-model="search" type="text" class="form-control input-sm"><span
@@ -373,7 +373,7 @@
             </div>
         </section>
 
-        <div class="modal fade" id="addTeam">
+        <%--<div class="modal fade" id="addTeam">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <!-- 模态弹出窗内容 -->
@@ -401,12 +401,12 @@
                                     </option>
                                 </select>
                             </div>
-                            <%--<div class="form-group">
+                            &lt;%&ndash;<div class="form-group">
                                 <label>状态</label>
                                 <select v-model="teamOb.team_state" class="form-control">
 
                                 </select>
-                            </div>--%>
+                            </div>&ndash;%&gt;
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -415,7 +415,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <div class="modal fade" id="myTeamMember">
             <div class="modal-dialog">
