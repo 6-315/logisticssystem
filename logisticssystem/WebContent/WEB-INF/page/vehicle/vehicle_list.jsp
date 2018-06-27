@@ -179,7 +179,7 @@
                             </a></li>
                         </ul>
                     </li>
-       
+
                     <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
                                                                                                           class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
@@ -220,7 +220,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open"><a
                             href="#" class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -330,7 +331,7 @@
 													</ul>
 											</span>
                                         </th>
-                                        <th>
+                                        <th v-if="myRole != 6">
                                             <span role="presentation" class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">车队(所有)
                                                     <span class="caret"></span></a>
@@ -394,7 +395,7 @@
                                     <tr v-for="(listVehicleDTO,index) in vehicleInfoVO.listVehicleDTO">
                                         <td><input :id="listVehicleDTO.vehicleInfo.vehicle_id"
                                                    :uni="listVehicleDTO.unit.unit_id"
-                                                   type="checkbox" name="flag"></td>
+                                                   type="checkbox" name="flag" check="check"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
                                         <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
@@ -405,7 +406,8 @@
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
                                         <td v-else></td>
-                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
+
+                                        <td v-if="listVehicleDTO.driverDTO && listVehicleDTO.driverDTO.staffBasicInfo">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
                                         <td v-else></td>
@@ -596,7 +598,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
