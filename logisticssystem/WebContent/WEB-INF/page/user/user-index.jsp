@@ -89,7 +89,7 @@
                 <form method="post" id="history_search" action="#">
                     <div class="input-group input-group-lg">
                         <input name="mailno" id="mailno" value="" class="form-control"
-                               placeholder="请输入运单号"> <span class="input-group-btn">
+                               placeholder="请输入快递单号"> <span class="input-group-btn">
 								<button class="btn btn-primary" style="height: 48px"
                                         type="submit">
 									<i class="icon fa-search" aria-hidden="true"></i> 查询

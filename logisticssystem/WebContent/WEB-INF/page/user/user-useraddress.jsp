@@ -151,7 +151,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label">姓名</label>
                             <div class="col-sm-6">
-                                <input v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
+                                <input @change="realname" v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
                                 <small style="display: none;" class="help-block">请输入您的姓名
                                 </small>
                                 <small style="display: none;" class="help-block">请填写15字符之内、中文或英文
