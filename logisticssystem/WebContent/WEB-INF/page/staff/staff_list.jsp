@@ -272,13 +272,21 @@
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList" class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
+                            </a></li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
@@ -360,7 +368,7 @@
                                                 class="dropdown-toggle" data-toggle="dropdown">职位(所有)<span
                                                 class="caret"></span></a>
 													<ul class="dropdown-menu">
-														<li><a @click="selectPosition('')" href="#">所属单位(所有)</a></li>
+														<li><a @click="selectPosition('')" href="#">所属职位(所有)</a></li>
 														<li v-for="pos in postionList" :key="pos.position_id"><a
                                                                 @click="selectPosition(pos.position_id)" href="#">{{pos.position_name}}</a></li>
 													</ul>
@@ -387,7 +395,7 @@
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="staffManagerVO.listStaDTO.length == 0">
+                                    <tbody v-if="staffManagerVO.listStaDTO!=undefined && staffManagerVO.listStaDTO.length == 0">
                                     <td v-if="ready" style="text-align: center" colspan="10"
                                         height="50">暂无数据
                                     </td>

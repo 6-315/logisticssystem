@@ -40,7 +40,7 @@ public interface ExpressManagementService {
 
 	public ReservationOrderHistoryVO queryOrderHistory(ReservationOrderHistoryVO reservationOrderHistoryVO, userinfo userInfo);
 
-	public List<ReservationExpressInfoDTO> queryUserReservation(UserInfoSessionDTO userInfo, String state);
+	public List<ReservationExpressInfoDTO> queryUserReservation(userinfo userInfo, String state);
 
 	public String cancelReservation(reservation reservationInfo);
 
@@ -49,6 +49,8 @@ public interface ExpressManagementService {
 	public ReservationExpressInfoDTO queryCurrentReservationInfo(String idList);
 
 	public RouteDTO getRouteInfo(String idList);
+
+	public List<staff_basicinfo> getStaffInfoByPosition(String unit);
 
 
 

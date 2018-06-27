@@ -86,11 +86,11 @@
         }
 
         /*.pagination > li > a:focus {
-                                    color: #fff;
-                                    cursor: default;
-                                    background-color: #337ab7;
-                                    border-color: #337ab7;
-                                }*/
+                                            color: #fff;
+                                            cursor: default;
+                                            background-color: #337ab7;
+                                            border-color: #337ab7;
+                                        }*/
         .dropdown-menu {
             max-height: 200px;
             overflow-y: scroll;
@@ -114,7 +114,7 @@
     </style>
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
-<div id="expressList" class="wrapper">
+<div id="teamManager" class="wrapper">
     <!-- Navbar -->
     <nav
             class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -129,17 +129,15 @@
                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                     class="nav-link">快件管理</a></li>
         </ul>
+
     </nav>
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png"
-            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
-    </a> <!-- Sidebar -->
+        <a href="#" class="brand-link"> <img
+                src="${pageContext.request.contextPath}/img/houtai.png"
+                alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
+        </a>
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
@@ -155,10 +153,11 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
-                                     with font-awesome or any other icon font library -->
-                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
-                        class="nav-item has-treeview menu-open"><a href="#"
-                                                                   class="nav-link active"> <i
+                                         with font-awesome or any other icon font library -->
+                    <li
+                            v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                            class="nav-item has-treeview"><a href="#"
+                                                             class="nav-link"> <i
                             class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
@@ -167,23 +166,25 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                                    class="nav-link active"> <i class="fa fa-book nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
+                                class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6"
+                                class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a href="#" class="nav-link"> <i
-                            class="nav-icon fa fa-calendar"></i>
+                    <li v-if="myRole==2 || myRole==5 || myRole==6" class="nav-item"><a
+                            href="#" class="nav-link"> <i class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
                     <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
@@ -226,32 +227,39 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-dashboard"></i>
-                        <p>
-                            车辆管理 <i class="fa fa-angle-left right"></i>
-                        </p>
-                    </a>
+
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                车辆管理
+                                <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList" class="nav-link"> <i
-                                    class="fa fa-book nav-icon"></i>
-                                <p>车辆列表</p>
-                            </a></li>
-                            <li v-if="myRole == 6" class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
-                                    class="nav-link"> <i
-                                    class="fa fa-plus-square-o nav-icon"></i>
-                                <p>增加车辆</p>
-                            </a></li>
-                            <li v-if="myRole == 6" class="nav-item"><a
-                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
-                                    class="nav-link"> <i
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                   class="nav-link">
+                                    <i class="fa fa-book nav-icon"></i>
+                                    <p>车辆列表</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                   class="nav-link">
+                                    <i class="fa fa-plus-square-o nav-icon"></i>
+                                    <p>增加车辆</p>
+                                </a>
+                            </li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link active"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>车队管理</p>
                             </a></li>
                         </ul>
                     </li>
+
                     <li v-if="myRole == 6" class="nav-item has-treeview"><a
                             href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -284,14 +292,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>查询快件</h1>
+                        <h1>车队管理</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
                             </li>
-                            <li class="breadcrumb-item active">查询快件</li>
+                            <li class="breadcrumb-item active">车队管理</li>
                         </ol>
                     </div>
                 </div>
@@ -304,13 +312,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">快件列表</h3>
+                            <h3 class="card-title">车队列表</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
-                                <input placeholder="据快件单号搜索" @input="selectSearch"
+                                <input placeholder="据车队编号搜索" @input="selectSearch"
                                        v-model="search" type="text" class="form-control input-sm"><span
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
@@ -319,101 +327,37 @@
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox" @click="checkAll"
-                                                   v-model="checkData"></th>
-                                        <th>快件单号</th>
-                                        <th>收件人姓名</th>
-                                        <th>收件人联系方式</th>
-                                        <th>收件人详细地址</th>
-                                        <th v-if="myRole==5 || myRole==6"><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">所属单位<span
-                                                class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
-														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                href="#" @click="selectUnit(unit.unit_id)">{{unit.unit_name}}</a></li>
-													</ul>
-											</span></th>
-                                        <th v-if="myRole==5"><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">是否分配配送点<span
-                                                class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li @click="isFenPeiSongDian('')"><a href="#">所有</a></li>
-														<li><a @click="isFenPeiSongDian('是')" href="#">是</a></li>
-														<li><a @click="isFenPeiSongDian('否')" href="#">否</a></li>
-													</ul>
-											</span></th>
-                                        <th v-if="myRole==2"><span role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">是否分配派送员<span
-                                                class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="isFenPeiSongYuan('')" href="#">所有</a></li>
-														<li><a @click="isFenPeiSongYuan('是')" href="#">是</a></li>
-														<li><a @click="isFenPeiSongYuan('否')" href="#">否</a></li>
-													</ul>
-											</span></th>
-                                        <th v-if="myRole==1 || myRole==2 || myRole==5 || myRole==6"><span
-                                                role="presentation" class="dropdown"> <a
-                                                class="dropdown-toggle" data-toggle="dropdown">状态（所有）<span
-                                                class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectState('')" href="#">所有</a></li>
-														<li><a v-if="myRole==2 || myRole==5 || myRole==6"
-                                                               @click="selectState('待揽件')"
-                                                               href="#">待揽件</a></li>
-														<li><a @click="selectState('已揽件')" href="#">已揽件</a></li>
-														<li><a @click="selectState('待扫描')" href="#">待扫描</a></li>
-														<li><a v-if="myRole==5 || myRole==6" @click="selectState('已扫描')"
-                                                               href="#">已扫描</a></li>
-														<li><a @click="selectState('待派送')" href="#">待派送</a></li>
-														<li><a @click="selectState('派送中')" href="#">派送中</a></li>
-														<li><a @click="selectState('已签收')" href="#">已签收</a></li>
-														<li><a v-if="myRole==2 || myRole==5 || myRole==6"
-                                                               @click="selectState('已完成')" href="#">已完成</a></li>
-													</ul>
-											</span></th>
+                                        <th>车队编号</th>
+                                        <th>车队队长工号</th>
+                                        <th>运输路线</th>
+                                        <th>所属单位</th>
+                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
-                                    <td style="text-align: center" colspan="10" height="50">
+                                    <tbody v-if="teamInfoVO.listTeamDTO == undefined">
+                                    <td style="text-align: center" colspan="6" height="50">
                                         暂无数据
                                     </td>
                                     </tbody>
                                     <tbody v-if="!ready">
                                     <tr>
-                                        <td style="text-align: center" colspan="10"><i
+                                        <td style="text-align: center" colspan="6"><i
                                                 class="fa fa-spinner fa-spin fa-3x fa-fw"></i></td>
                                     </tr>
                                     </tbody>
                                     <tbody v-cloak
-                                           v-if="ready && expressInfoVO.ExpressInfoDTO != undefined"
+                                           v-if="ready && teamInfoVO.listTeamDTO != undefined"
                                            style="min-height: 200px">
-                                    <tr
-                                            v-for="(expressInfoDTO,index) in expressInfoVO.ExpressInfoDTO"
-                                            :key="expressInfoDTO.expressInfo.express_id">
-                                        <td><input :id="expressInfoDTO.expressInfo.express_id"
-                                                   type="checkbox" name="flag"></td>
-                                        <td v-html="expressInfoDTO.expressInfo.express_number"></td>
-                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseerealname}}</td>
-                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_addresseephonenumber}}</td>
-                                        <td>{{expressInfoDTO.expressDetailInfo.expressinfo_senderdetailaddress}}</td>
-                                        <td v-if="myRole==5 || myRole==6">{{expressInfoDTO.unitInfo.unit_name}}</td>
-                                        <td v-if="myRole==5 && expressInfoDTO.expressInfo.express_isdistributeddistribution">
-                                            是
+                                    <tr v-for="teamDTO in teamInfoVO.listTeamDTO">
+                                        <td v-html="teamDTO.team.team_id"></td>
+                                        <td v-if="teamDTO.staff_BasicInfoLeader != undefined">
+                                            {{teamDTO.staff_BasicInfoLeader.staff_num}}
                                         </td>
-                                        <td v-if="myRole==5 && !expressInfoDTO.expressInfo.express_isdistributeddistribution">
-                                            否
-                                        </td>
-                                        <td v-if="myRole==2 && expressInfoDTO.expressInfo.express_isdistributeddistributor">
-                                            是
-                                        </td>
-                                        <td v-if="myRole==2 && !expressInfoDTO.expressInfo.express_isdistributeddistributor">
-                                            否
-                                        </td>
-                                        <td v-if="myRole==1 || myRole==2 || myRole==5 || myRole==6">
-                                            {{expressInfoDTO.expressInfo.express_state}}
-                                        </td>
+                                        <td v-else></td>
+                                        <td>{{teamDTO.routeDTO.routeInfo.route_num}}</td>
+                                        <td>{{teamDTO.teamBelongUnit.unit_name}}</td>
+                                        <td>{{teamDTO.team.team_state}}</td>
                                         <td>
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
@@ -421,53 +365,27 @@
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
+                                                    <li><a href="#">我的车队</a></li>
+                                                    <li><a href="#"></a></li>
                                                     <li><a href="#">查看详情</a></li>
-                                                    <li><a v-if="myRole==2" href="#">分配取件员</a></li>
-                                                    <%--<li><a href="#">已揽件</a></li>--%>
-                                                    <li><a v-if="myRole==5"
-                                                           @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
-                                                           href="#">进仓扫描</a></li>
-                                                    <li><a v-if="myRole==5"
-                                                           @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
-                                                           href="#">扫描装车</a></li>
-                                                    <li><a v-if="myRole==5"
-                                                           @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_id)"
-                                                           href="#">分配配送点</a></li>
-                                                    <li><a v-if="myRole==2"
-                                                           @click="distribuStaff(expressInfoDTO.expressInfo.express_id)"
-                                                           href="#">分配派送员</a></li>
-                                                    <li><a v-if="myRole==1"
-                                                           @click="qianShouExpress(expressInfoDTO.expressInfo.express_id)"
-                                                           href="#">已签收</a></li>
-                                                    <li><a v-if="myRole==5 || myRole==6" href="#">查看快件路线</a></li>
-                                                    <li><a v-if="myRole==2"
-                                                           @click="completeExpress(expressInfoDTO.expressInfo.express_id)"
-                                                           href="#">已完成</a></li>
                                                 </ul>
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div style="float: right;">
-                                    <a v-if="myRole==1" href="#" @click="expressQujian" class="btn btn-info">取件</a>
-                                    <a v-if="myRole==3" href="#" @click="expressFaVehicle"
-                                       class="btn btn-primary">发车</a>
-                                    <a v-if="myRole==1 || myRole==3" href="#" @click="expressAddJ"
-                                       class="btn btn-danger">快件到站</a>
-                                </div>
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
                                         <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
-                                        <li><a>第 {{expressInfoVO.pageIndex}} 页/总
-                                            {{expressInfoVO.totalPages}}
-                                            页/共{{expressInfoVO.totalRecords}}条</a></li>
+                                        <li><a>第 {{teamInfoVO.pageIndex}} 页/总
+                                            {{teamInfoVO.totalPages}}
+                                            页/共{{teamInfoVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
-                                                :disabled="nextDisabled" @click="nextPage" href="#">
-                                            下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
+                                                :disabled="nextDisabled" @click="nextPage" href="#"> 下一页
+                                            <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
                                         <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
@@ -717,7 +635,6 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/plugins/fastclick/fastclick.js"></script>
 <script src="${pageContext.request.contextPath}/js/adminlte.min.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/js/express/express_list.js"></script>
+
 </body>
 </html>

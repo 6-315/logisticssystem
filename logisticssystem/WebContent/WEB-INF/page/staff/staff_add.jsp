@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini" style="font-size: 14px;">
 <div id="staffAdd" class="wrapper">
     <!-- Navbar -->
     <!-- Navbar -->
@@ -97,7 +97,8 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <li  v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"class="nav-item has-treeview">
+                    <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
+                        class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
@@ -113,7 +114,8 @@
                                     <p>查询快件</p>
                                 </a>
                             </li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item" class="nav-item">
+                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"
+                                class="nav-item">
                                 <a href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                    class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
@@ -193,17 +195,24 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList" class="nav-link">
                                     <i class="fa fa-book nav-icon"></i>
                                     <p>车辆列表</p>
                                 </a>
                             </li>
                             <li v-if="myRole == 6" class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                   class="nav-link">
                                     <i class="fa fa-plus-square-o nav-icon"></i>
                                     <p>增加车辆</p>
                                 </a>
                             </li>
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
+                            </a></li>
                         </ul>
                     </li>
                     <li v-if="myRole == 6" class="nav-item has-treeview">
@@ -249,7 +258,7 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/test/test/index.html">首页</a></li>
+                            <li class="breadcrumb-item"><a href="#">首页</a></li>
                             <li class="breadcrumb-item active">添加员工</li>
                         </ol>
                     </div>
