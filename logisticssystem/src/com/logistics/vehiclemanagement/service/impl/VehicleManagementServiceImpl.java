@@ -51,6 +51,16 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								/**
 								 * 添加信息
 								 */
+								String hql = "select substring(vehicle_num,2) from vehicle where 1=1 order by --substring(vehicle_num,2) desc limit 1 ";
+								String maxNumber = vehicleManagementDao.getMaxNumber(hql);
+								if (maxNumber != null && maxNumber.trim().length() > 0) {
+									int nextNumber = Integer.parseInt(maxNumber);
+									nextNumber = nextNumber + 1;
+									String num = String.format("%06d", nextNumber);
+									vehicleInfo.setVehicle_num("V" + num);
+								} else {
+									vehicleInfo.setVehicle_num("V000001");
+								}
 								vehicleInfo.setVehicle_id(BuildUuid.getUuid());
 								vehicleInfo.setVehicle_acquisitionpeople(staffInfo.getStaff_id());
 								vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
@@ -60,11 +70,9 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								 * 完成添加功能
 								 */
 								vehicleManagementDao.saveOrUpdateObject(vehicleInfo);
-								System.out.println("添加成功");
 								return vehicleInfo;
 							}
 						} else {
-							System.out.println("未获得车牌号");
 							return null;
 						}
 					}
@@ -489,14 +497,26 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	 * 添加车队
 	 */
 	@Override
-	public String addTeam(team teamInfo) {
-		teamInfo.setTeam_id(BuildUuid.getUuid());
-		teamInfo.setTeam_num("123");
-		teamInfo.setTeam_createtime(TimeUtil.getStringSecond());
-		teamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
-		vehicleManagementDao.saveOrUpdateObject(teamInfo);
-		System.out.println("添加成功");
-		return "success";
+	public team addTeam(team teamInfo) {
+		if (teamInfo != null) {
+			teamInfo.setTeam_id(BuildUuid.getUuid());
+			String hql = "select substring(team_num,2) from team where 1=1 order by --substring(team_num,2) desc limit 1 ";
+			String maxNumber = vehicleManagementDao.getMaxNumber(hql);
+			if (maxNumber != null && maxNumber.trim().length() > 0) {
+				int nextNumber = Integer.parseInt(maxNumber);
+				nextNumber = nextNumber + 1;
+				String num = String.format("%06d", nextNumber);
+				teamInfo.setTeam_num("T" + num);
+			} else {
+				teamInfo.setTeam_num("T000001");
+			}
+			teamInfo.setTeam_createtime(TimeUtil.getStringSecond());
+			teamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
+			vehicleManagementDao.saveOrUpdateObject(teamInfo);
+			return teamInfo;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -519,13 +539,9 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				}
 				updateTeamInfo.setTeam_modifytime(TimeUtil.getStringSecond());
 				vehicleManagementDao.saveOrUpdateObject(updateTeamInfo);
-				System.out.println("更新成功");
-			} else {
-				System.out.println("更新失败");
 			}
 			return "success";
 		}
-		System.out.println("未获得ID");
 		return "error";
 	}
 
@@ -872,6 +888,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	/**
 	 * 获得所有车队
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<team> getAllTeam(staff_basicinfo staffInfo) {
 		if (staffInfo != null) {
@@ -881,6 +898,21 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				if (listTeam.size() > 0) {
 					return listTeam;
 				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 根据ID获得车辆信息
+	 */
+	@Override
+	public vehicle getVehicleInfoById(String idList) {
+		if (idList != null && idList.trim().length() > 0) {
+			vehicle vehicleInfo = new vehicle();
+			vehicleInfo = vehicleManagementDao.getVehicleInfoById(idList);
+			if (vehicleInfo != null) {
+				return vehicleInfo;
 			}
 		}
 		return null;

@@ -51,7 +51,7 @@ public interface VehicleManagementService {
 	 * @param teamInfo
 	 * @return
 	 */
-	public String addTeam(team teamInfo);
+	public team addTeam(team teamInfo);
 
 	/**
 	 * 更新车队信息
@@ -79,5 +79,7 @@ public interface VehicleManagementService {
 	public List<team> getAllTeam(staff_basicinfo staffInfo);
 
 	public String exchangeVehicle(String idList, String unit, staff_basicinfo staffInfo);
+
+	public vehicle getVehicleInfoById(String idList);
 
 }
