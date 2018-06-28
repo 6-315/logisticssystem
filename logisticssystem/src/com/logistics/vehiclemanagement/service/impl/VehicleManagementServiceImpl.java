@@ -175,8 +175,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								}
 							}
 						} else {
-							vehicleCountHql = vehicleCountHql + " 1！=1 ";
-							listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
+							vehicleCountHql = vehicleCountHql + " 1!=1 ";
+							listVehicleDTOCountHql = listVehicleDTOCountHql + " 1!=1 ";
 						}
 					} else if ("驾驶员".equals(postionInfo.getPosition_name())) {
 						if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
@@ -188,11 +188,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											+ "' ";
 									listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='"
 											+ driverInfo.getDriver_vehicle() + "' ";
+								}else {
+									vehicleCountHql = vehicleCountHql + " 1!=1 ";
+									listVehicleDTOCountHql = listVehicleDTOCountHql + " 1!=1 ";
 								}
-							} else {
-								vehicleCountHql = vehicleCountHql + " 1！=1 ";
-								listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
-							}
+							} 
 						}
 					}
 				}
