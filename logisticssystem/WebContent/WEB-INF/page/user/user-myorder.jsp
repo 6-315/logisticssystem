@@ -152,7 +152,7 @@
                                 <th>收件人姓名</th>
                                 <th>收件人联系方式</th>
                                 <th>收件人详细地址</th>
-                                <%--<th>操作</th>--%>
+                                <%--<th>操作< /th>--%>
                             </tr>
                             </thead>
                             <tbody v-if="expressinfoAndExpressVO.listExpressinfoAndExpressDTO == undefined">
