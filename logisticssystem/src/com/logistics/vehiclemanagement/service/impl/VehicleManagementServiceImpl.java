@@ -29,7 +29,6 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 	/**
 	 * 添加车辆（车辆ID，车辆编号，车辆车牌号，车辆状态，车辆所属单位，车辆购置时间，车辆购置人，车辆所属车队，车辆备注，创建时间，修改时间）
 	 * 
-	 * @return 1 代表添加成功
 	 */
 	@Override
 	public vehicle addVehicle(vehicle vehicleInfo, staff_basicinfo staffInfo) {
@@ -61,8 +60,13 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								} else {
 									vehicleInfo.setVehicle_num("V000001");
 								}
+								vehicleInfo.setVehicle_current_weight("0");
+								vehicleInfo.setVehicle_distribution_state("未分配至单位");
+								vehicleInfo.setVehicle_express_state("空闲");
+								vehicleInfo.setVehicle_drivingdirection(staffInfo.getStaff_unit());
 								vehicleInfo.setVehicle_id(BuildUuid.getUuid());
 								vehicleInfo.setVehicle_acquisitionpeople(staffInfo.getStaff_id());
+								vehicleInfo.setVehicle_unit(staffInfo.getStaff_unit());
 								vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
 								vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
 								vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
@@ -188,11 +192,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											+ "' ";
 									listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='"
 											+ driverInfo.getDriver_vehicle() + "' ";
-								}else {
+								} else {
 									vehicleCountHql = vehicleCountHql + " 1!=1 ";
 									listVehicleDTOCountHql = listVehicleDTOCountHql + " 1!=1 ";
 								}
-							} 
+							}
 						}
 					}
 				}
@@ -601,7 +605,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 驾驶员信息DTO
 		 */
-		
+
 		DriverDTO driverDTO;
 		/**
 		 * 获取数量
@@ -758,18 +762,18 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 						List<driver> listDriver = (List<driver>) vehicleManagementDao
 								.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
 						if (listDriver.size() > 0) {
-							for (int i =0;i<listDriver.size();i++) {
+							for (int i = 0; i < listDriver.size(); i++) {
 								driverDTO = new DriverDTO();
 								if (listDriver.get(i).getDriver_basicinfoid() != null
 										&& listDriver.get(i).getDriver_basicinfoid().trim().length() > 0) {
 									staff_basicinfo staffBasicInfo = vehicleManagementDao
 											.getStaffInfoById(listDriver.get(i).getDriver_basicinfoid());
 									if (staffBasicInfo != null) {
-										if(listDriver.get(i).getDriver_belong_team().equals(team.getTeam_id())) {
-										driverDTO.setStaffBasicInfo(staffBasicInfo);
-										driverDTO.setDriverInfo(listDriver.get(i));
-										listDriverDTO.add(driverDTO);
-										teamDTO.setListDriverInfoDTO(listDriverDTO);
+										if (listDriver.get(i).getDriver_belong_team().equals(team.getTeam_id())) {
+											driverDTO.setStaffBasicInfo(staffBasicInfo);
+											driverDTO.setDriverInfo(listDriver.get(i));
+											listDriverDTO.add(driverDTO);
+											teamDTO.setListDriverInfoDTO(listDriverDTO);
 										}
 									}
 								}
@@ -823,7 +827,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											if (vehicleInfo != null) {
 												vehicleInfo.setVehicle_current_weight("0");
 												vehicleInfo.setVehicle_express_state("空闲");
-												vehicleInfo.setVehicle_distribution_state("已分配到中转站");
+												vehicleInfo.setVehicle_distribution_state("未分配至车队");
 												vehicleInfo.setVehicle_team("");
 												vehicleInfo.setVehicle_unit(unit);
 												vehicleInfo.setVehicle_drivingdirection(unit);

@@ -30,8 +30,8 @@
                     toastr.error('请输入车辆规格')
                     return
                 }
-                if (vehicleAddData.vehicleInfo.vehicle_standard < 0 || vehicleAddData.vehicleInfo.vehicle_standard > 50) {
-                    toastr.error('请输入车辆规格为5000kg-8000kg')
+                if (vehicleAddData.vehicleInfo.vehicle_standard < 1000 || vehicleAddData.vehicleInfo.vehicle_standard > 8000) {
+                    toastr.error('请输入车辆规格为1000kg-8000kg')
                     return
                 }
                 if (vehicleAddData.vehicleInfo.vehicle_platenum == null || vehicleAddData.vehicleInfo.vehicle_platenum.trim().length <= 0) {
