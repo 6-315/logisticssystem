@@ -127,7 +127,6 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", id);
 		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
-		System.out.println("OK");
 		if (staffBasicInfo != null) {
 			return staffBasicInfo;
 		}
@@ -146,7 +145,6 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		query.setParameter("ID", staff_id);
 		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
 		if (staffBasicInfo != null) {
-			System.out.println("OK");
 			return staffBasicInfo;
 		}
 		return null;
@@ -174,11 +172,9 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	 */
 	@Override
 	public String getstaffBasicinfoMaxNum() {
-		System.out.println("111dada");
 		staff_basicinfo staffBasicinfo = new staff_basicinfo();
 		Session session = getSession();
 		String hql = "select staff_num from staff_basicinfo order by --staff_num desc limit 1";
-		System.out.println("33");
 		Query query = session.createSQLQuery(hql);
 		String num = (String) query.uniqueResult();
 		return num;

@@ -30,13 +30,13 @@
         </div>
         <div style="float:right;marign:auto;color:#FFF" class="navlogin">
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <%-- <li>
                     <a style="text-decoration:none;" href="#" class="navbar-avatar">
 				     <span class="avatar" style="vertical-align:middle;">
 						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
-                </li>
+                </li> --%>
                 <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF;line-height:30px">退出</a>
                 </li>
