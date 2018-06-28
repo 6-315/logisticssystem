@@ -510,6 +510,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 	public String distributeDiver(vehicle vehicle, driver driver) {
 		vehicle vehicleNew = new vehicle();
 		vehicleNew = transferStationDao.getVehicleById(vehicle.getVehicle_id());
+		vehicleNew.setVehicle_distribution_state("已分配至驾驶员");
+		transferStationDao.saveOrUpdateObject(vehicleNew);
 		driver driverNew = new driver();
 		driverNew = transferStationDao.getDriverById(driver.getDriver_id());
 		if (driverNew != null && vehicleNew != null) {
