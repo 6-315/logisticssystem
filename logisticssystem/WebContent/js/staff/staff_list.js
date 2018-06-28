@@ -126,18 +126,21 @@
                 viewStaffData.judge()
             },
             selectPosition(postionId) {
+                staffListData.pageIndex = 1
                 // 职位筛选
                 staffListData.position = postionId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectUnit(unitId) {
+                staffListData.pageIndex = 1
                 // 单位筛选
                 staffListData.belongUnit = unitId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectState(state) {
+                staffListData.pageIndex = 1
                 //状态筛选
                 staffListData.state = state
                 viewStaffData.getAllData()

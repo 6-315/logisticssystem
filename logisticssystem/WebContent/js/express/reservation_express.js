@@ -57,12 +57,60 @@
             data: reservationData,
             methods: {
                 addReservation: function (event) {
-                    this.disabled = true
-                    reservationExpressInfoDTO.expressInfo = reservationData.view_express
 
+                    reservationExpressInfoDTO.expressInfo = reservationData.view_express
+                    if (!express.checkRealName(reservationData.view_express.expressinfo_senderrealname)) {
+                        toastr.error('请输入寄件人真实姓名')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_senderaddress == null || reservationData.view_express.expressinfo_senderaddress.trim().length <= 0) {
+                        toastr.error('请输入寄件人地址')
+                        return
+                    }
+                    if (reservationData.reservation_unit_view == null || reservationData.reservation_unit_view.trim().length <= 0) {
+                        toastr.error('请选择配送点')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_senderdetailaddress == null || reservationData.view_express.expressinfo_senderdetailaddress.trim().length <= 0) {
+                        toastr.error('请填写详细地址')
+                        return
+                    }
+                    if (!express.checkPhone(reservationData.view_express.expressinfo_senderphonenumber)) {
+                        toastr.error('请输入正确格式寄件人手机号码')
+                        return
+                    }
+                    if (!express.checkRealName(reservationData.view_express.expressinfo_addresseerealname)) {
+                        toastr.error('请输入收件人真实姓名')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_addresseeaddress == null || reservationData.view_express.expressinfo_addresseeaddress.trim().length <= 0) {
+                        toastr.error('请填写收件人地址')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_adderdetailaddress == null || reservationData.view_express.expressinfo_adderdetailaddress.trim().length <= 0) {
+                        toastr.error('请填写收件人详细地址')
+                        return
+                    }
+                    if (!express.checkPhone(reservationData.view_express.expressinfo_addresseephonenumber)) {
+                        toastr.error('请输入正确格式收件人手机号码')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_mark == null || reservationData.view_express.expressinfo_mark.trim().length <= 0) {
+                        toastr.error('请填写快件备注')
+                        return
+                    }
+                    if (reservationData.view_express.expressinfo_productname == null || reservationData.view_express.expressinfo_productname.trim().length <= 0) {
+                        toastr.error('请填写内件品名')
+                        return
+                    }
+                    if (!express.checkProductWeight(reservationData.view_express)) {
+                        toastr.error('请填写0-50的快件')
+                        return
+                    }
+                    this.disabled = true
                     /**
-					 * 预约
-					 */
+                     * 预约
+                     */
                     $.ajax({
                         url: '/logisticssystem/expressmanagement/expressmanagement_addReservationAndExpressInfo',
                         type: 'POST',
@@ -108,6 +156,12 @@
                             reservationData.province = pro
                         }
                     })
+                },
+                checkProductWeight() {
+                    if (reservationData.view_express.expressinfo_productweight < 0 || reservationData.view_express.expressinfo_productweight > 50) {
+                        return false
+                    }
+                    return true
                 },
                 closeBox: function () {
                     reservationData.isOpen = false
@@ -277,6 +331,20 @@
                 selectProtectService: function () {
                     reservationData.view_express.expressinfo_protectprice = '保价'
                     express.closeProtectBox()
+                },
+                //判断真实姓名
+                checkRealName(name) {
+                    if ('' === name || !(/^[\u4e00-\u9fa5]{2,4}$/.test(name))) {
+                        return false
+                    }
+                    return true
+                },
+                //判断手机号码
+                checkPhone(phone) {
+                    if (!(/^1[34578]\d{9}$/.test(phone))) {
+                        return false;
+                    }
+                    return true
                 }
             }
         })

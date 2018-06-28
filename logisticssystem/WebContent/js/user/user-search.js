@@ -15,8 +15,12 @@
                         'waybillNumber': liuZhuanData.search
                     },
                     success: function (data) {
-                        console.log('data:', data)
-                        liuZhuanData.liuZhuanList = JSON.parse(data)
+                        if (JSON.parse(data) !== null) {
+                            liuZhuanData.liuZhuanList = JSON.parse(data)
+                        } else {
+                            toastr.error('请输入正确的快件单号')
+                        }
+
                     }
 
                 })

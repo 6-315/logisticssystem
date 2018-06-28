@@ -78,12 +78,12 @@
         <div class="yto-box">
             <div class="row">
                 <div class="col-sm-2 hidden-xs">
-                    <div class="my-avatar center-block p_bottom_10">
+                    <%--<div class="my-avatar center-block p_bottom_10">
 							<span class="avatar">
 							      <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 							</span>
                     </div>
-                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>
+                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>--%>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">基本信息</a></li>
                         <li class="active"><a
@@ -151,7 +151,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label">姓名</label>
                             <div class="col-sm-6">
-                                <input v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
+                                <input @change="realname" v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
                                 <small style="display: none;" class="help-block">请输入您的姓名
                                 </small>
                                 <small style="display: none;" class="help-block">请填写15字符之内、中文或英文

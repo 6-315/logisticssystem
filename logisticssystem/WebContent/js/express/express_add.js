@@ -211,6 +211,55 @@
                 view_express.closeAddressBox()
             },
             addExpress: function () {
+                console.log('fd:')
+                if (expressData.expressinfo.expressinfo_productname == null || expressData.expressinfo.expressinfo_productname.trim().length <= 0) {
+                    toastr.error('请填写内件品名')
+                    return
+                }
+                if (expressData.expressinfo.expressinfo_mark == null || expressData.expressinfo.expressinfo_mark.trim().length <= 0) {
+                    toastr.error('请填写快件备注')
+                    return
+                }
+                if (!view_express.checkProductWeight(expressData.expressinfo.expressinfo_productweight)) {
+                    toastr.error('请填写0-50的快件')
+                    return
+                }
+
+
+                if (!view_express.checkRealName(expressData.expressinfo.expressinfo_senderrealname)) {
+                    toastr.error('请输入寄件人真实姓名')
+                    return
+                }
+                if (expressData.expressinfo.expressinfo_senderaddress == null || expressData.expressinfo.expressinfo_senderaddress.trim().length <= 0) {
+                    toastr.error('请输入寄件人地址')
+                    return
+                }
+                if (expressData.expressinfo.expressinfo_senderdetailaddress == null || expressData.expressinfo.expressinfo_senderdetailaddress.trim().length <= 0) {
+                    toastr.error('请填写详细地址')
+                    return
+                }
+                if (!view_express.checkPhone(expressData.expressinfo.expressinfo_senderphonenumber)) {
+                    toastr.error('请输入正确格式寄件人手机号码')
+                    return
+                }
+
+                if (!view_express.checkRealName(expressData.expressinfo.expressinfo_addresseerealname)) {
+                    toastr.error('请输入收件人真实姓名')
+                    return
+                }
+                if (expressData.expressinfo.expressinfo_addresseeaddress == null || expressData.expressinfo.expressinfo_addresseeaddress.trim().length <= 0) {
+                    toastr.error('请填写收件人地址')
+                    return
+                }
+                if (expressData.expressinfo.expressinfo_adderdetailaddress == null || expressData.expressinfo.expressinfo_adderdetailaddress.trim().length <= 0) {
+                    toastr.error('请填写收件人详细地址')
+                    return
+                }
+                if (!view_express.checkPhone(expressData.expressinfo.expressinfo_addresseephonenumber)) {
+                    toastr.error('请输入正确格式收件人手机号码')
+                    return
+                }
+
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_completePickExpress',
                     type: 'POST',
@@ -244,7 +293,27 @@
                         }
                     }
                 })
-            }
+            },
+            checkProductWeight(product) {
+                if (expressData.expressinfo.expressinfo_productweight < 0 || expressData.expressinfo.expressinfo_productweight > 50) {
+                    return false
+                }
+                return true
+            },
+            //判断手机号码
+            checkPhone(phone) {
+                if (!(/^1[34578]\d{9}$/.test(phone))) {
+                    return false;
+                }
+                return true
+            },
+            //判断真实姓名
+            checkRealName(name) {
+                if ('' === name || !(/^[\u4e00-\u9fa5]{2,4}$/.test(name))) {
+                    return false
+                }
+                return true
+            },
         },
         mounted() {
             //获取后台预约单数据

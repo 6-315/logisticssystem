@@ -161,25 +161,30 @@
             //
             selectUnit: function (selectUnitId) {
                 expressData.unit = selectUnitId
+                expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
             isFenPeiSongDian: function (isDistributedDistribution) {
                 expressData.isDistributedDistribution = isDistributedDistribution
+                expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
             isFenPeiSongYuan: function (isDistributedDistributor) {
                 expressData.isDistributedDistributor = isDistributedDistributor
+                expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
             selectState: function (selectState) {
                 expressData.state = selectState
+                expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
             selectSearch: function () {
+                expressData.page = 1
                 express_view.getAllData()
                 express_view.judge()
             },
@@ -224,31 +229,35 @@
                     }
                 })
             },
-            jinCangSaoMiao: function (address, expressId, unitId) {
-                expressData.lastAddress = address;
-                expressData.tmpExpressId = expressId
-                $.ajax({
-                    url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
-                    type: 'POST',
-                    data: {
-                        'expressInfo.express_id': expressId
-                    },
-                    success: function (data) {
-                        if (data === 'error') {
-                            toastr.error('扫描失败')
-                            return
-                        } else if (data === 'begin') {
-                            express_view.getRoute(unitId)
-                            $('#expressRoute').modal()
-                            // 弹出模态框选择地址
-                            // toastr.error('begin')
-                        } else if (data === 'trans') {
-                            express_view.compliteSaoMiao()
-                        } else if (data === 'end') {
-                            express_view.compliteSaoMiao()
+            jinCangSaoMiao: function (oldState, address, expressId, unitId) {
+                if (oldState === '待扫描') {
+                    expressData.lastAddress = address;
+                    expressData.tmpExpressId = expressId
+                    $.ajax({
+                        url: '/logisticssystem/expressmanagement/expressmanagement_judgeExpressType',
+                        type: 'POST',
+                        data: {
+                            'expressInfo.express_id': expressId
+                        },
+                        success: function (data) {
+                            if (data === 'error') {
+                                toastr.error('扫描失败')
+                                return
+                            } else if (data === 'begin') {
+                                express_view.getRoute(unitId)
+                                $('#expressRoute').modal()
+                                // 弹出模态框选择地址
+                                // toastr.error('begin')
+                            } else if (data === 'trans') {
+                                express_view.compliteSaoMiao()
+                            } else if (data === 'end') {
+                                express_view.compliteSaoMiao()
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    toastr.error('该状态下不可进行进仓扫描')
+                }
             },
             getRoute: function (unitId) {
                 $.ajax({
@@ -314,26 +323,30 @@
                     }
                 })
             },
-            scanVehicle(expressId) {
-                expressData.tmpVehicleExpressId = expressId
-                // 获取车辆信息
-                $.ajax({
-                    url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleByID',
-                    type: 'POST',
-                    data: {
-                        'expressNew.express_id': expressData.tmpVehicleExpressId
-                    },
-                    success: function (data) {
-                        if (data === null) {
-                            toastr.error('系统错误，获取车辆失败')
-                        } else {
-                            let listVehicle = JSON.parse(data)
-                            console.log('list:', listVehicle)
-                            expressData.vehicleList = listVehicle
-                            $('#expressVehicle').modal()
+            scanVehicle(state, expressId) {
+                if (state === '已扫描') {
+                    expressData.tmpVehicleExpressId = expressId
+                    // 获取车辆信息
+                    $.ajax({
+                        url: '/logisticssystem/expressmanagement2/expressmanagement2_getVehicleByID',
+                        type: 'POST',
+                        data: {
+                            'expressNew.express_id': expressData.tmpVehicleExpressId
+                        },
+                        success: function (data) {
+                            if (data === null) {
+                                toastr.error('系统错误，获取车辆失败')
+                            } else {
+                                let listVehicle = JSON.parse(data)
+                                console.log('list:', listVehicle)
+                                expressData.vehicleList = listVehicle
+                                $('#expressVehicle').modal()
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    toastr.error('此时不可装车')
+                }
 
             },
             loadCar(vehicleId) {
@@ -358,7 +371,8 @@
                     }
                 })
             },
-            distributionExpressToReser(expressId) {
+            distributionExpressToReser(state, expressId) {
+                // if(state)
                 expressData.tmpReserExpressId = expressId
                 // 获取配送点信息
                 $.ajax({
