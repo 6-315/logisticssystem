@@ -160,13 +160,13 @@ action="" novalidate="novalidate"> -->
                             value="" id="sendAddress" data-fv-field="Address" type="text">
                     </div>
                     <div class="form-group form-material">
-                        <label class="control-label">手机</label> <input
+                        <label class="control-label">手机号码</label> <input
                             v-model="view_express.expressinfo_senderphonenumber"
                             name="sendMobile" class="form-control" placeholder="手机号码为必填项"
                             data-fv-field="sendmobile" type="text">
                     </div>
                     <div style="margin-top: -10px;height: 13.5px;margin-left: 260px">
-                        <a href="#">录入地址</a>
+                        <a @click="sendAddressModal" href="#">录入地址</a>
                     </div>
                 </div>
             </div>
@@ -232,10 +232,13 @@ action="" novalidate="novalidate"> -->
                             placeholder="请输入详细地址" data-fv-field="Address" type="text">
                     </div>
                     <div class="form-group form-material">
-                        <label class="control-label">手机</label> <input
+                        <label class="control-label">手机号码</label> <input
                             v-model="view_express.expressinfo_addresseephonenumber"
                             name="receiveMobile" class="form-control" placeholder="手机必填项"
                             data-fv-field="receivemobile" type="text">
+                    </div>
+                    <div style="margin-top: -10px;height: 13.5px;margin-left: 260px">
+                        <a @click="addAddressModal" href="#">录入地址</a>
                     </div>
 
                 </div>
@@ -318,6 +321,101 @@ action="" novalidate="novalidate"> -->
                        title="" type="button">
             </div>
         </div>
+        <div class="modal fade" id="sendAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="deleteMyAddress">
+                            录入地址
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>联系方式</th>
+                                    <th>地址</th>
+                                    <th>详细地址</th>
+                                    <th>邮政编号</th>
+                                    <th>是否为默认地址</th>
+                                    <th>选择</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="addre in sendAddress" :key="addre.address_id">
+                                    <td>{{addre.address_realname}}</td>
+                                    <td>{{addre.address_phonenumber}}</td>
+                                    <td>{{addre.address_address}}</td>
+                                    <td>{{addre.address_detailaddress}}</td>
+                                    <td>{{addre.address_postalnumber}}</td>
+                                    <td>{{addre.address_isdefault}}</td>
+                                    <td>
+                                        <a @click="selectAddress(addre)" href="#">选择</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+
+
+        </div><!-- /.modal -->
+
+
+        <div class="modal fade" id="addAddressModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" style="width: 800px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="addMyAddress">
+                            录入地址
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>联系方式</th>
+                                    <th>地址</th>
+                                    <th>详细地址</th>
+                                    <th>邮政编号</th>
+                                    <th>是否为默认地址</th>
+                                    <th>选择</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="addre in addAddress" :key="addre.address_id">
+                                    <td>{{addre.address_realname}}</td>
+                                    <td>{{addre.address_phonenumber}}</td>
+                                    <td>{{addre.address_address}}</td>
+                                    <td>{{addre.address_detailaddress}}</td>
+                                    <td>{{addre.address_postalnumber}}</td>
+                                    <td>{{addre.address_isdefault}}</td>
+                                    <td>
+                                        <a @click="selectAddAddress(addre)" href="#">选择</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
         <!-- </form> -->
     </div>
 </div>

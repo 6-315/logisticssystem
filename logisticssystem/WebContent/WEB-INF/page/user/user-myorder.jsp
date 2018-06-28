@@ -42,7 +42,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" style="color: #FFF;line-height:30px">退出</a>
+                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                       style="color: #FFF;line-height:30px">退出</a>
                 </li>
             </ul>
         </div>
@@ -151,7 +152,7 @@
                                 <th>收件人姓名</th>
                                 <th>收件人联系方式</th>
                                 <th>收件人详细地址</th>
-                                <th>操作</th>
+                                <%--<th>操作</th>--%>
                             </tr>
                             </thead>
                             <tbody v-if="expressinfoAndExpressVO.listExpressinfoAndExpressDTO == undefined">
@@ -176,10 +177,10 @@
                                 <td>{{myOrder.expressInfo.expressinfo_addresseerealname}}</td>
                                 <td>{{myOrder.expressInfo.expressinfo_addresseephonenumber}}</td>
                                 <td>{{myOrder.expressInfo.expressinfo_adderdetailaddress}}</td>
-                                <td>
-                                    <a href="#">详情</a>
-                                    <%--<a href="#">删除</a>--%>
-                                </td>
+                                <%--<td>--%>
+                                <%--<a href="#">详情</a>--%>
+                                <%--&lt;%&ndash;<a href="#">删除</a>&ndash;%&gt;--%>
+                                <%--</td>--%>
                             </tr>
                             </tbody>
                         </table>
@@ -217,7 +218,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
-                        
+
                     </form>
                 </div>
                 <div class="modal-footer">

@@ -49,7 +49,9 @@
         addProvince: [],
         addCity: [],
         addCountry: [],
-        isProtect: false
+        isProtect: false,
+        sendAddress: [],
+        addAddress: []
     }
     const express = new Vue(
         {
@@ -345,7 +347,47 @@
                         return false;
                     }
                     return true
-                }
+                },
+                sendAddressModal() {
+                    $.ajax({
+                        url: '/logisticssystem/userinfo/userinfo_allAddressByUserInfo',
+                        type: 'POST',
+                        data: '',
+                        success: function (data) {
+                            let addressList = JSON.parse(data)
+                            reservationData.sendAddress = addressList
+                        }
+                    })
+                    $('#sendAddressModal').modal()
+                },
+                selectAddress(addre) {
+                    reservationData.view_express.expressinfo_senderrealname = addre.address_realname
+                    reservationData.view_express.expressinfo_senderphonenumber = addre.address_phonenumber
+                    reservationData.view_express.expressinfo_senderaddress = addre.address_address
+                    reservationData.view_express.expressinfo_senderdetailaddress = addre.address_detailaddress
+                    toastr.success('录入成功')
+                    $('#sendAddressModal').modal('hide')
+                },
+                addAddressModal() {
+                    $.ajax({
+                        url: '/logisticssystem/userinfo/userinfo_allAddressByUserInfo',
+                        type: 'POST',
+                        data: '',
+                        success: function (data) {
+                            let addressList = JSON.parse(data)
+                            reservationData.addAddress = addressList
+                        }
+                    })
+                    $('#addAddressModal').modal()
+                },
+                selectAddAddress(addre) {
+                    reservationData.view_express.expressinfo_addresseerealname = addre.address_realname
+                    reservationData.view_express.expressinfo_addresseephonenumber = addre.address_phonenumber
+                    reservationData.view_express.expressinfo_addresseeaddress = addre.address_address
+                    reservationData.view_express.expressinfo_adderdetailaddress = addre.address_detailaddress
+                    toastr.success('录入成功')
+                    $('#addAddressModal').modal('hide')
+                },
             }
         })
 })()
