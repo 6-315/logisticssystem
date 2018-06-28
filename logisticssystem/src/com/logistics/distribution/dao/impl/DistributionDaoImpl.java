@@ -122,7 +122,6 @@ public class DistributionDaoImpl implements DistributionDao {
 	public String getDistributionByNum(String unit_num) {
 		Session session = getSession();
 		String hql = "select substring(unit_num,5) from unit where unit_type=:num  order by --substring(unit_num, 5) desc limit 1";
-		System.out.println(hql);
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("num", "配送点");
 		String maxNum = (String) query.uniqueResult();

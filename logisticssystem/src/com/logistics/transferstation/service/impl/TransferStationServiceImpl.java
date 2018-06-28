@@ -342,7 +342,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 		if (vehicleList != null && vehicleList.trim().length() > 0) {
 			team team = transferStationDao.getTeamById(teamNum);
 			String[] vehicleListDistribute = vehicleList.split(",");
-			System.out.println("qaqaewewe" + vehicleListDistribute);
 			if (team != null) {
 
 				for (String eachVehicleId : vehicleListDistribute) {
@@ -351,7 +350,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 					 */
 					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
 					driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
-					System.out.println("qaqaq" + driver);
 					if (driver != null) {
 						driver.setDriver_vehicle("");
 					}
@@ -408,7 +406,6 @@ public class TransferStationServiceImpl implements TransferStationService {
 				 * 如果每个司机不为空
 				 */
 				driver driver = transferStationDao.getDriverById(eachDriverId);
-				System.out.println("ghghghg" + driver);
 				staff_basicinfo driverNew = transferStationDao.getBasicinfoById(eachDriverId);
 				if (driver != null && driverNew != null) {
 					driverNew.setStaff_superiorleader(team.getTeam_leader());
@@ -435,14 +432,12 @@ public class TransferStationServiceImpl implements TransferStationService {
 		List<unit> listunit = new ArrayList<>();
 		if (staffBasicInfo != null && staffBasicInfo.getStaff_unit() != null) {
 			positionNew = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
-			System.out.println("hyhyhy" + positionNew);
 			if (positionNew != null && positionNew.getPosition_name().equals("总公司管理员")) {
 				listunit = (List<unit>) transferStationDao.listObject("from unit ");
 				return listunit;
 			}
 			if (positionNew != null && unitNew != null && positionNew.getPosition_name().equals("中转站管理员")) {
 
-				System.out.println("sdsdsdsd");
 				listunit = (List<unit>) transferStationDao
 						.listObject("from unit where (unit_id ='" + staffBasicInfo.getStaff_unit()
 								+ "' or unit_superiorunit='" + staffBasicInfo.getStaff_unit() + "')");
