@@ -115,12 +115,12 @@
                     view_unitAdd.closeBox()
                 },
                 getAdmin(event) {
-                    //获取对应的所有管理员
+                    // 获取对应的所有管理员
                     $.ajax({
                         url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',
                         type: 'POST',
                         data: {
-                            'position': event.target.value
+                            'unit': event.target.value
                         },
                         success: function (data) {
                             if (data != null) {
@@ -130,7 +130,7 @@
                         }
                     })
                 },
-                //判断手机号码
+                // 判断手机号码
                 checkPhone(phone) {
                     if (!(/^1[34578]\d{9}$/.test(phone))) {
                         return false;
@@ -210,16 +210,13 @@
                 }
             },
             mounted() {
-                /*$.ajax({
-                    url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
-                    type: 'POST',
-                    data: '',
-                    success: function (data) {
-                        let uList = JSON.parse(data)
-                        routeAddData.unitList = uList
-                    }
-                })*/
-                //获取对应的所有管理员
+                /*
+				 * $.ajax({ url:
+				 * '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+				 * type: 'POST', data: '', success: function (data) { let uList =
+				 * JSON.parse(data) routeAddData.unitList = uList } })
+				 */
+                // 获取对应的所有管理员
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',
                     type: 'POST',
@@ -233,7 +230,7 @@
                         }
                     }
                 })
-                //获取后台数据
+                // 获取后台数据
                 let obj = $('#shuju').val()
                 if (obj.length === 0) {
                     return
