@@ -121,30 +121,35 @@
             },
             //
             selectUnit(unitId) {
+                vehicleListData.page = 1
                 vehicleListData.unit = unitId
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()
             },
             //
             selectTeam(teamId) {
+                vehicleListData.page = 1
                 vehicleListData.team = teamId
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()
             },
             //
             isFenPei(fenPeiState) {
+                vehicleListData.page = 1
                 vehicleListData.distributionState = fenPeiState
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()
             },
             //
             isZaiHuo(zaiHuoState) {
+                vehicleListData.page = 1
                 vehicleListData.expressState = zaiHuoState
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()
             },
             //
             selectState(state) {
+                vehicleListData.page = 1
                 vehicleListData.state = state
                 viewVehicleList.getAllData()
                 viewVehicleList.judge()

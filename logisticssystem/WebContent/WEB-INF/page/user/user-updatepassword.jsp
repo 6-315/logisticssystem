@@ -32,7 +32,8 @@
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
                 </li>
-                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" style="color: #FFF;line-height:30px">退出</a>
+                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                       style="color: #FFF;line-height:30px">退出</a>
                 </li>
             </ul>
         </div>
@@ -101,8 +102,7 @@
                                        title="旧密码"
                                        class="form-control" placeholder="请输入旧密码"
                                        type="password">
-                                <small :style="[oldEnity ? bl : no]" class="help-block"
-                                >请输入旧密码
+                                <small :style="[oldEnity ? bl : no]" class="help-block">请输入旧密码
                                 </small>
                                 </small>
                             </div>

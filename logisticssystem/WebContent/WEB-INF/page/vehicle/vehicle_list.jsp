@@ -167,7 +167,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -445,7 +445,7 @@
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
-                                        <li><a href="#">首页</a></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{vehicleInfoVO.pageIndex}} 页/总
@@ -455,7 +455,7 @@
                                                 :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
-                                        <li><a href="#">尾页</a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>

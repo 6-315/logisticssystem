@@ -67,7 +67,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -170,7 +170,7 @@
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-      </aside>
+    </aside>
     <!-- 内容结束 -->
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -184,7 +184,7 @@
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                           
+
                         </ol>
                     </div>
                     <!-- /.col -->

@@ -162,7 +162,7 @@
                                     class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -358,6 +358,8 @@
 														<li><a @click="selectState('待扫描')" href="#">待扫描</a></li>
 														<li><a v-if="myRole==5 || myRole==6" @click="selectState('已扫描')"
                                                                href="#">已扫描</a></li>
+                                                        <li><a v-if="myRole==5 || myRole==6" @click="selectState('已装车')"
+                                                               href="#">已装车</a></li>
 														<li><a @click="selectState('待派送')" href="#">待派送</a></li>
 														<li><a @click="selectState('派送中')" href="#">派送中</a></li>
 														<li><a @click="selectState('已签收')" href="#">已签收</a></li>
@@ -418,13 +420,13 @@
                                                     <li><a v-if="myRole==2" href="#">分配取件员</a></li>
                                                     <%--<li><a href="#">已揽件</a></li>--%>
                                                     <li><a v-if="myRole==5"
-                                                           @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
+                                                           @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
                                                     <li><a v-if="myRole==5"
-                                                           @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
+                                                           @click="scanVehicle(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressInfo.express_id)"
                                                            href="#">扫描装车</a></li>
                                                     <li><a v-if="myRole==5"
-                                                           @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_id)"
+                                                           @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressInfo.express_id)"
                                                            href="#">分配配送点</a></li>
                                                     <li><a v-if="myRole==2"
                                                            @click="distribuStaff(expressInfoDTO.expressInfo.express_id)"

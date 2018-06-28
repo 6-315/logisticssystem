@@ -125,6 +125,19 @@
                 view_address.closeBox()
             },
             addAddress: function () {
+                if (!view_address.realname()) {
+                    toastr.error('请填写正确的真实姓名')
+                    return
+                }
+                if (!view_address.phone()) {
+                    toastr.error('请填写正确的手机号码')
+                }
+                if (addressData.address.address_address == null || addressData.address.address_address.trim().length <= 0) {
+                    toastr.error('请填写正确的地址')
+                }
+                if (addressData.address.address_detailaddress == null || addressData.address.address_detailaddress.trim().length <= 0) {
+                    toastr.error('请填写正确的详细地址')
+                }
                 addressData.disabled = true
                 if (addressData.setMoRen) {
                     addressData.address.address_isdefault = '是'
@@ -253,13 +266,16 @@
             realname() {
                 if (!(view_address.checkRealName(addressData.address.address_realname))) {
                     toastr.error('真实姓名填写错误')
+                    return false
                 }
             },
             phone() {
                 if (!(view_address.checkPhone())) {
                     toastr.error('手机号码格式错误')
+                    return false
                 }
             }
+            //省市区不能为空  详细地址不能为空
         },
         mounted() {
             $.ajax({

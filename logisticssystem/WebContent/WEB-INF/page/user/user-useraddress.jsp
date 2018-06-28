@@ -78,12 +78,12 @@
         <div class="yto-box">
             <div class="row">
                 <div class="col-sm-2 hidden-xs">
-                    <div class="my-avatar center-block p_bottom_10">
+                    <%--<div class="my-avatar center-block p_bottom_10">
 							<span class="avatar">
 							      <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 							</span>
                     </div>
-                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>
+                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>--%>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">基本信息</a></li>
                         <li class="active"><a

@@ -70,7 +70,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -186,7 +186,9 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
                             <li class="breadcrumb-item active">新增路线</li>
                         </ol>
                     </div>
@@ -200,7 +202,7 @@
                 <!-- SELECT2 EXAMPLE -->
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">车辆信息</h3>
+                        <h3 class="card-title">路线信息</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-widget="collapse">
                                 <i class="fa fa-minus"></i>
@@ -253,7 +255,7 @@
                                     <button type="button"
                                             style="width: 120px; float: right; margin-right: 7px"
                                             @click="saveRoute"
-                                            class="btn btn-block btn-primary btn-lg">提交
+                                            class="btn btn-block btn-primary">提交
                                     </button>
                                 </div>
                             </div>
@@ -272,7 +274,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
