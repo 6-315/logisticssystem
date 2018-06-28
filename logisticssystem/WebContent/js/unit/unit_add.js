@@ -154,7 +154,7 @@
                         toastr.error('请选择单位类型')
                         return
                     }
-                    if (!view_unitAdd.checkPhone(unitAddData.transferStation.unit_phonenumber == null || unitAddData.transferStation.unit_phonenumber.length <= 0)) {
+                    if (!view_unitAdd.checkPhone(unitAddData.transferStation.unit_phonenumber)) {
                         toastr.error('请输入联系方式')
                         return
                     }
