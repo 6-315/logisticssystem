@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人事管理-添加员工</title>
+    <title>招募员工</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -36,9 +36,9 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
                                                              class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                                              class="nav-link">快件管理</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -54,7 +54,7 @@
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+     <%--        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -62,7 +62,7 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -79,7 +79,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -91,8 +91,9 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
-                                                                                                          class="nav-link active">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                            href="#"
+                            class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -190,11 +191,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>添加员工</h1>
+                        <h1>员工信息</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
                             <li class="breadcrumb-item active">添加员工</li>
                         </ol>
                     </div>
@@ -227,19 +230,19 @@
                                            placeholder="员工工号..">
                                 </div>
                                 <div class="form-group">
-                                    <label>员工姓名</label>
+                                    <label>员工姓名(*)</label>
                                     <input v-model="staffBasicInfo.staff_name" type="text" class="form-control"
                                            placeholder="请输入员工姓名..">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>联系方式</label>
+                                    <label>联系方式(*)</label>
                                     <input v-model="staffBasicInfo.staff_phonenumber" type="text" class="form-control"
                                            placeholder="请输入联系方式..">
                                 </div>
                                 <div class="form-group">
-                                    <label>所属单位</label>
+                                    <label>所属单位(选填)</label>
                                     <select v-model="staffBasicInfo.staff_unit" class="form-control"
                                             style="width: 100%;">
                                         <option :value="unit.unit_id" v-for="unit in unitList">{{unit.unit_name}}
@@ -249,7 +252,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>职位</label>
+                                    <label>职位(*)</label>
                                     <select v-model="staffBasicInfo.staff_position" class="form-control"
                                             style="width: 100%;">
                                         <option v-for="pos in positionList" :value="pos.position_id">
@@ -258,7 +261,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>性别:</label>
+                                    <label>性别(选填):</label>
                                     <select v-model="staffBasicInfo.staff_sex" class="form-control"
                                             style="width: 100%;">
                                         <option value="男">男</option>
@@ -268,7 +271,7 @@
                             </div>
                             <!-- /.col -->
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <%--<div class="form-group">
                                     <label>入职时间:</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -293,11 +296,11 @@
                                                class="form-control float-right" id="birthday">
                                     </div>
                                     <!-- /.input group -->
-                                </div>
+                                </div>--%>
                                 <div class="form-group">
                                     <button @click="saveStaff" type="button"
                                             style="width: 120px;float: right;margin-right: 7px"
-                                            class="btn btn-block btn-primary btn-lg">提交
+                                            class="btn btn-block btn-primary">提交
                                     </button>
                                 </div>
                                 <!-- /.form-group -->
@@ -321,7 +324,9 @@
             Note3物流系统
         </div>
         <!-- Default to the left -->
-        <strong>Copyright <a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .</strong> All rights reserved.
+        <strong>Copyright <a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                             title="">&copy;</a>
+            2018-2018 .</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->

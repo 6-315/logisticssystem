@@ -20,7 +20,7 @@ import util.TimeUtil;
 /**
  * 路线管理的业务接口层
  * 
- * @author LW
+ * @author XTY
  *
  */
 public class RouteManagementServiceImpl implements RouteManagementService {
@@ -171,39 +171,23 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 		} else {
 			routeManagerVO.setHaveNextPage(true);
 		}
-		System.out.println("888888" + searchForm);
+		
 		// 获取rout表的内容---当前页，每页的记录条数
 		listRoute = (List<route>) routeManagementDao.queryForPage(searchForm, routeManagerVO.getPageIndex(),
 				routeManagerVO.getPageSize());
-		System.out.println("--------------------a a a a a " + listRoute.size());
+	
 		for (route route : listRoute) {
 
 			RouteManagerDTO routeMangerDTO = new RouteManagerDTO();
-			staff_basicinfo creator = routeManagementDao
+			staff_basicinfo creater = routeManagementDao
 					.getStaff_Basicinfo(" from staff_basicinfo where staff_id ='" + route.getRoute_creater() + "' ");
-			routeMangerDTO.setStaff_Id(creator);
+			routeMangerDTO.setStaff_Id(creater);
 			unit beginUnit = routeManagementDao.getUnitInfoById(route.getRoute_departurestation());
 			routeMangerDTO.setRoute_Departurestation(beginUnit);
 			unit endUnit = routeManagementDao.getUnitInfoById(route.getRoute_terminalstation());
 			routeMangerDTO.setRoute_Terminalstation(endUnit);
 			routeMangerDTO.setRout(route);
 			listRouteManagerDTO.add(routeMangerDTO);
-			/*
-			 * List<staff_basicinfo> liststaffBasicinfo = new ArrayList<>();
-			 * liststaffBasicinfo = (List<staff_basicinfo>) routeManagementDao
-			 * .listObject("from staff_basicinfo where staff_id='" +
-			 * route.getRoute_creater() + "'"); List<unit> listUnitD = new ArrayList<>();
-			 * listUnitD = (List<unit>) routeManagementDao
-			 * .listObject("from unit where unit_id = '" + route.getRoute_departurestation()
-			 * + "'"); List<unit> listUnitT = new ArrayList<>(); listUnitT = (List<unit>)
-			 * routeManagementDao .listObject("from unit where unit_id = '" +
-			 * route.getRoute_terminalstation() + "'"); if (listUnitT.size() != 0 &&
-			 * listUnitD.size() != 0 && liststaffBasicinfo.size() != 0) {
-			 * routeMangerDTO.setStaff_Id(liststaffBasicinfo.get(0));
-			 * routeMangerDTO.setRoute_Departurestation(listUnitD.get(0));
-			 * routeMangerDTO.setRoute_Terminalstation(listUnitT.get(0));
-			 * routeMangerDTO.setRout(route); listRouteManagerDTO.add(routeMangerDTO); }
-			 */
 			// 高亮
 			// 根据路线编号模糊查询高亮
 			if (routeManagerVO.getSearch() != null && routeManagerVO.getSearch().trim().length() > 0) {
@@ -212,7 +196,7 @@ public class RouteManagementServiceImpl implements RouteManagementService {
 			}
 
 		}
-		System.out.println("size:" + listRouteManagerDTO.size());
+		
 		routeManagerVO.setListRouteManagerDTO(listRouteManagerDTO);
 		return routeManagerVO;
 	}

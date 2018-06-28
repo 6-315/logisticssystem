@@ -30,37 +30,30 @@
         el: '#updatePassword',
         data: passwordInfo,
         methods: {
-            confirmOldPassword: function () {
-                if (passwordInfo.view_oldpass === null || passwordInfo.view_oldpass.trim().length <= 0) {
-                    passwordInfo.oldEnity = true
-                    return
-                } else {
-                    passwordInfo.oldEnity = false
+            confirmOldPassword() {
+                if (passwordInfo.view_oldpass !== passwordInfo.userinfo_password) {
+                    // toastr.error('旧密码错误')
+                    return false
                 }
-                if (passwordInfo.userinfo_password !== passwordInfo.view_oldpass) {
-                    passwordInfo.errorPass = true
-                    return
-                } else {
-                    passwordInfo.errorPass = false
-                }
+                return true
             },
-            confirmNewPass: function () {
-                if (passwordInfo.newConfirmPass === null || passwordInfo.newConfirmPass.trim().length <= 0) {
-                    passwordInfo.newEnity = true
-                    return
-                } else {
-                    passwordInfo.newEnity = false
-                }
+            confirmNewPass() {
                 if (passwordInfo.newPass !== passwordInfo.newConfirmPass) {
-                    passwordInfo.newError = true
-                    return
-                } else {
-                    passwordInfo.newError = false
+                    // toastr.error('两次密码不一致')
+                    return false
                 }
+                return true
             },
             updatePassword: function () {
                 passwordInfo.disabled = true
-                view_password.confirmOldPassword()
+                if (!view_password.confirmOldPassword()) {
+                    toastr.error('旧密码错误')
+                    return
+                }
+                if (!view_password.confirmNewPass()) {
+                    toastr.error('两次密码不一致')
+                    return
+                }
                 view_password.confirmNewPass()
                 $.ajax({
                     url: '/logisticssystem/userinfo/userinfo_updateUserInfo',
@@ -79,7 +72,7 @@
                         'userInfo.userinfo_modifytime': passwordInfo.userinfo_modifytime,
                     },
                     success: function (data) {
-                        if (data === 'Success') {
+                        if (data === 'success') {
                             view_password.getSession()
                             passwordInfo.disabled = false
                             passwordInfo.view_oldpass = ''

@@ -26,12 +26,28 @@
         data: vehicleAddData,
         methods: {
             saveVehicle() {
+                if (vehicleAddData.vehicleInfo.vehicle_standard == null || vehicleAddData.vehicleInfo.vehicle_standard.trim().length <= 0) {
+                    toastr.error('请输入车辆规格')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_standard < 1000 || vehicleAddData.vehicleInfo.vehicle_standard > 8000) {
+                    toastr.error('请输入车辆规格为1000kg-8000kg')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_platenum == null || vehicleAddData.vehicleInfo.vehicle_platenum.trim().length <= 0) {
+                    toastr.error('请输入车辆车牌号')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_state == null || vehicleAddData.vehicleInfo.vehicle_state.trim().length <= 0) {
+                    toastr.error('请选择车辆状态')
+                    return
+                }
                 // 验证
                 // 提交
                 $.ajax({
                     url: '/logisticssystem/vehiclemanagement/vehiclemanagement_addVehicle',
                     type: 'POST',
-                    dataType:'json',
+                    dataType: 'json',
                     data: {
                         'vehicleInfo.vehicle_id': vehicleAddData.vehicleInfo.vehicle_id,
                         'vehicleInfo.vehicle_num': vehicleAddData.vehicleInfo.vehicle_num,
@@ -51,7 +67,7 @@
                     },
                     success: function (data) {
                         if (data != null) {
-                        	vehicleAddData.vehicleInfo = data
+                            vehicleAddData.vehicleInfo = data
                             toastr.success('添加成功')
                         } else {
                             toastr.error('添加失败')

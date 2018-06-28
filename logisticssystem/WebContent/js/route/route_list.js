@@ -33,20 +33,24 @@
         data: routeListData,
         methods: {
             selectRouteSearch() {
+                routeListData.page = 1
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteStart(unitStartId) {
+                routeListData.page = 1
                 routeListData.startUnit = unitStartId
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteEnd(unitEndId) {
+                routeListData.page = 1
                 routeListData.endUnit = unitEndId
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteState(routeState) {
+                routeListData.page = 1
                 routeListData.state = routeState
                 viewRouteData.getAllData()
                 viewRouteData.judge()

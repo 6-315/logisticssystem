@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人事管理-员工查询</title>
+    <title>员工查询</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -122,9 +122,9 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
                                                              class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                                              class="nav-link">快件管理</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -140,7 +140,7 @@
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+<%--             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -148,7 +148,7 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -165,7 +165,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -177,8 +177,9 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a href="#"
-                                                                                                          class="nav-link active">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                            href="#"
+                            class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -280,7 +281,9 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
                             <li class="breadcrumb-item active">查询用户</li>
                         </ol>
                     </div>
@@ -314,8 +317,8 @@
                                     <tr>
                                         <th>员工工号</th>
                                         <th>员工姓名</th>
-                                        <th>入职时间</th>
-                                        <th>出生年月</th>
+                                        <%--<th>入职时间</th>
+                                        <th>出生年月</th>--%>
                                         <th>联系方式</th>
                                         <th>性别</th>
                                         <th><span role="presentation" class="dropdown"> <a
@@ -367,8 +370,8 @@
                                         :key="index">
                                         <td v-html="staffManDTO.staffBasicInfo.staff_num"></td>
                                         <td v-html="staffManDTO.staffBasicInfo.staff_name"></td>
-                                        <td>{{staffManDTO.staffBasicInfo.staff_entrytime}}</td>
-                                        <td>{{staffManDTO.staffBasicInfo.staff_birthday}}</td>
+                                        <%--<td>{{staffManDTO.staffBasicInfo.staff_entrytime}}</td>
+                                        <td>{{staffManDTO.staffBasicInfo.staff_birthday}}</td>--%>
                                         <td>{{staffManDTO.staffBasicInfo.staff_phonenumber}}</td>
                                         <td>{{staffManDTO.staffBasicInfo.staff_sex}}</td>
                                         <td>{{staffManDTO.position.position_name}}</td>
@@ -506,7 +509,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 

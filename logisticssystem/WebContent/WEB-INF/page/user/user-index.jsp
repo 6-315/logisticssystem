@@ -34,12 +34,12 @@
         </div>
         <div style="float: right; marign: auto; color: #FFF" class="navlogin">
             <ul class="nav navbar-nav navbar-right">
-                <li><a style="text-decoration: none;" href="#"
+                <%-- <li><a style="text-decoration: none;" href="#"
                        class="navbar-avatar"> <span class="avatar"
                                                     style="vertical-align: middle;"> <img
                         src="${pageContext.request.contextPath}/img/touxiang.jpg">
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
-                </a></li>
+                </a></li> --%>
                 <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF; line-height: 30px">退出</a></li>
             </ul>
@@ -89,7 +89,7 @@
                 <form method="post" id="history_search" action="#">
                     <div class="input-group input-group-lg">
                         <input name="mailno" id="mailno" value="" class="form-control"
-                               placeholder="请输入运单号"> <span class="input-group-btn">
+                               placeholder="请输入快递单号"> <span class="input-group-btn">
 								<button class="btn btn-primary" style="height: 48px"
                                         type="submit">
 									<i class="icon fa-search" aria-hidden="true"></i> 查询
@@ -256,14 +256,14 @@
                             <tr>
                                 <td>
                                     <div style="width: 90%;margin: auto">
-                                        <label class="control-label">内件品名</label>
-                                        <input v-model="reservationExpressDTO.expressinfo.expressinfo_productname"
+                                        <label class="control-label">物品重量</label>
+                                        <input v-model="reservationExpressDTO.expressinfo.expressinfo_productweight"
                                                type="text" class="form-control" disabled>
                                     </div>
                                 </td>
                                 <td>
                                     <div style="width: 90%;margin: auto">
-                                        <label class="control-label">物品重量</label>
+                                        <label class="control-label">内件品名</label>
                                         <input v-model="reservationExpressDTO.expressinfo.expressinfo_productweight"
                                                type="text" class="form-control" disabled>
                                     </div>
