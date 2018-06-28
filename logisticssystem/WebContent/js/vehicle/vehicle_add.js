@@ -26,11 +26,28 @@
         data: vehicleAddData,
         methods: {
             saveVehicle() {
-                //验证
-                //提交
+                if (vehicleAddData.vehicleInfo.vehicle_standard == null || vehicleAddData.vehicleInfo.vehicle_standard.trim().length <= 0) {
+                    toastr.error('请输入车辆规格')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_standard < 0 || vehicleAddData.vehicleInfo.vehicle_standard > 50) {
+                    toastr.error('请输入车辆规格为5000kg-8000kg')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_platenum == null || vehicleAddData.vehicleInfo.vehicle_platenum.trim().length <= 0) {
+                    toastr.error('请输入车辆车牌号')
+                    return
+                }
+                if (vehicleAddData.vehicleInfo.vehicle_state == null || vehicleAddData.vehicleInfo.vehicle_state.trim().length <= 0) {
+                    toastr.error('请选择车辆状态')
+                    return
+                }
+                // 验证
+                // 提交
                 $.ajax({
                     url: '/logisticssystem/vehiclemanagement/vehiclemanagement_addVehicle',
                     type: 'POST',
+                    dataType: 'json',
                     data: {
                         'vehicleInfo.vehicle_id': vehicleAddData.vehicleInfo.vehicle_id,
                         'vehicleInfo.vehicle_num': vehicleAddData.vehicleInfo.vehicle_num,
@@ -50,6 +67,7 @@
                     },
                     success: function (data) {
                         if (data != null) {
+                            vehicleAddData.vehicleInfo = data
                             toastr.success('添加成功')
                         } else {
                             toastr.error('添加失败')
@@ -59,16 +77,16 @@
             }
         },
         mounted() {
-            //根据id获取车辆信息
+            // 根据id获取车辆信息
             let obj = $('#shuju').val()
             if (obj.length === 0) {
                 return
             }
             $.ajax({
-                url: '',
+                url: '/logisticssystem/vehiclemanagement/vehiclemanagement_getVehicleInfoById',
                 type: 'POST',
                 data: {
-                    '': obj
+                    'idList': obj
                 },
                 success: function (data) {
                     if (data != null) {

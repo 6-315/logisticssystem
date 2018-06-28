@@ -162,7 +162,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -214,7 +214,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open"><a
                             href="#" class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -298,6 +299,9 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
+                            <%--<div>
+                                <a @click="addTeamModal" class="btn btn-default">添加车队</a>
+                            </div>--%>
                             <div style="width: 250px; float: right; margin-bottom: 10px;"
                                  class="input-group">
                                 <input placeholder="据车队编号搜索" @input="selectSearch"
@@ -312,28 +316,6 @@
                                         <th>车队编号</th>
                                         <th>车队队长工号</th>
                                         <th>运输路线</th>
-                                        <th>
-                                            <span role="presentation" class="dropdown">
-                                                <a class="dropdown-toggle" data-toggle="dropdown">单位(所有)
-                                                    <span class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="selectUnit('')" href="#">所属单位(所有)</a></li>
-														<li v-for="unit in unitList" :key="unit.unit_id"><a
-                                                                @click="selectUnit(unit.unit_id)" href="#">{{unit.unit_name}}</a></li>
-													</ul>
-											</span>
-                                        </th>
-                                        <th>
-                                            <span role="presentation" class="dropdown">
-                                                <a class="dropdown-toggle" data-toggle="dropdown">状态(所有)
-                                                    <span class="caret"></span></a>
-													<ul class="dropdown-menu">
-														<li><a @click="" href="#">状态(所有)</a></li>
-														<li><a @click="" href="#">状态(所有)</a></li>
-														<li><a @click="" href="#">状态(所有)</a></li>
-													</ul>
-											</span>
-                                        </th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -352,26 +334,15 @@
                                            v-if="ready && teamInfoVO.listTeamDTO != undefined"
                                            style="min-height: 200px">
                                     <tr v-for="teamDTO in teamInfoVO.listTeamDTO">
-                                        <td v-html="teamDTO.team.team_id"></td>
+                                        <td v-html="teamDTO.team.team_num"></td>
                                         <td v-if="teamDTO.staff_BasicInfoLeader != undefined">
                                             {{teamDTO.staff_BasicInfoLeader.staff_num}}
                                         </td>
                                         <td v-else></td>
                                         <td>{{teamDTO.routeDTO.routeInfo.route_num}}</td>
-                                        <td>{{teamDTO.teamBelongUnit.unit_name}}</td>
-                                        <td>{{teamDTO.team.team_state}}</td>
+                                        <%--<td>{{teamDTO.team.team_state}}</td>--%>
                                         <td>
-                                            <div class="btn-group">
-													<span style="cursor: pointer;" data-toggle="dropdown"
-                                                          aria-haspopup="true" aria-expanded="false"> <i
-                                                            class="fa fa-th-list"></i>
-													</span>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">我的车队</a></li>
-                                                    <li><a href="#"></a></li>
-                                                    <li><a href="#">查看详情</a></li>
-                                                </ul>
-                                            </div>
+                                            <a @click="myTeamMember(teamDTO.listDriverInfoDTO)" href="#">车队成员</a>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -401,13 +372,108 @@
                 <!-- /.col -->
             </div>
         </section>
+
+        <%--<div class="modal fade" id="addTeam">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">添加车队</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label>车队队长</label>
+                                <select v-model="teamOb.team_leader" class="form-control">
+                                    <option v-for="team in teamLeader" value="team.team_id">{{team.team_leader}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>所跑路线</label>
+                                <select v-model="teamOb.team_route" class="form-control">
+                                    <option v-for="route in routeList" value="route.routInfo.route_id">
+                                        {{route.routeInfo.route_num}}
+                                    </option>
+                                </select>
+                            </div>
+                            &lt;%&ndash;<div class="form-group">
+                                <label>状态</label>
+                                <select v-model="teamOb.team_state" class="form-control">
+
+                                </select>
+                            </div>&ndash;%&gt;
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>--%>
+
+        <div class="modal fade" id="myTeamMember">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- 模态弹出窗内容 -->
+                    <div class="modal_header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+                        </button>
+                        <h5 class="modal-title">车队成员</h5>
+                    </div>
+                    <hr>
+                    <div class="mdoal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>工号</th>
+                                <th>姓名</th>
+                                <th>联系方式</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="men in member">
+                                <td>{{men.staffBasicInfo.staff_num}}</td>
+                                <td>{{men.staffBasicInfo.staff_name}}</td>
+                                <td>{{men.staffBasicInfo.staff_phonenumber}}</td>
+                                <td>{{men.driverInfo.driver_state}}</td>
+                            </tr>
+                            <%--<tr v-for="driver in driverManagerDTO" :key="driver.driver.driver_id">
+                                <td>{{driver.driverUnDistributed.staff_num}}</td>
+                                <td>{{driver.driverUnDistributed.staff_name}}</td>
+                                <td>{{driver.driverUnDistributed.staff_phonenumber}}</td>
+                                <td v-if="driver.driver != undefined">
+                                    是
+                                </td>
+                                <td v-else>
+                                    否
+                                </td>
+                                <td><a @click="selectVehicleDriver(driver.driver.driver_id)" class="btn btn-default"
+                                       href="#">分配</a>
+                                </td>
+                            </tr>--%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 

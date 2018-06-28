@@ -37,8 +37,9 @@
 						</span> <span class="user-name" style="color: #FFF;"> 18296929245
 						</span>
                 </a></li>
-                <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
-                       style="color: #FFF; line-height: 30px">退出</a></li>
+                <li><a
+                        href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                        style="color: #FFF; line-height: 30px">退出</a></li>
             </ul>
         </div>
     </div>
@@ -137,8 +138,9 @@ action="" novalidate="novalidate"> -->
                                                                         v-model="reservation_unit_view"
                                                                         name="sendReservation"
                                                                         class="form-control" placeholder="请选择配送点"
-                                                                        value="" readonly="readonly"
-                                                                        id="sendReservation" type="text">
+                                                                        value=""
+                                                                        readonly="readonly" id="sendReservation"
+                                                                        type="text">
                         <ul @mouseleave="noSelectD"
                             class="list-value list-value-appreciation"
                             :style="[selectDistribution ? bl : no]">
@@ -163,6 +165,9 @@ action="" novalidate="novalidate"> -->
                             name="sendMobile" class="form-control" placeholder="手机号码为必填项"
                             data-fv-field="sendmobile" type="text">
                     </div>
+                    <div style="margin-top: -10px;height: 13.5px;margin-left: 260px">
+                        <a href="#">录入地址</a>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -179,7 +184,8 @@ action="" novalidate="novalidate"> -->
                         <div class="dropdown yto-city" :class="{open : addressBoxIsOpen}">
                             <input @focus="openAddressBox" readonly="readonly"
                                    v-model="view_express.expressinfo_addresseeaddress"
-                                   class="form-control" readonly="readonly" placeholder="请输入省市区" type="text">
+                                   class="form-control" readonly="readonly" placeholder="请输入省市区"
+                                   type="text">
                             <div @mouseleave="closeAddressBox"
                                  class="yto-city-box dropdown-menu">
                                 <ul>
@@ -228,9 +234,8 @@ action="" novalidate="novalidate"> -->
                     <div class="form-group form-material">
                         <label class="control-label">手机</label> <input
                             v-model="view_express.expressinfo_addresseephonenumber"
-                            name="receiveMobile" class="form-control"
-                            placeholder="手机必填项" data-fv-field="receivemobile"
-                            type="text">
+                            name="receiveMobile" class="form-control" placeholder="手机必填项"
+                            data-fv-field="receivemobile" type="text">
                     </div>
 
                 </div>
@@ -247,8 +252,7 @@ action="" novalidate="novalidate"> -->
                     </div>
                     <div class="form-group form-material" id="limit">
                         <label class="control-label">增值服务</label> <input
-                            @focus="openProtectBox"
-                            readonly="readonly"
+                            @focus="openProtectBox" readonly="readonly"
                             v-model="view_express.expressinfo_protectprice" id="server"
                             class="form-control support-input" placeholder="请选择增值服务"
                             type="text">
@@ -270,10 +274,9 @@ action="" novalidate="novalidate"> -->
                     </div>
                     <div class="form-group form-material">
                         <label class="control-label">内件品名</label> <input
-                            v-model="view_express.expressinfo_productname" required="true"
-                            name="orderProductList[0].name" id="productName"
+                            v-model="view_express.expressinfo_productname" id="productName"
                             class="form-control user-input" maxlength="100"
-                            placeholder="请输入物品的名称" data-fv-field="orderProductList[0].name"
+                            placeholder="请输入物品的名称"
                             type="text">
                     </div>
                     <div class="form-group form-material">
@@ -285,7 +288,7 @@ action="" novalidate="novalidate"> -->
                             id="errorWeight"></span>
                     </div>
 
-                    <div class="check-position">
+                    <%--<div class="check-position">
                         <!-- <input type="checkbox" id="agingProducts"  name="agingProducts"> -->
                         <div class="form-group form-material">
                             <label for="getProductType">时效产品</label>
@@ -305,13 +308,14 @@ action="" novalidate="novalidate"> -->
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div>--%>
                 </div>
             </div>
             <div class="col-sm-4 col-md-offset-4 p_bottom_10"
                  style="margin: auto">
                 <input :disabled="disabled" v-on:click="addReservation"
-                       value="提交订单" id="saveBtn" class="btn btn-primary btn-block btn-lg" title="" type="button">
+                       value="提交订单" id="saveBtn" class="btn btn-primary btn-block btn-lg"
+                       title="" type="button">
             </div>
         </div>
         <!-- </form> -->

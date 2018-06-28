@@ -167,7 +167,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -179,7 +179,7 @@
                             </a></li>
                         </ul>
                     </li>
-       
+
                     <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
                                                                                                           class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
@@ -220,7 +220,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview menu-open"><a
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
+                        class="nav-item has-treeview menu-open"><a
                             href="#" class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
@@ -330,7 +331,7 @@
 													</ul>
 											</span>
                                         </th>
-                                        <th>
+                                        <th v-if="myRole != 6">
                                             <span role="presentation" class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown">车队(所有)
                                                     <span class="caret"></span></a>
@@ -394,18 +395,16 @@
                                     <tr v-for="(listVehicleDTO,index) in vehicleInfoVO.listVehicleDTO">
                                         <td><input :id="listVehicleDTO.vehicleInfo.vehicle_id"
                                                    :uni="listVehicleDTO.unit.unit_id"
-                                                   type="checkbox" name="flag"></td>
+                                                   type="checkbox" name="flag" check="check"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
                                         <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
                                             {{listVehicleDTO.unit.unit_name}}
                                         </td>
-                                        <td v-if="myRole==6 && listVehicleDTO.unit == undefined"></td>
-                                        <td v-if="listVehicleDTO.vehicle_TeamDTO.team != undefined">
+                                        <td v-if="myRole!=6 && listVehicleDTO.vehicle_TeamDTO.team != undefined">
                                             {{listVehicleDTO.vehicle_TeamDTO.team.team_num}}
                                         </td>
-                                        <td v-else></td>
-                                        <td v-if="listVehicleDTO.driverDTO.staffBasicInfo != undefined">
+                                        <td v-if="listVehicleDTO.driverDTO && listVehicleDTO.driverDTO.staffBasicInfo">
                                             {{listVehicleDTO.driverDTO.staffBasicInfo.staff_num}}
                                         </td>
                                         <td v-else></td>
@@ -427,7 +426,7 @@
                                                     </li>--%>
                                                     <%--<li><a href="javascript:void(0);">分配车辆到车队</a>--%>
                                                     </li>
-                                                    <li>
+                                                    <li v-if="myRole==4">
                                                         <a @click="distVehicleDriver(listVehicleDTO.vehicleInfo.vehicle_id)"
                                                            href="javascript:void(0);">分配车辆到驾驶员</a>
                                                     </li>
@@ -446,7 +445,7 @@
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
-                                        <li><a href="#">首页</a></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{vehicleInfoVO.pageIndex}} 页/总
@@ -456,7 +455,7 @@
                                                 :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
-                                        <li><a href="#">尾页</a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -596,7 +595,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
