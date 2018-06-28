@@ -95,18 +95,21 @@
                 view_unitList.judge()
             },
             selectUnitType: function (type) {
+                unitListData.page = 1
                 //单位筛选
                 unitListData.type = type
                 view_unitList.getAllData()
                 view_unitList.judge()
             },
             selectUnitState: function (state) {
+                unitListData.page = 1
                 //状态筛选
                 unitListData.state = state
                 view_unitList.getAllData()
                 view_unitList.judge()
             },
             selectUnitSearch: function () {
+                unitListData.page = 1
                 //搜索筛选
                 view_unitList.getAllData()
                 view_unitList.judge()

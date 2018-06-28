@@ -130,7 +130,42 @@
                         }
                     })
                 },
+                //判断手机号码
+                checkPhone(phone) {
+                    if (!(/^1[34578]\d{9}$/.test(phone))) {
+                        return false;
+                    }
+                    return true
+                },
                 addUnit() {
+                    if (unitAddData.transferStation.unit_name == null || unitAddData.transferStation.unit_name.trim().length <= 0) {
+                        toastr.error('请输入正确的单位名字')
+                        return
+                    }
+                    if (unitAddData.transferStation.unit_address == null || unitAddData.transferStation.unit_address.trim().length <= 0) {
+                        toastr.error('请选择单位地址')
+                        return
+                    }
+                    if (unitAddData.transferStation.unit_detailaddress == null || unitAddData.transferStation.unit_detailaddress.trim().length <= 0) {
+                        toastr.error('请填入单位详细地址')
+                        return
+                    }
+                    if (unitAddData.transferStation.unit_type == null || unitAddData.transferStation.unit_type.trim().length <= 0) {
+                        toastr.error('请选择单位类型')
+                        return
+                    }
+                    if (!view_unitAdd.checkPhone(unitAddData.transferStation.unit_phonenumber == null || unitAddData.transferStation.unit_phonenumber.length <= 0)) {
+                        toastr.error('请输入联系方式')
+                        return
+                    }
+                    if (unitAddData.transferStation.unit_state == null || unitAddData.transferStation.unit_state.trim().length <= 0) {
+                        toastr.error('请选择单位状态')
+                        return
+                    }
+                    if (unitAddData.transferStation.unit_admin == null || unitAddData.transferStation.unit_admin.trim().length <= 0) {
+                        toastr.error('请选择单位管理员')
+                        return
+                    }
                     // 添加单位
                     $.ajax({
                         url: '/logisticssystem/transferstation/transferstation_addTransferStation',
@@ -175,6 +210,15 @@
                 }
             },
             mounted() {
+                /*$.ajax({
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        let uList = JSON.parse(data)
+                        routeAddData.unitList = uList
+                    }
+                })*/
                 //获取对应的所有管理员
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',

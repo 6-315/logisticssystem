@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>路线管理-路线列表</title>
+    <title>路线列表</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -126,9 +126,9 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
                                                              class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                                              class="nav-link">快件管理</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -144,7 +144,7 @@
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+<%--             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -152,7 +152,7 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -169,7 +169,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -383,9 +383,14 @@
                                             <td v-else>
                                             </td>
 
-                                            <td>{{routeList.route_Departurestation.unit_name}}</td>
-
-                                            <td>{{routeList.route_Terminalstation.unit_name}}</td>
+                                            <td v-if="routeList.route_Departurestation">
+                                                {{routeList.route_Departurestation.unit_name}}
+                                            </td>
+                                            <td v-else></td>
+                                            <td v-if="routeList.route_Terminalstation">
+                                                {{routeList.route_Terminalstation.unit_name}}
+                                            </td>
+                                            <td v-else></td>
 
                                             <td>{{routeList.rout.route_state}}</td>
                                             <td>
@@ -444,7 +449,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 

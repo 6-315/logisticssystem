@@ -28,13 +28,13 @@
         </div>
         <div style="float:right;marign:auto;color:#FFF" class="navlogin">
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <%-- <li>
                     <a style="text-decoration:none;" href="#" class="navbar-avatar">
 				     <span class="avatar" style="vertical-align:middle;">
 						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
-                </li>
+                </li> --%>
                 <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF;line-height:30px">退出</a>
                 </li>
@@ -75,7 +75,7 @@
         <div class="yto-box">
             <form method="post" id="history_search" action="" class="form-horizontal m_bottom_30">
                 <div class="input-group input-group-lg col-sm-8 col-sm-offset-2">
-                    <input v-model="search" class="form-control" placeholder="请输入运单号" type="text">
+                    <input v-model="search" type="number" class="form-control" placeholder="请输入快递单号" type="text">
                     <span class="input-group-btn">
 					    <a @click="searchExpress" style="height: 46px;" class="btn btn-primary"
                            type="submit">

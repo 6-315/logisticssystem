@@ -162,17 +162,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * @throws IOException
 	 */
 	public void register() throws IOException {
-		System.out.println("kkkkkkkkkkkkk");
-		System.out.println("oooooooo" + userInfo.getUserinfo_password());
 		if (userInfo.getUserinfo_phonenumber() != null && userInfo.getUserinfo_password() != null
 				&& userInfo.getUserinfo_phonenumber().trim().length() > 0
 				&& userInfo.getUserinfo_password().trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setPrettyPrinting();// 格式化json数据
 			Gson gson = gsonBuilder.create();
-			System.out.println("ppppppppppppppp");
 			response.setContentType("text/html;charset=utf-8");
-			System.out.println("oooooooooooooooooo" + userInfo);
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
@@ -229,7 +225,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * 跳转到成功页面
 	 */
 	public String pageReservationSuccess() {
-		System.out.println(reversationNum);
 		return "pageReservationSuccess";
 	}
 
@@ -354,10 +349,10 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 			response.setContentType("text/html;charset=utf-8");
 			List<userinfo> listUserInfo = new ArrayList<>();
 			List<staff_basicinfo> listStaffBasicInfo = new ArrayList<>();
-			listUserInfo = loginRegisterService.getSize(username);
-			listStaffBasicInfo = loginRegisterService.getSizeBySat(username);
+			listUserInfo = loginRegisterService.getSize(username.trim());
+			listStaffBasicInfo = loginRegisterService.getSizeBySat(username.trim());
 			if (listUserInfo.size() > 0) {
-				userinfo userInfoSession = loginRegisterService.loginByUser(username, password);
+				userinfo userInfoSession = loginRegisterService.loginByUser(username.trim(), password.trim());
 				if (userInfoSession != null) {
 
 					UserInfoSessionDTO userInfoSessionDTO = new UserInfoSessionDTO();
@@ -368,7 +363,7 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 					response.getWriter().write("error");
 				}
 			} else if (listStaffBasicInfo.size() > 0) {
-				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username, password);
+				staff_basicinfo staffSession = loginRegisterService.loginByStaff(username.trim(), password.trim());
 				if (staffSession != null) {
 					if ("离职".equals(staffSession.getStaff_state())) {
 						response.getWriter().write("error");

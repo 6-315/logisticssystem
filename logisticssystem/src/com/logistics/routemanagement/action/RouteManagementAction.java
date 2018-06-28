@@ -22,7 +22,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 路线管理action
  * 
- * @autho r LW
+ * @author XTY
  *
  */
 public class RouteManagementAction extends ActionSupport implements ServletResponseAware, ServletRequestAware {

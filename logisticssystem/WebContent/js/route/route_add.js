@@ -20,6 +20,18 @@
         data: routeAddData,
         methods: {
             saveRoute: function () {
+                if (routeAddData.routeDTO.routeInfo.route_departurestation == null || routeAddData.routeDTO.routeInfo.route_departurestation.trim().length <= 0) {
+                    toastr.error('请选择起点站')
+                    return
+                }
+                if (routeAddData.routeDTO.routeInfo.route_terminalstation == null || routeAddData.routeDTO.routeInfo.route_terminalstation.trim().length <= 0) {
+                    toastr.error('请选择终点站')
+                    return
+                }
+                if (routeAddData.routeDTO.routeInfo.route_state == null || routeAddData.routeDTO.routeInfo.route_state.trim().length <= 0) {
+                    toastr.error('请选择状态')
+                    return
+                }
                 //保存路线
                 $.ajax({
                     url: '/logisticssystem/routemanagement/routemanagement_addRoute',
@@ -55,6 +67,15 @@
             }
         },
         mounted() {
+            $.ajax({
+                url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                type: 'POST',
+                data: '',
+                success: function (data) {
+                    let uList = JSON.parse(data)
+                    routeAddData.unitList = uList.filter(u => u.unit_type == '中转站')
+                }
+            })
             //获取后台数据
             let obj = $('#shuju').val()
             if (obj.length === 0) {
@@ -80,17 +101,9 @@
                     }
                 }
             })
-            $.ajax({})
+            // $.ajax({})
             // 获取单位信息
-            $.ajax({
-                url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
-                type: 'POST',
-                data: '',
-                success: function (data) {
-                    let uList = JSON.parse(data)
-                    routeAddData.unitList = uList.filter(u => u.unit_type == '中转站')
-                }
-            })
         }
     })
-})()
+})
+()

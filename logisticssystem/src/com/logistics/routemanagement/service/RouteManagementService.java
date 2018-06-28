@@ -7,7 +7,7 @@ import com.logistics.routemanagement.RouteManagerVO.RouteManagerVO;
 
 /**
  * 路线管理service层接口
- * @author LW
+ * @author XTY
  *
  */
 public interface RouteManagementService {

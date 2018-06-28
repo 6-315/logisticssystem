@@ -14,7 +14,7 @@ import com.logistics.routemanagement.dao.RouteManagementDao;
 /**
  * 路线管理DAO实现层
  * 
- * @author LW
+ * @author XTY
  *
  */
 public class RouteManagementDaoImpl implements RouteManagementDao {
