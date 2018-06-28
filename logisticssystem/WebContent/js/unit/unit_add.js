@@ -210,6 +210,15 @@
                 }
             },
             mounted() {
+                /*$.ajax({
+                    url: '/logisticssystem/personnelmanagement/personnelmanagement_lowerUnit',
+                    type: 'POST',
+                    data: '',
+                    success: function (data) {
+                        let uList = JSON.parse(data)
+                        routeAddData.unitList = uList
+                    }
+                })*/
                 //获取对应的所有管理员
                 $.ajax({
                     url: '/logisticssystem/expressmanagement/expressmanagement_getStaffInfoByPosition',

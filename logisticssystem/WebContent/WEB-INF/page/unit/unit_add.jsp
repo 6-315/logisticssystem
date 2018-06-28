@@ -313,7 +313,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <%--<div class="col-md-6">
                                 <div class="form-group">
                                     <label>上级单位</label>
                                     <select disabled class="form-control"
@@ -325,7 +325,7 @@
                                         </option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>--%>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <button @click="addUnit" type="button"
