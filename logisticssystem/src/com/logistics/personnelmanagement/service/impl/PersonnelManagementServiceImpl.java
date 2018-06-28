@@ -3,6 +3,8 @@ package com.logistics.personnelmanagement.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.logistics.domain.distributiontor;
+import com.logistics.domain.driver;
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
@@ -377,9 +379,32 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				if (staffBasicinfo.getStaff_unit() == null) {
 					staffBasicinfo.setStaff_unit(staffBasicSession.getStaff_unit());
 				}
+
 				staffBasicinfo.setStaff_password(staffBasicinfo.getStaff_num());
 				staffBasicinfo.setStaff_createtime(TimeUtil.getStringSecond());
 				staffBasicinfo.setStaff_modifytime(TimeUtil.getStringSecond());
+				position positionNew = new position();
+				positionNew = personnelManagementDao.getPositionByID(staffBasicinfo.getStaff_position());
+				if ("驾驶员".equals(positionNew.getPosition_name())) {
+					driver driverNew = new driver();
+					driverNew.setDriver_id(BuildUuid.getUuid());
+					driverNew.setDriver_basicinfoid(staffBasicinfo.getStaff_id());
+					driverNew.setDriver_state("未获得车");
+					driverNew.setDriver_modifytime(TimeUtil.getStringSecond());
+					driverNew.setDriver_createtime(TimeUtil.getStringSecond());
+					personnelManagementDao.saveOrUpdateObject(driverNew);
+
+				} else if ("配送员".equals(positionNew.getPosition_name())) {
+					distributiontor distributiontorNew = new distributiontor();
+					distributiontorNew.setDistributiontor_id(BuildUuid.getUuid());
+					distributiontorNew.setDistributiontor_basicinfo(staffBasicinfo.getStaff_id());
+					distributiontorNew.setDistributiontor_belongdistribution(staffBasicinfo.getStaff_unit());
+					distributiontorNew.setDistributiontor_state("在职");
+					distributiontorNew.setDistributiontor_modifytime(TimeUtil.getStringSecond());
+					distributiontorNew.setDistributiontor_createtime(TimeUtil.getStringSecond());
+					personnelManagementDao.saveOrUpdateObject(distributiontorNew);
+
+				}
 				personnelManagementDao.saveOrUpdateObject(staffBasicinfo);
 				staffBasicInfoNew = (List<staff_basicinfo>) personnelManagementDao
 						.listObject("from staff_basicinfo where staff_num = '" + staffBasicinfo.getStaff_num() + "'");
