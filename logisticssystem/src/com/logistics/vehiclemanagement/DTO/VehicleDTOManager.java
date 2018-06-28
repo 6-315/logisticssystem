@@ -1,6 +1,5 @@
 package com.logistics.vehiclemanagement.DTO;
 
-
 import com.logistics.domain.*;
 
 /**
@@ -26,6 +25,10 @@ public class VehicleDTOManager {
 	 * 车队信息
 	 */
 	private VehicleTeamManagerDTO vehicle_TeamDTO;
+	/**
+	 * 驾驶员信息
+	 */
+	private DriverDTO driverDTO;
 
 	public vehicle getVehicleInfo() {
 		return vehicleInfo;
@@ -59,10 +62,19 @@ public class VehicleDTOManager {
 		this.vehicle_TeamDTO = vehicle_TeamDTO;
 	}
 
+	public DriverDTO getDriverDTO() {
+		return driverDTO;
+	}
+
+	public void setDriverDTO(DriverDTO driverDTO) {
+		this.driverDTO = driverDTO;
+	}
+
 	@Override
 	public String toString() {
-		return "VehicleDTO [vehicleInfo=" + vehicleInfo + ", staff_BasicInfoAcquisition=" + staff_BasicInfoAcquisition
-				+ ", unit=" + unit + ", vehicle_TeamDTO=" + vehicle_TeamDTO + "]";
+		return "VehicleDTOManager [vehicleInfo=" + vehicleInfo + ", staff_BasicInfoAcquisition="
+				+ staff_BasicInfoAcquisition + ", unit=" + unit + ", vehicle_TeamDTO=" + vehicle_TeamDTO
+				+ ", driverDTO=" + driverDTO + "]";
 	}
 
 }

@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.position;
 import com.logistics.domain.staff_basicinfo;
+import com.logistics.domain.team;
 import com.logistics.domain.unit;
 import com.logistics.personnelmanagement.dao.PersonnelManagementDao;
 
@@ -126,7 +127,6 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", id);
 		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
-		System.out.println("OK");
 		if (staffBasicInfo != null) {
 			return staffBasicInfo;
 		}
@@ -145,7 +145,6 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		query.setParameter("ID", staff_id);
 		staffBasicInfo = (staff_basicinfo) query.uniqueResult();
 		if (staffBasicInfo != null) {
-			System.out.println("OK");
 			return staffBasicInfo;
 		}
 		return null;
@@ -173,11 +172,9 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 	 */
 	@Override
 	public String getstaffBasicinfoMaxNum() {
-		System.out.println("111dada");
 		staff_basicinfo staffBasicinfo = new staff_basicinfo();
 		Session session = getSession();
 		String hql = "select staff_num from staff_basicinfo order by --staff_num desc limit 1";
-		System.out.println("33");
 		Query query = session.createSQLQuery(hql);
 		String num = (String) query.uniqueResult();
 		return num;
@@ -211,6 +208,57 @@ public class PersonnelManagementDaoImpl implements PersonnelManagementDao {
 		if (unitNew != null) {
 			return unitNew;
 		}
+		return null;
+	}
+
+	/**
+	 * 根据职位ID获取当前的职位
+	 */
+	@Override
+	public position getPositionByID(String positionNew) {
+		position positionNow = new position();
+		Session session = getSession();
+		String hql = " from position where position_id = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", positionNew);
+		positionNow = (position) query.uniqueResult();
+		if (positionNow != null) {
+			return positionNow;
+		}
+		return null;
+	}
+
+	/**
+	 * 根据员工ID查询它管理的车队
+	 */
+	@Override
+	public team getTeam(String staff_id) {
+		team team = new team();
+		Session session = getSession();
+		String hql = " from team where team_leader = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", staff_id);
+		team = (team) query.uniqueResult();
+		if (team != null) {
+			return team;
+		}
+		return null;
+	}
+
+	/**
+	 * 查询车队队长的ID
+	 */
+	@Override
+	public position getPositionByTeamCaptain() {
+		position position = new position();
+		Session session = getSession();
+		String hql = " from position where position_name = '车队队长'";
+		Query query = session.createQuery(hql);
+		position = (position) query.uniqueResult();
+		if (position != null) {
+			return position;
+		}
+
 		return null;
 	}
 

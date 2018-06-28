@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 
 import com.logistics.domain.driver;
 import com.logistics.domain.position;
+import com.logistics.domain.route;
 import com.logistics.domain.staff_basicinfo;
 import com.logistics.domain.team;
 import com.logistics.domain.unit;
@@ -192,7 +193,7 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 	@Override
 	public String getMaxNumber(String hql) {
 		Session session = getSession();
-		Query query = session.createQuery(hql);
+		Query query = session.createSQLQuery(hql);
 		String number = (String) query.uniqueResult();
 		return number;
 	}
@@ -214,6 +215,7 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 	/**
 	 * 获得未分配单位的管理员列表
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<staff_basicinfo> getListManager(String hql) {
 		Session session = getSession();
@@ -247,6 +249,48 @@ public class VehicleManagementDaoImpl implements VehicleManagementDao {
 		String hql = "from driver where driver_basicinfoid = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", staff_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
+	}
+
+	/**
+	 * 根据车队ID获得驾驶员信息
+	 */
+	@Override
+	public driver getDriverInfoByTeamId(String team_id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_belong_team = :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", team_id);
+		driverInfo = (driver) query.uniqueResult();
+		return driverInfo;
+	}
+
+	/**
+	 * 根据车队路线ID获得路线信息
+	 */
+	@Override
+	public route getRouteInfoByTeamId(String team_id) {
+		route routeInfo = new route();
+		Session session = getSession();
+		String hql = "from route where route_id = :ID and route_state='正常使用' ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", team_id);
+		routeInfo = (route) query.uniqueResult();
+		return routeInfo;
+	}
+
+	/**
+	 * 根据车辆ID获得驾驶员信息
+	 */
+	@Override
+	public driver getDriverInfoByVehicleId(String id) {
+		driver driverInfo = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_vehicle = :ID ";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", id);
 		driverInfo = (driver) query.uniqueResult();
 		return driverInfo;
 	}

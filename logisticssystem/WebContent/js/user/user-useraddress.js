@@ -125,6 +125,22 @@
                 view_address.closeBox()
             },
             addAddress: function () {
+                if (!view_address.realname()) {
+                    toastr.error('请填写正确的真实姓名')
+                    return
+                }
+                if (!view_address.phone()) {
+                    toastr.error('请填写正确的手机号码')
+                    return
+                }
+                if (addressData.address.address_address == null || addressData.address.address_address.trim().length <= 0) {
+                    toastr.error('请填写正确的地址')
+                    return
+                }
+                if (addressData.address.address_detailaddress == null || addressData.address.address_detailaddress.trim().length <= 0) {
+                    toastr.error('请填写正确的详细地址')
+                    return
+                }
                 addressData.disabled = true
                 if (addressData.setMoRen) {
                     addressData.address.address_isdefault = '是'
@@ -231,8 +247,40 @@
                         addressData.addressList = addressList
                     }
                 })
+            },
+            checkRealName(name) {
+                if ('' === name || !(/^[\u4e00-\u9fa5]{2,4}$/.test(name))) {
+                    return false
+                }
+                return true
+            },
+            checkPhone(phone) {
+                if (!(/^1[34578]\d{9}$/.test(phone))) {
+                    return false;
+                }
+                return true
+            },
+            checkEmail(email) {
+                if (!(/^[a-zA-Z\d]+([-_\.][a-zA-Z\d]+)*@[a-zA-Z\d]+\.[a-zA-Z\d]{2,4}$/.test(email))) {
+                    return false
+                }
+                return true
+            },
+            realname() {
+                if (!(view_address.checkRealName(addressData.address.address_realname))) {
+                    toastr.error('真实姓名填写错误')
+                    return false
+                }
+                return true
+            },
+            phone() {
+                if (!(view_address.checkPhone(addressData.address.address_phonenumber))) {
+                    toastr.error('手机号码格式错误')
+                    return false
+                }
+                return true
             }
-
+            //省市区不能为空  详细地址不能为空
         },
         mounted() {
             $.ajax({

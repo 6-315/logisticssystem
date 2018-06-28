@@ -43,6 +43,8 @@ public interface PersonnelManagementService {
 
 	StaffManagerDTO getStaffManagerDTO(String iD);
 
+	List<staff_basicinfo> getCarTeamCaptain(staff_basicinfo staffBasicSession);
+
 
 	
 

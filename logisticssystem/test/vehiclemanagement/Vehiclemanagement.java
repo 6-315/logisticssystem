@@ -34,7 +34,7 @@ public class Vehiclemanagement {
 	/**
 	 * 车辆添加功能-测试
 	 */
-	@Test
+	/*@Test
 	public void addVehicleTest() {
 		vehicle vehicleInfo = new vehicle();
 		vehicleInfo.setVehicle_platenum("渝F-A3D68");
@@ -45,7 +45,7 @@ public class Vehiclemanagement {
 		vehicleInfo.setVehicle_acquisitionpeople("Admin");
 		vehicleManagementService.addVehicle(vehicleInfo);
 		System.out.println("+++++++add:" + vehicleInfo);
-	}
+	}*/
 
 	/**
 	 * 车辆查询功能-测试
@@ -124,7 +124,7 @@ public class Vehiclemanagement {
 	/**
 	 * 车辆流转测试
 	 */
-	@Test
+	/*@Test
 	public void exchangeVehicleTest() {
 		vehiclecirculation vehicleCirculation = new vehiclecirculation();
 		vehicleCirculation.setVehiclecirculation_vehicle_id("2");
@@ -132,5 +132,5 @@ public class Vehiclemanagement {
 		vehicleCirculation.setVehiclecirculation_acceptd("33");
 		vehicleManagementService.exchangeVehicle(vehicleCirculation);
 		
-	}
+	}*/
 }
