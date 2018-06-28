@@ -376,7 +376,8 @@ public class PersonnelManagementServiceImpl implements PersonnelManagementServic
 				staffBasicinfo.setStaff_num(staff_basicinfo.getStaff_num());
 				staffBasicinfo.setStaff_state("在职");
 				staffBasicinfo.setStaff_recruit(staffBasicSession.getStaff_id());
-				if (staffBasicinfo.getStaff_unit() == null) {
+				if (staffBasicinfo.getStaff_unit() != null && staffBasicinfo.getStaff_unit().trim().length() > 0) {
+				} else {
 					staffBasicinfo.setStaff_unit(staffBasicSession.getStaff_unit());
 				}
 
