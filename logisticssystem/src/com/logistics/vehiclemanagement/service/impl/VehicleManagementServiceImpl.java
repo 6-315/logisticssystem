@@ -848,13 +848,14 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 												vehicleCirculationInfo
 														.setVehiclecirculation_modifytime(TimeUtil.getStringSecond());
 												vehicleManagementDao.saveOrUpdateObject(vehicleCirculationInfo);
-												return "success";
+												
 											}
 										}
 									}
 								}
 							}
 						}
+						return "success";
 					}
 				}
 			}
