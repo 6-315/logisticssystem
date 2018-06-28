@@ -76,7 +76,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 				}
 			}
 			transferStation.setUnit_id(BuildUuid.getUuid());
-			transferStation.setUnit_state("未启用");
+			if (transferStation.getUnit_state() == null) {
+				transferStation.setUnit_state("未启用");
+			}
 			transferStation.setUnit_creator(staffBasicInfo.getStaff_id());
 			transferStation.setUnit_superiorunit(staffBasicInfo.getStaff_unit());
 			transferStation.setUnit_createtime(TimeUtil.getStringSecond());
@@ -197,12 +199,10 @@ public class TransferStationServiceImpl implements TransferStationService {
 			positionNew = transferStationDao.getPositionById(staffBasicInfo.getStaff_position());
 			if ("总公司管理员".equals(positionNew.getPosition_name())) {
 				transferStationCountHql = "select count(*) from unit where 1=1 ";
-
 				listTransferStationHql = "from unit where 1=1 ";
 			} else if ("中转站管理员".equals(positionNew.getPosition_name())) {
 				transferStationCountHql = "select count(*) from unit where 1=1 and (unit_superiorunit = '"
 						+ staffBasicInfo.getStaff_unit() + "' or unit_id='" + staffBasicInfo.getStaff_unit() + "') ";
-
 				listTransferStationHql = "from unit where 1=1 and (unit_superiorunit = '"
 						+ staffBasicInfo.getStaff_unit() + "' or  unit_id='" + staffBasicInfo.getStaff_unit() + "')";
 			} else if ("配送点管理员".equals(positionNew.getPosition_name())) {
@@ -295,16 +295,19 @@ public class TransferStationServiceImpl implements TransferStationService {
 			 * 获取单位创建者的信息
 			 */
 			staff_basicinfo unit_Creator = transferStationDao.getBasicinfoById(unit.getUnit_creator());
+			//System.out.println("qaqaq" + unit_Creator);
 			// 把unit_Creator set进unitManagerDTO
 			if (unit_Creator != null) {
-				unitManagerDTO.setUnit_Creator(unit_Creator);
+				unitManagerDTO.setUnit_Admin(unit_Creator);
+
 			}
 			/**
 			 * 获取单位管理员信息
 			 */
 			staff_basicinfo unit_Admin = transferStationDao.getBasicinfoById(unit.getUnit_admin());
+			//System.out.println("wewewe" + unit_Admin);
 			if (unit_Admin != null) {
-				unitManagerDTO.setUnit_Admin(unit_Admin);
+				unitManagerDTO.setUnit_Creator(unit_Admin);
 			}
 			// 模糊查询显示高亮
 			if (transferStationVO.getSearch() != null && transferStationVO.getSearch().trim().length() > 0) {
@@ -321,8 +324,8 @@ public class TransferStationServiceImpl implements TransferStationService {
 			// 将DTO放在listDTO
 			unitManagerDTO.setUnit(unit);
 			listUnitManagerDTO.add(unitManagerDTO);
-
 		}
+		//System.out.println(listUnitManagerDTO);
 		// 将listDTO放在VO里面
 		transferStationVO.setListUnitManagerDTO(listUnitManagerDTO);
 		return transferStationVO;
@@ -336,25 +339,24 @@ public class TransferStationServiceImpl implements TransferStationService {
 	 * 
 	 */
 	public String vehicleDistribution(String vehicleList, String teamNum) {
-		if(vehicleList!=null && vehicleList.trim().length()>0) {
-		team team = transferStationDao.getTeamById(teamNum);
-		String[] vehicleListDistribute = vehicleList.split(",");
-		System.out.println("qaqaewewe"+vehicleListDistribute);
-		if (team != null ) {
-			
-		
-			for (String eachVehicleId : vehicleListDistribute) {
-				/**
-				 * 如果每辆车不为空
-				 */
-				vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
-				driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
-				System.out.println("qaqaq"+driver);
-				if (driver != null) {
-					driver.setDriver_vehicle("");
+		if (vehicleList != null && vehicleList.trim().length() > 0) {
+			team team = transferStationDao.getTeamById(teamNum);
+			String[] vehicleListDistribute = vehicleList.split(",");
+			System.out.println("qaqaewewe" + vehicleListDistribute);
+			if (team != null) {
+
+				for (String eachVehicleId : vehicleListDistribute) {
+					/**
+					 * 如果每辆车不为空
+					 */
+					vehicle vehicle = transferStationDao.getVehicleById(eachVehicleId);
+					driver driver = transferStationDao.getDriverByVehicle_id(eachVehicleId);
+					System.out.println("qaqaq" + driver);
+					if (driver != null) {
+						driver.setDriver_vehicle("");
 					}
 					if (vehicle != null) {
-						
+
 						vehicle.setVehicle_team(teamNum);
 						vehicle.setVehicle_distribution_state("分配至车队");
 						vehicle.setVehicle_team(team.getTeam_id());
@@ -362,14 +364,14 @@ public class TransferStationServiceImpl implements TransferStationService {
 						vehicle.setVehicle_modifytime(TimeUtil.getStringSecond());
 						transferStationDao.saveOrUpdateObject(vehicle);
 					}
+				}
+
+				return "success";
 			}
-			
-			return "success";
+			return "fail";
 		}
 		return "fail";
-		} 
-			return "fail";
-		
+
 	}
 
 	/**
@@ -405,17 +407,17 @@ public class TransferStationServiceImpl implements TransferStationService {
 				/**
 				 * 如果每个司机不为空
 				 */
-					driver driver = transferStationDao.getDriverById(eachDriverId);
-					System.out.println("ghghghg" + driver);
-					staff_basicinfo driverNew = transferStationDao.getBasicinfoById(eachDriverId);
-					if (driver != null && driverNew != null) {
-						driverNew.setStaff_superiorleader(team.getTeam_leader());
-						driver.setDriver_belong_team(teamNum);
-						driver.setDriver_createtime(TimeUtil.getStringSecond());
-						driver.setDriver_modifytime(TimeUtil.getStringSecond());
-						transferStationDao.saveOrUpdateObject(driver);
-					} 
-					return "success";
+				driver driver = transferStationDao.getDriverById(eachDriverId);
+				System.out.println("ghghghg" + driver);
+				staff_basicinfo driverNew = transferStationDao.getBasicinfoById(eachDriverId);
+				if (driver != null && driverNew != null) {
+					driverNew.setStaff_superiorleader(team.getTeam_leader());
+					driver.setDriver_belong_team(teamNum);
+					driver.setDriver_createtime(TimeUtil.getStringSecond());
+					driver.setDriver_modifytime(TimeUtil.getStringSecond());
+					transferStationDao.saveOrUpdateObject(driver);
+				}
+				return "success";
 			}
 		} else {
 			return "fail";
@@ -510,10 +512,9 @@ public class TransferStationServiceImpl implements TransferStationService {
 		vehicleNew = transferStationDao.getVehicleById(vehicle.getVehicle_id());
 		driver driverNew = new driver();
 		driverNew = transferStationDao.getDriverById(driver.getDriver_id());
-		if (driverNew!=null
-				&& vehicleNew!=null) {
+		if (driverNew != null && vehicleNew != null) {
 			driverNew.setDriver_vehicle(vehicleNew.getVehicle_id());
-        transferStationDao.saveOrUpdateObject(driverNew);
+			transferStationDao.saveOrUpdateObject(driverNew);
 			return "success";
 		}
 		return "error";
