@@ -170,7 +170,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_expressinfoid);
 		expressinfoNew = (expressinfo) query.uniqueResult();
-		System.out.println("uuuuuuuuuuuuuu" + express_expressinfoid);
 		if (expressinfoNew != null) {
 			return expressinfoNew;
 		}
@@ -185,7 +184,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		express_route expressRoute = new express_route();
 		Session session = getSession();
 		String hql = "from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior";
-		System.out.println("hql:" + hql);
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
 		query.setFirstResult(0);
@@ -193,7 +191,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		List<express_route> listRoute = new ArrayList<>();
 		listRoute = query.list();
 		if (listRoute.size() > 0) {
-			System.out.println("UUUUUUUU" + listRoute);
 			return listRoute.get(0);
 		} else {
 			return null;
@@ -216,7 +213,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_route_id);
 		routeNew = (route) query.uniqueResult();
-		System.out.println("----------" + routeNew);
 		if (routeNew != null) {
 			return routeNew;
 		}
@@ -250,7 +246,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		String hql = " from express_send where express_send_express_id = :ID";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
-		System.out.println("kkkk" + hql);
 		expressSend = (express_send) query.uniqueResult();
 		if (expressSend != null) {
 			return expressSend;
@@ -268,7 +263,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		String hql = " from express_send where express_send_express_id = :ID and express_send_type = '派送'";
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
-		System.out.println("kkkk" + hql);
 		expressSend = (express_send) query.uniqueResult();
 		if (expressSend != null) {
 			return expressSend;
@@ -390,7 +384,6 @@ public class ExpressManagementDaoImpl2 implements ExpressManagementDao2 {
 		String hql = " from  express_circulation where express_circulation_express_id = '" + id
 				+ "' and express_circulation_state ='未完成'";
 		Query query = session.createQuery(hql);
-		System.out.println("lllllllllll" + hql);
 		driverNew = (express_circulation) query.uniqueResult();
 		if (driverNew != null) {
 			return driverNew;

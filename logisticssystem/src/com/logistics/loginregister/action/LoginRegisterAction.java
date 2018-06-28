@@ -162,17 +162,13 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * @throws IOException
 	 */
 	public void register() throws IOException {
-		System.out.println("kkkkkkkkkkkkk");
-		System.out.println("oooooooo" + userInfo.getUserinfo_password());
 		if (userInfo.getUserinfo_phonenumber() != null && userInfo.getUserinfo_password() != null
 				&& userInfo.getUserinfo_phonenumber().trim().length() > 0
 				&& userInfo.getUserinfo_password().trim().length() > 0) {
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			gsonBuilder.setPrettyPrinting();// 格式化json数据
 			Gson gson = gsonBuilder.create();
-			System.out.println("ppppppppppppppp");
 			response.setContentType("text/html;charset=utf-8");
-			System.out.println("oooooooooooooooooo" + userInfo);
 			response.getWriter().write("" + loginRegisterService.addUserifo(userInfo));
 		}
 	}
@@ -229,7 +225,6 @@ public class LoginRegisterAction extends ActionSupport implements ServletRespons
 	 * 跳转到成功页面
 	 */
 	public String pageReservationSuccess() {
-		System.out.println(reversationNum);
 		return "pageReservationSuccess";
 	}
 
