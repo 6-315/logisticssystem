@@ -256,14 +256,14 @@
                             <tr>
                                 <td>
                                     <div style="width: 90%;margin: auto">
-                                        <label class="control-label">内件品名</label>
-                                        <input v-model="reservationExpressDTO.expressinfo.expressinfo_productname"
+                                        <label class="control-label">物品重量</label>
+                                        <input v-model="reservationExpressDTO.expressinfo.expressinfo_productweight"
                                                type="text" class="form-control" disabled>
                                     </div>
                                 </td>
                                 <td>
                                     <div style="width: 90%;margin: auto">
-                                        <label class="control-label">物品重量</label>
+                                        <label class="control-label">内件品名</label>
                                         <input v-model="reservationExpressDTO.expressinfo.expressinfo_productweight"
                                                type="text" class="form-control" disabled>
                                     </div>

@@ -124,9 +124,9 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
                                                              class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                                              class="nav-link">快件管理</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -142,7 +142,7 @@
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+<%--             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -150,7 +150,7 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -167,7 +167,7 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -395,7 +395,7 @@
                                     <tr v-for="(listVehicleDTO,index) in vehicleInfoVO.listVehicleDTO">
                                         <td><input :id="listVehicleDTO.vehicleInfo.vehicle_id"
                                                    :uni="listVehicleDTO.unit.unit_id"
-                                                   type="checkbox" name="flag" check="check"></td>
+                                                   type="checkbox" name="flag"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_num"></td>
                                         <td v-html="listVehicleDTO.vehicleInfo.vehicle_platenum"></td>
                                         <td v-if="myRole==6 && listVehicleDTO.unit != undefined">
@@ -445,7 +445,7 @@
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
-                                        <li><a href="#">首页</a></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{vehicleInfoVO.pageIndex}} 页/总
@@ -455,7 +455,7 @@
                                                 :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
-                                        <li><a href="#">尾页</a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>

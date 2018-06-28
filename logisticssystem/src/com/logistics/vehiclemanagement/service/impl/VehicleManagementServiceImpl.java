@@ -63,6 +63,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								}
 								vehicleInfo.setVehicle_id(BuildUuid.getUuid());
 								vehicleInfo.setVehicle_acquisitionpeople(staffInfo.getStaff_id());
+								vehicleInfo.setVehicle_unit(staffInfo.getStaff_unit());
 								vehicleInfo.setVehicle_acquisitiontime(TimeUtil.getStringSecond());
 								vehicleInfo.setVehicle_createtime(TimeUtil.getStringSecond());
 								vehicleInfo.setVehicle_modifytime(TimeUtil.getStringSecond());
@@ -175,8 +176,8 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 								}
 							}
 						} else {
-							vehicleCountHql = vehicleCountHql + " 1！=1 ";
-							listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
+							vehicleCountHql = vehicleCountHql + " 1!=1 ";
+							listVehicleDTOCountHql = listVehicleDTOCountHql + " 1!=1 ";
 						}
 					} else if ("驾驶员".equals(postionInfo.getPosition_name())) {
 						if (staffInfo.getStaff_id() != null && staffInfo.getStaff_id().trim().length() > 0) {
@@ -188,10 +189,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 											+ "' ";
 									listVehicleDTOCountHql = listVehicleDTOCountHql + " vehicle_id='"
 											+ driverInfo.getDriver_vehicle() + "' ";
+								} else {
+									vehicleCountHql = vehicleCountHql + " 1!=1 ";
+									listVehicleDTOCountHql = listVehicleDTOCountHql + " 1!=1 ";
 								}
-							} else {
-								vehicleCountHql = vehicleCountHql + " 1！=1 ";
-								listVehicleDTOCountHql = listVehicleDTOCountHql + " 1！=1 ";
 							}
 						}
 					}
@@ -601,7 +602,7 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 		/**
 		 * 驾驶员信息DTO
 		 */
-		
+
 		DriverDTO driverDTO;
 		/**
 		 * 获取数量
@@ -758,18 +759,18 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 						List<driver> listDriver = (List<driver>) vehicleManagementDao
 								.listObject(" from driver where driver_belong_team ='" + team.getTeam_id() + "' ");
 						if (listDriver.size() > 0) {
-							for (int i =0;i<listDriver.size();i++) {
+							for (int i = 0; i < listDriver.size(); i++) {
 								driverDTO = new DriverDTO();
 								if (listDriver.get(i).getDriver_basicinfoid() != null
 										&& listDriver.get(i).getDriver_basicinfoid().trim().length() > 0) {
 									staff_basicinfo staffBasicInfo = vehicleManagementDao
 											.getStaffInfoById(listDriver.get(i).getDriver_basicinfoid());
 									if (staffBasicInfo != null) {
-										if(listDriver.get(i).getDriver_belong_team().equals(team.getTeam_id())) {
-										driverDTO.setStaffBasicInfo(staffBasicInfo);
-										driverDTO.setDriverInfo(listDriver.get(i));
-										listDriverDTO.add(driverDTO);
-										teamDTO.setListDriverInfoDTO(listDriverDTO);
+										if (listDriver.get(i).getDriver_belong_team().equals(team.getTeam_id())) {
+											driverDTO.setStaffBasicInfo(staffBasicInfo);
+											driverDTO.setDriverInfo(listDriver.get(i));
+											listDriverDTO.add(driverDTO);
+											teamDTO.setListDriverInfoDTO(listDriverDTO);
 										}
 									}
 								}

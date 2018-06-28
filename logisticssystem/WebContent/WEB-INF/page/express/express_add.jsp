@@ -80,19 +80,19 @@
                                     class="nav-link"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link active"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
                             </a></li>
                             <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/loginregister/loginregister_pageReservationManager"
-                                    class="nav-link" > <i class="fa fa-plus-square-o nav-icon"></i>
+                                    class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>预约管理</p>
                             </a></li>
                         </ul>
                     </li>
-                   
+
                     <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
                                                                                                           class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
@@ -196,7 +196,9 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff">首页</a>
+                            </li>
                             <li class="breadcrumb-item active">添加快件</li>
                         </ol>
                     </div>
@@ -373,6 +375,19 @@
                                                                             class="form-control" id="sender"
                                                                             placeholder="请输入真实姓名..">
                                 </div>
+
+                                <!-- /.form-group -->
+                                <div class="form-group">
+                                    <label for="sender_address">详细地址</label> <input type="text"
+                                                                                    v-model="expressinfo.expressinfo_adderdetailaddress"
+                                                                                    class="form-control"
+                                                                                    id="sender_address"
+                                                                                    placeholder="请输入详细地址..">
+                                </div>
+                                <!-- /.form-group -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">省/市/区</label>
                                     <div class="dropdown yto-city"
@@ -418,18 +433,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- /.form-group -->
-                                <!-- /.form-group -->
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="sender_address">详细</label> <input type="text"
-                                                                                  v-model="expressinfo.expressinfo_adderdetailaddress"
-                                                                                  class="form-control"
-                                                                                  id="sender_address"
-                                                                                  placeholder="请输入详细地址..">
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group">
@@ -487,7 +490,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 
