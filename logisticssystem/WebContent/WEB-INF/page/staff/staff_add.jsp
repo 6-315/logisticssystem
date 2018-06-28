@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人事管理-添加员工</title>
+    <title>招募员工</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -36,9 +36,9 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
                                                              class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a href="#"
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                                              class="nav-link">快件管理</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -54,7 +54,7 @@
             <span class="brand-text font-weight-light">Note3物流系统</span>
         </a>
         <div class="sidebar">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+     <%--        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -62,7 +62,7 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
@@ -191,7 +191,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>添加员工</h1>
+                        <h1>员工信息</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
