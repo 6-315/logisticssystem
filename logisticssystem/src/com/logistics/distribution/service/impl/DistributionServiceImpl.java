@@ -27,11 +27,8 @@ public class DistributionServiceImpl implements DistributionService {
 	public String addDistribution(unit distribution) {
 		unit unit = new unit();
 		String maxNum = distributionDao.getDistributionByNum(unit.getUnit_num());
-		System.out.println("qaqaqaq"+maxNum);
 		unit superiorunit = distributionDao.getDistributionInfoById(distribution.getUnit_superiorunit());
-		System.out.println("asasasas"+superiorunit);
 		String beforNum = superiorunit.getUnit_num();
-		System.out.println("wewewe"+beforNum);
 		if(beforNum!=null&&superiorunit!=null) {
 		if (maxNum != null) {
 			maxNum = maxNum.substring(5);
@@ -39,12 +36,10 @@ public class DistributionServiceImpl implements DistributionService {
 			nextNum = nextNum + 1;
 			String num = String.format("%02d", nextNum);
 			distribution.setUnit_num(beforNum+'B'+num);
-			System.out.println("sandanand" + num);
 		} else {
 			int nextNum = 1;
 			String num = String.format("%02d", nextNum);
 			distribution.setUnit_num(beforNum+'B'+num);
-			System.out.println("lalalalala" + num);
 		}
 		}
 		distribution.setUnit_id(BuildUuid.getUuid());
@@ -87,14 +82,12 @@ public class DistributionServiceImpl implements DistributionService {
 				 */
 				if (distributionDao.getDistributionInfoById(id) != null) {
 					distributionDao.removeObject(distributionDao.getDistributionInfoById(id));
-					System.out.println("shanchuchenggong111111");
 					return "deleteSuccess";
 				}
 				/**
 				 * 如果数据库不存在需要删除的配送点的id
 				 */
 				else {
-					System.out.println("删除失败");
 					return "deleteFailed";
 				}
 			}

@@ -109,7 +109,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 				/**
 				 * 删除
 				 */
-				System.out.println("oooooooooooooo" + addressNew.getAddress_isdefault());
 				addressNew.setAddress_modifytime(TimeUtil.getStringSecond());
 				userInfoDao.saveOrUpdateObject(addressNew);
 				return "success";
@@ -120,7 +119,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 				address addressByIs = new address();
 				addressByIs = userInfoDao.getAddressById(addressNew.getAddress_id());
 				if (addressByIs != null) {
-					System.out.println("???????????");
 					address addressByState = new address();
 					addressByState = userInfoDao.getAddressByState();
 					addressByState.setAddress_isdefault("否");
@@ -186,13 +184,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}
 		if (expressinfoAndExpressVO.getState() != null && expressinfoAndExpressVO.getState().trim().length() > 0) {
 			if ("在途中".equals(expressinfoAndExpressVO.getState())) {
-				System.out.println("MMMMMMMMMMMMMMMMMMM");
 				number = "select count(*) from express where express_belong = '" + ID
 						+ "' and (express_state = '已装车' or  express_state = '待揽件' or express_state = '已揽件' or express_state =' 待派送' or express_state = '派送中')";
 				table = "from express  where express_belong = '" + ID
 						+ "'and (express_state = '已装车' or  express_state = '待揽件' or express_state = '已揽件' or express_state = '待派送' or express_state = '派送中') ";
 			} else if ("已签收".equals(expressinfoAndExpressVO.getState())) {
-				System.out.println("?????????><><><>><><><");
 				number = "select count(*) from express where express_belong = '" + ID
 						+ "' and  (express_state ='已签收' or express_state = '已完成') ";
 				table = "from express  where express_belong = '" + ID
@@ -232,22 +228,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else {
 			expressinfoAndExpressVO.setHaveNextPage(true);
 		}
-		System.out.println("lallalala: " + table);
 		listExpress = (List<express>) userInfoDao.queryForPage(table, expressinfoAndExpressVO.getPageIndex(),
 				expressinfoAndExpressVO.getPageSize());
 		for (express express : listExpress) {
-			System.out.println("ppppppp");
 			ExpressinfoAndExpressDTO expressinfoAndExpressDTO = new ExpressinfoAndExpressDTO();
 			expressinfo expressInfo = new expressinfo();
 			expressInfo = userInfoDao.getExpressInfoById(express.getExpress_expressinfoid());
-			System.out.println("oooooo" + expressInfo);
 			if (expressinfoAndExpressVO.getSearch() != null
 					&& expressinfoAndExpressVO.getSearch().trim().length() > 0) {
 				express.setExpress_number(express.getExpress_number().replaceAll(expressinfoAndExpressVO.getSearch(),
 						"<span style='color: #ff5063;'>" + expressinfoAndExpressVO.getSearch() + "</span>"));
 			}
 			if (expressInfo != null) {
-				System.out.println("jjijijijiji");
 				expressinfoAndExpressDTO.setExpressInfo(expressInfo);
 				expressinfoAndExpressDTO.setExpressNew(express);
 				listExpressinfoAndExpressDTO.add(expressinfoAndExpressDTO);

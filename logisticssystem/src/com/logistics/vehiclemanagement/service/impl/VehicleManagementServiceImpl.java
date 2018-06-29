@@ -44,7 +44,6 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 							vehicle queryVehicle = vehicleManagementDao
 									.getVehicleInfoByPlateNumber(vehicleInfo.getVehicle_platenum());
 							if (queryVehicle != null) {
-								System.out.println("该车牌号已经存在");
 								return null;
 							} else {
 								/**
@@ -456,13 +455,10 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				 * 保存更新
 				 */
 				vehicleManagementDao.saveOrUpdateObject(updateVehicleInfo);
-				System.out.println("更新成功");
 			} else {
-				System.out.println("更新失败");
 			}
 			return "success";
 		}
-		System.out.println("未获得ID");
 		return "error";
 	}
 
@@ -486,14 +482,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				vehicle vehicleInfo = vehicleManagementDao.getVehicleInfoById(id);
 				if (vehicleInfo != null) {
 					vehicleManagementDao.removeObject(vehicleInfo);
-					System.out.println("删除成功");
 				} else {
-					System.out.println("该数据不存在！");
 				}
 			}
 			return "success";
 		}
-		System.out.println("未获得ID");
 		return "error";
 	}
 
@@ -569,14 +562,11 @@ public class VehicleManagementServiceImpl implements VehicleManagementService {
 				team teamInfo = vehicleManagementDao.getTeamInfoById(id);
 				if (teamInfo != null) {
 					vehicleManagementDao.removeObject(teamInfo);
-					System.out.println("删除成功");
 				} else {
-					System.out.println("该数据不存在");
 				}
 			}
 			return "success";
 		}
-		System.out.println("未获得ID");
 		return "error";
 	}
 
