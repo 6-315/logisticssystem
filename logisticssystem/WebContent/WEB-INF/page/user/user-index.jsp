@@ -85,8 +85,8 @@
                         class="icon fa-send-o" aria-hidden="true"></i>&nbsp;我要寄件
                 </a>
             </div>
-            <div class="col-xs-12 col-sm-5">
-                <form method="post" id="history_search" action="#">
+            <!-- <div class="col-xs-12 col-sm-5">
+                <form method="post" action="#">
                     <div class="input-group input-group-lg">
                         <input name="mailno" id="mailno" value="" class="form-control"
                                placeholder="请输入快递单号"> <span class="input-group-btn">
@@ -97,7 +97,7 @@
 							</span>
                     </div>
                 </form>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="container m_top_30">
