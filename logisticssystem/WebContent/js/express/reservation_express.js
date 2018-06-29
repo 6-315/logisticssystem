@@ -366,6 +366,7 @@
                     reservationData.view_express.expressinfo_senderaddress = addre.address_address
                     reservationData.view_express.expressinfo_senderdetailaddress = addre.address_detailaddress
                     toastr.success('录入成功')
+                    express.getDistributionByPosition()
                     $('#sendAddressModal').modal('hide')
                 },
                 addAddressModal() {
