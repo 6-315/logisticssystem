@@ -32,14 +32,14 @@
         methods: {
             confirmOldPassword() {
                 if (passwordInfo.view_oldpass !== passwordInfo.userinfo_password) {
-                    toastr.error('旧密码错误')
+                    // toastr.error('旧密码错误')
                     return false
                 }
                 return true
             },
             confirmNewPass() {
                 if (passwordInfo.newPass !== passwordInfo.newConfirmPass) {
-                    toastr.error('两次密码不一致')
+                    // toastr.error('两次密码不一致')
                     return false
                 }
                 return true

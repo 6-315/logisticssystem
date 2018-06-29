@@ -250,7 +250,7 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 6" class="nav-item has-treeview menu-open"><a href="#" class="nav-link active">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>

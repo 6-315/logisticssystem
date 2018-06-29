@@ -20,9 +20,9 @@
 
         <div class="page-brand-info hidden-xs">
             <div class="brand">
-                <img class="brand-img"
+                <%-- <img class="brand-img"
                      src="${pageContext.request.contextPath }/img/fugai.png"
-                     style="width: 180px; height: 180px;">
+                     style="width: 180px; height: 180px;"> --%>
                 <h1 class="brand-text">Note3物流系统</h1>
             </div>
             <p>我递送的每一声问候和祝福，</p>
