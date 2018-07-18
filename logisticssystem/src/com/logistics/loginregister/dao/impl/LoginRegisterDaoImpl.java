@@ -118,7 +118,7 @@ public class LoginRegisterDaoImpl implements LoginRegisterDao {
 	 */
 	@Override
 	public userinfo loginByUser(String username, String password) {
-		Session session = getSession();
+		Session session = getSession()	;
 		String hql = "from userinfo where userinfo_phonenumber='" + username + "" + "'and userinfo_password ='"
 				+ password + "'";
 		Query query = session.createQuery(hql);
