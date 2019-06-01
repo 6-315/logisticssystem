@@ -409,7 +409,6 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 	public express_route getExpressRoute(String express_id) {
 		Session session = getSession();
 		String hql = "from express_route where express_route_belongexpress = :ID and express_route_state = '未完成' order by express_route_superior";
-		System.out.println("hql:" + hql);
 		Query query = session.createQuery(hql);
 		query.setParameter("ID", express_id);
 		query.setFirstResult(0);
@@ -417,10 +416,19 @@ public class ExpressManagementDaoImpl implements ExpressManagementDao {
 		List<express_route> listRoute = new ArrayList<>();
 		listRoute = query.list();
 		if (listRoute.size() > 0) {
-			System.out.println("UUUUUUUU" + listRoute);
 			return listRoute.get(0);
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public position getPositionInfoByName(String string) {
+		position positonInfo = new position();
+		Session session = getSession();
+		String hql = "from position where position_name='"+string+"' ";
+		Query query = session.createQuery(hql);
+		positonInfo = (position) query.uniqueResult();
+		return positonInfo;
 	}
 }

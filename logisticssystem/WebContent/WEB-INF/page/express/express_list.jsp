@@ -7,13 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>查询快件</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%-- <link rel="stylesheet"
-        href="${pageContext.request.contextPath}/css/font/font-awesome.min.css"> --%>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <%--<link rel="stylesheet"
-                href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/plugins/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet"
@@ -120,62 +115,29 @@
 </head>
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div id="expressList" class="wrapper">
-    <!-- Navbar -->
-    <nav
-            class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
-        <!-- Left navbar links -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link" data-widget="pushmenu"
                                     href="#"><i class="fa fa-bars"></i></a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
-                    class="nav-link">首页</a></li>
-            <li class="nav-item d-none d-sm-inline-block"><a
-                    href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
-                    class="nav-link">快件管理</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/loginregister/loginregister_pageStaff"
+                                                             class="nav-link">首页</a></li>
+            <li class="nav-item d-none d-sm-inline-block"><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
+                                                             class="nav-link">快件管理</a></li>
         </ul>
-
-        <!-- SEARCH FORM --> <!-- <form class="form-inline ml-3">
-			<div class="input-group input-group-sm">
-				<input class="form-control form-control-navbar" type="search"
-					placeholder="Search" aria-label="Search">
-				<div class="input-group-append">
-					<button class="btn btn-navbar" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</div>
-		</form> --> <!-- Right navbar links --> <!-- <ul class="navbar-nav ml-auto">
-			Messages Dropdown Menu
-			<li class="nav-item dropdown"><a class="nav-link"
-				data-toggle="dropdown" href="#"> <i class="fa fa-comments-o"></i>
-					<span class="badge badge-danger navbar-badge"></span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<a href="#" class="dropdown-item dropdown-footer">See All
-						Messages</a>
-				</div></li>
-			Notifications Dropdown Menu
-			<li class="nav-item dropdown"><a class="nav-link"
-				data-toggle="dropdown" href="#"> <i class="fa fa-bell-o"></i> <span
-					class="badge badge-warning navbar-badge">0</span>
-			</a>
-				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-					<span class="dropdown-header">0 条消息</span>
-					<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-				</div></li>
-		</ul> --> </nav>
-    <!-- /.navbar -->
-    <!-- Main Sidebar Container -->
+        <ul class="navbar-nav ml-auto">
+            <li><a
+                    href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
+                    style="float: right;">注销</a></li>
+        </ul>
+    </nav>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo --> <a href="#" class="brand-link"> <img
-            src="${pageContext.request.contextPath}/img/houtai.png"
-            alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8"> <span class="brand-text font-weight-light">Note3物流系统</span>
-    </a> <!-- Sidebar -->
+        <a href="#" class="brand-link"> <img
+                src="${pageContext.request.contextPath}/img/houtai.png" alt="Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Note3物流系统</span>
+        </a>
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+ <%--            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
                     <img src="${pageContext.request.contextPath}/img/houtouxiang.jpg"
                          class="img-circle elevation-2" alt="User Image">
@@ -183,29 +145,24 @@
                 <div class="info">
                     <a href="#" class="d-block">Note3 管理员</a>
                 </div>
-            </div>
-
-            <!-- Sidebar Menu -->
+            </div> --%>
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                                     with font-awesome or any other icon font library -->
                     <li v-if="myRole==1 || myRole==2 || myRole==3 || myRole==5 || myRole==6"
-                        class="nav-item has-treeview menu-open"><a href="#"
-                                                                   class="nav-link active"> <i
-                            class="nav-icon fa fa-dashboard"></i>
+                        class="nav-item has-treeview menu-open"><a href="#" class="nav-link active">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             快件管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-                        <ul class="nav nav-treeview" style="display: block;">
+                        <ul class="nav nav-treeview">
                             <li class="nav-item"><a
                                     href="${pageContext.request.contextPath}/userinfo/userinfo_pageExpressList"
                                     class="nav-link active"> <i class="fa fa-book nav-icon"></i>
                                 <p>查询快件</p>
                             </a></li>
-                            <li v-if="myRole==1 || myRole==2  || myRole==5 || myRole==6" class="nav-item"><a
+                            <li v-if="myRole==1 || myRole==2" class="nav-item"><a
                                     href="${pageContext.request.contextPath}/expressmanagement/expressmanagement_skipPage"
                                     class="nav-link"> <i class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加快件</p>
@@ -221,8 +178,8 @@
                             class="nav-icon fa fa-calendar"></i>
                         <p>用户管理</p>
                     </a></li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             人事管理 <i class="fa fa-angle-left right"></i>
@@ -241,8 +198,8 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 2 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a href="#"
+                                                                                                          class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             单位管理 <i class="fa fa-angle-left right"></i>
@@ -261,27 +218,36 @@
                             </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6"
-                        class="nav-item has-treeview"><a href="#" class="nav-link">
+                    <li v-if="myRole == 3 || myRole == 4 || myRole == 5 || myRole == 6" class="nav-item has-treeview"><a
+                            href="#" class="nav-link">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
-                            车辆管理 <i class="fa fa-angle-left right"></i>
+                            运输管理 <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item"><a href="#" class="nav-link"> <i
+                            <li class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleList"
+                                    class="nav-link"> <i
                                     class="fa fa-book nav-icon"></i>
                                 <p>车辆列表</p>
                             </a></li>
-                            <li v-if="myRole == 6" class="nav-item"><a href="#"
-                                                                       class="nav-link"> <i
+                            <li v-if="myRole == 6" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageVehicleAdd"
+                                    class="nav-link"> <i
                                     class="fa fa-plus-square-o nav-icon"></i>
                                 <p>增加车辆</p>
                             </a></li>
+                            <li v-if="myRole == 5 || myRole == 3 || myRole == 4" class="nav-item"><a
+                                    href="${pageContext.request.contextPath }/loginregister/loginregister_pageTeamManager"
+                                    class="nav-link"> <i
+                                    class="fa fa-plus-square-o nav-icon"></i>
+                                <p>车队管理</p>
+                            </a></li>
                         </ul>
                     </li>
-                    <li v-if="myRole == 6" class="nav-item has-treeview"><a
-                            href="#" class="nav-link"> <i class="nav-icon fa fa-dashboard"></i>
+                    <li v-if="myRole == 6" class="nav-item has-treeview"><a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             路线管理 <i class="fa fa-angle-left right"></i>
                         </p>
@@ -303,8 +269,7 @@
             </nav>
             <!-- /.sidebar-menu -->
         </div>
-        <!-- /.sidebar --> </aside>
-
+    </aside>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -343,7 +308,7 @@
                                     class="input-group-addon btn btn-default"><i
                                     class="fa fa-search"></i></span>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="min-height: 300px">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -393,6 +358,8 @@
 														<li><a @click="selectState('待扫描')" href="#">待扫描</a></li>
 														<li><a v-if="myRole==5 || myRole==6" @click="selectState('已扫描')"
                                                                href="#">已扫描</a></li>
+                                                        <li><a v-if="myRole==5 || myRole==6" @click="selectState('已装车')"
+                                                               href="#">已装车</a></li>
 														<li><a @click="selectState('待派送')" href="#">待派送</a></li>
 														<li><a @click="selectState('派送中')" href="#">派送中</a></li>
 														<li><a @click="selectState('已签收')" href="#">已签收</a></li>
@@ -400,7 +367,7 @@
                                                                @click="selectState('已完成')" href="#">已完成</a></li>
 													</ul>
 											</span></th>
-                                        <th>操作</th>
+                                        <th v-if="myRole!=6">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody v-if="expressInfoVO.ExpressInfoDTO == undefined">
@@ -442,24 +409,24 @@
                                         <td v-if="myRole==1 || myRole==2 || myRole==5 || myRole==6">
                                             {{expressInfoDTO.expressInfo.express_state}}
                                         </td>
-                                        <td>
+                                        <td v-if="myRole!=6">
                                             <div class="btn-group">
 													<span style="cursor: pointer;" data-toggle="dropdown"
                                                           aria-haspopup="true" aria-expanded="false"> <i
                                                             class="fa fa-th-list"></i>
 													</span>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="#">查看详情</a></li>
+                                                    <%--<li><a href="#">查看详情</a></li>--%>
                                                     <li><a v-if="myRole==2" href="#">分配取件员</a></li>
                                                     <%--<li><a href="#">已揽件</a></li>--%>
                                                     <li><a v-if="myRole==5"
-                                                           @click="jinCangSaoMiao(expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
+                                                           @click="jinCangSaoMiao(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressDetailInfo.expressinfo_addresseeaddress,expressInfoDTO.expressInfo.express_id,expressInfoDTO.unitInfo.unit_id)"
                                                            href="#">进仓扫描</a></li>
                                                     <li><a v-if="myRole==5"
-                                                           @click="scanVehicle(expressInfoDTO.expressInfo.express_id)"
+                                                           @click="scanVehicle(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressInfo.express_id)"
                                                            href="#">扫描装车</a></li>
                                                     <li><a v-if="myRole==5"
-                                                           @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_id)"
+                                                           @click="distributionExpressToReser(expressInfoDTO.expressInfo.express_state,expressInfoDTO.expressInfo.express_id)"
                                                            href="#">分配配送点</a></li>
                                                     <li><a v-if="myRole==2"
                                                            @click="distribuStaff(expressInfoDTO.expressInfo.express_id)"
@@ -467,7 +434,7 @@
                                                     <li><a v-if="myRole==1"
                                                            @click="qianShouExpress(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">已签收</a></li>
-                                                    <li><a v-if="myRole==5 || myRole==6" href="#">查看快件路线</a></li>
+                                                    <%--<li><a v-if="myRole==5 || myRole==6" href="#">查看快件路线</a></li>--%>
                                                     <li><a v-if="myRole==2"
                                                            @click="completeExpress(expressInfoDTO.expressInfo.express_id)"
                                                            href="#">已完成</a></li>
@@ -487,17 +454,17 @@
                                 <div class="pagePosition">
                                     <ul v-cloak class="pagination">
                                         <li></li>
-                                        <li><a href="#">首页</a></li>
+                                        <li><a @click="shouye" href="#">首页</a></li>
                                         <li :class="{disabled:preDisabled}"><a @click="prePage"
                                                                                href="#">上一页</a></li>
                                         <li><a>第 {{expressInfoVO.pageIndex}} 页/总
                                             {{expressInfoVO.totalPages}}
                                             页/共{{expressInfoVO.totalRecords}}条</a></li>
                                         <li :class="{disabled:nextDisabled}"><a
-                                                :disabled="nextDisabled" href="#">
+                                                :disabled="nextDisabled" @click="nextPage" href="#">
                                             下一页 <%--<span aria-hidden="true">&raquo;</span>--%>
                                         </a></li>
-                                        <li><a href="#">尾页</a></li>
+                                        <li><a @click="weiye" href="#">尾页</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -724,7 +691,8 @@
     <footer class="main-footer"> <!-- To the right -->
         <div class="float-right d-none d-sm-inline">Note3物流系统</div>
         <!-- Default to the left --> <strong>Copyright <a
-                href="./Before-Login.html" title="">&copy;</a> 2018-2018 .
+                href="${pageContext.request.contextPath }/loginregister/loginregister_logoff" title="">&copy;</a>
+            2018-2018 .
         </strong> All rights reserved.
     </footer>
 

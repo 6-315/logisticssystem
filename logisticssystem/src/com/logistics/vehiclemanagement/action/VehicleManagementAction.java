@@ -288,9 +288,11 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.addVehicle(vehicleInfo));
+		response.getWriter().write(gson.toJson(vehicleManagementService.addVehicle(vehicleInfo, staffInfo)));
 	}
 
 	/**
@@ -304,7 +306,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 
 		/**
@@ -330,12 +332,6 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateVehicle() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + vehicleManagementService.updateVehicle(vehicleInfo));
 	}
@@ -346,12 +342,6 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void deleteVehicle() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + vehicleManagementService.deleteVehicle(idList));
 	}
@@ -367,9 +357,9 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.addTeam(teamInfo));
+		response.getWriter().write(gson.toJson(vehicleManagementService.addTeam(teamInfo)) );
 	}
 
 	/**
@@ -378,12 +368,6 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void updateTeam() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + vehicleManagementService.updateTeam(teamInfo));
 	}
@@ -394,12 +378,6 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void deleteTeam() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write("" + vehicleManagementService.deleteTeam(idList));
 	}
@@ -415,7 +393,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 
 		response.setContentType("text/html;charset=utf-8");
 		/**
@@ -428,8 +406,7 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		teamInfoVO.setTeamLeader(teamLeader);
 		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
 		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
-		teamInfoVO = vehicleManagementService.queryTeam(teamInfoVO, staffInfo);
-		response.getWriter().write(gson.toJson(teamInfoVO));
+		response.getWriter().write(gson.toJson(vehicleManagementService.queryTeam(teamInfoVO, staffInfo)));
 	}
 
 	/**
@@ -438,14 +415,10 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 	 * @throws IOException
 	 */
 	public void exchangeVehicle() throws IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		/**
-		 * 格式化json数据
-		 */
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
 		response.setContentType("text/html;charset=utf-8");
-		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(vehicleCirculation));
+		response.getWriter().write("" + vehicleManagementService.exchangeVehicle(idList, unit, staffInfo));
 	}
 
 	/**
@@ -459,8 +432,44 @@ public class VehicleManagementAction extends ActionSupport implements ServletRes
 		 * 格式化json数据
 		 */
 		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
+		Gson gson = gsonBuilder.serializeNulls().create();
 		response.setContentType("text/html;charset=utf-8");
 		response.getWriter().write(gson.toJson(vehicleManagementService.getAllManager(position)));
 	}
+
+	/**
+	 * 获得所有车队
+	 * 
+	 * @throws IOException
+	 */
+	public void getAllTeam() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		HttpSession session = ServletActionContext.getRequest().getSession();// 获取session
+		staff_basicinfo staffInfo = (staff_basicinfo) session.getAttribute("staff_session");
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(vehicleManagementService.getAllTeam(staffInfo)));
+	}
+
+	
+	/**
+	 * 根据Id获得车辆信息
+	 * @throws IOException 
+	 */
+	public void getVehicleInfoById() throws IOException {
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		/**
+		 * 格式化json数据
+		 */
+		gsonBuilder.setPrettyPrinting();
+		Gson gson = gsonBuilder.serializeNulls().create();
+		response.setContentType("text/html;charset=utf-8");
+		response.getWriter().write(gson.toJson(vehicleManagementService.getVehicleInfoById(idList)));
+	}
+	
+
 }

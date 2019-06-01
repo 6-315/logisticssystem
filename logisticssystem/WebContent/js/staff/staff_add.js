@@ -26,6 +26,22 @@
         data: staffAddData,
         methods: {
             saveStaff: function () {
+                if (!viewStaffAdd.checkPhone(staffAddData.staffBasicInfo.staff_phonenumber)) {
+                    toastr.error('请输入正确的员工联系方式')
+                    return
+                }
+                if (!viewStaffAdd.checkRealName(staffAddData.staffBasicInfo.staff_name)) {
+                    toastr.error('请输入正确的员工姓名')
+                    return
+                }
+                /*if (staffAddData.staffBasicInfo.staff_unit == null || staffAddData.staffBasicInfo.staff_unit.trim().length > 0) {
+                    toastr.error('请输入员工单位')
+                    return
+                }*/
+                if (staffAddData.staffBasicInfo.staff_position == null || staffAddData.staffBasicInfo.staff_position.trim().length <= 0) {
+                    toastr.error('请输入员工职位')
+                    return
+                }
                 $.ajax({
                     url: '/logisticssystem/personnelmanagement/personnelmanagement_addStaff',
                     type: 'POST',
@@ -60,7 +76,7 @@
                             staffAddData.staffBasicInfo.staff_entrytime = staffInfo.staff_entrytime
                             staffAddData.staffBasicInfo.staff_sex = staffInfo.staff_sex
                             staffAddData.staffBasicInfo.staff_position = staffInfo.staff_position
-                            staffAddData.staffBasicInfo.staff_unit = staffBasicinfo.staff_unit
+                            staffAddData.staffBasicInfo.staff_unit = staffInfo.staff_unit
                             staffAddData.staffBasicInfo.staff_recruit = staffInfo.staff_recruit
                             staffAddData.staffBasicInfo.staff_superiorleader = staffInfo.staff_superiorleader
                             staffAddData.staffBasicInfo.staff_createtime = staffInfo.staff_createtime
@@ -70,7 +86,21 @@
                         }
                     }
                 })
-            }
+            },
+            //判断手机号码
+            checkPhone(phone) {
+                if (!(/^1[34578]\d{9}$/.test(phone))) {
+                    return false;
+                }
+                return true
+            },
+            //判断真实姓名
+            checkRealName(name) {
+                if ('' === name || !(/^[\u4e00-\u9fa5]{2,4}$/.test(name))) {
+                    return false
+                }
+                return true
+            },
         },
         mounted() {
             // 获取单位列表

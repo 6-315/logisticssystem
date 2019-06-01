@@ -30,13 +30,13 @@
         </div>
         <div style="float:right;marign:auto;color:#FFF" class="navlogin">
             <ul class="nav navbar-nav navbar-right">
-                <li>
+                <%-- <li>
                     <a style="text-decoration:none;" href="#" class="navbar-avatar">
 				     <span class="avatar" style="vertical-align:middle;">
 						   <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 					</span> <span class="user-name" style="color: #FFF;"> 18296929245 </span>
                     </a>
-                </li>
+                </li> --%>
                 <li><a href="${pageContext.request.contextPath }/loginregister/loginregister_logoff"
                        style="color: #FFF;line-height:30px">退出</a>
                 </li>
@@ -78,12 +78,12 @@
         <div class="yto-box">
             <div class="row">
                 <div class="col-sm-2 hidden-xs">
-                    <div class="my-avatar center-block p_bottom_10">
+                    <%--<div class="my-avatar center-block p_bottom_10">
 							<span class="avatar">
 							      <img src="${pageContext.request.contextPath}/img/touxiang.jpg">
 							</span>
                     </div>
-                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>
+                    <h5 class="text-center p_bottom_10">您好！18296929245</h5>--%>
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="${pageContext.request.contextPath}/userinfo/userinfo_pageUserInfo">基本信息</a></li>
                         <li class="active"><a
@@ -151,7 +151,7 @@
                         <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label">姓名</label>
                             <div class="col-sm-6">
-                                <input v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
+                                <input @change="realname" v-model="address.address_realname" class="form-control" placeholder="请输入姓名"/>
                                 <small style="display: none;" class="help-block">请输入您的姓名
                                 </small>
                                 <small style="display: none;" class="help-block">请填写15字符之内、中文或英文
