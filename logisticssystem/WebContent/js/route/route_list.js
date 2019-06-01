@@ -25,27 +25,32 @@
         ready: false,
         preDisabled: false,
         nextDisabled: false,
-        unitList: []
+        unitList: [],
+        myRole: role
     }
     const viewRouteData = new Vue({
         el: '#routeList',
         data: routeListData,
         methods: {
             selectRouteSearch() {
+                routeListData.page = 1
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteStart(unitStartId) {
+                routeListData.page = 1
                 routeListData.startUnit = unitStartId
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteEnd(unitEndId) {
+                routeListData.page = 1
                 routeListData.endUnit = unitEndId
                 viewRouteData.getAllData()
                 viewRouteData.judge()
             },
             selectRouteState(routeState) {
+                routeListData.page = 1
                 routeListData.state = routeState
                 viewRouteData.getAllData()
                 viewRouteData.judge()
@@ -125,6 +130,11 @@
                 routeListData.page = routeListData.routManagerVO.totalPages
                 viewRouteData.getAllData()
                 viewRouteData.judge()
+            },
+            //跳转页面
+            skipRouteAdd: function (routId) {
+                // $('#routeDetailList').modal()
+                window.location = '/logisticssystem/expressmanagement/expressmanagement_addRoutePage?idList=' + routId
             }
         },
         mounted() {
@@ -135,7 +145,7 @@
                 data: '',
                 success: function (data) {
                     let uList = JSON.parse(data)
-                    routeListData.unitList = uList
+                    routeListData.unitList = uList.filter(u => u.unit_type == '中转站')
                 }
             })
             // 获取路线列表

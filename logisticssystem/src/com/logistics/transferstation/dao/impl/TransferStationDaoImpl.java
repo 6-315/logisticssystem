@@ -152,7 +152,6 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	public String getTransferStationByNum(String unit_num) {
 		Session session = getSession();
 		String hql = "select substring(unit_num,2) from unit where unit_type=:num  order by --substring(unit_num, 2) desc limit 1";
-		System.out.println(hql);
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("num", "中转站");
 		String maxNum = (String) query.uniqueResult();
@@ -165,7 +164,6 @@ public class TransferStationDaoImpl implements TransferStationDao {
 	public String getDistributionByNum(String unit_num) {
 		Session session = getSession();
 		String hql = "select substring(unit_num,5) from unit where unit_type=:num  order by --substring(unit_num, 5) desc limit 1";
-		System.out.println(hql);
 		Query query = session.createSQLQuery(hql);
 		query.setParameter("num", "配送点");
 		String maxNum = (String) query.uniqueResult();
@@ -240,5 +238,14 @@ public class TransferStationDaoImpl implements TransferStationDao {
 		team = (team) query.uniqueResult();
 		return team;
 	}
-
+	@Override
+	public driver getDriverByVehicle_id(String trim) {
+		driver driver = new driver();
+		Session session = getSession();
+		String hql = "from driver where driver_vehicle= :ID";
+		Query query = session.createQuery(hql);
+		query.setParameter("ID", trim);
+		driver = (driver) query.uniqueResult();
+		return driver;
+	}
 }

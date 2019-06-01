@@ -104,16 +104,19 @@
             },
             // 单位筛选
             selectUnit: function (selectUnitId) {
+                reservationData.page = 1
                 reservationData.unit = selectUnitId
                 view_reservation.getAllData()
                 view_reservation.judge()
             },
             distributionStaff: function (con) {
+                reservationData.page = 1
                 reservationData.isDistributed = con
                 view_reservation.getAllData()
                 view_reservation.judge()
             },
             selectState: function (s) {
+                reservationData.page = 1
                 reservationData.state = s
                 view_reservation.getAllData()
                 view_reservation.judge()
@@ -187,7 +190,7 @@
                 if (oldState === '已取件') {
                     view_reservation.updateReservation(upState, idList)
                 } else {
-                    toastr.error('改状态不可拒绝')
+                    toastr.error('改状态不可完成')
                     return
                 }
             },
@@ -258,6 +261,7 @@
                 })
             },
             skipExpressPage: function (reserId) {
+
                 window.location = '/logisticssystem/expressmanagement/expressmanagement_skipPage?idList=' + reserId
             }
         },

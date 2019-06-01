@@ -68,7 +68,6 @@ public class UserInfoDaoImpl implements UserinfoDao {
 	@Override
 	public List<?> queryForPage(String hql, int offset, int length) {
 		Session session = getSession();
-		System.out.println("oooooo" + hql);
 		Query query = session.createQuery(hql);
 		query.setFirstResult((offset - 1) * length);
 		query.setMaxResults(length);

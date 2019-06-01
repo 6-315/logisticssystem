@@ -9,7 +9,7 @@ import com.logistics.domain.unit;
 /**
  * 路线管理dao层接口
  * 
- * @author LW
+ * @author XTY
  *
  */
 public interface RouteManagementDao {

@@ -14,8 +14,8 @@ public class StaffManagerVO {
 	private int totalRecords = 0;
 	private int pageIndex = 1;
 	// 分页数量
-	private int pageSize = 8;
-
+	private int pageSize = 10;
+	 	 	  
 	private int totalPages = 1;
 
 	private boolean havePrePage = false;

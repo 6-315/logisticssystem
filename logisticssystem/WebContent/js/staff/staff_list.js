@@ -65,6 +65,12 @@
                         staffListData.staffManagerVO.position = staffVO.position
                         staffListData.staffManagerVO.search = staffVO.search
                         staffListData.pageIndex = staffVO.pageIndex
+                        if (staffListData.pageIndex > staffListData.totalPages) {
+                            staffListData.pageIndex = staffListData.totalPages
+                        }
+                        if (staffListData.staffManagerVO.pageIndex > staffListData.totalPages) {
+                            staffListData.staffManagerVO.pageIndex = staffListData.totalPages
+                        }
                         staffListData.ready = true
                         viewStaffData.judge()
                     }
@@ -88,6 +94,9 @@
                 if (staffListData.staffManagerVO.pageIndex === staffListData.staffManagerVO.totalPages) {
                     staffListData.nextDisabled = true
                 }
+                if (staffListData.pageIndex > staffListData.totalPages) {
+                    staffListData.pageIndex = staffListData.totalPages
+                }
             },
             // 下一页
             nextPage: function () {
@@ -95,6 +104,9 @@
                     return
                 }
                 staffListData.pageIndex = staffListData.staffManagerVO.pageIndex + 1
+                if (staffListData.pageIndex > staffListData.totalPages) {
+                    staffListData.pageIndex = staffListData.totalPages
+                }
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
@@ -107,22 +119,28 @@
             // 尾页
             weiye: function () {
                 staffListData.pageIndex = staffListData.staffManagerVO.totalPages
+                if (staffListData.pageIndex > staffListData.totalPages) {
+                    staffListData.pageIndex = staffListData.totalPages
+                }
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectPosition(postionId) {
+                staffListData.pageIndex = 1
                 // 职位筛选
                 staffListData.position = postionId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectUnit(unitId) {
+                staffListData.pageIndex = 1
                 // 单位筛选
                 staffListData.belongUnit = unitId
                 viewStaffData.getAllData()
                 viewStaffData.judge()
             },
             selectState(state) {
+                staffListData.pageIndex = 1
                 //状态筛选
                 staffListData.state = state
                 viewStaffData.getAllData()

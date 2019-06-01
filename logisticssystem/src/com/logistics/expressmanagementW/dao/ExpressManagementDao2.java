@@ -93,6 +93,8 @@ public interface ExpressManagementDao2 {
 
 	express_send getExpressSend1(String express_id);
 
+	public express getExpressByWaybillNumber(String waybillNumber);
+
 
 	/**
 	 * 

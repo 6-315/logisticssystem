@@ -95,13 +95,15 @@
                 viewUserMyOrder.getAllData()
                 viewUserMyOrder.judge()
             },
-            //搜索
+            // 搜索
             selectKuaiDi() {
+            	userMyOrderData.page = 1
                 viewUserMyOrder.getAllData()
                 viewUserMyOrder.judge()
             },
-            //筛选
+            // 筛选
             selectStateExpressInfo(expressState) {
+            	userMyOrderData.page = 1
                 switch (expressState) {
                     case '':
                         userMyOrderData.active1 = true

@@ -326,7 +326,6 @@ public class UserInfoAction extends ActionSupport implements ServletResponseAwar
 			ID = userInfoSessionDTO.getUserInfoSession().getUserinfo_id();
 		}
 		expressinfoAndExpressVO = userInfoService.selectExpressInfo(ID, expressinfoAndExpressVO);
-		System.out.println("llll" + expressinfoAndExpressVO);
 		response.getWriter().write(gson.toJson(expressinfoAndExpressVO));
 
 	}

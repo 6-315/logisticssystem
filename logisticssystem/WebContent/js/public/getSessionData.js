@@ -7,12 +7,12 @@ let teamStaff = null
 let driverStaff = null
 let userJson = null;
 var role = 0;
-(function() {
+(function () {
     $.ajax({
         url: '/logisticssystem/loginregister/loginregister_getSessionData',
         type: 'POST',
         data: {},
-        async:false,
+        async: false,
         success: function (data) {
             try {
                 userJson = JSON.parse(data)
@@ -47,7 +47,7 @@ var role = 0;
             } else {
                 toastr.error("登录状态失效，即将退出登录")
                 setTimeout(function () {
-                    window.location = '/logisticssystem/index.jsp'
+                    window.location = '/logisticssystem/loginregister/loginregister_logoff'
                 }, 2000)
                 return
             }
